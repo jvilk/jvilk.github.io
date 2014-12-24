@@ -1,0 +1,369 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Java 8 WTF: Default Interface Methods &#8211; John Vilk</title>
+<meta name="description" content="I am currently working on adding Java 8 support to DoppioJVM. In doing so, I am discovering some of the rather surprising JVM changes required to support Java 8, and some interesting spec corner cases. In this blog post, I’ll reveal some very surprising behavior involving a new Java 8 feature: Default interface methods!
+
+">
+<meta name="keywords" content="">
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="Java 8 WTF: Default Interface Methods">
+<meta name="twitter:description" content="I am currently working on adding Java 8 support to DoppioJVM. In doing so, I am discovering some of the rather surprising JVM changes required to support Java 8, and some interesting spec corner cases. In this blog post, I’ll reveal some very surprising behavior involving a new Java 8 feature: Default interface methods!
+
+">
+<meta name="twitter:site" content="@johnwvilk">
+<meta name="twitter:creator" content="@johnwvilk">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jvilk.github.io/images/">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 8 WTF: Default Interface Methods">
+<meta property="og:description" content="I am currently working on adding Java 8 support to DoppioJVM. In doing so, I am discovering some of the rather surprising JVM changes required to support Java 8, and some interesting spec corner cases. In this blog post, I’ll reveal some very surprising behavior involving a new Java 8 feature: Default interface methods!
+
+">
+<meta property="og:url" content="https://jvilk.github.io/blog/java-8-wtf-default-interface-methods/">
+<meta property="og:site_name" content="John Vilk">
+
+
+
+
+
+<link rel="canonical" href="https://jvilk.github.io/blog/java-8-wtf-default-interface-methods/">
+<link href="https://jvilk.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="John Vilk Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://jvilk.github.io/assets/css/main.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+  <script src="https://jvilk.github.io/assets/js/vendor/html5shiv.min.js"></script>
+  <script src="https://jvilk.github.io/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="https://jvilk.github.io/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="https://jvilk.github.io/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="https://jvilk.github.io/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="https://jvilk.github.io/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://jvilk.github.io/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://jvilk.github.io/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jvilk.github.io/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body id="post">
+
+<header class="masthead">
+	<div class="navigation-wrapper">
+		<div class="site-name">
+			<a href="https://jvilk.github.io">John Vilk</a>
+		</div>
+		<nav role="navigation" id="site-nav">
+		    <ul>
+	      
+			    
+			        
+			    
+			    <li><a href="https://jvilk.github.io/about/" >About</a></li>
+			  
+			    
+			        
+			    
+			    <li><a href="https://jvilk.github.io/blog/" >Blog</a></li>
+			  
+			    
+			        
+			    
+			    <li><a href="https://jvilk.github.io/contact/" >Contact</a></li>
+			  
+	        
+		    </ul>
+		</nav>
+	</div>
+</header><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+
+
+<div class="js-menu-screen menu-screen"></div>
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"></span>
+        
+          <h1 class="entry-title">Java 8 WTF: Default Interface Methods</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        
+        
+        
+          <img src="https://jvilk.github.io/images/bio-photo.jpg" class="bio-photo" alt="John Vilk bio photo"></a>
+        
+        <span class="author vcard">By <span class="fn">John Vilk</span></span>
+        <span class="entry-date date published"><time datetime="2014-12-23T02:22:07-05:00"><i class="fa fa-calendar-o"></i> December 23, 2014</time></span>
+        
+        <span class="entry-comments"><i class="fa fa-comment-o"></i> <a href="#disqus_thread">Comment</a></span>
+        
+        
+      </footer>
+      <div class="entry-content">
+        <p>I am currently working on adding Java 8 support to <a href="https://github.com/plasma-umass/doppio">DoppioJVM</a>. In doing so, I am discovering some of the rather surprising JVM changes required to support Java 8, and some interesting spec corner cases. In this blog post, I’ll reveal some <em>very surprising</em> behavior involving a new Java 8 feature: Default interface methods!</p>
+
+<h2 id="introduction-to-default-interface-methods">Introduction to Default Interface Methods</h2>
+
+<p>Default interface methods let you include full method implementations in your interface definitions.
+Classes that implement the interface do not need to explicitly implement these methods; they inherit the default implementation should the class not override it.
+I believe that this is a positive change for Java.</p>
+
+<p>For example, the following is now valid Java code:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">new</span> <span class="nf">Dog</span><span class="o">().</span><span class="na">makeNoise</span><span class="o">();</span> <span class="c1">// Prints &quot;Bark!&quot;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">interface</span> <span class="nc">Animal</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getNoise</span><span class="o">();</span>
+  <span class="k">default</span> <span class="kt">void</span> <span class="nf">makeNoise</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getNoise</span><span class="o">());</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">implements</span> <span class="n">Animal</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getNoise</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">&quot;Bark!&quot;</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Using this functionality, Java 8 added a number of new methods to core Java interfaces <em>without</em> breaking existing code by providing default implementations, such as <a href="http://docs.oracle.com/javase/8/docs/api/java/util/List.html#replaceAll-java.util.function.UnaryOperator-"><code>java.util.List.replaceAll</code></a>.</p>
+
+<p>In addition to this functionality, interfaces can now contain static methods, but this change is irrelevant to this blog post.</p>
+
+<h2 id="jvm-changes-required">JVM Changes Required</h2>
+
+<p>You may be surprised to hear that the above functionality requires changes at the Java Virtual Machine (JVM) level.
+Previously, <em>all</em> methods invoked on an object could only be defined in the object’s class or super classes.
+Thus, method lookup for <code>invokevirtual</code> and <code>invokeinterface</code> instructions proceeds as follows in Java &lt;8:</p>
+
+<ul>
+  <li>Check the class of the object for a method with the given name and signature. If present, use that method.</li>
+  <li>Else, recursively check the class’s super types for a method with the given name and signature.</li>
+  <li>If no suitable method is found, throw a <code>NoSuchMethodError</code>.</li>
+</ul>
+
+<p>With default interface methods, the JVM now needs to search interfaces for method implementations.
+Naturally, methods present in the object’s class or super classes are prioritized over the default implementation in an interface.
+Thus, method lookup for <code>invokevirtual</code> and <code>invokeinterface</code> instructions in Java 8+ now works as follows:</p>
+
+<ul>
+  <li>Check the class of the object for a method with the given name and signature. If present, use that method.</li>
+  <li>Else, recursively check the class’s super types for a method with the given name and signature.</li>
+  <li>Check the superinterfaces of the object for a method with the given name and signature.</li>
+  <li>If no suitable method is found, throw a <code>NoSuchMethodError</code>.</li>
+</ul>
+
+<p>This change appears to be relatively straightforward, but it introduces a subtle issue…</p>
+
+<h2 id="multiple-inheritance-troubles">Multiple Inheritance Troubles</h2>
+
+<p>The new lookup scheme introduces ambiguity when multiple interfaces provide default implementations of a method with the <em>same name and signature</em>.
+Should the class and its super classes fail to provide an implementation for the desired method, how should the JVM prioritize one interface’s default implementation over another?</p>
+
+<p>The Java compiler writers knew this would be an issue, and applied a band-aid to prevent certain programs from compiling:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JavaCHatesMe</span> <span class="kd">implements</span> <span class="n">IFace1</span><span class="o">,</span> <span class="n">IFace2</span> <span class="o">{</span>
+
+<span class="o">}</span>
+<span class="kd">interface</span> <span class="nc">IFace1</span> <span class="o">{</span>
+  <span class="k">default</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">()</span> <span class="o">{}</span>
+<span class="o">}</span>
+<span class="kd">interface</span> <span class="nc">IFace2</span> <span class="o">{</span>
+  <span class="k">default</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">()</span> <span class="o">{}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>If you try to compile the above program, <code>javac</code> prints out the following error:</p>
+
+<pre><code>$ javac JavaCHatesMe.java
+JavaCHatesMe.java:1: error: class JavaCHatesMe inherits unrelated defaults for foo() from types IFace1 and IFace2
+public class JavaCHatesMe implements IFace1, IFace2 {
+  ^
+  1 error
+</code></pre>
+
+<p>However, this band-aid does not resolve the root problem! The following program compiles <em>just fine</em>:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WTF</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ISpeak</span><span class="o">.</span><span class="na">test</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">ISpeak</span> <span class="o">{</span>
+  <span class="k">default</span> <span class="kt">void</span> <span class="nf">speak</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;ISpeak Speaking!&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">new</span> <span class="nf">EmptySpeakImpl</span><span class="o">().</span><span class="na">speak</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">EmptySpeakImplChild</span><span class="o">().</span><span class="na">speak</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">ISpeak2</span> <span class="kd">extends</span> <span class="n">ISpeak</span> <span class="o">{</span>
+  <span class="k">default</span> <span class="kt">void</span> <span class="nf">speak</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;ISpeak2 Speaking!&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">EmptySpeakImpl</span> <span class="kd">implements</span> <span class="n">ISpeak2</span> <span class="o">{}</span>
+<span class="kd">class</span> <span class="nc">EmptySpeakImplChild</span> <span class="kd">extends</span> <span class="n">EmptySpeakImpl</span> <span class="kd">implements</span> <span class="n">ISpeak</span> <span class="o">{}</span></code></pre></div>
+
+<p>Which <code>speak</code> implementation do you think <code>EmptySpeakImplChild</code> will inherit: <code>ISpeak.speak</code>, or <code>ISpeak2.speak</code>?
+Common Java sense might indicate that the JVM should prioritize default interface methods specified in interfaces implemented on child classes over default interface methods specified in interfaces implemented on parent classes.
+In this scheme, <code>EmptySpeakImplChild</code> should inherit <code>ISpeak.speak</code>, as it explicitly implements that interface.</p>
+
+<p>However, Oracle’s JVM, HotSpot, disagrees with this logic, as the above program prints out the following:</p>
+
+<pre><code>$ java WTF
+ISpeak2 Speaking!
+ISpeak2 Speaking!
+</code></pre>
+
+<p>Why?</p>
+
+<h2 id="taking-a-look-at-the-jvm-specification">Taking a Look at the JVM Specification</h2>
+
+<p>A quick glance at the JVM specification reveals why this behavior occurs: <em>method lookup in Java 8 is officially ambiguous</em>.</p>
+
+<p>From <a href="http://docs.oracle.com/javase/specs/jvms/se8/html/jvms-5.html#jvms-5.4.3.3">JVM Spec §5.4.3.3</a>:</p>
+
+<blockquote>
+  <p>Otherwise, if any superinterface of C declares a method with the name and descriptor specified by the method reference that has neither its ACC_PRIVATE flag nor its ACC_STATIC flag set, <strong>one of these is arbitrarily chosen and method lookup succeeds</strong>.</p>
+</blockquote>
+
+<p>By this definition of method resolution, both the proposed “common sense” behavior discussed above and HotSpot’s behavior are valid by the spec.
+In fact, one could simply invoke <code>Math.random()</code> in the process to decide among multiple choices.</p>
+
+<p>While I expect Java developers to rarely encounter this corner case, it is rather disturbing to encounter a specification that explicitly introduces ambiguity into a core process. Since Java 8 is the <em>first</em> version of Java to include this behavior, this was an explicit decision on the part of the JVM standards committee rather than an after-the-fact discovery. It would have been preferable to specify <em>some</em> order of preference, such as lexicographic ordering by name, order that interfaces are declared in the <code>class</code> file, etc.</p>
+
+<p>Even if the specified order of preference doesn’t make sense to developers, it would allow alternative JVM implementations to have consistent behavior. I expect that programs that include this problematic behavior are doing so by accident, rather than conscious developer choice, and I would prefer that their program is portable across independent JVMs!</p>
+
+<p>This is one of a few reasons why I’m concerned about the future of Java and the JVM. Between this and other seemingly sloppy work on Java 8 (most notably, the <code>MemberName</code> class behind the invokedynamic implementation found in OpenJDK, which I will eventually blog about), I’m wondering if Java and the JVM are in good hands at Oracle.</p>
+
+        <div id="disqus_thread"></div><!-- /#disqus_thread -->
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="https://jvilk.github.io/blog/new-website-launch/" class="btn" title="New Website Launch">&lt; Previous Post: New Website Launch</a>
+      
+      
+    </nav><!-- /.pagination -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo" class="entry-wrapper">
+    
+
+<span>&copy; 2014 John Vilk. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using a modified version of the <a href="http://mademistakes.com/so-simple/" rel="nofollow">So Simple Theme</a>.</span>
+<div class="social-icons">
+	<a href="http://twitter.com/johnwvilk" title="John Vilk on Twitter" target="_blank"><i class="fa fa-twitter-square fa-2x"></i></a>
+	
+	
+	
+	
+	
+	
+	<a href="http://github.com/jvilk" title="John Vilk on Github" target="_blank"><i class="fa fa-github-square fa-2x"></i></a>
+	
+  <a href="https://jvilk.github.io/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss-square fa-2x"></i></a>
+</div><!-- /.social-icons -->
+
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="https://jvilk.github.io/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="https://jvilk.github.io/assets/js/scripts.min.js"></script>
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-33494293-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+  
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'jvilk'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+</body>
+</html>

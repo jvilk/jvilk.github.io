@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">John Vilk</title>
+<generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="https://jvilk.github.io/feed.xml" />
+<link rel="alternate" type="text/html" href="https://jvilk.github.io" />
+<updated>2014-12-23T03:42:36-05:00</updated>
+<id>https://jvilk.github.io/</id>
+<author>
+  <name>John Vilk</name>
+  <uri>https://jvilk.github.io/</uri>
+  <email>jvilk@cs.umass.edu</email>
+</author>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[Java 8 WTF: Default Interface Methods]]></title>
+  <link rel="alternate" type="text/html" href="https://jvilk.github.io/blog/java-8-wtf-default-interface-methods/" />
+  <id>https://jvilk.github.io/blog/java-8-wtf-default-interface-methods</id>
+  <published>2014-12-23T02:22:07-05:00</published>
+  <updated>2014-12-23T02:22:07-05:00</updated>
+  <author>
+    <name>John Vilk</name>
+    <uri>https://jvilk.github.io</uri>
+    <email>jvilk@cs.umass.edu</email>
+  </author>
+  <content type="html">&lt;p&gt;I am currently working on adding Java 8 support to &lt;a href=&quot;https://github.com/plasma-umass/doppio&quot;&gt;DoppioJVM&lt;/a&gt;. In doing so, I am discovering some of the rather surprising JVM changes required to support Java 8, and some interesting spec corner cases. In this blog post, I’ll reveal some &lt;em&gt;very surprising&lt;/em&gt; behavior involving a new Java 8 feature: Default interface methods!&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction-to-default-interface-methods&quot;&gt;Introduction to Default Interface Methods&lt;/h2&gt;
+
+&lt;p&gt;Default interface methods let you include full method implementations in your interface definitions.
+Classes that implement the interface do not need to explicitly implement these methods; they inherit the default implementation should the class not override it.
+I believe that this is a positive change for Java.&lt;/p&gt;
+
+&lt;p&gt;For example, the following is now valid Java code:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Dog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;makeNoise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Prints &amp;quot;Bark!&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Animal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getNoise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;makeNoise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getNoise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dog&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Animal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getNoise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Bark!&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Using this functionality, Java 8 added a number of new methods to core Java interfaces &lt;em&gt;without&lt;/em&gt; breaking existing code by providing default implementations, such as &lt;a href=&quot;http://docs.oracle.com/javase/8/docs/api/java/util/List.html#replaceAll-java.util.function.UnaryOperator-&quot;&gt;&lt;code&gt;java.util.List.replaceAll&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In addition to this functionality, interfaces can now contain static methods, but this change is irrelevant to this blog post.&lt;/p&gt;
+
+&lt;h2 id=&quot;jvm-changes-required&quot;&gt;JVM Changes Required&lt;/h2&gt;
+
+&lt;p&gt;You may be surprised to hear that the above functionality requires changes at the Java Virtual Machine (JVM) level.
+Previously, &lt;em&gt;all&lt;/em&gt; methods invoked on an object could only be defined in the object’s class or super classes.
+Thus, method lookup for &lt;code&gt;invokevirtual&lt;/code&gt; and &lt;code&gt;invokeinterface&lt;/code&gt; instructions proceeds as follows in Java &amp;lt;8:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Check the class of the object for a method with the given name and signature. If present, use that method.&lt;/li&gt;
+  &lt;li&gt;Else, recursively check the class’s super types for a method with the given name and signature.&lt;/li&gt;
+  &lt;li&gt;If no suitable method is found, throw a &lt;code&gt;NoSuchMethodError&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With default interface methods, the JVM now needs to search interfaces for method implementations.
+Naturally, methods present in the object’s class or super classes are prioritized over the default implementation in an interface.
+Thus, method lookup for &lt;code&gt;invokevirtual&lt;/code&gt; and &lt;code&gt;invokeinterface&lt;/code&gt; instructions in Java 8+ now works as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Check the class of the object for a method with the given name and signature. If present, use that method.&lt;/li&gt;
+  &lt;li&gt;Else, recursively check the class’s super types for a method with the given name and signature.&lt;/li&gt;
+  &lt;li&gt;Check the superinterfaces of the object for a method with the given name and signature.&lt;/li&gt;
+  &lt;li&gt;If no suitable method is found, throw a &lt;code&gt;NoSuchMethodError&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This change appears to be relatively straightforward, but it introduces a subtle issue…&lt;/p&gt;
+
+&lt;h2 id=&quot;multiple-inheritance-troubles&quot;&gt;Multiple Inheritance Troubles&lt;/h2&gt;
+
+&lt;p&gt;The new lookup scheme introduces ambiguity when multiple interfaces provide default implementations of a method with the &lt;em&gt;same name and signature&lt;/em&gt;.
+Should the class and its super classes fail to provide an implementation for the desired method, how should the JVM prioritize one interface’s default implementation over another?&lt;/p&gt;
+
+&lt;p&gt;The Java compiler writers knew this would be an issue, and applied a band-aid to prevent certain programs from compiling:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JavaCHatesMe&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IFace1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IFace2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IFace1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IFace2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If you try to compile the above program, &lt;code&gt;javac&lt;/code&gt; prints out the following error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ javac JavaCHatesMe.java
+JavaCHatesMe.java:1: error: class JavaCHatesMe inherits unrelated defaults for foo() from types IFace1 and IFace2
+public class JavaCHatesMe implements IFace1, IFace2 {
+  ^
+  1 error
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, this band-aid does not resolve the root problem! The following program compiles &lt;em&gt;just fine&lt;/em&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;WTF&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ISpeak&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ISpeak&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;speak&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;ISpeak Speaking!&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;EmptySpeakImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;speak&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;EmptySpeakImplChild&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;speak&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ISpeak2&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ISpeak&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;speak&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;ISpeak2 Speaking!&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EmptySpeakImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ISpeak2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EmptySpeakImplChild&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EmptySpeakImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ISpeak&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Which &lt;code&gt;speak&lt;/code&gt; implementation do you think &lt;code&gt;EmptySpeakImplChild&lt;/code&gt; will inherit: &lt;code&gt;ISpeak.speak&lt;/code&gt;, or &lt;code&gt;ISpeak2.speak&lt;/code&gt;?
+Common Java sense might indicate that the JVM should prioritize default interface methods specified in interfaces implemented on child classes over default interface methods specified in interfaces implemented on parent classes.
+In this scheme, &lt;code&gt;EmptySpeakImplChild&lt;/code&gt; should inherit &lt;code&gt;ISpeak.speak&lt;/code&gt;, as it explicitly implements that interface.&lt;/p&gt;
+
+&lt;p&gt;However, Oracle’s JVM, HotSpot, disagrees with this logic, as the above program prints out the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ java WTF
+ISpeak2 Speaking!
+ISpeak2 Speaking!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Why?&lt;/p&gt;
+
+&lt;h2 id=&quot;taking-a-look-at-the-jvm-specification&quot;&gt;Taking a Look at the JVM Specification&lt;/h2&gt;
+
+&lt;p&gt;A quick glance at the JVM specification reveals why this behavior occurs: &lt;em&gt;method lookup in Java 8 is officially ambiguous&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;From &lt;a href=&quot;http://docs.oracle.com/javase/specs/jvms/se8/html/jvms-5.html#jvms-5.4.3.3&quot;&gt;JVM Spec §5.4.3.3&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Otherwise, if any superinterface of C declares a method with the name and descriptor specified by the method reference that has neither its ACC_PRIVATE flag nor its ACC_STATIC flag set, &lt;strong&gt;one of these is arbitrarily chosen and method lookup succeeds&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;By this definition of method resolution, both the proposed “common sense” behavior discussed above and HotSpot’s behavior are valid by the spec.
+In fact, one could simply invoke &lt;code&gt;Math.random()&lt;/code&gt; in the process to decide among multiple choices.&lt;/p&gt;
+
+&lt;p&gt;While I expect Java developers to rarely encounter this corner case, it is rather disturbing to encounter a specification that explicitly introduces ambiguity into a core process. Since Java 8 is the &lt;em&gt;first&lt;/em&gt; version of Java to include this behavior, this was an explicit decision on the part of the JVM standards committee rather than an after-the-fact discovery. It would have been preferable to specify &lt;em&gt;some&lt;/em&gt; order of preference, such as lexicographic ordering by name, order that interfaces are declared in the &lt;code&gt;class&lt;/code&gt; file, etc.&lt;/p&gt;
+
+&lt;p&gt;Even if the specified order of preference doesn’t make sense to developers, it would allow alternative JVM implementations to have consistent behavior. I expect that programs that include this problematic behavior are doing so by accident, rather than conscious developer choice, and I would prefer that their program is portable across independent JVMs!&lt;/p&gt;
+
+&lt;p&gt;This is one of a few reasons why I’m concerned about the future of Java and the JVM. Between this and other seemingly sloppy work on Java 8 (most notably, the &lt;code&gt;MemberName&lt;/code&gt; class behind the invokedynamic implementation found in OpenJDK, which I will eventually blog about), I’m wondering if Java and the JVM are in good hands at Oracle.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;https://jvilk.github.io/blog/java-8-wtf-default-interface-methods/&quot;&gt;Java 8 WTF: Default Interface Methods&lt;/a&gt; was originally published by John Vilk at &lt;a href=&quot;https://jvilk.github.io&quot;&gt;John Vilk&lt;/a&gt; on December 23, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+  
+
+<entry>
+  <title type="html"><![CDATA[New Website Launch]]></title>
+  <link rel="alternate" type="text/html" href="https://jvilk.github.io/blog/new-website-launch/" />
+  <id>https://jvilk.github.io/blog/new-website-launch</id>
+  <published>2014-12-12T19:18:45-05:00</published>
+  <updated>2014-12-12T19:18:45-05:00</updated>
+  <author>
+    <name>John Vilk</name>
+    <uri>https://jvilk.github.io</uri>
+    <email>jvilk@cs.umass.edu</email>
+  </author>
+  <content type="html">&lt;p&gt;For the longest time, my personal website was a simple one-page setup. Handcrafted in HTML, frustrating to update, and oft-neglected… I had to make a change.&lt;/p&gt;
+
+&lt;h2 id=&quot;enter-jekyll&quot;&gt;Enter Jekyll&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; is a fantastic &lt;a href=&quot;http://en.wikipedia.org/wiki/Markdown&quot;&gt;Markdown&lt;/a&gt;-driven static site generator. Once you have a template set up, you can simply write all of your content in Markdown and completely forget about the terrible world of CSS styling and positioning.&lt;/p&gt;
+
+&lt;p&gt;I started with the excellent &lt;a href=&quot;http://mademistakes.com/so-simple/&quot;&gt;So Simple Theme&lt;/a&gt; by &lt;a href=&quot;https://mademistakes.com/about/&quot;&gt;Michael Rose&lt;/a&gt;, and tweaked it for my needs. The end result is a clean mobile-ready site that I can easily update.&lt;/p&gt;
+
+&lt;h2 id=&quot;starting-a-blog&quot;&gt;Starting a blog?!&lt;/h2&gt;
+
+&lt;p&gt;As you can tell from this post, I have started a blog. In both my research and my side projects, I encounter a wide variety of interesting ideas, issues, and bugs at the center of complex software systems. These topics can be anything from classloader subtleties at the heart of the JVM to specification ambiguities regarding the text encoding of strings stored in &lt;a href=&quot;http://dev.w3.org/html5/webstorage/#dom-localstorage&quot;&gt;LocalStorage&lt;/a&gt;. I plan to post approachable blog entries on interesting phenomena as I experience them firsthand.&lt;/p&gt;
+
+&lt;h2 id=&quot;feedback&quot;&gt;Feedback&lt;/h2&gt;
+
+&lt;p&gt;If you have any thoughts on the site design, feel free to leave a comment on this post. It is likely that I will be tweaking it occasionally as I find deficiencies.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;https://jvilk.github.io/blog/new-website-launch/&quot;&gt;New Website Launch&lt;/a&gt; was originally published by John Vilk at &lt;a href=&quot;https://jvilk.github.io&quot;&gt;John Vilk&lt;/a&gt; on December 12, 2014.&lt;/p&gt;</content>
+</entry>
+
+</feed>
