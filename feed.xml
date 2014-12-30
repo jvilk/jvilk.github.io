@@ -4,7 +4,7 @@
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://jvilk.com/feed.xml" />
 <link rel="alternate" type="text/html" href="https://jvilk.com" />
-<updated>2014-12-30T15:27:43-05:00</updated>
+<updated>2014-12-30T15:41:46-05:00</updated>
 <id>https://jvilk.com/</id>
 <author>
   <name>John Vilk</name>
@@ -16,11 +16,11 @@
   
 
 <entry>
-  <title type="html"><![CDATA[Java 8 WTF: Default Interface Methods]]></title>
-  <link rel="alternate" type="text/html" href="https://jvilk.com/blog/java-8-wtf-default-interface-methods/" />
-  <id>https://jvilk.com/blog/java-8-wtf-default-interface-methods</id>
-  <published>2014-12-23T02:22:07-05:00</published>
-  <updated>2014-12-23T02:22:07-05:00</updated>
+  <title type="html"><![CDATA[Java 8 WTF: Ambiguous Method Lookup]]></title>
+  <link rel="alternate" type="text/html" href="https://jvilk.com/blog/java-8-wtf-ambiguous-method-lookup/" />
+  <id>https://jvilk.com/blog/java-8-wtf-ambiguous-method-lookup</id>
+  <published>2014-12-30T15:39:07-05:00</published>
+  <updated>2014-12-30T15:39:07-05:00</updated>
   <author>
     <name>John Vilk</name>
     <uri>https://jvilk.com</uri>
@@ -173,7 +173,7 @@ In fact, one could simply invoke &lt;code&gt;Math.random()&lt;/code&gt; in the p
 
 &lt;p&gt;Between this and other seemingly sloppy work on Java 7/8 (most notably how &lt;code&gt;invokedynamic&lt;/code&gt; is implemented in OpenJDK, which I will eventually blog about), I’m wondering if Java and the JVM are in good hands at Oracle.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;https://jvilk.com/blog/java-8-wtf-default-interface-methods/&quot;&gt;Java 8 WTF: Default Interface Methods&lt;/a&gt; was originally published by John Vilk at &lt;a href=&quot;https://jvilk.com&quot;&gt;John Vilk&lt;/a&gt; on December 23, 2014.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://jvilk.com/blog/java-8-wtf-ambiguous-method-lookup/&quot;&gt;Java 8 WTF: Ambiguous Method Lookup&lt;/a&gt; was originally published by John Vilk at &lt;a href=&quot;https://jvilk.com&quot;&gt;John Vilk&lt;/a&gt; on December 30, 2014.&lt;/p&gt;</content>
 </entry>
 
 
