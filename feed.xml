@@ -4,7 +4,7 @@
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://jvilk.com/feed.xml" />
 <link rel="alternate" type="text/html" href="https://jvilk.com" />
-<updated>2014-12-28T15:48:32-05:00</updated>
+<updated>2014-12-30T15:27:43-05:00</updated>
 <id>https://jvilk.com/</id>
 <author>
   <name>John Vilk</name>
@@ -26,7 +26,7 @@
     <uri>https://jvilk.com</uri>
     <email>jvilk@cs.umass.edu</email>
   </author>
-  <content type="html">&lt;p&gt;I am currently working on adding Java 8 support to &lt;a href=&quot;https://github.com/plasma-umass/doppio&quot;&gt;DoppioJVM&lt;/a&gt;. In doing so, I am discovering some of the rather surprising JVM changes required to support Java 8, and some interesting spec corner cases. In this blog post, I’ll reveal some &lt;em&gt;very surprising&lt;/em&gt; behavior involving a new Java 8 feature: Default interface methods!&lt;/p&gt;
+  <content type="html">&lt;p&gt;I am currently working on adding Java 7/8 support to &lt;a href=&quot;https://github.com/plasma-umass/doppio&quot;&gt;DoppioJVM&lt;/a&gt;. In doing so, I am discovering some of the rather surprising JVM changes required to support Java 7+, and some interesting spec corner cases. In this blog post, I’ll reveal some &lt;em&gt;very surprising&lt;/em&gt; behavior involving a new Java 8 feature: Default interface methods!&lt;/p&gt;
 
 &lt;h2 id=&quot;introduction-to-default-interface-methods&quot;&gt;Introduction to Default Interface Methods&lt;/h2&gt;
 
@@ -34,7 +34,7 @@
 Classes that implement the interface do not need to explicitly implement these methods; they inherit the default implementation should the class not override it.
 I believe that this is a positive change for Java.&lt;/p&gt;
 
-&lt;p&gt;For example, the following is now valid Java code:&lt;/p&gt;
+&lt;p&gt;For example, the following is now valid Java code; it prints &lt;code&gt;Bark!&lt;/code&gt;:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -108,6 +108,8 @@ public class JavaCHatesMe implements IFace1, IFace2 {
   1 error
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;(It should be noted that without default methods, and with a concrete implementation of &lt;code&gt;foo&lt;/code&gt; in &lt;code&gt;JavaCHatesMe&lt;/code&gt;, the program compiles with no issue.)&lt;/p&gt;
+
 &lt;p&gt;However, this band-aid does not resolve the root problem! The following program compiles &lt;em&gt;just fine&lt;/em&gt;:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;WTF&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -136,9 +138,12 @@ public class JavaCHatesMe implements IFace1, IFace2 {
 &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EmptySpeakImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ISpeak2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EmptySpeakImplChild&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EmptySpeakImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ISpeak&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Which &lt;code&gt;speak&lt;/code&gt; implementation do you think &lt;code&gt;EmptySpeakImplChild&lt;/code&gt; will inherit: &lt;code&gt;ISpeak.speak&lt;/code&gt;, or &lt;code&gt;ISpeak2.speak&lt;/code&gt;?
-Common Java sense might indicate that the JVM should prioritize default interface methods specified in interfaces implemented on child classes over default interface methods specified in interfaces implemented on parent classes.
-In this scheme, &lt;code&gt;EmptySpeakImplChild&lt;/code&gt; should inherit &lt;code&gt;ISpeak.speak&lt;/code&gt;, as it explicitly implements that interface.&lt;/p&gt;
+&lt;p&gt;In this example, &lt;code&gt;EmptySpeakImpl&lt;/code&gt; implements the interface &lt;code&gt;ISpeak2&lt;/code&gt;, and thus it clearly inherits &lt;code&gt;ISpeak2.speak()&lt;/code&gt;.
+However, &lt;code&gt;EmptySpeakImplChild&lt;/code&gt; directly implements &lt;code&gt;ISpeak&lt;/code&gt; and implements &lt;code&gt;ISpeak2&lt;/code&gt; through its parent class, and thus its &lt;code&gt;speak()&lt;/code&gt; method will be from either of those two interfaces.&lt;/p&gt;
+
+&lt;p&gt;Which &lt;code&gt;speak&lt;/code&gt; implementation do you think &lt;code&gt;EmptySpeakImplChild&lt;/code&gt; should inherit: &lt;code&gt;ISpeak.speak&lt;/code&gt;, or &lt;code&gt;ISpeak2.speak&lt;/code&gt;?
+Common Java sense might indicate that the JVM should prioritize default interface methods specified in interfaces &lt;em&gt;directly implemented&lt;/em&gt; by child classes over those inherited from interfaces implemented by parent classes.
+According to this scheme, &lt;code&gt;EmptySpeakImplChild&lt;/code&gt; should inherit &lt;code&gt;ISpeak.speak&lt;/code&gt;, as it explicitly implements that interface.&lt;/p&gt;
 
 &lt;p&gt;However, Oracle’s JVM, HotSpot, disagrees with this logic, as the above program prints out the following:&lt;/p&gt;
 
@@ -162,11 +167,11 @@ ISpeak2 Speaking!
 &lt;p&gt;By this definition of method resolution, both the proposed “common sense” behavior discussed above and HotSpot’s behavior are valid by the spec.
 In fact, one could simply invoke &lt;code&gt;Math.random()&lt;/code&gt; in the process to decide among multiple choices.&lt;/p&gt;
 
-&lt;p&gt;While I expect Java developers to rarely encounter this corner case, it is rather disturbing to encounter a specification that explicitly introduces ambiguity into a core process. Since Java 8 is the &lt;em&gt;first&lt;/em&gt; version of Java to include this behavior, this was an explicit decision on the part of the JVM standards committee rather than an after-the-fact discovery. It would have been preferable to specify &lt;em&gt;some&lt;/em&gt; order of preference, such as lexicographic ordering by name, order that interfaces are declared in the &lt;code&gt;class&lt;/code&gt; file, etc.&lt;/p&gt;
+&lt;p&gt;While I expect Java developers to rarely encounter this corner case, it is rather disturbing to encounter a specification that explicitly introduces ambiguity into a core process. Since Java 8 is the &lt;em&gt;first&lt;/em&gt; version of Java to include this behavior, this was an explicit decision on the part of the JVM standards committee rather than an after-the-fact discovery.&lt;/p&gt;
 
-&lt;p&gt;Even if the specified order of preference doesn’t make sense to developers, it would allow alternative JVM implementations to have consistent behavior. I expect that programs that include this problematic behavior are doing so by accident, rather than conscious developer choice, and I would prefer that their program is portable across independent JVMs!&lt;/p&gt;
+&lt;p&gt;It would have been preferable to specify &lt;em&gt;some&lt;/em&gt; order of preference, such as lexicographic ordering by name, order that interfaces are declared in the &lt;code&gt;class&lt;/code&gt; file, etc. Even if the specified order of preference doesn’t make sense to developers, it would allow alternative JVM implementations to have consistent behavior. I expect that programs that include this problematic behavior are doing so by accident, rather than conscious developer choice, and I would prefer that their program is portable across spec-compliant independent JVMs!&lt;/p&gt;
 
-&lt;p&gt;This is one of a few reasons why I’m concerned about the future of Java and the JVM. Between this and other seemingly sloppy work on Java 8 (most notably, the &lt;code&gt;MemberName&lt;/code&gt; class behind the invokedynamic implementation found in OpenJDK, which I will eventually blog about), I’m wondering if Java and the JVM are in good hands at Oracle.&lt;/p&gt;
+&lt;p&gt;Between this and other seemingly sloppy work on Java 7/8 (most notably how &lt;code&gt;invokedynamic&lt;/code&gt; is implemented in OpenJDK, which I will eventually blog about), I’m wondering if Java and the JVM are in good hands at Oracle.&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;https://jvilk.com/blog/java-8-wtf-default-interface-methods/&quot;&gt;Java 8 WTF: Default Interface Methods&lt;/a&gt; was originally published by John Vilk at &lt;a href=&quot;https://jvilk.com&quot;&gt;John Vilk&lt;/a&gt; on December 23, 2014.&lt;/p&gt;</content>
 </entry>
