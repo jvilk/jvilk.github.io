@@ -4,7 +4,7 @@
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://jvilk.com/feed.xml" />
 <link rel="alternate" type="text/html" href="https://jvilk.com" />
-<updated>2014-12-30T15:41:46-05:00</updated>
+<updated>2014-12-30T19:44:27-05:00</updated>
 <id>https://jvilk.com/</id>
 <author>
   <name>John Vilk</name>
@@ -156,6 +156,8 @@ ISpeak2 Speaking!
 
 &lt;h2 id=&quot;taking-a-look-at-the-jvm-specification&quot;&gt;Taking a Look at the JVM Specification&lt;/h2&gt;
 
+&lt;p&gt;&lt;strong&gt;EDIT: My interpretation below is incorrect, but I will leave it here for posterity. Please see the next section for an updated interpretation.&lt;/strong&gt;&lt;/p&gt;
+
 &lt;p&gt;A quick glance at the JVM specification reveals why this behavior occurs: &lt;em&gt;method lookup in Java 8 is officially ambiguous&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;From &lt;a href=&quot;http://docs.oracle.com/javase/specs/jvms/se8/html/jvms-5.html#jvms-5.4.3.3&quot;&gt;JVM Spec §5.4.3.3&lt;/a&gt;:&lt;/p&gt;
@@ -171,7 +173,24 @@ In fact, one could simply invoke &lt;code&gt;Math.random()&lt;/code&gt; in the p
 
 &lt;p&gt;It would have been preferable to specify &lt;em&gt;some&lt;/em&gt; order of preference, such as lexicographic ordering by name, order that interfaces are declared in the &lt;code&gt;class&lt;/code&gt; file, etc. Even if the specified order of preference doesn’t make sense to developers, it would allow alternative JVM implementations to have consistent behavior. I expect that programs that include this problematic behavior are doing so by accident, rather than conscious developer choice, and I would prefer that their program is portable across spec-compliant independent JVMs!&lt;/p&gt;
 
-&lt;p&gt;Between this and other seemingly sloppy work on Java 7/8 (most notably how &lt;code&gt;invokedynamic&lt;/code&gt; is implemented in OpenJDK, which I will eventually blog about), I’m wondering if Java and the JVM are in good hands at Oracle.&lt;/p&gt;
+&lt;h2 id=&quot;edit-alternative-jvm-specification-interpretation&quot;&gt;Edit: Alternative JVM Specification Interpretation&lt;/h2&gt;
+
+&lt;p&gt;User pron98 on reddit pointed out &lt;a href=&quot;http://www.reddit.com/r/programming/comments/2qula0/java_8_wtf_ambiguous_method_lookup/cn9th0y&quot;&gt;that my interpretation of the JVM specification&lt;/a&gt; may be incorrect, and that my example is not triggering the ambiguous behavior quoted above. In pron98’s interpretation, the term &lt;em&gt;superinterfaces&lt;/em&gt; in the specification refers solely to &lt;em&gt;direct superinterfaces&lt;/em&gt; – that is, interfaces directly implemented by a class C – rather than &lt;em&gt;indirect superinterfaces&lt;/em&gt;, which includes those that are inherited from C’s parent classes.
+Under this interpretation, default method bodies inherited from interfaces implemented on parent classes will &lt;em&gt;always&lt;/em&gt; override default method bodies inherited from interfaces implemented on child classes.&lt;/p&gt;
+
+&lt;p&gt;pron98 links to a &lt;a href=&quot;http://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.4.8&quot;&gt;section in the Java Language Specification&lt;/a&gt; which supports this interpretation:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note that it is possible for an inherited concrete method to prevent the inheritance of an abstract or default method. (Later we will assert that the concrete method overrides the abstract or default method “from C”.) Also, it is possible for one supertype method to prevent the inheritance of another supertype method if the former “already” overrides the latter - this is the same as the rule for interfaces (§9.4.1), and prevents conflicts in which multiple default methods are inherited and one implementation is clearly meant to supersede the other.]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;At first, this behavior seemed counterintuitive to me, as it appears to invert the inheritance hierarchy (e.g. methods in parent classes taking precedence over methods in child classes). However, &lt;em&gt;default&lt;/em&gt; methods are used only when no other implementations exist, so if an implementation exists from a parent class, it makes some sense that the child class’s default method will not be used when an implementation is first found in a parent class.&lt;/p&gt;
+
+&lt;p&gt;With all this said, method lookup &lt;strong&gt;is still ambiguous&lt;/strong&gt; in the case that a class implements two interfaces with default method bodies for the same method. &lt;code&gt;javac&lt;/code&gt; blocks all such programs from compiling, so Java programs are immune to the ambiguity, but non-Java languages that run on the JVM may still encounter the ambiguity.&lt;/p&gt;
+
+&lt;h2 id=&quot;next-post-invokedynamic&quot;&gt;Next Post: &lt;code&gt;invokedynamic&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;In my next post, I will dive into the murky world of &lt;code&gt;invokedynamic&lt;/code&gt;: the specification, the implementation in OpenJDK, and the resulting consequences for JVM implementors.&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;https://jvilk.com/blog/java-8-wtf-ambiguous-method-lookup/&quot;&gt;Java 8 WTF: Ambiguous Method Lookup&lt;/a&gt; was originally published by John Vilk at &lt;a href=&quot;https://jvilk.com&quot;&gt;John Vilk&lt;/a&gt; on December 30, 2014.&lt;/p&gt;</content>
 </entry>

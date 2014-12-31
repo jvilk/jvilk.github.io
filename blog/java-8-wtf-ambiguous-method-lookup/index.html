@@ -271,6 +271,8 @@ ISpeak2 Speaking!
 
 <h2 id="taking-a-look-at-the-jvm-specification">Taking a Look at the JVM Specification</h2>
 
+<p><strong>EDIT: My interpretation below is incorrect, but I will leave it here for posterity. Please see the next section for an updated interpretation.</strong></p>
+
 <p>A quick glance at the JVM specification reveals why this behavior occurs: <em>method lookup in Java 8 is officially ambiguous</em>.</p>
 
 <p>From <a href="http://docs.oracle.com/javase/specs/jvms/se8/html/jvms-5.html#jvms-5.4.3.3">JVM Spec §5.4.3.3</a>:</p>
@@ -286,7 +288,24 @@ In fact, one could simply invoke <code>Math.random()</code> in the process to de
 
 <p>It would have been preferable to specify <em>some</em> order of preference, such as lexicographic ordering by name, order that interfaces are declared in the <code>class</code> file, etc. Even if the specified order of preference doesn’t make sense to developers, it would allow alternative JVM implementations to have consistent behavior. I expect that programs that include this problematic behavior are doing so by accident, rather than conscious developer choice, and I would prefer that their program is portable across spec-compliant independent JVMs!</p>
 
-<p>Between this and other seemingly sloppy work on Java 7/8 (most notably how <code>invokedynamic</code> is implemented in OpenJDK, which I will eventually blog about), I’m wondering if Java and the JVM are in good hands at Oracle.</p>
+<h2 id="edit-alternative-jvm-specification-interpretation">Edit: Alternative JVM Specification Interpretation</h2>
+
+<p>User pron98 on reddit pointed out <a href="http://www.reddit.com/r/programming/comments/2qula0/java_8_wtf_ambiguous_method_lookup/cn9th0y">that my interpretation of the JVM specification</a> may be incorrect, and that my example is not triggering the ambiguous behavior quoted above. In pron98’s interpretation, the term <em>superinterfaces</em> in the specification refers solely to <em>direct superinterfaces</em> – that is, interfaces directly implemented by a class C – rather than <em>indirect superinterfaces</em>, which includes those that are inherited from C’s parent classes.
+Under this interpretation, default method bodies inherited from interfaces implemented on parent classes will <em>always</em> override default method bodies inherited from interfaces implemented on child classes.</p>
+
+<p>pron98 links to a <a href="http://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.4.8">section in the Java Language Specification</a> which supports this interpretation:</p>
+
+<blockquote>
+  <p>Note that it is possible for an inherited concrete method to prevent the inheritance of an abstract or default method. (Later we will assert that the concrete method overrides the abstract or default method “from C”.) Also, it is possible for one supertype method to prevent the inheritance of another supertype method if the former “already” overrides the latter - this is the same as the rule for interfaces (§9.4.1), and prevents conflicts in which multiple default methods are inherited and one implementation is clearly meant to supersede the other.]</p>
+</blockquote>
+
+<p>At first, this behavior seemed counterintuitive to me, as it appears to invert the inheritance hierarchy (e.g. methods in parent classes taking precedence over methods in child classes). However, <em>default</em> methods are used only when no other implementations exist, so if an implementation exists from a parent class, it makes some sense that the child class’s default method will not be used when an implementation is first found in a parent class.</p>
+
+<p>With all this said, method lookup <strong>is still ambiguous</strong> in the case that a class implements two interfaces with default method bodies for the same method. <code>javac</code> blocks all such programs from compiling, so Java programs are immune to the ambiguity, but non-Java languages that run on the JVM may still encounter the ambiguity.</p>
+
+<h2 id="next-post-invokedynamic">Next Post: <code>invokedynamic</code></h2>
+
+<p>In my next post, I will dive into the murky world of <code>invokedynamic</code>: the specification, the implementation in OpenJDK, and the resulting consequences for JVM implementors.</p>
 
         <div id="disqus_thread"></div><!-- /#disqus_thread -->
       </div><!-- /.entry-content -->
