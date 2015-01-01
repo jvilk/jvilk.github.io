@@ -1,6 +1,15 @@
 [
 	
 		{
+		  "title"      : "Java 8 Specification Bug: Default Interface Method Resolution",
+		  "category"   : "",
+      "tags"       : "",
+		  "url"        : "https://jvilk.com/blog/java-8-specification-bug/",
+		  "date"       : "2015-01-01 14:39:05 -0500",
+		  "shortdate"  : "January 01, 2015"
+		} ,
+	
+		{
 		  "title"      : "Java 8 WTF: Ambiguous Method Lookup",
 		  "category"   : "",
       "tags"       : "",

@@ -303,6 +303,12 @@ Under this interpretation, default method bodies inherited from interfaces imple
 
 <p>With all this said, method lookup <strong>is still ambiguous</strong> in the case that a class implements two interfaces with default method bodies for the same method. <code>javac</code> blocks all such programs from compiling, so Java programs are immune to the ambiguity, but non-Java languages that run on the JVM may still encounter the ambiguity.</p>
 
+<h2 id="edit-2-a-little-more-complication">Edit 2: A little more complication…</h2>
+
+<p>I missed one more subtlety in the specification. Buried in the method resolution section is the term <em>maximally-specific superinterface methods</em> of <code>C</code>. When no implementation for an interface method exists, and the JVM goes searching for a default implementation, the definition of this term defines a priority on <em>certain</em> default interface methods.</p>
+
+<p>This term is applicable to my example application with <code>ISpeak</code>. In particular, the default interface methods on subinterfaces are always prioritized over the default interface methods on their parents. Thus, since <code>EmptySpeakImplChild</code>’s parent implements <code>ISpeak2</code>, which is a subinterface of <code>ISpeak</code>, its default methods will <em>always</em> trump <code>ISpeak</code>’s default methods. As a result, my example is even less ambiguous than I thought it was!</p>
+
 <h2 id="next-post-invokedynamic">Next Post: <code>invokedynamic</code></h2>
 
 <p>In my next post, I will dive into the murky world of <code>invokedynamic</code>: the specification, the implementation in OpenJDK, and the resulting consequences for JVM implementors.</p>
@@ -315,6 +321,8 @@ Under this interpretation, default method bodies inherited from interfaces imple
         <a href="https://jvilk.com/blog/new-website-launch/" class="btn" title="New Website Launch">&lt; Previous Post: New Website Launch</a>
       
       
+        <a href="https://jvilk.com/blog/java-8-specification-bug/" class="btn" title="Java 8 Specification Bug: Default Interface Method Resolution">Next Post: Java 8 Specification Bug: Default Interface Method Resolution &gt;</a>
+      
     </nav><!-- /.pagination -->
   </article>
 </div><!-- /#main -->
@@ -323,7 +331,7 @@ Under this interpretation, default method bodies inherited from interfaces imple
   <footer role="contentinfo" class="entry-wrapper">
     
 
-<span>&copy; 2014 John Vilk. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using a modified version of the <a href="http://mademistakes.com/so-simple/" rel="nofollow">So Simple Theme</a>.</span>
+<span>&copy; 2015 John Vilk. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using a modified version of the <a href="http://mademistakes.com/so-simple/" rel="nofollow">So Simple Theme</a>.</span>
 <div class="social-icons">
 	<a href="http://twitter.com/johnwvilk" title="John Vilk on Twitter" target="_blank"><i class="fa fa-twitter-square fa-2x"></i></a>
 	
