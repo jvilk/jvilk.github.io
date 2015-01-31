@@ -4,7 +4,7 @@
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://jvilk.com/feed.xml" />
 <link rel="alternate" type="text/html" href="https://jvilk.com" />
-<updated>2015-01-08T15:55:52-05:00</updated>
+<updated>2015-01-30T17:05:01-08:00</updated>
 <id>https://jvilk.com/</id>
 <author>
   <name>John Vilk</name>
@@ -19,8 +19,8 @@
   <title type="html"><![CDATA[Java 8 Specification Bug: Default Interface Method Resolution]]></title>
   <link rel="alternate" type="text/html" href="https://jvilk.com/blog/java-8-specification-bug/" />
   <id>https://jvilk.com/blog/java-8-specification-bug</id>
-  <published>2015-01-01T14:39:05-05:00</published>
-  <updated>2015-01-01T14:39:05-05:00</updated>
+  <published>2015-01-01T11:39:05-08:00</published>
+  <updated>2015-01-01T11:39:05-08:00</updated>
   <author>
     <name>John Vilk</name>
     <uri>https://jvilk.com</uri>
@@ -159,8 +159,8 @@ at example.CowboyArtist.main(CowboyArtist.java:6)
   <title type="html"><![CDATA[Java 8 WTF: Ambiguous Method Lookup]]></title>
   <link rel="alternate" type="text/html" href="https://jvilk.com/blog/java-8-wtf-ambiguous-method-lookup/" />
   <id>https://jvilk.com/blog/java-8-wtf-ambiguous-method-lookup</id>
-  <published>2014-12-30T15:39:07-05:00</published>
-  <updated>2014-12-30T15:39:07-05:00</updated>
+  <published>2014-12-30T12:39:07-08:00</published>
+  <updated>2014-12-30T12:39:07-08:00</updated>
   <author>
     <name>John Vilk</name>
     <uri>https://jvilk.com</uri>
@@ -348,8 +348,8 @@ Under this interpretation, default method bodies inherited from interfaces imple
   <title type="html"><![CDATA[New Website Launch]]></title>
   <link rel="alternate" type="text/html" href="https://jvilk.com/blog/new-website-launch/" />
   <id>https://jvilk.com/blog/new-website-launch</id>
-  <published>2014-12-12T19:18:45-05:00</published>
-  <updated>2014-12-12T19:18:45-05:00</updated>
+  <published>2014-12-12T16:18:45-08:00</published>
+  <updated>2014-12-12T16:18:45-08:00</updated>
   <author>
     <name>John Vilk</name>
     <uri>https://jvilk.com</uri>
