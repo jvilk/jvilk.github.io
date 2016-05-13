@@ -131,34 +131,48 @@
   <li><a href="#teaching">Teaching</a></li>
 </ul>
 
-<h2 id="research">Research</h2>
+<h1 id="research">Research</h1>
 
 <p>I am interested in bringing general purpose programming and novel debugging techniques to constrained programming environments, such as the web browser.
 These environments lack common operating system abstractions and constrain execution in ways that preclude reusing code written for general purpose programming environments.
 At the same time, these programs exhibit characteristics that can be exploited to produce low-overhead debugging tools.</p>
 
 <blockquote class="project">
-  <p><strong>Mesovirtualization: Enabling Lightweight Virtual Machines</strong></p>
+  <p><strong>A Gray Box Approach For High-Fidelity High-Speed Time-Travel Debugging</strong></p>
 
-  <p>We introduce mesovirtualization, a new technique for running lightweight VMs in the cloud.
-Mesovirtualization leverages the fact that many cloud applications run atop a managed runtime; by treating the managed runtime interface as the definition for a virtualized hardware environment, we capture rich, high-level application semantics while ignoring large amounts of low-level architectural state that traditional virtualization approaches have to manage.
-The resulting VMs are orders of magnitude smaller than traditional Xen images.</p>
+  <p class="authorlist"><em><strong>John Vilk</strong>, James Mickens, and Mark Marron</em></p>
 
-  <p>Mesovirtualization enables efficient implementations of VM services that have traditionally been expensive to support.
-For example, we demonstrate that mesovirtualization makes VM snapshotting and event logging cheap; using these two primitives, we construct the first time travel debugger which is fast enough to run on production systems.
-Virtual machines are useful for many tasks. For example, the virtualization layer acts as a convenient boundary for encapsulating program state, letting users snapshot, migrate, and resume complex, multi-level software applications.
-The virtual machine interface (VMI) also provides a natural introspection point for logging nondeterministic events that affect program execution.
-These event logs enable a variety of security and debugging analyses.</p>
+  <p>Time-travel debugging (TTD) lets developers step backward as well as forward through a program’s execution. TTD is a powerful mechanism for diagnosing bugs, but previous approaches suffer from poor performance due to checkpoint and logging overhead, or poor fidelity because important information like GUI state is not tracked.</p>
+
+  <p>In this paper, we describe how to provide high-performance and high-fidelity TTD to programs written in managed languages. Previous high-performance debuggers treat components external to the program like the GUI as black boxes, but that is not sufficient for high-fidelity time-travel. Instead, we advocate for a gray-box approach that keeps these components live and in sync with the program during time-travel. The key insight is that managed runtime APIs expose most of the functionality required to do this; where it does not, we extend the runtime with a small number of non-intrusive interrogative interfaces. To demonstrate the power of our gray-box approach, we implement ReJS, a time-traveling debugger for web applications. ReJS imposes imperceptible tracing overhead, and its logs typically grow less than 1 KB/s. As a result, ReJS is performant enough to be deployed in the wild; real client machines can ship buggy execution traces across the wide area to developer-side machines for debugging.</p>
 
   <p>This work is currently in submission.</p>
 
   <ul class="hlist">
-    <li><a href="https://channel9.msdn.com/blogs/Marron/Time-Travel-Debugging-for-JavaScriptHTML">Channel9: Time-Travel Debugging for JavaScript/HTML (Video)</a></li>
+    <li><a href="https://github.com/Microsoft/ChakraCore/tree/TimeTravelDebugging">Source Code (Core of Debugger)</a></li>
+    <li><a href="https://channel9.msdn.com/blogs/Marron/Time-Travel-Debugging-for-JavaScriptHTML">MSDN Channel 9 Coverage: Demo of early version (Video)</a></li>
+  </ul>
+</blockquote>
+
+<blockquote class="project">
+  <p><strong>Browsix: Browsix: Bringing Unix to the Browser</strong></p>
+
+  <p class="authorlist"><em>Bobby Powers, <strong>John Vilk</strong>, and Emery D. Berger</em></p>
+
+  <p>While standard operating systems like Unix make it relatively simple to build complex applications, web browsers lack the features that make this possible. In this paper, we present Browsix, a JavaScript-only framework that brings the essence of Unix to the browser. Browsix makes core Unix features available to web applications (including pipes, processes, signals, sockets, and a shared file system) and extends JavaScript runtimes for C, C++, Go, and Node.js programs so they can run in a Unix-like environment within the browser. Browsix also provides a POSIX-like shell that makes it easy to compose applications together for parallel data processing via pipes. We illustrate Browsix’s capabilities by converting a client-server application to run entirely in the browser and developing a serverless LaTeX editor that executes PDFLaTeX and BibTeX in the browser. Creating these applications required less than 50 lines of glue code, demonstrating how easily Browsix can be used to build sophisticated web applications from existing parts without modification.</p>
+
+  <p>This work is currently in submission.</p>
+
+  <ul class="hlist">
+    <li><a href="https://web.cs.umass.edu/publication/details.php?id=2414">Tech Report</a></li>
+    <li><a href="https://github.com/plasma-umass/browsix">Source Code</a></li>
   </ul>
 </blockquote>
 
 <blockquote class="project">
   <p><strong>SurroundWeb: Mitigating Privacy Concerns in a 3D Web Browser</strong></p>
+
+  <p class="authorlist"><em><strong>John Vilk</strong>, David Molnar, Eyal Ofek, Chris Rossbach, Benjamin Livshits, Alexander Moshchuk, Helen J. Wang, and Ran Gal</em></p>
 
   <p>Immersive experiences that mix digital and real-world objects are becoming reality, but they raise serious privacy concerns as they require real-time sensor input. SurroundWeb is the first 3D web browser that provides the novel functionality of rendering web content onto a room while tackling many of the inherent privacy challenges. Following the principle of least privilege, we propose three abstractions for immersive rendering:</p>
 
@@ -180,6 +194,8 @@ These event logs enable a variety of security and debugging analyses.</p>
 <blockquote class="project">
   <p><strong>Doppio: Breaking the Browser Language Barrier</strong></p>
 
+  <p class="authorlist"><em><strong>John Vilk</strong> and Emery D. Berger</em></p>
+
   <p>Doppio is a JavaScript-based runtime system that makes it possible to run unaltered applications written in general-purpose languages directly inside the browser. Doppio provides a wide range of runtime services, including a file system that enables local and external (cloud-based) storage, an unmanaged heap, sockets, blocking I/O, and multiple threads. We demonstrate Doppio’s usefulness with two case studies: we extend Emscripten with Doppio, letting it run an unmodified C++ application in the browser with full functionality, and present DoppioJVM, an interpreter that runs unmodified JVM programs directly in the browser. This work appeared at <a href="http://conferences.inf.ed.ac.uk/pldi2014/">PLDI 2014</a>, won the <a href="http://pldi14-aec.cs.brown.edu/">Distinguished Artifact Award</a>, and was selected as a <a href="http://www.sigplan.org/Newsletters/CACM/Papers/">SIGPLAN Research Highlight</a>!</p>
 
   <p>DoppioJVM is currently used by the University of Illinois at <a href="http://codemoo.com/">CodeMoo.com</a> to teach children how to program in Java, and components of Doppio are used by the <a href="https://archive.org/details/softwarelibrary_msdos_games/v2">MS-DOS Collection</a> at the <a href="https://archive.org/">Internet Archive</a>.</p>
@@ -192,7 +208,7 @@ These event logs enable a variety of security and debugging analyses.</p>
   </ul>
 </blockquote>
 
-<h2 id="side-projects">Side Projects</h2>
+<h1 id="side-projects">Side Projects</h1>
 
 <p>Occasionally, I find the time to work on some fun side projects.</p>
 
@@ -200,10 +216,13 @@ These event logs enable a variety of security and debugging analyses.</p>
   <p><strong>MS-DOS Collection at the Internet Archive</strong></p>
 
   <p>The <a href="https://archive.org/details/softwarelibrary_msdos_games/v2">MS-DOS Collection</a> at the <a href="https://archive.org/">Internet Archive</a> relies on <a href="https://github.com/jvilk/browserfs">Doppio’s file system</a> to make a large collection of DOS games playable in the browser.
-I worked with archive employees to integrate the file system appropriately, and to address a complex Cross-origin Resource Sharing (CORS) issue that prevented the initial deployment from working in Internet Explorer and Safari.</p>
+I added support for <a href="https://en.wikipedia.org/wiki/Union_mount">union mounting</a> into the file system to support layering a mutable file system on top of an immutable zip file,
+making it possible to save game progress to in-browser storage.
+I also worked with archive employees to integrate the file system appropriately, and to address a complex Cross-origin Resource Sharing (CORS) issue that prevented the initial deployment from working in Internet Explorer and Safari.</p>
 
   <ul class="hlist">
     <li><a href="https://archive.org/details/softwarelibrary_msdos_games/v2">Homepage</a></li>
+    <li><a href="http://ascii.textfiles.com/archives/4924">Blog Post on Game Saving</a></li>
   </ul>
 </blockquote>
 
@@ -227,7 +246,7 @@ I worked with archive employees to integrate the file system appropriately, and 
 
 </blockquote>
 
-<h2 id="experience">Experience</h2>
+<h1 id="experience">Experience</h1>
 
 <ul class="simplelist">
   <li><strong>Research Intern</strong>, Microsoft Research, Summer 2015.
@@ -251,14 +270,15 @@ I worked with archive employees to integrate the file system appropriately, and 
   <li><strong>Software Engineering Intern</strong>, SoftArtisans Inc., Summer 2010.</li>
 </ul>
 
-<h2 id="education">Education</h2>
+<h1 id="education">Education</h1>
 
 <ul class="simplelist">
+  <li><strong>Ph.D. in Computer Science</strong>, University of Massachusetts, In Progress.</li>
   <li><strong>M.S. in Computer Science</strong>, University of Massachusetts, 2014.</li>
   <li><strong>B.S. in Computer Science</strong>, Worcester Polytechnic Institute, 2011.</li>
 </ul>
 
-<h2 id="awards">Awards</h2>
+<h1 id="awards">Awards</h1>
 
 <ul class="simplelist">
   <li><strong>IEEE Security &amp; Privacy Student Travel Grant Recipient</strong>, IEEE S&amp;P 2015.</li>
@@ -287,26 +307,41 @@ I worked with archive employees to integrate the file system appropriately, and 
   </li>
 </ul>
 
-<h2 id="professional-activities">Professional Activities</h2>
+<h1 id="professional-activities">Professional Activities</h1>
 
 <ul class="simplelist">
-  <li><strong>Mentor</strong>, <a href="https://www.terc.edu/display/Projects/Computing+Beyond+the+Double+Bind%3A+Women+of+Color+in+Computing+Education+and+Careers">Computing Beyond the Double Bind Mentoring Network</a>, 2015-present.</li>
+  <li><strong>External Review Committee Member</strong>, PLDI 2016.
+    <ul>
+      <li>As a member of the ERC, I was an expert reviewer on a small number of papers.</li>
+    </ul>
+  </li>
+  <li><strong>Mentor</strong>, <a href="https://www.terc.edu/display/Projects/Computing+Beyond+the+Double+Bind%3A+Women+of+Color+in+Computing+Education+and+Careers">Computing Beyond the Double Bind Mentoring Network</a>, 2015-present.
+    <ul>
+      <li>As a part of this program, I remotely mentor two undergraduate women of color to provide them with a listening ear and professional guidance.</li>
+    </ul>
+  </li>
   <li><strong>Member</strong>, IEEE, 2015-present.</li>
   <li><strong>Member</strong>, USENIX, 2014-present.</li>
   <li><strong>Graduate Representative</strong>, academic year 2014-2015, University of Massachusetts School of Computer Science.
     <ul>
-      <li>Graduate representatives attend and vote during faculty meetings, and form a bridge between the graduate students and the faculty as a whole.</li>
+      <li>Graduate representatives attend and vote during faculty meetings, meet and provide feedback on faculty candidates, and form a bridge between the graduate students and the faculty as a whole.</li>
     </ul>
   </li>
-  <li><strong>Student Volunteer</strong>, OOPSLA 2014.</li>
+  <li><strong>Student Volunteer</strong>, PLDI 2016 PC Meeting, OOPSLA 2014.</li>
   <li><strong>Artifact Evaluation Committee Member</strong>: OOPSLA 2015, PLDI 2015, OOPSLA 2014.</li>
   <li><strong>External Reviewer:</strong> USENIX Security 2014, PLDI 2014, OOPSLA 2012, MSPC 2012, HotPar 2012.</li>
-  <li><strong>Member</strong>, Association for Computing Machinery, 2008-present.</li>
+  <li><strong>Member</strong>, ACM, 2008-present.</li>
 </ul>
 
-<h2 id="teaching">Teaching</h2>
+<h1 id="teaching">Teaching</h1>
 
 <ul class="simplelist">
+  <li><strong>Guest Lecturer</strong>, COMPSCI 326: Web Development, University of Massachusetts Amherst, Spring 2016.</li>
+  <li><strong>T.A.</strong>, COMPSCI 326: Web Development, University of Massachusetts Amherst, Spring 2016.
+    <ul>
+      <li>For a class of 100 undergraduates, I developed the curriculum, designed and wrote all of the assignments, graded most assignments, held office hours, and answered hundreds of questions on Piazza.</li>
+    </ul>
+  </li>
   <li><strong>Mentor</strong>, Doppio, PLASMA Lab, Google Summer of Code, Summer 2015.
     <ul>
       <li><em>Students</em>: Muhammad Bhatti</li>
@@ -328,7 +363,7 @@ I worked with archive employees to integrate the file system appropriately, and 
   <footer role="contentinfo" class="entry-wrapper">
     
 
-<span>&copy; 2015 John Vilk. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using a modified version of the <a href="http://mademistakes.com/so-simple/" rel="nofollow">So Simple Theme</a>.</span>
+<span>&copy; 2016 John Vilk. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using a modified version of the <a href="http://mademistakes.com/so-simple/" rel="nofollow">So Simple Theme</a>.</span>
 <div class="social-icons">
 	<a href="http://twitter.com/johnwvilk" title="John Vilk on Twitter" target="_blank"><i class="fa fa-twitter-square fa-2x"></i></a>
 	
