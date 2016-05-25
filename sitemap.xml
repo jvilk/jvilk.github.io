@@ -1,53 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://jvilk.com/blog/java-8-specification-bug/</loc>
-    <lastmod>2015-01-01T14:39:05-05:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jvilk.com/blog/java-8-wtf-ambiguous-method-lookup/</loc>
-    <lastmod>2014-12-30T15:39:07-05:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jvilk.com/blog/new-website-launch/</loc>
-    <lastmod>2014-12-12T19:18:45-05:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jvilk.com/contact/</loc>
-    <lastmod>2016-05-13T18:54:00-04:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://jvilk.com/</loc>
-    <lastmod>2016-05-13T18:54:00-04:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://jvilk.com/theme-setup/</loc>
-    <lastmod>2016-05-13T18:54:00-04:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://jvilk.com/tags/</loc>
-    <lastmod>2016-05-13T18:54:00-04:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://jvilk.com/blog/</loc>
-    <lastmod>2016-05-13T18:54:00-04:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://jvilk.com/about/index.html</loc>
-    <lastmod>2015-10-12T14:46:41-04:00</lastmod>
-    <priority>0.6</priority>
-  </url>
+<url>
+<loc>https://jvilk.com/blog/java-8-specification-bug/</loc>
+<lastmod>2015-01-01T14:39:05-05:00</lastmod>
+</url>
+<url>
+<loc>https://jvilk.com/blog/java-8-wtf-ambiguous-method-lookup/</loc>
+<lastmod>2014-12-30T15:39:07-05:00</lastmod>
+</url>
+<url>
+<loc>https://jvilk.com/blog/new-website-launch/</loc>
+<lastmod>2014-12-12T19:18:45-05:00</lastmod>
+</url>
+<url>
+<loc>https://jvilk.com/</loc>
+</url>
+<url>
+<loc>https://jvilk.com/tags/</loc>
+</url>
+<url>
+<loc>https://jvilk.com/theme-setup/</loc>
+</url>
+<url>
+<loc>https://jvilk.com/contact/</loc>
+</url>
+<url>
+<loc>https://jvilk.com/blog/</loc>
+</url>
+<url>
+<loc>https://jvilk.com/about/index.html</loc>
+<lastmod>2015-10-12T14:46:41-04:00</lastmod>
+</url>
 </urlset>

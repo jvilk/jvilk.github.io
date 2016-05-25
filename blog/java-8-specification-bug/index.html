@@ -12,7 +12,6 @@
 <meta name="keywords" content="">
 
 
-
 <!-- Twitter Cards -->
 <meta name="twitter:title" content="Java 8 Specification Bug: Default Interface Method Resolution">
 <meta name="twitter:description" content="In a previous blog post, I pointed out some rather surprising behavior involving default interface methods, and cases in which method resolution is ambiguous as specified by the JVM specification. However, after consulting with commenters on the corresponding reddit post, it is possible that that method resolution is never ambiguous, and the JVM specification is incorrect.
@@ -90,17 +89,11 @@
 		    <ul>
 	      
 			    
-			        
-			    
 			    <li><a href="https://jvilk.com/" >About</a></li>
 			  
 			    
-			        
-			    
 			    <li><a href="https://jvilk.com/blog/" >Blog</a></li>
 			  
-			    
-			        
 			    
 			    <li><a href="https://jvilk.com/contact/" >Contact</a></li>
 			  
@@ -128,7 +121,6 @@
         
       </header>
       <footer class="entry-meta">
-        
         
         
           <img src="https://jvilk.com/images/bio-photo.jpg" class="bio-photo" alt="John Vilk bio photo"></a>
@@ -205,7 +197,7 @@ at example.CowboyArtist.main(CowboyArtist.java:6)
 
 <p>First, create the following files:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// In example/Cowboy.java:</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// In example/Cowboy.java:</span>
 <span class="kn">package</span> <span class="n">example</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Cowboy</span> <span class="o">{</span>
@@ -228,7 +220,7 @@ at example.CowboyArtist.main(CowboyArtist.java:6)
   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">new</span> <span class="nf">CowboyArtist</span><span class="o">().</span><span class="na">draw</span><span class="o">();</span>
   <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
+<span class="o">}</span></code></pre></figure>
 
 <p>Next, compile a first version of the program, and verify that it runs properly:</p>
 
@@ -239,13 +231,13 @@ Here's a picture...
 
 <p>Next, modify <code>example/Cowboy.java</code> so that it implements <code>draw</code>:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="n">example</span><span class="o">;</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="n">example</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Cowboy</span> <span class="o">{</span>
   <span class="k">default</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Bang!&quot;</span><span class="o">);</span>
   <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
+<span class="o">}</span></code></pre></figure>
 
 <p>Recompile <code>Cowboy</code> alone, and try to run the program. Notice that it throws an <code>IncompatibleClassChangeError</code>:</p>
 

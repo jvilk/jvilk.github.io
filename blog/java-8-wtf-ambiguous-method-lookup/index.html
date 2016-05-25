@@ -12,7 +12,6 @@
 <meta name="keywords" content="">
 
 
-
 <!-- Twitter Cards -->
 <meta name="twitter:title" content="Java 8 WTF: Ambiguous Method Lookup">
 <meta name="twitter:description" content="I am currently working on adding Java 7/8 support to DoppioJVM. In doing so, I am discovering some of the rather surprising JVM changes required to support Java 7+, and some interesting spec corner cases. In this blog post, I’ll reveal some very surprising behavior involving a new Java 8 feature: Default interface methods!
@@ -90,17 +89,11 @@
 		    <ul>
 	      
 			    
-			        
-			    
 			    <li><a href="https://jvilk.com/" >About</a></li>
 			  
 			    
-			        
-			    
 			    <li><a href="https://jvilk.com/blog/" >Blog</a></li>
 			  
-			    
-			        
 			    
 			    <li><a href="https://jvilk.com/contact/" >Contact</a></li>
 			  
@@ -130,7 +123,6 @@
       <footer class="entry-meta">
         
         
-        
           <img src="https://jvilk.com/images/bio-photo.jpg" class="bio-photo" alt="John Vilk bio photo"></a>
         
         <span class="author vcard">By <span class="fn">John Vilk</span></span>
@@ -151,7 +143,7 @@ I believe that this is a positive change for Java.</p>
 
 <p>For example, the following is now valid Java code; it prints <code>Bark!</code>:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">new</span> <span class="nf">Dog</span><span class="o">().</span><span class="na">makeNoise</span><span class="o">();</span> <span class="c1">// Prints &quot;Bark!&quot;</span>
   <span class="o">}</span>
@@ -166,7 +158,7 @@ I believe that this is a positive change for Java.</p>
   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getNoise</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="s">&quot;Bark!&quot;</span><span class="o">;</span>
   <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
+<span class="o">}</span></code></pre></figure>
 
 <p>Using this functionality, Java 8 added a number of new methods to core Java interfaces <em>without</em> breaking existing code by providing default implementations, such as <a href="http://docs.oracle.com/javase/8/docs/api/java/util/List.html#replaceAll-java.util.function.UnaryOperator-"><code>java.util.List.replaceAll</code></a>.</p>
 
@@ -204,7 +196,7 @@ Should the class and its super classes fail to provide an implementation for the
 
 <p>The Java compiler writers knew this would be an issue, and applied a band-aid to prevent certain programs from compiling:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JavaCHatesMe</span> <span class="kd">implements</span> <span class="n">IFace1</span><span class="o">,</span> <span class="n">IFace2</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JavaCHatesMe</span> <span class="kd">implements</span> <span class="n">IFace1</span><span class="o">,</span> <span class="n">IFace2</span> <span class="o">{</span>
 
 <span class="o">}</span>
 <span class="kd">interface</span> <span class="nc">IFace1</span> <span class="o">{</span>
@@ -212,7 +204,7 @@ Should the class and its super classes fail to provide an implementation for the
 <span class="o">}</span>
 <span class="kd">interface</span> <span class="nc">IFace2</span> <span class="o">{</span>
   <span class="k">default</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">()</span> <span class="o">{}</span>
-<span class="o">}</span></code></pre></div>
+<span class="o">}</span></code></pre></figure>
 
 <p>If you try to compile the above program, <code>javac</code> prints out the following error:</p>
 
@@ -227,7 +219,7 @@ public class JavaCHatesMe implements IFace1, IFace2 {
 
 <p>However, this band-aid does not resolve the root problem! The following program compiles <em>just fine</em>:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WTF</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WTF</span> <span class="o">{</span>
   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">ISpeak</span><span class="o">.</span><span class="na">test</span><span class="o">();</span>
   <span class="o">}</span>
@@ -251,7 +243,7 @@ public class JavaCHatesMe implements IFace1, IFace2 {
 <span class="o">}</span>
 
 <span class="kd">class</span> <span class="nc">EmptySpeakImpl</span> <span class="kd">implements</span> <span class="n">ISpeak2</span> <span class="o">{}</span>
-<span class="kd">class</span> <span class="nc">EmptySpeakImplChild</span> <span class="kd">extends</span> <span class="n">EmptySpeakImpl</span> <span class="kd">implements</span> <span class="n">ISpeak</span> <span class="o">{}</span></code></pre></div>
+<span class="kd">class</span> <span class="nc">EmptySpeakImplChild</span> <span class="kd">extends</span> <span class="n">EmptySpeakImpl</span> <span class="kd">implements</span> <span class="n">ISpeak</span> <span class="o">{}</span></code></pre></figure>
 
 <p>In this example, <code>EmptySpeakImpl</code> implements the interface <code>ISpeak2</code>, and thus it clearly inherits <code>ISpeak2.speak()</code>.
 However, <code>EmptySpeakImplChild</code> directly implements <code>ISpeak</code> and implements <code>ISpeak2</code> through its parent class, and thus its <code>speak()</code> method will be from either of those two interfaces.</p>
