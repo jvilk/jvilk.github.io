@@ -6,13 +6,13 @@
 <head>
 <meta charset="utf-8">
 <title>About Me &#8211; John Vilk</title>
-<meta name="description" content="John Vilk is a fifth year PhD student at UMass Amherst.">
+<meta name="description" content="John Vilk is a sixth year PhD student at UMass Amherst.">
 
 
 
 <!-- Twitter Cards -->
 <meta name="twitter:title" content="About Me">
-<meta name="twitter:description" content="John Vilk is a fifth year PhD student at UMass Amherst.">
+<meta name="twitter:description" content="John Vilk is a sixth year PhD student at UMass Amherst.">
 <meta name="twitter:site" content="@johnwvilk">
 <meta name="twitter:creator" content="@johnwvilk">
 
@@ -23,7 +23,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
 <meta property="og:title" content="About Me">
-<meta property="og:description" content="John Vilk is a fifth year PhD student at UMass Amherst.">
+<meta property="og:description" content="John Vilk is a sixth year PhD student at UMass Amherst.">
 <meta property="og:url" content="https://jvilk.com/">
 <meta property="og:site_name" content="John Vilk">
 
@@ -112,7 +112,7 @@
         <h1 class="entry-title">About Me</h1>
       </header>
       <div class="entry-content">
-        <p>I am a fifth year PhD student at the University of Massachusetts Amherst. I work in the <a href="http://www.cs.umass.edu/~plasma/">PLASMA</a> lab with <a href="http://emeryberger.com/">Emery Berger</a>. Feel free to <a href="../contact/">contact me</a> if you want to get in touch!</p>
+        <p>I am a sixth year PhD student at the University of Massachusetts Amherst. I work in the <a href="http://www.cs.umass.edu/~plasma/">PLASMA</a> lab with <a href="http://emeryberger.com/">Emery Berger</a>. Feel free to <a href="../contact/">contact me</a> if you want to get in touch!</p>
 
 <ul id="markdown-toc">
   <li><a href="#research" id="markdown-toc-research">Research</a></li>
@@ -126,28 +126,8 @@
 
 <h1 id="research">Research</h1>
 
-<p>I am interested in bringing general purpose programming and novel debugging techniques to constrained programming environments, such as the web browser.
-These environments lack common operating system abstractions and constrain execution in ways that preclude reusing code written for general purpose programming environments.
-At the same time, these programs exhibit characteristics that can be exploited to produce low-overhead debugging tools.</p>
-
-<blockquote class="project">
-  <p><strong>Browsix: Bridging the Gap Between Unix and the Browser</strong></p>
-
-  <p class="authorlist"><em>Bobby Powers, <strong>John Vilk</strong>, and Emery D. Berger</em></p>
-
-  <p>Applications written to run on conventional operating systems typically depend on OS abstractions like processes, pipes, signals, sockets, and a shared file system. Porting these applications to the web currently requires extensive rewriting or hosting significant portions of code server-side because browsers present a nontraditional runtime environment that lacks OS functionality.</p>
-
-  <p>This paper presents Browsix, a framework that bridges the considerable gap between conventional operating systems and the browser, enabling unmodified programs expecting a Unix-like environment to run directly in the browser. Browsix comprises two core parts: (1) a JavaScript-only system that makes core Unix features (including pipes, concurrent processes, signals, sockets, and a shared file system) available to web applications; and (2) extended JavaScript runtimes for C, C++, Go, and Node.js that support running programs written in these languages as processes in the browser. Browsix supports running a POSIX shell, making it straightforward to connect applications together via pipes.</p>
-
-  <p>We illustrate Browsix’s capabilities via case studies that demonstrate how it eases porting legacy applications to the browser and enables new functionality. We demonstrate a Browsix-enabled LaTeX editor that operates by executing unmodified versions of pdfLaTeX and BibTeX. This browser-only LaTeX editor can render documents in seconds, making it fast enough to be practical. We further demonstrate how Browsix lets us port a client-server application to run entirely in the browser for disconnected operation. Creating these applications required less than 50 lines of glue code and no code modifications, demonstrating how easily Browsix can be used to build sophisticated web applications from existing parts without modification.</p>
-
-  <p>This work is currently in submission.</p>
-
-  <ul class="hlist">
-    <li><a href="https://web.cs.umass.edu/publication/details.php?id=2416">Tech Report</a></li>
-    <li><a href="https://github.com/plasma-umass/browsix">Source Code</a></li>
-  </ul>
-</blockquote>
+<p>My research aims to improve the browser as an application platform by making it easier to write, debug, and optimize complex web applications.
+To that end, my research interests include debugging, software performance, operating systems, and programming languages.</p>
 
 <blockquote class="project">
   <p><strong>A Gray Box Approach For High-Fidelity High-Speed Time-Travel Debugging</strong></p>
@@ -164,6 +144,26 @@ At the same time, these programs exhibit characteristics that can be exploited t
     <li><a href="http://research.microsoft.com/apps/pubs/?id=266627">Tech Report</a></li>
     <li><a href="https://github.com/Microsoft/ChakraCore/tree/TimeTravelDebugging">Source Code (Core of Debugger)</a></li>
     <li><a href="https://channel9.msdn.com/blogs/Marron/Time-Travel-Debugging-for-JavaScriptHTML">MSDN Channel 9 Coverage: Demo of early version (Video)</a></li>
+  </ul>
+</blockquote>
+
+<blockquote class="project">
+  <p><strong>Browsix: Bridging the Gap Between Unix and the Browser</strong></p>
+
+  <p class="authorlist"><em>Bobby Powers, <strong>John Vilk</strong>, and Emery D. Berger</em></p>
+
+  <p>Applications written to run on conventional operating systems typically depend on OS abstractions like processes, pipes, signals, sockets, and a shared file system. Porting these applications to the web currently requires extensive rewriting or hosting significant portions of code server-side because browsers present a nontraditional runtime environment that lacks OS functionality.</p>
+
+  <p>This paper presents Browsix, a framework that bridges the considerable gap between conventional operating systems and the browser, enabling unmodified programs expecting a Unix-like environment to run directly in the browser. Browsix comprises two core parts: (1) a JavaScript-only system that makes core Unix features (including pipes, concurrent processes, signals, sockets, and a shared file system) available to web applications; and (2) extended JavaScript runtimes for C, C++, Go, and Node.js that support running programs written in these languages as processes in the browser. Browsix supports running a POSIX shell, making it straightforward to connect applications together via pipes.</p>
+
+  <p>We illustrate Browsix’s capabilities via case studies that demonstrate how it eases porting legacy applications to the browser and enables new functionality. We demonstrate a Browsix-enabled LaTeX editor that operates by executing unmodified versions of pdfLaTeX and BibTeX. This browser-only LaTeX editor can render documents in seconds, making it fast enough to be practical. We further demonstrate how Browsix lets us port a client-server application to run entirely in the browser for disconnected operation. Creating these applications required less than 50 lines of glue code and no code modifications, demonstrating how easily Browsix can be used to build sophisticated web applications from existing parts without modification.</p>
+
+  <p>This work was recently accepted to ASPLOS 2017.</p>
+
+  <ul class="hlist">
+    <li><a href="https://arxiv.org/abs/1611.07862">ASPLOS ‘17 Preprint</a></li>
+    <li><a href="https://browsix.org/">Webpage</a></li>
+    <li><a href="https://github.com/plasma-umass/browsix">Source Code</a></li>
   </ul>
 </blockquote>
 
@@ -309,6 +309,7 @@ I also worked with archive employees to integrate the file system appropriately,
 <h1 id="professional-activities">Professional Activities</h1>
 
 <ul class="simplelist">
+  <li><strong>External Review Committee Member</strong>, PLDI 2017.</li>
   <li><strong>External Review Committee Member</strong>, PLDI 2016.
     <ul>
       <li>As a member of the ERC, I was an expert reviewer on a small number of papers.</li>
