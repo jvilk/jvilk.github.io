@@ -236,7 +236,7 @@ to the Console, which is a REPL. All modern browsers have this feature. There, y
 
 <h2 id="event-driven-execution">Event-driven Execution</h2>
 
-<p>In most traditional programming languages, a program begins and ends in a single function (e.g., <code>main()</code>). If you pause the application at a debugger breakpoint, you can see a stack trace leading back to this main entrypoint.</p>
+<p>In most traditional imperative programming languages, a program begins and ends in a single function (e.g., <code>main()</code>). If you pause the application at a debugger breakpoint, you can see a stack trace leading back to this main entrypoint.</p>
 
 <p>JavaScript programs are not like this; instead, they are entirely <em>event-driven</em>. When a JavaScript library loads on a webpage, it subscribes to events it is interested in via <em>event handlers</em>. The browser triggers the relevant handler(s) when an event happens.</p>
 
@@ -263,7 +263,9 @@ to the Console, which is a REPL. All modern browsers have this feature. There, y
 
 <p><a href="/images/pl-club-examples/button.html" target="_blank"><i>Run this code</i></a></p>
 
-<p>In JavaScript, <em>everything</em> is event-driven. You cannot opt out. At the same time, JavaScript execution blocks the UI from updating or receiving user input. As a result, a long-running event can <em>crash the browser tab</em>.</p>
+<p>In JavaScript, <em>everything</em> is event-driven. You cannot opt out.
+At the same time, JavaScript execution blocks the UI from updating or receiving user input.
+As a result, a long-running event can <em>crash the browser tab</em>.</p>
 
 <p>For example, the following code will crash your browser tab. You cannot click the button on the page. The browser will ask you if you want to kill the tab:</p>
 
