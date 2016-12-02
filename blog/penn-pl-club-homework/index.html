@@ -1,0 +1,460 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Penn PL Club Homework: Making the Browser Reasonable for Sane Programmers &#8211; John Vilk</title>
+<meta name="description" content="I am giving a talk at the University of Pennsylvania’s PL Club next week,
+and was given the opportunity to assign a bit of homework to the audience.
+This blog post contains the content of that homework.
+
+">
+<meta name="keywords" content="">
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="Penn PL Club Homework: Making the Browser Reasonable for Sane Programmers">
+<meta name="twitter:description" content="I am giving a talk at the University of Pennsylvania’s PL Club next week,
+and was given the opportunity to assign a bit of homework to the audience.
+This blog post contains the content of that homework.
+
+">
+<meta name="twitter:site" content="@johnwvilk">
+<meta name="twitter:creator" content="@johnwvilk">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jvilk.com/images/">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Penn PL Club Homework: Making the Browser Reasonable for Sane Programmers">
+<meta property="og:description" content="I am giving a talk at the University of Pennsylvania’s PL Club next week,
+and was given the opportunity to assign a bit of homework to the audience.
+This blog post contains the content of that homework.
+
+">
+<meta property="og:url" content="https://jvilk.com/blog/penn-pl-club-homework/">
+<meta property="og:site_name" content="John Vilk">
+
+
+
+
+
+<link rel="canonical" href="https://jvilk.com/blog/penn-pl-club-homework/">
+<link href="https://jvilk.com/feed.xml" type="application/atom+xml" rel="alternate" title="John Vilk Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://jvilk.com/assets/css/main.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+  <script src="https://jvilk.com/assets/js/vendor/html5shiv.min.js"></script>
+  <script src="https://jvilk.com/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="https://jvilk.com/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="https://jvilk.com/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="https://jvilk.com/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="https://jvilk.com/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://jvilk.com/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://jvilk.com/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jvilk.com/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body id="post">
+
+<header class="masthead">
+	<div class="navigation-wrapper">
+		<div class="site-name">
+			<a href="https://jvilk.com">John Vilk</a>
+		</div>
+		<nav role="navigation" id="site-nav">
+		    <ul>
+	      
+			    
+			    <li><a href="https://jvilk.com/" >About</a></li>
+			  
+			    
+			    <li><a href="https://jvilk.com/blog/" >Blog</a></li>
+			  
+			    
+			    <li><a href="https://jvilk.com/contact/" >Contact</a></li>
+			  
+	        
+		    </ul>
+		</nav>
+	</div>
+</header><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+
+
+<div class="js-menu-screen menu-screen"></div>
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"></span>
+        
+          <h1 class="entry-title">Penn PL Club Homework: Making the Browser Reasonable for Sane Programmers</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        
+        
+          <img src="https://jvilk.com/images/bio-photo-3.jpg" class="bio-photo" alt="John Vilk bio photo"></a>
+        
+        <span class="author vcard">By <span class="fn">John Vilk</span></span>
+        <span class="entry-date date published"><time datetime="2016-12-02T02:00:00-05:00"><i class="fa fa-calendar-o"></i> December 02, 2016</time></span>
+        
+        
+        
+        
+      </footer>
+      <div class="entry-content">
+        <p><em>I am giving a talk at the <a href="https://www.cis.upenn.edu/~plclub/">University of Pennsylvania’s PL Club</a> next week,
+and was given the opportunity to assign a bit of homework to the audience.
+This blog post contains the content of that homework.</em></p>
+
+<p>It’s hard to write web applications. In order to understand the utility of my research, it’s important to understand <em>why</em> this is so.</p>
+
+<p>Before my talk, I’d like you to run, tinker with, and think about some of the JavaScript code snippets below.</p>
+
+<h2 id="basic-javascript">Basic JavaScript</h2>
+
+<p><em>For this section, I recommend you <a href="https://nodejs.org/en/">install NodeJS</a> and enter the REPL to follow along!</em></p>
+
+<p>JavaScript is a high-level and dynamically typed programming language. When you write a web application, it must be written in or compile down to JavaScript.</p>
+
+<p>It has some odd behavior due to implicit conversions:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">[]</span> <span class="o">+</span> <span class="p">[]</span> <span class="c1">// = &quot;&quot; (empty string)</span>
+<span class="p">[]</span> <span class="o">+</span> <span class="p">{}</span> <span class="c1">// = the string &quot;[object Object]&quot;</span>
+<span class="s2">&quot;hello&quot;</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1">// = the string &quot;hello1&quot;</span>
+<span class="s2">&quot;hello&quot;</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1">// = NaN (not a number)</span></code></pre></figure>
+
+<p>There are two equality operators: <code>==</code> performs implicit conversions, <code>===</code> does not.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;3&#39;</span> <span class="o">==</span> <span class="mi">3</span> <span class="c1">// true; implicitly converts 3 to &#39;3&#39;</span>
+<span class="s1">&#39;3&#39;</span> <span class="o">===</span> <span class="mi">3</span> <span class="c1">// false</span>
+<span class="mi">3</span> <span class="o">===</span> <span class="mi">3</span> <span class="c1">// true</span></code></pre></figure>
+
+<p>Objects are essentially maps from strings to properties, and you can define new properties at any time:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">someObject</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// number</span>
+  <span class="nx">foo</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="c1">// array</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+  <span class="nx">baz</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span>
+<span class="p">};</span>
+<span class="nx">someObject</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span> <span class="c1">// 3</span>
+<span class="nx">someObject</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">];</span> <span class="c1">// 3</span>
+<span class="nx">someObject</span><span class="p">.</span><span class="nx">newProperty</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">;</span> <span class="c1">// Creates a new object property</span></code></pre></figure>
+
+<p>Objects can inherit properties from a prototype object:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">someObject</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">someObjectPrototype</span> <span class="o">=</span>  <span class="p">{</span>
+  <span class="nx">foo</span><span class="o">:</span> <span class="mi">3</span>
+<span class="p">};</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">setPrototypeOf</span><span class="p">(</span><span class="nx">someObject</span><span class="p">,</span> <span class="nx">someObjectPrototype</span><span class="p">);</span>
+<span class="c1">// Inherited field from prototype</span>
+<span class="nx">someObject</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span> <span class="c1">// 3</span>
+<span class="c1">// Creates field foo on someObject, distinct from prototype&#39;s</span>
+<span class="c1">// foo field!</span>
+<span class="nx">someObject</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="nx">someObject</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span> <span class="c1">// 4</span>
+<span class="nx">someObjectPrototype</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span> <span class="c1">// 3</span></code></pre></figure>
+
+<p>Arrays are objects, too:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">];</span>
+
+<span class="c1">// You can add properties to arrays, like objects.</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">newProperty</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="k">typeof</span><span class="p">(</span><span class="nx">arr</span><span class="p">);</span> <span class="c1">// &quot;object&quot;</span></code></pre></figure>
+
+<p>JavaScript has a loose definition of object types. To define a <code>Dog</code> class, you define a function called <code>Dog</code> and call it with <code>new</code>. The result is an object that identifies as a <code>Dog</code>:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Dog</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// &#39;this&#39; points to the new Dog object you&#39;re constructing.</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">animalType</span> <span class="o">=</span> <span class="s2">&quot;dog&quot;</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">sound</span> <span class="o">=</span> <span class="s2">&quot;woof&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// All Dog objects will have the prototype Dog.prototype,</span>
+<span class="c1">// and thus will have the function getSound().</span>
+<span class="nx">Dog</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getSound</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">sound</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">charles</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dog</span><span class="p">(</span><span class="s1">&#39;Charles&#39;</span><span class="p">);</span>
+<span class="nx">charles</span><span class="p">.</span><span class="nx">getSound</span><span class="p">();</span> <span class="c1">// &#39;woof&#39;</span>
+<span class="nx">charles</span> <span class="k">instanceof</span> <span class="nx">Dog</span><span class="p">;</span> <span class="c1">// true</span>
+<span class="nx">charles</span> <span class="k">instanceof</span> <span class="nb">Object</span><span class="p">;</span> <span class="c1">//true</span></code></pre></figure>
+
+<p>We can muck with <code>Dog</code> later to confuse <code>instanceof</code>, though:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Change Dog&#39;s prototype object.</span>
+<span class="nx">Dog</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">;</span>
+<span class="c1">// charles&#39;s prototype object is no longer</span>
+<span class="c1">// equal to Dog.prototype, so instanceof returns</span>
+<span class="c1">// false.</span>
+<span class="nx">charles</span> <span class="k">instanceof</span> <span class="nx">Dog</span><span class="p">;</span> <span class="c1">// false</span></code></pre></figure>
+
+<p>This is just a small taste of the many oddities of JavaScript. Due to its dynamism, it is very easy to introduce bugs into your code.</p>
+
+<h2 id="event-driven-execution">Event-driven Execution</h2>
+
+<p>In most traditional programming languages, a program begins and ends in a single function (e.g., <code>main()</code>). If you pause the application at a debugger breakpoint, you can see a stack trace leading back to this main entrypoint.</p>
+
+<p>JavaScript programs are not like this; instead, they are entirely <em>event-driven</em>. When a JavaScript library loads on a webpage, it subscribes to events it is interested in via <em>event handlers</em>. The browser triggers the relevant handler(s) when an event happens.</p>
+
+<p>Browser APIs expose functionality via events wherever possible: user input, network requests, timers, storage interfaces, etc.</p>
+
+<p>For example, the following code subscribes to clicks on a button, and lets the user know if they clicked the button after 5 seconds:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">buttons</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
+<span class="c1">// Assumption: There&#39;s only one button on the page.</span>
+<span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nx">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="c1">// Check if user clicked button after 5 seconds</span>
+<span class="c1">// via a timer event.</span>
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">clicked</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;You clicked the button! :D&quot;</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;You didn&#39;t click the button. :(&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="mi">5000</span><span class="p">);</span></code></pre></figure>
+
+<p><a href="/images/pl-club-examples/button.html" target="_blank"><i>Run this code</i></a></p>
+
+<p>In JavaScript, <em>everything</em> is event-driven. You cannot opt out. At the same time, JavaScript execution blocks the UI from updating or receiving user input. As a result, a long-running event can <em>crash the browser tab</em>.</p>
+
+<p>For example, the following code will crash your browser tab. You cannot click the button on the page. The browser will ask you if you want to kill the tab:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+<span class="c1">// Wrap in timer so button displays before</span>
+<span class="c1">// we crash the tab.</span>
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Infinite loop. :D</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;button&gt;</span>Try to click me. You can&#39;t.<span class="nt">&lt;/button&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<p><a href="/images/pl-club-examples/crash.html" target="_blank"><i>Run this code (WARNING: crashes tab!)</i></a></p>
+
+<p>Web developers need to consciously avoid this problem. If an application needs to process a large amount of data (or do something else that is CPU intensive), it needs to space processing across multiple events to keep the webpage responsive.</p>
+
+<h2 id="events-and-debugging">Events and Debugging</h2>
+
+<p>Events have many implications for debugging. If you pause the application at a debugger breakpoint, you will see a stack trace that leads back to the start of the current event, but you won’t see the set of events that preceded it.</p>
+
+<p>In the following contrived example, the breakpoint in <code>bar</code> will let you example a stack trace back to <code>foo</code>, but will not say anything about <code>baz</code> and its timer:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// If you have developer tools open, the debugger statement triggers a breakpoint.</span>
+    <span class="kr">debugger</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Error occurred!&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">baz</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">error</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Run baz after 50 milliseconds</span>
+<span class="nx">setTimeout</span><span class="p">(</span><span class="nx">baz</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+<span class="c1">// Run foo after 5 seconds.</span>
+<span class="nx">setTimeout</span><span class="p">(</span><span class="nx">foo</span><span class="p">,</span> <span class="mi">5000</span><span class="p">);</span></code></pre></figure>
+
+<p><a href="/images/pl-club-examples/events-debugging.html" target="_blank"><i>Try running <code>events-debugging.html</code> in Chrome</i></a><em>, and <a href="https://developers.google.com/web/tools/chrome-devtools/shortcuts#accessing_devtools">open developer tools</a> before the error alert occurs. It will open the debugger at the debugger statement.</em></p>
+
+<p>Events make it difficult to determine the origin of a bug. In this example, the “bug” occurs because <code>baz</code> sets <code>error</code> to true. In an actual application, bugs may manifest many events in the future from the source of the bug.</p>
+
+<p>If the bug is hard to reproduce, a developer will spend much of their time reproducing the bug and testing hypotheses by setting breakpoints in various locations (or by liberally inserting <code>console.log</code> statements in the code).</p>
+
+<h2 id="race-conditions">Race Conditions</h2>
+
+<p>JavaScript is single-threaded, but it is not without races. <a href="https://dl.acm.org/citation.cfm?id=2254095">Previous work has discussed some of these races in-depth.</a></p>
+
+<p>There are two primary sources of races in JavaScript: those caused by event scheduling, and those caused by browser components executing in parallel with JavaScript execution. The latter are more subtle, and are not discussed by existing work on web application race detection.</p>
+
+<h3 id="event-scheduling">Event Scheduling</h3>
+
+<p>If you have ever programmed with asynchronous I/O, then you may be aware that you cannot rely on the order in which multiple outstanding I/O operations complete. Similarly, you cannot rely on a JavaScript program to execute events in the same order for every execution.</p>
+
+<p>As an example, the following code will display the content of <code>data</code> when the user clicks the button. However, <code>data</code> isn’t initialized until the timer fires, so if the user clicks the button prematurely, the webpage will display the message “undefined”:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">data</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">data</span> <span class="o">=</span> <span class="s2">&quot;Welcome to this website!&quot;</span><span class="p">;</span>
+<span class="p">},</span> <span class="mi">2000</span><span class="p">);</span></code></pre></figure>
+
+<p><a href="/images/pl-club-examples/event-race.html" target="_blank"><i>Run this code</i></a></p>
+
+<p>The above example is contrived to keep these code snippets short, but these types of races are a common source of bugs!</p>
+
+<p>Event scheduling-related races can be hard to find in more complicated web applications, and may only trigger in exceptional circumstances (e.g., a server is under heavy load, delaying requests).</p>
+
+<h3 id="browser-components">Browser Components</h3>
+
+<p>While JavaScript is single threaded, the web browser is <em>not</em>. Browsers attempt to parallelize what they can, and can update state that is visible to JavaScript in <em>parallel</em> with JavaScript execution. As a result, JavaScript code can race with other components in the browser.</p>
+
+<p>To make the problem concrete, suppose that a web page uses CSS to make a <code>div</code> element periodically change its color. Further suppose that JavaScript code wishes to query its color:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+<span class="k">@keyframes</span> <span class="nt">color_change</span> <span class="p">{</span>
+  <span class="nt">from</span> <span class="p">{</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span> <span class="p">}</span>
+  <span class="nt">to</span> <span class="p">{</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="nf">#picker</span> <span class="p">{</span> <span class="n">animation</span><span class="o">:</span> <span class="n">color_change</span> <span class="m">5s</span> <span class="n">infinite</span> <span class="n">alternate</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;picker&quot;</span><span class="nt">&gt;</span>
+  Picker
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+<span class="c1">// Checks if element e has a blue background.</span>
+<span class="kd">function</span> <span class="nx">isBlue</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">color</span> <span class="o">=</span> <span class="nx">getComputedStyle</span><span class="p">(</span><span class="nx">e</span><span class="p">).</span><span class="nx">backgroundColor</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">color</span> <span class="o">===</span> <span class="s1">&#39;rgb(0, 0, 255)&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;picker&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">isBlue</span><span class="p">(</span><span class="nx">div</span><span class="p">))</span> <span class="p">{</span>
+  <span class="c1">// do something</span>
+<span class="p">}</span>
+
+<span class="c1">// Observe that the animation continues when the program</span>
+<span class="c1">// is paused at this breakpoint!</span>
+<span class="kr">debugger</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">isBlue</span><span class="p">(</span><span class="nx">div</span><span class="p">))</span> <span class="p">{</span>
+  <span class="c1">// do something</span>
+<span class="p">}</span>
+
+<span class="nt">&lt;/script&gt;</span></code></pre></figure>
+
+<p><a href="/images/pl-club-examples/component-race.html" target="_blank"><i>Run this code</i></a></p>
+
+<p>One might assume that if <code>isBlue(div)</code> returns true the first time that it would also return true the second time. However, this is not true. The <code>color_change</code> animation occurs in parallel with JavaScript, so <code>backgroundColor</code> changes while the script executes!</p>
+
+<p>In addition to animations, network events can happen in parallel with JavaScript execution. For example, the <code>height</code> and <code>width</code> properties on an image are 0 until the image loads, and an image can load while JavaScript executes.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>After reading through this document and trying some of the code samples, I hope you understand some of the challenges involved in writing and debugging web applications. Keep these challenges in mind during my talk.</p>
+
+<p>If any of the examples or explanations are unclear or if you have questions, <a href="http://jvilk.com/contact/">feel free to contact me</a>.</p>
+
+<p>Thanks for reading!</p>
+
+        
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="https://jvilk.com/blog/java-8-specification-bug/" class="btn" title="Java 8 Specification Bug: Default Interface Method Resolution">&lt; Previous Post: Java 8 Specification Bug: Default Interface Method Resolution</a>
+      
+      
+    </nav><!-- /.pagination -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo" class="entry-wrapper">
+    
+
+<span>&copy; 2016 John Vilk. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using a modified version of the <a href="http://mademistakes.com/so-simple/" rel="nofollow">So Simple Theme</a>.</span>
+<div class="social-icons">
+	<a href="http://twitter.com/johnwvilk" title="John Vilk on Twitter" target="_blank"><i class="fa fa-twitter-square fa-2x"></i></a>
+	
+	
+	
+	
+	
+	
+	<a href="http://github.com/jvilk" title="John Vilk on Github" target="_blank"><i class="fa fa-github-square fa-2x"></i></a>
+	
+  <a href="https://jvilk.com/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss-square fa-2x"></i></a>
+</div><!-- /.social-icons -->
+
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="https://jvilk.com/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="https://jvilk.com/assets/js/scripts.min.js"></script>
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-33494293-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+</body>
+</html>
