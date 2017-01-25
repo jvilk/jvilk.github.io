@@ -212,6 +212,41 @@ To that end, my research interests include debugging, software performance, oper
 <p>Occasionally, I find the time to work on some fun side projects.</p>
 
 <blockquote class="project">
+  <p><strong>MakeTypes: TypeScript Types from JSON Examples</strong></p>
+
+  <p>MakeTypes lets developers typecheck code that interacts with JSON services
+by generating TypeScript types from JSON examples. MakeTypes can also optionally
+perform <em>runtime type checking</em> to enforce these types at runtime, guarding code
+against unexpected service responses.</p>
+
+  <p>MakeTypes uses the Common Preferred Shape Relation from <a href="https://dl.acm.org/citation.cfm?id=2908115">this PLDI paper</a>.</p>
+
+  <ul class="hlist">
+    <li><a href="https://jvilk.com/MakeTypes">Demo</a></li>
+    <li><a href="https://www.npmjs.com/package/maketypes">NPM Module</a></li>
+    <li><a href="https://github.com/jvilk/maketypes">Source Code</a></li>
+  </ul>
+</blockquote>
+
+<blockquote class="project">
+  <p><strong>TypeScript Generator for Dropbox’s Stone</strong></p>
+
+  <p>Stone is a language-agnostic specification language for APIs. Stone’s generators can generate
+SDKs for a variety of languages from a Stone specification, including JavaScript.</p>
+
+  <p>I mapped <a href="https://github.com/dropbox/stone/pull/14">Stone’s types onto TypeScript’s type system</a>,
+and implemented a Stone generator that produces TypeScript definition files for its JavaScript
+generator.</p>
+
+  <p>This generator will <a href="https://github.com/dropbox/dropbox-sdk-js/pull/96">eventually provide TypeScript types for the Dropbox JavaScript SDK.</a></p>
+
+  <ul class="hlist">
+    <li><a href="https://github.com/dropbox/stone">Source Code</a></li>
+    <li><a href="https://github.com/dropbox/stone/pull/14">Mapping from Stone’s types to TypeScript’s type system</a></li>
+  </ul>
+</blockquote>
+
+<blockquote class="project">
   <p><strong>MS-DOS Collection at the Internet Archive</strong></p>
 
   <p>The <a href="https://archive.org/details/softwarelibrary_msdos_games/v2">MS-DOS Collection</a> at the <a href="https://archive.org/">Internet Archive</a> relies on <a href="https://github.com/jvilk/browserfs">Doppio’s file system</a> to make a large collection of DOS games playable in the browser.
@@ -363,7 +398,7 @@ I also worked with archive employees to integrate the file system appropriately,
   <footer role="contentinfo" class="entry-wrapper">
     
 
-<span>&copy; 2016 John Vilk. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using a modified version of the <a href="http://mademistakes.com/so-simple/" rel="nofollow">So Simple Theme</a>.</span>
+<span>&copy; 2017 John Vilk. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> using a modified version of the <a href="http://mademistakes.com/so-simple/" rel="nofollow">So Simple Theme</a>.</span>
 <div class="social-icons">
 	<a href="http://twitter.com/johnwvilk" title="John Vilk on Twitter" target="_blank"><i class="fa fa-twitter-square fa-2x"></i></a>
 	
