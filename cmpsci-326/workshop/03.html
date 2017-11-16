@@ -9,9 +9,9 @@
   <title>COMPSCI 326 Web Programming</title>
   <meta name="description" content="Spring 2017 Web Programming">
 
-  <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/workshop/03">
-  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+  <link rel="stylesheet" href="/cmpsci-326/assets/main.css">
+  <link rel="canonical" href="/cmpsci-326/workshop/03">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/cmpsci-326/feed.xml">
 
   <!-- adds support for reading time -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -37,7 +37,7 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+    <a class="site-title" href="/cmpsci-326/">COMPSCI 326 Web Programming</a>
 
     <nav class="site-nav">
       <span class="menu-icon">
@@ -196,7 +196,7 @@ github page next to “<strong>Unwatch</strong>” and “<strong>Star</strong>�
 contains the version of Bootstrap we will be using (v3.3.6) and a
 basic script that runs a local web server:</p>
 
-<p><img src="/workshops/images/fork.png" alt="Forking the Workshop" /></p>
+<p><img src="/cmpsci-326/workshops/images/fork.png" alt="Forking the Workshop" /></p>
 
 <p>Clone the repository into your <strong>class folder</strong>, <code class="highlighter-rouge">cd</code>, into it, and
 run the following command to install a basic web server:</p>
@@ -220,7 +220,7 @@ open port 8080 on the network. Most firewalls will ask you immediately.</em></p>
 
 <p>Navigate your web browser to <a href="http://localhost:8080/">http://localhost:8080/</a>, which should look something like this:</p>
 
-<p><img src="/workshops/images/server-listing.png" alt="Server Listing" /></p>
+<p><img src="/cmpsci-326/workshops/images/server-listing.png" alt="Server Listing" /></p>
 
 <p><strong>Keep that console window open for the entirety of the workshop.</strong> When you close that window, the web server stops! Open a second console window and navigate to the workshop git repository directory so you can run other commands while the server runs.</p>
 
@@ -282,7 +282,7 @@ following HTML into it:</p>
 <p>Navigate to http://localhost:8080/helloworld.html, and you should see the
 following:</p>
 
-<p><img src="/workshops/images/hello_bootstrap.png" alt="Hello Bootstrap" /></p>
+<p><img src="/cmpsci-326/workshops/images/hello_bootstrap.png" alt="Hello Bootstrap" /></p>
 
 <p><strong>Add <code class="highlighter-rouge">helloworld.html</code> to Git, commit it, and push to GitHub</strong></p>
 
@@ -379,7 +379,7 @@ browsers.</p>
 will recreate Facebook’s desktop interface using HTML, CSS, and Bootstrap.
 Facebook’s desktop interface looks like this:</p>
 
-<p><img src="/workshops/images/facebook.png" alt="Facebook" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook.png" alt="Facebook" /></p>
 
 <p><strong>For grading purposes, we are going to have you write git commits at particular
 points in the workshop with specific messages.</strong> We will look at your website
@@ -440,7 +440,7 @@ contents of one content pane will not impact the others.</p>
 
 <p>To answer my own question, there are five top-level content panes:</p>
 
-<p><img src="/workshops/images/facebook_content_panes.png" alt="Facebook Content Panes" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_content_panes.png" alt="Facebook Content Panes" /></p>
 
 <p>Facebook uses a three-column layout, with a top navigation bar and a chat dock
 in the corner. What we want to do now is create HTML for each of these using
@@ -489,7 +489,7 @@ refresh
 <a href="http://localhost:8080/facebook.html">http://localhost:8080/facebook.html</a>,
 you’ll see a faint gray outline of a navigation bar:</p>
 
-<p><img src="/workshops/images/navbar_outline.png" alt="Navbar Outline" /></p>
+<p><img src="/cmpsci-326/workshops/images/navbar_outline.png" alt="Navbar Outline" /></p>
 
 <p>You may be tempted to fill in the navbar with buttons and such, and figure out
 how to make it Facebook blue… but <em>do not do that just yet</em>. When implementing
@@ -538,7 +538,7 @@ We just need to decide how many columns each cell spans!</p>
 <p>To visualize the solution, here’s the Facebook layout with the Bootstrap
 grid columns overlaid on top:</p>
 
-<p><img src="/workshops/images/facebook_grid.png" alt="Facebook Grid" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_grid.png" alt="Facebook Grid" /></p>
 
 <p><em>Remember: The Bootstrap grid system is always 12 columns wide, each
 column is equal in size, and the columns expand to fill the width of
@@ -575,7 +575,7 @@ Add this just below the navbar:</p>
 
 <p>Now, our Facebook clone looks like the following:</p>
 
-<p><img src="/workshops/images/facebook_clone_macro.png" alt="Facebook Clone" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_macro.png" alt="Facebook Clone" /></p>
 
 <p>Those look like the correct proportions!</p>
 
@@ -640,7 +640,7 @@ but we can reasonably assume that it won’t exceed a certain width.</p>
 <p>The Facebook chat popup itself is ~300 pixels wide, which gives the content
 plenty of room to grow if the person has many friends online:</p>
 
-<p><img src="/workshops/images/facebook_chat_menu.png" alt="Facebook Chat Menu" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_chat_menu.png" alt="Facebook Chat Menu" /></p>
 
 <p>With that discussion out of the way, we’re going to add a <code class="highlighter-rouge">div</code> element for the
 chat menu to the HTML. Before we can do that, however, we need to add a CSS
@@ -703,7 +703,7 @@ containing the grid:</p>
 <p>Navigate to http://localhost:8080/facebook.html, and you should see the
 following:</p>
 
-<p><img src="/workshops/images/facebook_clone_chat_menu.png" alt="Facebook Clone Chat Menu" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_chat_menu.png" alt="Facebook Clone Chat Menu" /></p>
 
 <p>That looks about right!</p>
 
@@ -749,7 +749,7 @@ to
 <a href="http://localhost:8080/facebook.html">http://localhost:8080/facebook.html</a> and
 try scrolling… and…  you’ll discover there are some problems:</p>
 
-<p><img src="/workshops/images/facebook_clone_scroll_issue.png" alt="Facebook Lone Scroll Issue" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_scroll_issue.png" alt="Facebook Lone Scroll Issue" /></p>
 
 <p>The chat menu and navigation bar should stay “attached” to the browser window
 as you scroll, but they don’t. Why is that?</p>
@@ -765,7 +765,7 @@ Weird, right?)</p>
 to the user’s current view of the webpage. Fix the CSS for the <code class="highlighter-rouge">chat-popup</code>
 class, and reload the page:</p>
 
-<p><img src="/workshops/images/facebook_clone_chat_menu_scroll_fixed.gif" alt="Facebook Clone Chat Menu Scroll Fixed" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_chat_menu_scroll_fixed.gif" alt="Facebook Clone Chat Menu Scroll Fixed" /></p>
 
 <p>Much better!</p>
 
@@ -785,7 +785,7 @@ for you</a>.</p>
 The navigation bar is now docked at the top… but it’s also covering the three
 main columns!</p>
 
-<p><img src="/workshops/images/facebook_clone_navbar_covering.png" alt="Facebook Clone Navbar" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_navbar_covering.png" alt="Facebook Clone Navbar" /></p>
 
 <p>To fix this, we can simply <em>offset</em> the content of the <code class="highlighter-rouge">body</code> by a particular
 pixel amount. Add the following to <code class="highlighter-rouge">facebook.css</code>:</p>
@@ -811,7 +811,7 @@ we can rely on this value remaining constant.</p>
 
 <p>Now, all is well!</p>
 
-<p><img src="/workshops/images/facebook_clone_scrolling_ok.png" alt="Facebook Clone Scrolling" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_scrolling_ok.png" alt="Facebook Clone Scrolling" /></p>
 
 <p><strong><code class="highlighter-rouge">commit</code> your changes with the commit message <code class="highlighter-rouge">fb2</code>, and <code class="highlighter-rouge">push</code> the changes to GitHub.</strong></p>
 
@@ -822,7 +822,7 @@ to flesh out the layout.</p>
 
 <p>Facebook’s navigation bar looks like the following:</p>
 
-<p><img src="/workshops/images/facebook_navbar.png" alt="Facebook Navbar" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_navbar.png" alt="Facebook Navbar" /></p>
 
 <p>Notice that one half of the navigation bar is <em>left-aligned</em> (the logo + search
 box), and the other half is <em>right-aligned</em>, with empty space pooling in the
@@ -974,7 +974,7 @@ did was replace the text of the buttons with different text or a Glyphicon.</p>
 <p>Now if you look at the navbar, it’ll look mostly right… but there’s an issue
 with how the buttons display! They are bunched up toward the top of the screen:</p>
 
-<p><img src="/workshops/images/facebook_clone_button_issue.png" alt="Facebook Clone Button Issue" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_button_issue.png" alt="Facebook Clone Button Issue" /></p>
 
 <p>Ideally, we’d like these to be vertically aligned within the navbar. The
 Bootstrap documentation <a href="http://getbootstrap.com/components/#navbar-buttons">discusses this issue</a>,
@@ -988,7 +988,7 @@ to vertically center them in the navbar.</p>
 <p>Apply this fix to <em>every <code class="highlighter-rouge">button</code> element in the navbar</em> (except for the search
   button – since that’s within a <code class="highlighter-rouge">form</code>!), and the navbar will look as you’d expect:</p>
 
-<p><img src="/workshops/images/facebook_clone_button_fixed.png" alt="Facebook Clone Button Fixed" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_button_fixed.png" alt="Facebook Clone Button Fixed" /></p>
 
 <p>When you get a notification, friend request, or message, Facebook adds a number
 beside the appropriate button in the navigation bar. Bootstrap supports this
@@ -1032,7 +1032,7 @@ doesn’t do anything! Why is this?</p>
 is ignoring our <code class="highlighter-rouge">width</code> setting, since it is set already in the Bootstrap
 class <code class="highlighter-rouge">form-control</code>:</p>
 
-<p><img src="/workshops/images/facebook_search_size_increase_fail.png" alt="Facebook Search Size Failure" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_search_size_increase_fail.png" alt="Facebook Search Size Failure" /></p>
 
 <p>We can tell the web browser to make <code class="highlighter-rouge">fb-search</code>’s <code class="highlighter-rouge">width</code> setting override
 <code class="highlighter-rouge">form-control</code>’s by marking it <code class="highlighter-rouge">!important</code>. Using <code class="highlighter-rouge">!important</code> is
@@ -1050,7 +1050,7 @@ to change its behavior for this one case.</p>
 
 <p>Now, your navigation bar should look like the following:</p>
 
-<p><img src="/workshops/images/facebook_clone_navbar_badges.png" alt="Facebook Clone Navbar Badges" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_navbar_badges.png" alt="Facebook Clone Navbar Badges" /></p>
 
 <p>The navbar is now complete! Later, we’ll revisit the navbar to make it look more
 like Facebook.</p>

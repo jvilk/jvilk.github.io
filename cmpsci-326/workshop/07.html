@@ -9,9 +9,9 @@
   <title>COMPSCI 326 Web Programming</title>
   <meta name="description" content="Spring 2017 Web Programming">
 
-  <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/workshop/07">
-  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+  <link rel="stylesheet" href="/cmpsci-326/assets/main.css">
+  <link rel="canonical" href="/cmpsci-326/workshop/07">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/cmpsci-326/feed.xml">
 
   <!-- adds support for reading time -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -37,7 +37,7 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+    <a class="site-title" href="/cmpsci-326/">COMPSCI 326 Web Programming</a>
 
     <nav class="site-nav">
       <span class="menu-icon">
@@ -125,9 +125,9 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>This workshop continues from where <a href="/workshop/06">Workshop 06</a> left off. You
+<p>This workshop continues from where <a href="/cmpsci-326/workshop/06">Workshop 06</a> left off. You
 do not need to clone a new repository you simply begin in the
-repository you used for <a href="/workshop/06">Workshop 06</a>.</p>
+repository you used for <a href="/cmpsci-326/workshop/06">Workshop 06</a>.</p>
 
 <h1 id="step-04-moving-data-into-a-mock-database--server">Step 04: Moving Data into a Mock Database &amp; Server</h1>
 
@@ -193,7 +193,7 @@ simple example.</p>
 
 <p>In an ER diagram, we represent that relationship like this:</p>
 
-<p><img src="/workshops/images/facebook_entity_example_1.png" alt="" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_entity_example_1.png" alt="" /></p>
 
 <p><em>Note: In an ER diagram, you use <code class="highlighter-rouge">n</code> to denote an arbitrary number.</em></p>
 
@@ -209,7 +209,7 @@ on Facebook, a <em>FeedItem</em> could be a <em>StatusUpdate</em>, <em>Advertise
 and more.
 We can represent this relationship as a <em>IsA</em> relationship:</p>
 
-<p><img src="/workshops/images/facebook_entity_example_2.png" alt="" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_entity_example_2.png" alt="" /></p>
 
 <p>We won’t be adding support for non-<em>StatusUpdate</em> <em>FeedItem</em> types in this workshop,
 but we’ll design the <em>FeedItem</em> so that more types of items can be added in the future.</p>
@@ -219,7 +219,7 @@ user of Facebook has a separate Feed, but multiple users can see the same <em>Fe
 
 <p>With <em>Has</em> and <em>IsA</em> relationships, we can create an ER diagram for all of the data in our Facebook clone:</p>
 
-<p><img src="/workshops/images/facebook_entity_diagram.png" alt="" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_entity_diagram.png" alt="" /></p>
 
 <p>Take a moment to think about the diagram. Do all of the relationships make sense
 to you?</p>
@@ -307,7 +307,7 @@ appropriate. For a CommentThread and its Comments, an embedding is most appropri
 <p>Let’s apply our rules to our ER diagram. <strong>Red</strong> relationships illustrate <em>references</em>, and
 <strong>yellow</strong> relationships illustrate <em>embeddings</em>:</p>
 
-<p><img src="/workshops/images/facebook_entity_diagram_labeled.png" alt="" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_entity_diagram_labeled.png" alt="" /></p>
 
 <p>With that diagram in mind, we can create JSON object collections for each
 grouping of entities. We will need collections of <em>users</em>, <em>feeds</em>, and <em>feedItems</em>.

@@ -9,9 +9,9 @@
   <title>COMPSCI 326 Web Programming</title>
   <meta name="description" content="Spring 2017 Web Programming">
 
-  <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/workshop/09">
-  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+  <link rel="stylesheet" href="/cmpsci-326/assets/main.css">
+  <link rel="canonical" href="/cmpsci-326/workshop/09">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/cmpsci-326/feed.xml">
 
   <!-- adds support for reading time -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -37,7 +37,7 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+    <a class="site-title" href="/cmpsci-326/">COMPSCI 326 Web Programming</a>
 
     <nav class="site-nav">
       <span class="menu-icon">
@@ -613,7 +613,7 @@ $ npm run serve
 
 <p>As a reminder of Facebook’s entities, here is the Facebook ER diagram:</p>
 
-<p><img src="/workshops/images/facebook_entity_diagram_labeled.png" alt="Facebook Entity Diagram" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_entity_diagram_labeled.png" alt="Facebook Entity Diagram" /></p>
 
 <p>Here are some general rules on how to map the labeled ER diagram to HTTP resources:</p>
 
@@ -923,7 +923,7 @@ I'm Bar!
 
 <p>It will take a short bit before the interface pops up properly. Eventually, you’ll see the following:</p>
 
-<p><img src="/workshops/images/node-inspector.png" alt="node-inspector" /></p>
+<p><img src="/cmpsci-326/workshops/images/node-inspector.png" alt="node-inspector" /></p>
 
 <p>Node Inspector has created a <em>breakpoint</em> on your program’s first line, and so your program is paused at the first line of <code class="highlighter-rouge">helloworld.js</code>. Notice that your program looks a <em>little</em> different; it’s wrapped in a <code class="highlighter-rouge">function()</code>. Node Inspector is showing you a bit of Node.JS’s internal details; you can disregard this difference, as it doesn’t impact how the program runs!</p>
 
@@ -931,17 +931,17 @@ I'm Bar!
 
 <p>Click on <code class="highlighter-rouge">util.js</code> in the <code class="highlighter-rouge">Sources</code> pane, and click on line number 2 to place a breakpoint on <code class="highlighter-rouge">var reversed = "";</code> (it will be a blue mark):</p>
 
-<p><img src="/workshops/images/ni-breakpoint.png" alt="breakpoint" /></p>
+<p><img src="/cmpsci-326/workshops/images/ni-breakpoint.png" alt="breakpoint" /></p>
 
 <p>This will cause the program to pause when it runs <code class="highlighter-rouge">reverseString()</code>.</p>
 
 <p>Then, click the “Resume Script Execution” button (which looks like a ‘Play’ button) to tell the program to resume running. It should immediately pause on your new breakpoint:</p>
 
-<p><img src="/workshops/images/ni-rs-breakpoint.png" alt="breakpoint" /></p>
+<p><img src="/cmpsci-326/workshops/images/ni-rs-breakpoint.png" alt="breakpoint" /></p>
 
 <p>Before proceeding, let’s look at some of the stuff in the right pane of Node Inspector. This is where Node Inspector / Chrome’s Development Tools shows your program’s current state:</p>
 
-<p><img src="/workshops/images/ni-rightpane.png" alt="right pane" /></p>
+<p><img src="/cmpsci-326/workshops/images/ni-rightpane.png" alt="right pane" /></p>
 
 <p><strong>Call Stack</strong>: Displays the <a href="https://en.wikipedia.org/wiki/Call_stack">Call Stack</a> of your paused program. In other words, it displays the trail of functions that called this function, along with their source location. If you click on any, Node-Inspector will take you to the line of the function that triggered the next in the stack.</p>
 
@@ -953,7 +953,7 @@ I'm Bar!
 
 <p>Now, <strong>click on “Step Over” once</strong>, which is to the right of the resume button. This will cause the program to run the currently selected line (<code class="highlighter-rouge">reversed = ""</code>), and pause at the next line (the <code class="highlighter-rouge">for</code> loop).</p>
 
-<p><img src="/workshops/images/StepOver.png" alt="stepover" /></p>
+<p><img src="/cmpsci-326/workshops/images/StepOver.png" alt="stepover" /></p>
 
 <p>If you click on <code class="highlighter-rouge">reverseString</code> in “Call Stack” and look at “Stack Variables”, you’ll see that <code class="highlighter-rouge">reversed</code> is now set to <code class="highlighter-rouge">""</code>. Great!</p>
 
@@ -965,13 +965,13 @@ I'm Bar!
 
 <p>Make sure <code class="highlighter-rouge">reverseString</code> is still selected in “Call Stack”, and click on the “Show Drawer” button in the upper-right corner to show the console (if it’s not already there!):</p>
 
-<p><img src="/workshops/images/ni-show-drawer.png" alt="show drawer" /></p>
+<p><img src="/cmpsci-326/workshops/images/ni-show-drawer.png" alt="show drawer" /></p>
 
 <p><em>Note: When it turns blue like the screenshot, the console is open.</em></p>
 
 <p>In the console, you can write JavaScript expressions that use the variables in the currently selected function in “Call Stack”! If you type <code class="highlighter-rouge">reversed</code> and hit enter, it will print the value of <code class="highlighter-rouge">reversed</code>:</p>
 
-<p><img src="/workshops/images/ni-console.png" alt="console" /></p>
+<p><img src="/cmpsci-326/workshops/images/ni-console.png" alt="console" /></p>
 
 <p>Type <code class="highlighter-rouge">str[str.length - i]</code> into the console, and hit “Enter”…. and you’ll discover the problem. Since <code class="highlighter-rouge">i</code> is 0, we accessed <code class="highlighter-rouge">str[str.length]</code>. Since strings are 0-indexed, you access the first character at index 0, second at index 1, etc. Thus, the <em>last index</em> of a string is actually at <code class="highlighter-rouge">str.length - 1</code>.</p>
 
@@ -1028,11 +1028,11 @@ Example app listening on port 3000!
 
 <p>Postman may look a little intimidating at first, but its core functionality is in a simple form at the center:</p>
 
-<p><img src="/workshops/images/postman-interface.png" alt="postman interface" /></p>
+<p><img src="/cmpsci-326/workshops/images/postman-interface.png" alt="postman interface" /></p>
 
 <p>Type <code class="highlighter-rouge">http://localhost:3000</code> into the “Request URL” box, keep the verb at GET, and click “Send”. Postman will display the response below your request:</p>
 
-<p><img src="/workshops/images/postman-response.png" alt="postman response" /></p>
+<p><img src="/cmpsci-326/workshops/images/postman-response.png" alt="postman response" /></p>
 
 <p>If you click on “Headers”, you can see all of the metadata that your Express server sent along with the response. You can also see the response code in the upper right corner (in blue, next to “Status”).</p>
 
@@ -1149,7 +1149,7 @@ invalid request message framing, or deceptive request routing)</p>
 
 <p>Open up Postman, and tell it to <code class="highlighter-rouge">POST http://localhost:3000/reverse</code> with some text. You can edit the Body of the response by clicking on the “Body” section just below the URL entry box:</p>
 
-<p><img src="/workshops/images/postman-body.png" alt="postman body" /></p>
+<p><img src="/cmpsci-326/workshops/images/postman-body.png" alt="postman body" /></p>
 
 <p>With “body” selected, click on “raw” to tell Postman that you’re editing the raw contents of the body (it defaults to <code class="highlighter-rouge">form-data</code>, which auto-formats the body like <a href="https://en.wikipedia.org/wiki/MIME#Form-Data">an oldschool HTML form submission</a>). Enter a string, then hit SEND.</p>
 
@@ -1410,7 +1410,7 @@ on the object with the HTTP verb and target URL.</p>
 
 <p>How do you know that it’s working, though? If you open up Chrome Devtools, click on the ‘Network’ tab, and refresh the page, you should see <code class="highlighter-rouge">feed</code> in the entry of the list of Network Requests:</p>
 
-<p><img src="/workshops/images/devtools-network-feed.png" alt="devtools network feed" /></p>
+<p><img src="/cmpsci-326/workshops/images/devtools-network-feed.png" alt="devtools network feed" /></p>
 
 <p>If you do not see <code class="highlighter-rouge">feed</code> there, Chrome may be using a cached version of your Facebook mockup. Check the “Disable cache” checkbox on the network tab, and reload the page. That should fix the issue. Note that the “Disable cache” option is only active when you have Chrome’s development tools open.</p>
 

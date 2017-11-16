@@ -9,9 +9,9 @@
   <title>COMPSCI 326 Web Programming</title>
   <meta name="description" content="Spring 2017 Web Programming">
 
-  <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/workshop/05">
-  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+  <link rel="stylesheet" href="/cmpsci-326/assets/main.css">
+  <link rel="canonical" href="/cmpsci-326/workshop/05">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/cmpsci-326/feed.xml">
 
   <!-- adds support for reading time -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -37,7 +37,7 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+    <a class="site-title" href="/cmpsci-326/">COMPSCI 326 Web Programming</a>
 
     <nav class="site-nav">
       <span class="menu-icon">
@@ -122,19 +122,19 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>This workshop continues from where <a href="/workshop/04">Workshop 04</a> left off. You
+<p>This workshop continues from where <a href="/cmpsci-326/workshop/04">Workshop 04</a> left off. You
 do not need to clone a new repository you simply begin in the
-repository you used for <a href="/workshop/04">Workshop 04</a>.</p>
+repository you used for <a href="/cmpsci-326/workshop/04">Workshop 04</a>.</p>
 
 <h2 id="step-07-the-feed">Step 07: The Feed</h2>
 
 <p>The feed contains a status update entry form at the top, like this:</p>
 
-<p><img src="/workshops/images/facebook_status_update_entry.png" alt="Facebook Status Update Entry" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_status_update_entry.png" alt="Facebook Status Update Entry" /></p>
 
 <p>…and a list of Facebook status updates following, like this:</p>
 
-<p><img src="/workshops/images/facebook_vaguebook_msg.png" alt="Facebook Status Update" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_vaguebook_msg.png" alt="Facebook Status Update" /></p>
 
 <p>Notice how everything in the main feed is surrounded by a border. Bootstrap
 provides a <a href="http://getbootstrap.com/components/#panels">panel component</a>
@@ -164,7 +164,7 @@ main feed without using a grid.</p>
 
 <p>The main feed will now look like this:</p>
 
-<p><img src="/workshops/images/facebook_clone_main_feed_skeleton.png" alt="Facebook Clone Main Feed Skeleton" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_main_feed_skeleton.png" alt="Facebook Clone Main Feed Skeleton" /></p>
 
 <p>The top of the status update entry has three buttons (Update Status, Add
 Photos/Video, and Create Photo Album), and only one is active at once.
@@ -260,7 +260,7 @@ pulled right. Add the following just after the media object:</p>
 
 <p>The status update entry will now look like this:</p>
 
-<p><img src="/workshops/images/facebook_clone_status_update_1.png" alt="Facebook Clone Status Update" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_status_update_1.png" alt="Facebook Clone Status Update" /></p>
 
 <p>The little triangle in the corner of the <code class="highlighter-rouge">textarea</code> lets the user resize the
 textarea, which is not something we want. We can solve this with CSS. The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/resize"><code class="highlighter-rouge">resize</code> CSS property</a>
@@ -291,11 +291,11 @@ status update entry. Now we can use CSS to solve our problems:</p>
 
 <p>The status update entry form is now complete!</p>
 
-<p><img src="/workshops/images/facebook_clone_status_update_2.png" alt="Facebook Clone Status Update" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_status_update_2.png" alt="Facebook Clone Status Update" /></p>
 
 <p>A status update itself has a more complicated structure:</p>
 
-<p><img src="/workshops/images/facebook_vaguebook_msg.png" alt="Facebook Clone Status Update" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_vaguebook_msg.png" alt="Facebook Clone Status Update" /></p>
 
 <p>We can reuse many of the Bootstrap components we’ve already described
 earlier.</p>
@@ -430,9 +430,9 @@ which you should place after the <code class="highlighter-rouge">panel-body</cod
   <li>between the “Like” count and the comments</li>
 </ol>
 
-<p><img src="/workshops/images/facebook_clone_main_status_update_1.png" alt="Facebook Main Status" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_main_status_update_1.png" alt="Facebook Main Status" /></p>
 
-<p><img src="/workshops/images/facebook_vaguebook_msg.png" alt="Facebook Vague Message" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_vaguebook_msg.png" alt="Facebook Vague Message" /></p>
 
 <p>We could accomplish this with a border, but an even easier solution is to use
 two <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr"><code class="highlighter-rouge">hr</code> elements</a>.</p>
@@ -444,7 +444,7 @@ the like count, and the <code class="highlighter-rouge">media-list</code>.</p>
 
 <p>Your status update should now look like this:</p>
 
-<p><img src="/workshops/images/facebook_clone_status_update_hr.png" alt="Facebook Clone Status Update" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_status_update_hr.png" alt="Facebook Clone Status Update" /></p>
 
 <p>The size of the <code class="highlighter-rouge">hr</code> elements is spot-on, but the color is too light and it
 adds too much whitespace. We can customize this behavior using CSS.</p>
@@ -464,7 +464,7 @@ update, and then add the following CSS rule:</p>
 
 <p>The borders now look much better:</p>
 
-<p><img src="/workshops/images/facebook_clone_status_update_hr_fixed.png" alt="Facebook Clone Status Update Fixed" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_status_update_hr_fixed.png" alt="Facebook Clone Status Update Fixed" /></p>
 
 <p>Now, there’s too much whitespace between the Like/Comment/Share links and
 the Like counter. If you use Chrome’s <em>Inspect</em> tool, you’ll see that
@@ -485,7 +485,7 @@ padding on the <code class="highlighter-rouge">panel-body</code> class.</p>
 
 <p>Now, the status update looks great!</p>
 
-<p><img src="/workshops/images/facebook_clone_status_update_done.png" alt="Facebook Clone Status Update" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_status_update_done.png" alt="Facebook Clone Status Update" /></p>
 
 <p>We could mock up several different types of Facebook posts (e.g. pictures,
 videos, events…), but this workshop is already getting a bit long.
@@ -498,9 +498,9 @@ GitHub`.</strong></p>
 
 <p>Your Facebook looks kindof like Facebook, but the colors are quite different:</p>
 
-<p><img src="/workshops/images/facebook_clone_no_style.png" alt="Facebook no style" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_no_style.png" alt="Facebook no style" /></p>
 
-<p><img src="/workshops/images/facebook.png" alt="Facebook" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook.png" alt="Facebook" /></p>
 
 <p>We can improve upon this with a few CSS changes.</p>
 
@@ -578,9 +578,9 @@ sidebar, then add the following CSS rules:</p>
 
 <p>Now, things are getting closer:</p>
 
-<p><img src="/workshops/images/facebook_clone_background.png" alt="facebook clone background" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_background.png" alt="facebook clone background" /></p>
 
-<p><img src="/workshops/images/facebook.png" alt="facebook" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook.png" alt="facebook" /></p>
 
 <p>Notice how most of the links on Facebook have a dark blue color, and have bolded
 text. We can recreate that on our webpage with a single CSS rule!</p>
@@ -602,13 +602,13 @@ on the page, and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:visi
 
 <p>What’s next?</p>
 
-<p><img src="/workshops/images/facebook_clone_link_fix.png" alt="Facebook Clone Link Fix" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_link_fix.png" alt="Facebook Clone Link Fix" /></p>
 
 <p>How about making the navbar blue and changing the style of its buttons?
 Facebook buttons are a dark blue, unless they contain a badge indicating
 pending notifications:</p>
 
-<p><img src="/workshops/images/facebook_navbar_buttons.png" alt="Facebook Navbar Buttons" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_navbar_buttons.png" alt="Facebook Navbar Buttons" /></p>
 
 <p>Recall that we added badges to some of our navbar buttons with the following
 code:</p>
@@ -738,13 +738,13 @@ the navbar <code class="highlighter-rouge">button</code>s we have with badges, a
 
 <p>Now your navbar should look <em>very</em> Facebook-ey:</p>
 
-<p><img src="/workshops/images/facebook_clone_navbar_done.png" alt="Facebook Clone Navbar Final" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_navbar_done.png" alt="Facebook Clone Navbar Final" /></p>
 
 <p>The left sidebar looks very different from Facebook’s:</p>
 
-<p><img src="/workshops/images/facebook_clone_left_sidebar_2.png" alt="facebook clone left sidebar" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_left_sidebar_2.png" alt="facebook clone left sidebar" /></p>
 
-<p><img src="/workshops/images/facebook_left_sidebar.png" alt="facebook left sidebar" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_left_sidebar.png" alt="facebook left sidebar" /></p>
 
 <p>First, add the <code class="highlighter-rouge">pull-right</code> class to the <code class="highlighter-rouge">badge</code>s beside “Messages” and “Saved”.
 That will make those badges appear on the right-hand-side of the listing. Then,
@@ -833,15 +833,15 @@ background.</li>
 
 <p>The left sidebar looks much more like Facebook’s now:</p>
 
-<p><img src="/workshops/images/facebook_clone_left_sidebar_3.png" alt="Facebook Clone Left Sidebar" />
-<img src="/workshops/images/facebook_left_sidebar.png" alt="Facebook Left Sidebar" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_left_sidebar_3.png" alt="Facebook Clone Left Sidebar" />
+<img src="/cmpsci-326/workshops/images/facebook_left_sidebar.png" alt="Facebook Left Sidebar" /></p>
 
 <p>We could go on to apply similar changes to the main feed, but we’ll stop
 here; you probably get the idea by now.</p>
 
 <p>Your Facebook clone should now look like this:</p>
 
-<p><img src="/workshops/images/facebook_clone_final.png" alt="Facebook Clone Final" /></p>
+<p><img src="/cmpsci-326/workshops/images/facebook_clone_final.png" alt="Facebook Clone Final" /></p>
 
 <p><strong><code class="highlighter-rouge">commit</code> your changes with commit message <code class="highlighter-rouge">fb8</code> and <code class="highlighter-rouge">push</code> them to GitHub.</strong></p>
 

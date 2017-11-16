@@ -9,9 +9,9 @@
   <title>COMPSCI 326 Web Programming</title>
   <meta name="description" content="Spring 2017 Web Programming">
 
-  <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/workshop/02">
-  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+  <link rel="stylesheet" href="/cmpsci-326/assets/main.css">
+  <link rel="canonical" href="/cmpsci-326/workshop/02">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/cmpsci-326/feed.xml">
 
   <!-- adds support for reading time -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -37,7 +37,7 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+    <a class="site-title" href="/cmpsci-326/">COMPSCI 326 Web Programming</a>
 
     <nav class="site-nav">
       <span class="menu-icon">
@@ -207,15 +207,15 @@ the <a href="https://github.com/umass-cs-326/Workshop2">GitHub repository for Wo
 “Fork” button, it is on the upper right-hand part of the github page
 next to “Unwatch” and “Star”:</p>
 
-<p><img src="/workshops/images/fork-workshop-02.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/fork-workshop-02.png" width="100%" /></p>
 
 <p>After you click on the “Fork” button you will be asked “Where should we fork this repository”:</p>
 
-<p><img src="/workshops/images/where-fork-workshop-02.png" width="50%" /></p>
+<p><img src="/cmpsci-326/workshops/images/where-fork-workshop-02.png" width="50%" /></p>
 
 <p>You should click on the location that matches your GitHub username. After you do so you will need to wait for GitHub to fork this repository to your own GitHub user account. You will see something like this:</p>
 
-<p><img src="/workshops/images/forking-wait-workshop-02.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/forking-wait-workshop-02.png" width="100%" /></p>
 
 <p>After a few seconds, it will show you the same repository that now resides under your own GitHub user account. You essentially copied it to your own account and can now proceed to work on it by following the instructions in the rest of this workshop. This repository should be public. It is fine if others who are doing the same workshop can see your work - the commits you will do below ensure that you do your own work.</p>
 
@@ -267,7 +267,7 @@ repository clone in this folder.</p>
 <p>Open up the repository folder in Atom Editor, select <code class="highlighter-rouge">README.md</code>, change the
 text inside, and save your changes.</p>
 
-<p><img src="/workshops/images/text_change.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/text_change.png" width="100%" /></p>
 
 <p><em>(We won’t award any extra credit for nice comments, even if they are true.)</em></p>
 
@@ -292,7 +292,7 @@ you would have to tell Git which files to include in the commit – e.g.
 All of your commit messages are included in your repository, so <a href="http://www.commitlogsfromlastnight.com">don’t type
 anything you’d regret</a>.</p>
 
-<p><img src="/workshops/images/commit_msg.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/commit_msg.png" width="100%" /></p>
 
 <p>When you have finished typing a commit message, save the file, and close Atom.
 Back on the command line, Git will report that your commit succeeded:</p>
@@ -324,7 +324,7 @@ Date:   Tue Dec 29 16:35:25 2015 -0500
 <p>If you look at your repository at GitHub.com, you’ll notice that <code class="highlighter-rouge">README.md</code>
 doesn’t contain your changes!</p>
 
-<p><img src="/workshops/images/new_repo.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/new_repo.png" width="100%" /></p>
 
 <p><em>That’s the old README! What gives?</em></p>
 
@@ -360,16 +360,16 @@ To https://github.com/umass-cs-326/workshop-1-git-CS326Student.git
 
 <p>Now, your README changes are visible on GitHub.com:</p>
 
-<p><img src="/workshops/images/readme_edit_push.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/readme_edit_push.png" width="100%" /></p>
 
 <p>If you click on the <em>3 commits</em> text above the file listing, GitHub will
 show you a neat listing of repository commits:</p>
 
-<p><img src="/workshops/images/commit_log.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/commit_log.png" width="100%" /></p>
 
 <p>Clicking on each will show a <code class="highlighter-rouge">diff</code> of the changes you made:</p>
 
-<p><img src="/workshops/images/commit_diff.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/commit_diff.png" width="100%" /></p>
 
 <p>In general, you should always <code class="highlighter-rouge">push</code> your changes immediately after you <code class="highlighter-rouge">commit</code>
 them, especially on group projects!</p>
@@ -380,7 +380,7 @@ them, especially on group projects!</p>
 and put some text into it. (In the Atom Editor, you can create new files by
   right clicking on the left file listing, and clicking “New File”.)</p>
 
-<p><img src="/workshops/images/data_contents.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/data_contents.png" width="100%" /></p>
 
 <p>If you run <code class="highlighter-rouge">git commit -a</code>, Git will tell you that nothing has changed…
 and that <code class="highlighter-rouge">data.txt</code> is an <em>untracked</em> file:</p>
@@ -404,7 +404,7 @@ GitHub.com.</p>
 Run <code class="highlighter-rouge">git commit -a</code> to actually commit the new file, then run <code class="highlighter-rouge">git push</code> to send
 the changes off to GitHub. You should see the new commit at GitHub.com:</p>
 
-<p><img src="/workshops/images/turtles.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/turtles.png" width="100%" /></p>
 
 <h1 id="step-06-move-a-file">Step 06: Move a File</h1>
 
@@ -738,7 +738,7 @@ back in time and change history. It’s quite powerful.</p>
 <p>If you look at your commit listing on GitHub, you’ll notice that <code class="highlighter-rouge">password.txt</code>
 was added in the following commit:</p>
 
-<p><img src="/workshops/images/bad_commit.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/bad_commit.png" width="100%" /></p>
 
 <p><code class="highlighter-rouge">9e1bd06a447f86d7dae56c61ccad00b51021c9b6</code> is the hash of this commit. We can
 tell Git that we want to edit history starting at this commit using the
@@ -763,7 +763,7 @@ Git will <code class="highlighter-rouge">pick</code> every commit, which re-appl
 <p>We need to change the commit that added the password. Tell Git that we want to
 edit the commit <code class="highlighter-rouge">9e1bd06</code>:</p>
 
-<p><img src="/workshops/images/git_rebase.png" /></p>
+<p><img src="/cmpsci-326/workshops/images/git_rebase.png" /></p>
 
 <p>Save the file, and close Atom Editor. You’ll see the following in your terminal:</p>
 
@@ -875,15 +875,15 @@ To https://github.com/GITHUB-USERNAME/Workshop2
 <p><strong>Check your commit history on GitHub to double check that everything looks OK.</strong>
 You should have 9 commits that look something like the following:</p>
 
-<p><img src="/workshops/images/git_commits_post_rebase.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/git_commits_post_rebase.png" width="100%" /></p>
 
 <p>You should also verify that <code class="highlighter-rouge">password.txt</code> is no longer in the file listing:</p>
 
-<p><img src="/workshops/images/no_password.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/no_password.png" width="100%" /></p>
 
 <p>… and that the original password commit is now empty:</p>
 
-<p><img src="/workshops/images/empty_commit.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/empty_commit.png" width="100%" /></p>
 
 <p>If anything looks amiss, return to your second workshop clone, perform a
 <code class="highlighter-rouge">git push -f</code> to force push the repository’s contents prior to the rebase,
@@ -913,7 +913,7 @@ push it to GitHub.</p>
 
 <p>Now, your repository should look something like the following:</p>
 
-<p><img src="/workshops/images/no_title_readme.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/no_title_readme.png" width="100%" /></p>
 
 <p>Yuck, that looks worse than before. We should restore the title!</p>
 
@@ -948,12 +948,12 @@ To https://github.com/GITHUB-USERNAME/Workshop2
 
 <p>…and verify that the README title is restored!:</p>
 
-<p><img src="/workshops/images/title_readme.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/title_readme.png" width="100%" /></p>
 
 <p>Also, look at the commit view. Notice that <code class="highlighter-rouge">revert</code> did not remove the old
 commit; it merely added a new one that negated the changes from the old commit:</p>
 
-<p><img src="/workshops/images/revert_commits.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/revert_commits.png" width="100%" /></p>
 
 <h1 id="step-12-add-your-screenshots-to-the-repository">Step 12: Add your screenshots to the repository</h1>
 
@@ -974,7 +974,7 @@ commit; it merely added a new one that negated the changes from the old commit:<
 
 <p>Your GitHub repository should have 12 commits, like these:</p>
 
-<p><img src="/workshops/images/workshop1_commits_final.png" width="100%" /></p>
+<p><img src="/cmpsci-326/workshops/images/workshop1_commits_final.png" width="100%" /></p>
 
 <p>If it does not, you may have missed a step! In that case, you could try rebasing
 your repository back to the step you messed up and try again.</p>

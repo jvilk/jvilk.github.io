@@ -9,9 +9,9 @@
   <title>COMPSCI 326 Web Programming</title>
   <meta name="description" content="Spring 2017 Web Programming">
 
-  <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/workshop/06">
-  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+  <link rel="stylesheet" href="/cmpsci-326/assets/main.css">
+  <link rel="canonical" href="/cmpsci-326/workshop/06">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/cmpsci-326/feed.xml">
 
   <!-- adds support for reading time -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -37,7 +37,7 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+    <a class="site-title" href="/cmpsci-326/">COMPSCI 326 Web Programming</a>
 
     <nav class="site-nav">
       <span class="menu-icon">
@@ -436,7 +436,7 @@ source code in <code class="highlighter-rouge">app/</code>.</p>
 <p>Make sense? If not, maybe things will get clearer as we use React a
 bit more.</p>
 
-<p><img width="50" src="/workshops/images/git.jpg" />
+<p><img width="50" src="/cmpsci-326/workshops/images/git.jpg" />
 <strong><code class="highlighter-rouge">commit</code> your changes with the commit message “ws06 step 01 ugh
 world widget”, and <code class="highlighter-rouge">push</code> your commit to GitHub.</strong></p>
 
@@ -477,7 +477,7 @@ div), and <em>paste</em> it into the <code class="highlighter-rouge">render</cod
 <p>If you installed the recommended Atom packages, you’ll quickly notice an
 error at the bottom of your editor coming from the <code class="highlighter-rouge">eslint</code> package:</p>
 
-<p><img src="/workshops/images/jsx_warning_1.png" alt="" /></p>
+<p><img src="/cmpsci-326/workshops/images/jsx_warning_1.png" alt="" /></p>
 
 <p><em>Adjacent JSX elements must be wrapped in an enclosing tag.</em> In other words,
 <code class="highlighter-rouge">render()</code> needs to return <em>one</em> HTML element, but we’re returning
@@ -489,13 +489,13 @@ any special styling to this <code class="highlighter-rouge">div</code>.</p>
 
 <p>Now, <code class="highlighter-rouge">eslint</code> will warn about another issue:</p>
 
-<p><img src="/workshops/images/jsx_warning_2.png" alt="" /></p>
+<p><img src="/cmpsci-326/workshops/images/jsx_warning_2.png" alt="" /></p>
 
 <p><em>Unexpected token !</em> JSX doesn’t support HTML comment tags (<code class="highlighter-rouge">&lt;!-- --&gt;</code>). Strip all of them out.</p>
 
 <p><code class="highlighter-rouge">eslint</code> is still complaining, though:</p>
 
-<p><img src="/workshops/images/jsx_warning_3.png" alt="" /></p>
+<p><img src="/cmpsci-326/workshops/images/jsx_warning_3.png" alt="" /></p>
 
 <p>In normal HTML, we can have elements like <code class="highlighter-rouge">&lt;hr&gt;</code> and <code class="highlighter-rouge">&lt;br&gt;</code>, which do not have
 closing tags. With React/JSX, however, we have to explicitly close <em>every</em> tag.</p>
@@ -505,7 +505,7 @@ closing tags. With React/JSX, however, we have to explicitly close <em>every</em
 <p>We’re almost done, but <code class="highlighter-rouge">eslint</code> is complaining <em>again</em>. This time, it’s spitting
 out an error on nearly every line of the file:</p>
 
-<p><img src="/workshops/images/jsx_warning_4.png" alt="" /></p>
+<p><img src="/cmpsci-326/workshops/images/jsx_warning_4.png" alt="" /></p>
 
 <p>This time, <code class="highlighter-rouge">eslint</code> objects to us using the <code class="highlighter-rouge">class</code> property on HTML elements,
 and urges us to use the <code class="highlighter-rouge">className</code> property itself. This seems erroneous,
@@ -529,13 +529,13 @@ do this automatically using the “Replace All” feature of Atom; click on “F
 the Atom menubar, click on “Find in buffer…”, and fill out the fields at the
 bottom of the editor screen:</p>
 
-<p><img src="/workshops/images/atom_replace_all.png" alt="" /></p>
+<p><img src="/cmpsci-326/workshops/images/atom_replace_all.png" alt="" /></p>
 
 <p>Once you click “Replace All”, all of the warnings should go away! And when you
 go to <code class="highlighter-rouge">http://localhost:8080/</code>, you should see the Facebook feed, as it looked
 like in the static mockup.</p>
 
-<p><img width="50" src="/workshops/images/git.jpg" />
+<p><img width="50" src="/cmpsci-326/workshops/images/git.jpg" />
 <strong><code class="highlighter-rouge">commit</code> your changes with the message “ws06 step 02 facebook feed”
 and <code class="highlighter-rouge">push</code> the commit to GitHub.</strong></p>
 
@@ -1096,9 +1096,9 @@ mockup looks the same as ever.</p>
 and open the Chrome Development Tools to the “React” tab, you’ll see all of the
 components you’ve defined!</p>
 
-<p><img src="/workshops/images/react_dev_tools_1.png" alt="" /></p>
+<p><img src="/cmpsci-326/workshops/images/react_dev_tools_1.png" alt="" /></p>
 
-<p><img width="50" src="/workshops/images/git.jpg" />
+<p><img width="50" src="/cmpsci-326/workshops/images/git.jpg" />
 <strong><code class="highlighter-rouge">add</code> all of the files in <code class="highlighter-rouge">components</code>, <code class="highlighter-rouge">commit</code> with message “ws06
 step 03 breaking the feed apart into subcomponents”, <code class="highlighter-rouge">push</code> to
 GitHub</strong></p>
