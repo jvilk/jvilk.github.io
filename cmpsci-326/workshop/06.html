@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/workshop/06">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    
+<h1 class="no_toc" id="workshop-06-javascript-static-react-and-facebook">Workshop 06: JavaScript, Static React, and Facebook</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#step-00-install-helpful-programs--acquire-your-repository" id="markdown-toc-step-00-install-helpful-programs--acquire-your-repository">Step 00: Install Helpful Programs &amp; Acquire Your Repository</a>    <ul>
+      <li><a href="#helpful-atom-packages" id="markdown-toc-helpful-atom-packages">Helpful Atom Packages</a></li>
+      <li><a href="#react-dev-tools-for-your-browser" id="markdown-toc-react-dev-tools-for-your-browser">React Dev Tools for your Browser</a></li>
+      <li><a href="#acquire-your-repo" id="markdown-toc-acquire-your-repo">Acquire Your Repo</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-01-ugh-world-widget" id="markdown-toc-step-01-ugh-world-widget">Step 01: “Ugh, World” widget</a></li>
+  <li><a href="#step-02-facebook-feed-as-a-static-react-component" id="markdown-toc-step-02-facebook-feed-as-a-static-react-component">Step 02: Facebook Feed as a Static React Component</a></li>
+  <li><a href="#step-03-breaking-the-feed-apart-into-subcomponents" id="markdown-toc-step-03-breaking-the-feed-apart-into-subcomponents">Step 03: Breaking the Feed Apart Into Subcomponents</a>    <ul>
+      <li><a href="#appcomponentscommentjs" id="markdown-toc-appcomponentscommentjs"><code class="highlighter-rouge">app/components/comment.js</code></a></li>
+      <li><a href="#appcomponentscommententryjs" id="markdown-toc-appcomponentscommententryjs"><code class="highlighter-rouge">app/components/commententry.js</code></a></li>
+      <li><a href="#appcomponentscommentthreadjs" id="markdown-toc-appcomponentscommentthreadjs"><code class="highlighter-rouge">app/components/commentthread.js</code></a></li>
+      <li><a href="#appcomponentsstatusupdatejs" id="markdown-toc-appcomponentsstatusupdatejs"><code class="highlighter-rouge">app/components/statusupdate.js</code></a></li>
+      <li><a href="#appcomponentsfeeditemjs" id="markdown-toc-appcomponentsfeeditemjs"><code class="highlighter-rouge">app/components/feeditem.js</code></a></li>
+      <li><a href="#appcomponentsstatusupdateentryjs" id="markdown-toc-appcomponentsstatusupdateentryjs"><code class="highlighter-rouge">app/components/statusupdateentry.js</code></a></li>
+      <li><a href="#appcomponentsfeedjs" id="markdown-toc-appcomponentsfeedjs"><code class="highlighter-rouge">app/components/feed.js</code></a></li>
+      <li><a href="#appappjs" id="markdown-toc-appappjs"><code class="highlighter-rouge">app/app.js</code></a></li>
+      <li><a href="#examine-the-page" id="markdown-toc-examine-the-page">Examine the page</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+  <li><a href="#submission" id="markdown-toc-submission">Submission</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>In the previous workshop, you created a static HTML mockup of
+Facebook’s desktop layout. In this workshop, we will take the <em>first
+step</em> toward making the mockup dynamic and interactive using
+JavaScript and
+the <a href="https://facebook.github.io/react/index.html">React library</a>. In
+the next workshop, we will complete the transition by adding actual
+interaction on top of what we build in this workshop.</p>
+
+<p>Our dynamic mockup will not contain a login page. Instead, it will
+assume that a single user is already logged in, and will only cover a
+small fraction of Facebook’s functionality – namely, posting status
+updates, comments, and using the iconic “Like” button. In a much later
+workshop, we’ll cover adding login support to your Facebook clone.</p>
+
+<p>We are also going to make the following simplifying assumptions to
+make this workshop and the next go a bit faster:</p>
+
+<ul>
+  <li><strong>Comments cannot have comments.</strong> We’ll leave the “Reply” button on
+comments nonfunctional.</li>
+  <li><strong>Comments cannot have Likes.</strong> We’ll leave the “Like” button on
+comments nonfunctional…. until you add it in yourself in the next
+workshop.  Up until that point, we’ll completely ignore that button.</li>
+  <li><strong>Links to other parts of the site are nonfunctional.</strong> By the end
+of this workshop and the next, you’ll know enough to add those in if
+you ever feel like it.</li>
+</ul>
+
+<p>To make the mockup work, we’ll use a
+simple
+<a href="http://stackoverflow.com/questions/2665812/what-is-mocking">stub/mock</a> database
+and a mock server.</p>
+
+<p>With that said, let’s dive in!</p>
+
+<h1 id="step-00-install-helpful-programs--acquire-your-repository">Step 00: Install Helpful Programs &amp; Acquire Your Repository</h1>
+
+<p>Web development can be stressful. Here are some programs and plugins
+that will make your life easier and prevent some of that stress.</p>
+
+<h2 id="helpful-atom-packages">Helpful Atom Packages</h2>
+
+<p>The Atom Editor contains many plugins that will help you during this
+assignment.</p>
+
+<p>You can install the three we recommend with a single terminal command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ apm install react linter-eslint linter-htmlhint
+</code></pre>
+</div>
+
+<p><em>Note: <code class="highlighter-rouge">apm</code> is
+the <a href="https://atom.io/packages">Atom Package Manager</a>. If you have Atom
+open right now, you will need to close and re-open it before these
+plugins take affect</em></p>
+
+<p><em>Note 2: You can also search for and install packages from within Atom
+in the Packages section of Preferences.</em></p>
+
+<p>Here’s what each plugin does:</p>
+
+<ul>
+  <li><strong><code class="highlighter-rouge">react</code></strong>: Provides syntax highlighting support for the React
+language,
+<a href="https://orktes.github.io/atom-react/">among other neat features.</a></li>
+  <li><strong><code class="highlighter-rouge">linter-eslint</code></strong>: A <em>linter</em> for JavaScript and
+React. (<a href="https://en.wikipedia.org/wiki/ECMAScript">For fun historical reasons, JavaScript is formally known as <em>ECMAScript</em></a> –
+hence the ES.) Linters look for common problematic coding patterns
+or errors, and point them out to you. This plugin will save you a
+lot of time debugging.</li>
+  <li><strong><code class="highlighter-rouge">linter-htmlhint</code></strong>: We covered this at the end of
+Workshop 3. It’s a linter for HTML. It does for HTML what ESLint
+does for JavaScript.</li>
+</ul>
+
+<h2 id="react-dev-tools-for-your-browser">React Dev Tools for your Browser</h2>
+
+<p>React provides
+an
+<a href="https://github.com/facebook/react-devtools">extension for many web browsers that adds extra debug support for React applications</a>. We
+recommend adding it to Google Chrome, as it nicely complements that
+browser’s existing development tools.</p>
+
+<h2 id="acquire-your-repo">Acquire Your Repo</h2>
+
+<p>Fork
+the
+<a href="https://github.com/umass-cs-326/Workshop4and5">repository for this workshop</a>. You
+will notice that this repository is called <code class="highlighter-rouge">Workshop4and5</code>. Because
+the workshops for this course are a work in progress our documentation
+and repositories are slightly out of sync. To make sure you do not
+confuse yourself you should clone your forked repository as a
+different name on your local machine:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/USERNAME/Workshop4and5.git Workshop6
+</code></pre>
+</div>
+
+<p><strong>Note: replace USERNAME with your github user name.</strong></p>
+
+<p><strong>You will be using the same repository for the next couple of workshops.</strong></p>
+
+<p>You’ll notice that the repository is <em>eerily similar</em> to the
+repository you’re using for your team project. In fact… it’s
+basically the same repository. :)</p>
+
+<p>Here’s an explanation for each file in the repo:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">.gitignore</code>: Entries in this file
+are <a href="https://git-scm.com/docs/gitignore">ignored by Git</a>.  We’ve
+added entries for automatically generated folders/files that you do
+not want to add to your repository, such as <code class="highlighter-rouge">node_modules</code> and
+<code class="highlighter-rouge">build/js/app.js</code>.</li>
+  <li><code class="highlighter-rouge">.eslintrc</code>: A configuration file for ESLint, which tells the linter
+which problematic behavior to warn about. The <code class="highlighter-rouge">linter-eslint</code>
+package will read this file automatically.
+    <ul>
+      <li><a href="http://eslint.org/docs/user-guide/configuring.html">You can add extra rules to this file if you want to</a>,
+but most of you will want to keep the defaults.</li>
+      <li><a href="https://github.com/yannickcr/eslint-plugin-react">Here are some extra React rules you can choose to enable, too</a>.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">webpack.config.js</code>: This is
+a
+<a href="https://webpack.github.io/docs/configuration.html">webpack configuration script</a>,
+which tells <code class="highlighter-rouge">npm run serve</code> (and <code class="highlighter-rouge">npm run build</code>) how to build your
+project and serve it up over HTTP. You should not need to touch this
+script.</li>
+  <li><code class="highlighter-rouge">app/</code>: This is where you will put the JavaScript/React code for
+your application.</li>
+  <li><code class="highlighter-rouge">app/app.js</code>: The <strong>entrypoint</strong> to your application.
+    <ul>
+      <li>Webpack will pack up all of the JavaScript modules referenced from
+this file into <code class="highlighter-rouge">build/js/app.js</code> when you are running <code class="highlighter-rouge">npm run
+serve</code>. It’ll print out the list of files into the terminal
+running the webserver.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">app/database.js</code>: A simple mock database that we’ll use during this
+workshop.</li>
+  <li><code class="highlighter-rouge">app/server.js</code>: You will define a simple mock server in this file
+during this workshop.</li>
+  <li><code class="highlighter-rouge">build/</code>: This is where you put the HTML, CSS,
+images,
+<a href="https://en.wikipedia.org/wiki/Web_typography#Web_fonts">web fonts</a>,
+and other assets. There’s an <code class="highlighter-rouge">index.html</code> in there currently with
+the Facebook clone we built in Workshop 3.</li>
+  <li><code class="highlighter-rouge">package.json</code>: Contains a list of NPM dependencies that you
+installed with <code class="highlighter-rouge">npm install</code>, and the logic behind the <code class="highlighter-rouge">npm run
+serve</code> command. Do not mess with this file. The graders depend on
+the <code class="highlighter-rouge">npm run serve</code> command working properly.</li>
+</ul>
+
+<p>You probably know the drill by now. <code class="highlighter-rouge">git clone</code> the repository, <code class="highlighter-rouge">cd</code>
+into the directory, and run <code class="highlighter-rouge">npm install</code> to pull in its dependencies.</p>
+
+<p>Once that’s complete, you can run <code class="highlighter-rouge">npm run serve</code>, which does two
+things:</p>
+
+<ul>
+  <li>Starts a webserver at http://localhost:8080/</li>
+  <li>Starts up <a href="https://webpack.github.io/">Webpack</a>, which will
+automatically rebuild <code class="highlighter-rouge">build/js/app.js</code> when your <code class="highlighter-rouge">app</code> folder
+changes
+    <ul>
+      <li>… except that it doesn’t write the result to your disk! Instead,
+it serves it up at <code class="highlighter-rouge">http://localhost:8080/js/app.js</code></li>
+      <li><code class="highlighter-rouge">npm run build</code> will run Webpack without the webserver, and will
+write the file to disk</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="step-01-ugh-world-widget">Step 01: “Ugh, World” widget</h1>
+
+<p>If you haven’t already, run <code class="highlighter-rouge">npm run serve</code> in the workshop’s
+repository directory, and keep it running for the entire
+workshop. Open a web browser to http://localhost:8080/. You should be
+confronted with the Facebook mockup from the last workshop.</p>
+
+<p>Before we implement Facebook’s feed, let’s use React to implement a
+simple “ugh, world” <em>React component</em>, which simply prints the text
+“ugh, world”.  React components can be thought of as templates for
+widgets on the webpage; they contain an HTML skeleton with holes that
+you can fill in with specific data.</p>
+
+<p>Let’s write a simple “Ugh World” component that has no holes – it
+just prints “ugh, world”. Add the following code to <code class="highlighter-rouge">app/app.js</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s1">'react-dom'</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">UghWorld</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">ugh</span><span class="p">,</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">UghWorld</span> <span class="o">/&gt;</span><span class="p">,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'fb-feed'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre>
+</div>
+
+<p><em>Note: If you have dabbled in React before this workshop, you may have
+used something like <code class="highlighter-rouge">React.createClass(...)</code> to define Components. The
+above code is equivalent, and
+cleaner. :)
+<a href="https://facebook.github.io/react/docs/reusable-components.html#es6-classes">Here’s an overview on how to translate old <code class="highlighter-rouge">React.createClass(...)</code> code into new ES6 code</a>.</em></p>
+
+<p>If you refresh <code class="highlighter-rouge">http://localhost:8080/</code>, you’ll notice that the
+Facebook Feed is replaced with a despondent “ugh, world”. Perfect!</p>
+
+<p>If you have used JavaScript before, the above JavaScript may look
+alien to you.  We’re using
+shiny <a href="http://es6-features.org/#Constants">new ECMAScript 6 features</a>,
+which make code more readable, modular, and understandable. The
+Webpack script you are running compiles these features down to
+older-style JavaScript that runs across most web browsers, so you
+benefit from readable code without sacrificing browser compatibility.</p>
+
+<p>Let’s break down the above code, line-by-line:</p>
+
+<ul>
+  <li>On line 1, we <code class="highlighter-rouge">import React from 'react';</code>.
+    <ul>
+      <li><code class="highlighter-rouge">react</code> is an <a href="https://www.npmjs.com/package/react">NPM module</a>
+that you installed to <code class="highlighter-rouge">node_modules/react/</code> when you ran <code class="highlighter-rouge">npm
+install</code>.</li>
+      <li>This statement <em>imports</em> the library into your application so you
+can use it.</li>
+      <li>The library is available for use as the variable <code class="highlighter-rouge">React</code>.</li>
+      <li>This is the library we use to define React components.</li>
+      <li>JavaScript veterans: Here’s an overview
+of
+<a href="http://es6-features.org/#ValueExportImport">the new <code class="highlighter-rouge">import</code> and <code class="highlighter-rouge">export</code> functionality</a>.</li>
+    </ul>
+  </li>
+  <li>On line 2, we do the same thing for <code class="highlighter-rouge">ReactDOM</code>.
+    <ul>
+      <li>This library is used to <em>render</em> React components to the DOM.</li>
+      <li>This is a separate library from <code class="highlighter-rouge">react</code> because React isn’t just
+for web applications – they have libraries to render React
+components as a part of desktop applications, too
+(<a href="https://facebook.github.io/react-native/">ReactNative</a>)</li>
+    </ul>
+  </li>
+  <li>On line 4, we define the <code class="highlighter-rouge">UghWorld</code> component as a <em>class</em> that
+extends <code class="highlighter-rouge">React.Component</code>.
+    <ul>
+      <li>Like in Java, we are declaring <code class="highlighter-rouge">UghWorld</code> as a subclass
+of
+<a href="https://facebook.github.io/react/docs/component-api.html"><code class="highlighter-rouge">React.Component</code></a> –
+so it inherits a number of methods from the component class.</li>
+      <li>JavaScript veterans: Here’s an overview on <a href="http://es6-features.org/#ClassDefinition">ECMAScript classes and inheritance</a>.</li>
+    </ul>
+  </li>
+  <li>On line 5, we define the <code class="highlighter-rouge">render</code> function, which all React
+components require. This function returns the HTML for this
+component.
+    <ul>
+      <li>Normally, you cannot include HTML in JavaScript. We’re actually
+using
+an
+<a href="https://facebook.github.io/react/docs/jsx-in-depth.html">extension to JavaScript called JSX</a>,
+which was developed specifically for React.</li>
+      <li>Unlike Java, there’s no type signatures indicating the types of
+return values or arguments to the <code class="highlighter-rouge">render</code> function. JavaScript
+doesn’t have <em>static types</em> – meaning, you don’t specify the type
+of things at all when you are programming.</li>
+    </ul>
+  </li>
+  <li>Finally, on line 12, we tell <code class="highlighter-rouge">ReactDOM</code> to render a <code class="highlighter-rouge">UghWorld</code>
+component into the <code class="highlighter-rouge">fb-feed</code> element on the webpage. The <code class="highlighter-rouge">fb-feed</code>
+element in the HTML document is called the <strong>mount point</strong>.
+    <ul>
+      <li>ReactDOM will replace the contents of the feed with the element
+returned from <code class="highlighter-rouge">UghWorld</code>’s <code class="highlighter-rouge">render()</code> function.</li>
+      <li>Notice how we refer to <code class="highlighter-rouge">UghWorld</code> using HTML notation. React
+<em>virtualizes</em> the DOM so that you can construct React components
+in the same way that you construct HTML elements. You <em>cannot</em>,
+however, refer to React components in an actual HTML file – you
+can only refer to them within JavaScript files.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>In <code class="highlighter-rouge">build/index.html</code>, we use a <code class="highlighter-rouge">script</code> tag to include the file
+<code class="highlighter-rouge">build/js/app.js</code>, which Webpack generates every time you change the
+source code in <code class="highlighter-rouge">app/</code>.</p>
+
+<p>Make sense? If not, maybe things will get clearer as we use React a
+bit more.</p>
+
+<p><img width="50" src="/workshops/images/git.jpg" />
+<strong><code class="highlighter-rouge">commit</code> your changes with the commit message “ws06 step 01 ugh
+world widget”, and <code class="highlighter-rouge">push</code> your commit to GitHub.</strong></p>
+
+<h1 id="step-02-facebook-feed-as-a-static-react-component">Step 02: Facebook Feed as a Static React Component</h1>
+
+<p>Since we want to make the Facebook feed dynamic, our first step is to
+turn the Facebook feed into a React Component.  Our first aim is
+nothing fancy: We want to create a React component that always returns
+the same HTML that our mockup currently has.</p>
+
+<p><em>Delete</em> your <code class="highlighter-rouge">UghWorld</code> component in <code class="highlighter-rouge">app.js</code>, as we no longer need
+it, and create a new <code class="highlighter-rouge">Feed</code> component in the same manner.  <em>Cut</em> the
+HTML for the feed from <code class="highlighter-rouge">index.html</code> (leaving behind an empty <code class="highlighter-rouge">fb-feed</code>
+div), and <em>paste</em> it into the <code class="highlighter-rouge">render</code> method of the <code class="highlighter-rouge">Feed</code> component.</p>
+
+<p><code class="highlighter-rouge">app.js</code> should now look like the following:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s1">'react-dom'</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">Feed</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="c">&lt;!--</span> <span class="nx">Status</span> <span class="nx">update</span> <span class="nx">entry</span> <span class="o">--&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"fb-status-update-entry panel panel-default"</span><span class="o">&gt;</span>
+      <span class="c">&lt;!--</span> <span class="p">(</span><span class="nx">The</span> <span class="nx">rest</span> <span class="nx">removed</span> <span class="k">for</span> <span class="nx">brevity</span><span class="p">)</span> <span class="o">--&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Feed</span> <span class="o">/&gt;</span><span class="p">,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'fb-feed'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre>
+</div>
+
+<p>If you installed the recommended Atom packages, you’ll quickly notice an
+error at the bottom of your editor coming from the <code class="highlighter-rouge">eslint</code> package:</p>
+
+<p><img src="/workshops/images/jsx_warning_1.png" alt="" /></p>
+
+<p><em>Adjacent JSX elements must be wrapped in an enclosing tag.</em> In other words,
+<code class="highlighter-rouge">render()</code> needs to return <em>one</em> HTML element, but we’re returning
+multiple in sequence.</p>
+
+<p>To fix this, enclose the entire return value of <code class="highlighter-rouge">render()</code> in a single <code class="highlighter-rouge">&lt;div&gt;</code>.
+This will not change what the feed actually looks like, since we are not applying
+any special styling to this <code class="highlighter-rouge">div</code>.</p>
+
+<p>Now, <code class="highlighter-rouge">eslint</code> will warn about another issue:</p>
+
+<p><img src="/workshops/images/jsx_warning_2.png" alt="" /></p>
+
+<p><em>Unexpected token !</em> JSX doesn’t support HTML comment tags (<code class="highlighter-rouge">&lt;!-- --&gt;</code>). Strip all of them out.</p>
+
+<p><code class="highlighter-rouge">eslint</code> is still complaining, though:</p>
+
+<p><img src="/workshops/images/jsx_warning_3.png" alt="" /></p>
+
+<p>In normal HTML, we can have elements like <code class="highlighter-rouge">&lt;hr&gt;</code> and <code class="highlighter-rouge">&lt;br&gt;</code>, which do not have
+closing tags. With React/JSX, however, we have to explicitly close <em>every</em> tag.</p>
+
+<p>Change instances of <code class="highlighter-rouge">&lt;hr&gt;</code> to <code class="highlighter-rouge">&lt;hr /&gt;</code>, <code class="highlighter-rouge">&lt;br&gt;</code> to <code class="highlighter-rouge">&lt;br /&gt;</code>, and <code class="highlighter-rouge">&lt;input ... &gt;</code> to <code class="highlighter-rouge">&lt;input ... /&gt;</code>.</p>
+
+<p>We’re almost done, but <code class="highlighter-rouge">eslint</code> is complaining <em>again</em>. This time, it’s spitting
+out an error on nearly every line of the file:</p>
+
+<p><img src="/workshops/images/jsx_warning_4.png" alt="" /></p>
+
+<p>This time, <code class="highlighter-rouge">eslint</code> objects to us using the <code class="highlighter-rouge">class</code> property on HTML elements,
+and urges us to use the <code class="highlighter-rouge">className</code> property itself. This seems erroneous,
+but it is actually an example of a <a href="https://en.wikipedia.org/wiki/Leaky_abstraction">leaky abstraction</a> –
+this unfortunate restriction is the direct result of how React is implemented.</p>
+
+<p>We mentioned previously that we are using React’s extension to JavaScript called
+JSX, which lets us include HTML snippets in JavaScript. JSX actually <em>compiles</em>
+these HTML snippets into JavaScript. JavaScript has a long list of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords">reserved keywords</a>,
+which you cannot use as identifiers in your program. <code class="highlighter-rouge">class</code> is among these reserved keywords.
+As a result, you can not use any of those reserved identifiers as property names
+in your React HTML snippets.</p>
+
+<p>Since you <em>need</em> to use the <code class="highlighter-rouge">class</code> property to apply CSS styles to HTML elements,
+React lets you set this property via the special <code class="highlighter-rouge">className</code> property. When
+ReactDOM renders your components, it’ll apply the value of <code class="highlighter-rouge">className</code> to the
+<code class="highlighter-rouge">class</code> property of the HTML element.</p>
+
+<p>To fix this issue, replace every instance of <code class="highlighter-rouge">class=</code> with <code class="highlighter-rouge">className=</code>. You can
+do this automatically using the “Replace All” feature of Atom; click on “Find” in
+the Atom menubar, click on “Find in buffer…”, and fill out the fields at the
+bottom of the editor screen:</p>
+
+<p><img src="/workshops/images/atom_replace_all.png" alt="" /></p>
+
+<p>Once you click “Replace All”, all of the warnings should go away! And when you
+go to <code class="highlighter-rouge">http://localhost:8080/</code>, you should see the Facebook feed, as it looked
+like in the static mockup.</p>
+
+<p><img width="50" src="/workshops/images/git.jpg" />
+<strong><code class="highlighter-rouge">commit</code> your changes with the message “ws06 step 02 facebook feed”
+and <code class="highlighter-rouge">push</code> the commit to GitHub.</strong></p>
+
+<h1 id="step-03-breaking-the-feed-apart-into-subcomponents">Step 03: Breaking the Feed Apart Into Subcomponents</h1>
+
+<p>Right now, we have a JavaScript file with a single React component, called <code class="highlighter-rouge">Feed</code>, that produces
+a giant blob of HTML. We should break this component into subcomponents.</p>
+
+<p>Let’s take a step back and think for a moment. What subcomponents should we make?
+Think about it for a moment…. and then read on.</p>
+
+<p>A Facebook feed has a status update entry field, and a sequence of feed items. Each feed item has 1) some type of
+content, which may be a status update, advertisement, event, or something else;
+and 2) a comment thread. A comment thread contains a sequence of comments, followed
+by a comment entry box.</p>
+
+<p>From this thought process, we should define the following React components to
+render the basic feed:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Feed</code></li>
+  <li><code class="highlighter-rouge">StatusUpdateEntry</code></li>
+  <li><code class="highlighter-rouge">FeedItem</code></li>
+  <li><code class="highlighter-rouge">StatusUpdate</code></li>
+  <li><code class="highlighter-rouge">CommentThread</code></li>
+  <li><code class="highlighter-rouge">Comment</code></li>
+  <li><code class="highlighter-rouge">CommentEntry</code></li>
+</ul>
+
+<p>We could define all of these components in a single file, but that
+becomes hard to maintain. Instead, create the folder
+<code class="highlighter-rouge">app/components/</code>, and put seven new JavaScript files into that folder
+– one for each component (<code class="highlighter-rouge">app/components/feed.js</code>,
+<code class="highlighter-rouge">app/components/feeditem.js</code>, <code class="highlighter-rouge">app/components/statusupdate.js</code>…).
+Keep the files empty for now. We’re going to define each together, one
+by one.</p>
+
+<h2 id="appcomponentscommentjs"><code class="highlighter-rouge">app/components/comment.js</code></h2>
+
+<p>To make this workshop simple, we’re going to define these components from
+the bottom up – starting with the smallest, most isolated component: Comments.</p>
+
+<p>Open up <code class="highlighter-rouge">app/components/comment.js</code> in Atom, and paste in the following code:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Comment</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-left media-top"</span><span class="o">&gt;</span>
+          <span class="nx">PIC</span>
+        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-body"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="nx">Someone</span> <span class="nx">Else</span><span class="o">&lt;</span><span class="sr">/a&gt; hope everything is ok</span><span class="err">!
+</span>          <span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="nx">Like</span><span class="o">&lt;</span><span class="sr">/a&gt; · &lt;a href="#"&gt;Reply&lt;/</span><span class="nx">a</span><span class="o">&gt;</span> <span class="err">·</span> <span class="mi">20</span> <span class="nx">hrs</span>
+        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Notice how we have to <code class="highlighter-rouge">import React</code> again. Like with Java classes, every
+JavaScript module has to import the things that it needs.</p>
+
+<p>You may also notice the <code class="highlighter-rouge">export default</code> just before the <code class="highlighter-rouge">class</code> declaration on
+line 3. This statement says: “When some other module imports the <code class="highlighter-rouge">comment</code> module, this is what is imported by default.”
+This will make more sense when we write a module that references the <code class="highlighter-rouge">comment</code>
+module.</p>
+
+<p>In any case, this React component renders a single mockup comment in its
+current form. Let’s change it to be more like a template, where we can use it
+to render any comment.</p>
+
+<p>On normal HTML elements, you can define attributes, like <code class="highlighter-rouge">class</code> and <code class="highlighter-rouge">id</code>, and
+assign values to those elements. Similarly, React components support attributes,
+but calls them <em>props</em> (properties).</p>
+
+<p>In addition, normal HTML elements can have <em>children</em>. In the following example, a <code class="highlighter-rouge">div</code>
+has two children: a <code class="highlighter-rouge">span</code> and a <code class="highlighter-rouge">p</code>:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div&gt;&lt;span&gt;&lt;/span&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>React components support children, too. They can be accessed through the special
+<code class="highlighter-rouge">children</code> prop.</p>
+
+<p>Our comment needs the following properties:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">author</code>: The author of the comment.</li>
+  <li><code class="highlighter-rouge">postDate</code>: The date and time that the post was created.</li>
+  <li>The actual text of the comment – which can be specified as a <em>child</em> of the comment.</li>
+</ul>
+
+<p>You can access named props through the <code class="highlighter-rouge">props</code> property on the component, and use
+them in the template. Like in Java and other languages, the <code class="highlighter-rouge">this</code> variable
+refers to the current object.</p>
+
+<p>Re-define the <code class="highlighter-rouge">render()</code> method so it is more like a template:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Comment</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-left media-top"</span><span class="o">&gt;</span>
+          <span class="nx">PIC</span>
+        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-body"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">author</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/a&gt; {this.props.children</span><span class="err">}
+</span>          <span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="nx">Like</span><span class="o">&lt;</span><span class="sr">/a&gt; · &lt;a href="#"&gt;Reply&lt;/</span><span class="nx">a</span><span class="o">&gt;</span> <span class="err">·</span>
+            <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">postDate</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>When you’re writing HTML in React, you can insert JavaScript statements
+between curly braces. When <code class="highlighter-rouge">render()</code> is run, React runs those JavaScript
+statements, and uses their values in the resulting HTML.</p>
+
+<p>Simply referring to <code class="highlighter-rouge"><span class="p">{</span><span class="err">this.props.children</span><span class="p">}</span></code> will insert all of the children of
+the <code class="highlighter-rouge">Comment</code> in place.</p>
+
+<p>Later on, when we describe how to create a status update in React, we can use the
+following HTML in React to re-create the comment that we just replaced with a template:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;Comment</span> <span class="na">author=</span><span class="s">"Someone Else"</span> <span class="na">postDate=</span><span class="s">"20 hrs"</span><span class="nt">&gt;</span>
+  hope everything is ok!<span class="nt">&lt;/Comment&gt;</span>
+</code></pre>
+</div>
+
+<p>Note that <code class="highlighter-rouge">props</code> are <strong>read only</strong>. A component should <em>never</em> modify its own <code class="highlighter-rouge">props</code>. They
+should only be set using the HTML syntax.</p>
+
+<h2 id="appcomponentscommententryjs"><code class="highlighter-rouge">app/components/commententry.js</code></h2>
+
+<p>Since we’re not yet adding interactivity to our mockup, the comment entry is nothing special.
+Re-use the static HTML from the mockup. We’ll revisit this component later to
+handle text entry.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">CommentEntry</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-left media-top"</span><span class="o">&gt;</span>
+          <span class="nx">PIC</span>
+        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-body"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"input-group"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"form-control"</span>
+                   <span class="nx">placeholder</span><span class="o">=</span><span class="s2">"Write a comment..."</span> <span class="o">/&gt;</span>
+            <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"input-group-btn"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-camera"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-heart"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="appcomponentscommentthreadjs"><code class="highlighter-rouge">app/components/commentthread.js</code></h2>
+
+<p>Next, let’s define the <code class="highlighter-rouge">CommentThread</code> component. A <code class="highlighter-rouge">CommentThread</code> displays a
+list of <code class="highlighter-rouge">Comment</code>s. It is most natural to define <code class="highlighter-rouge">CommentThread</code> such that
+you can nest <code class="highlighter-rouge">Comments</code> as children, e.g.:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;CommentThread&gt;</span>
+  <span class="nt">&lt;Comment</span> <span class="na">author=</span><span class="s">"Someone Else"</span> <span class="na">postDate=</span><span class="s">"20 hrs"</span><span class="nt">&gt;</span>
+    hope everything is ok!<span class="nt">&lt;/Comment&gt;</span>
+  ...
+<span class="nt">&lt;/CommentThread&gt;</span>
+</code></pre>
+</div>
+
+<p>So far, we know how to insert all of the children into a template all at once –
+simply insert <code class="highlighter-rouge"><span class="p">{</span><span class="err">this.props.children</span><span class="p">}</span></code>. A <code class="highlighter-rouge">CommentThread</code> needs to enclose each
+child comment into a list item (<code class="highlighter-rouge">li</code>) tag, so we need to <em>iterate</em> over the
+comment thread’s children and translate them into list items.</p>
+
+<p>React has a special function for doing just that for the <code class="highlighter-rouge">children</code> property:
+<a href="https://facebook.github.io/react/docs/top-level-api.html#react.children"><code class="highlighter-rouge">React.Children.map</code></a>.
+A [map function](https://en.wikipedia.org/wiki/Map_(higher-order_function) performs an
+operation on every element of an array, and assembles the result into a new array.
+For example, given the array <code class="highlighter-rouge">[0,1,2,3]</code> and the function <code class="highlighter-rouge">f(x) { return x + 1 ; }</code>,
+applying the <code class="highlighter-rouge">map</code> function to the array and <code class="highlighter-rouge">f</code> would yield the array <code class="highlighter-rouge">[1,2,3,4]</code>.</p>
+
+<p><em>Note: JavaScript has <code class="highlighter-rouge">map</code> defined for regular JavaScript arrays, but the <code class="highlighter-rouge">children</code> property is a bit special. You should always use <code class="highlighter-rouge">React.Children.map</code> to iterate over a React component’s children.</em></p>
+
+<p><em>Note 2: It’s special because <a href="https://facebook.github.io/react/tips/children-props-type.html"><code class="highlighter-rouge">children</code> is either an only child or an array of children</a>, so simply calling <code class="highlighter-rouge">this.props.children.map</code> will not work if there are multiple children. React does this for performance – it avoids creating an array in the only child case.</em></p>
+
+<p>With this in mind, we can define the <code class="highlighter-rouge">CommentThread</code> in the following manner:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">CommentThread</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-list"</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">React</span><span class="p">.</span><span class="nx">Children</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">child</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media"</span><span class="o">&gt;</span>
+              <span class="p">{</span><span class="nx">child</span><span class="p">}</span>
+            <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>          <span class="p">)</span>
+        <span class="p">})}</span>
+      <span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Here, the <code class="highlighter-rouge">map</code> function takes a <code class="highlighter-rouge">child</code>, and returns the <code class="highlighter-rouge">child</code> wrapped in a
+list item (<code class="highlighter-rouge">li</code>).</p>
+
+<p>We’re almost done! The <code class="highlighter-rouge">CommentThread</code> ends in a <code class="highlighter-rouge">CommentEntry</code> component, which
+lets the user enter a comment. Since <code class="highlighter-rouge">CommentEntry</code> is defined in a separate
+JavaScript module, we need to import it.</p>
+
+<p>You may be tempted to write <code class="highlighter-rouge">import CommentEntry from 'commententry';</code>, but <strong>that would be incorrect</strong>.
+You <em>actually</em> need to write <code class="highlighter-rouge">import CommentEntry from './commententry';</code>. The <code class="highlighter-rouge">./</code> is key:
+the module system needs to know the path to <code class="highlighter-rouge">commententry.js</code>, relative to <code class="highlighter-rouge">commentthread.js</code>.
+Modules without prefixes, like <code class="highlighter-rouge">react</code> or <code class="highlighter-rouge">react-dom</code>, are found in the <code class="highlighter-rouge">node_modules</code> folder.
+This is a confusing subtlety, but that’s software!</p>
+
+<p><em>Note: While Windows normally uses the ‘' character as a path separator, you must always use Unix-style path separators (‘/’) when specifying paths to modules – even when programming on Windows.</em></p>
+
+<p>Our final <code class="highlighter-rouge">CommentThread</code> looks like this:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">CommentEntry</span> <span class="nx">from</span> <span class="s1">'./commententry'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">CommentThread</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-list"</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">React</span><span class="p">.</span><span class="nx">Children</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">child</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media"</span><span class="o">&gt;</span>
+              <span class="p">{</span><span class="nx">child</span><span class="p">}</span>
+            <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>          <span class="p">)</span>
+        <span class="p">})}</span>
+        <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">CommentEntry</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Since <code class="highlighter-rouge">CommentThread</code> constructs a <code class="highlighter-rouge">CommentEntry</code> in its <code class="highlighter-rouge">render</code> function, it is
+said to be the <strong>owner</strong> of <code class="highlighter-rouge">CommentEntry</code>.</p>
+
+<h2 id="appcomponentsstatusupdatejs"><code class="highlighter-rouge">app/components/statusupdate.js</code></h2>
+
+<p>By now, you may be getting the hang of React. Let’s create a basic
+<code class="highlighter-rouge">StatusUpdate</code> component, using the contents of our static mockup. It consists
+of two Bootstrap <code class="highlighter-rouge">row</code>s, so we will need to unify them under a single <code class="highlighter-rouge">&lt;div&gt;</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">StatusUpdate</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"row"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-10"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-left media-top"</span><span class="o">&gt;</span>
+                <span class="nx">PIC</span>
+              <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-body"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="nx">Someone</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;</span> <span class="nx">Yesterday</span> <span class="nx">at</span> <span class="mi">3</span><span class="err">:</span><span class="mi">48</span><span class="nx">pm</span> <span class="err">·</span> <span class="nx">Austin</span><span class="p">,</span> <span class="nx">TX</span> <span class="err">·</span> <span class="o">&lt;</span><span class="nx">span</span>
+                  <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-user"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-2"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"caret pull-right"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"row"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-12"</span><span class="o">&gt;</span>
+            <span class="nx">ugh</span><span class="p">.</span>
+          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>What information goes into a Status Update? The above status update has the following
+information:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">author</code>: Someone</li>
+  <li><code class="highlighter-rouge">postDate</code>: Yesterday at 3:48PM</li>
+  <li><code class="highlighter-rouge">location</code>: Austin, TX</li>
+  <li>Contents: ugh.</li>
+</ul>
+
+<p>These translate into the React Component properties we need. The contents can be specified
+as a child of the status update. Let’s rejigger the component as a template:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">StatusUpdate</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"row"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-10"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-left media-top"</span><span class="o">&gt;</span>
+                <span class="nx">PIC</span>
+              <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-body"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">author</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">postDate</span><span class="p">}</span> <span class="err">·</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">location</span><span class="p">}</span> <span class="err">·</span> <span class="o">&lt;</span><span class="nx">span</span>
+                  <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-user"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-2"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"caret pull-right"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"row"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-12"</span><span class="o">&gt;</span>
+            <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span>
+          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="appcomponentsfeeditemjs"><code class="highlighter-rouge">app/components/feeditem.js</code></h2>
+
+<p>As mentioned before, a <code class="highlighter-rouge">FeedItem</code> contains some type of content, such as a
+<code class="highlighter-rouge">StatusUpdate</code>, and a <code class="highlighter-rouge">CommentThread</code>. Let’s re-create the status update from our
+mockup using these components.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">StatusUpdate</span> <span class="nx">from</span> <span class="s1">'./statusupdate'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">CommentThread</span> <span class="nx">from</span> <span class="s1">'./commentthread'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Comment</span> <span class="nx">from</span> <span class="s1">'./comment'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">FeedItem</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"fb-status-update panel panel-default"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"panel-body"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">StatusUpdate</span> <span class="nx">author</span><span class="o">=</span><span class="s2">"Someone"</span> <span class="nx">postDate</span><span class="o">=</span><span class="s2">"Yesterday at 3:48pm"</span>
+                        <span class="nx">location</span><span class="o">=</span><span class="s2">"Austin, TX"</span><span class="o">&gt;</span>
+            <span class="nx">ugh</span><span class="p">.</span>
+          <span class="o">&lt;</span><span class="sr">/StatusUpdate</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">hr</span> <span class="o">/&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"row"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-12"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"list-inline"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-thumbs-up"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="sr">/span&gt; Like&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-comment"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="sr">/span&gt; Comment&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-share-alt"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="sr">/span&gt; Share&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"panel-footer"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"row"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-12"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="mi">13</span> <span class="nx">people</span><span class="o">&lt;</span><span class="sr">/a&gt; like thi</span><span class="err">s
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">hr</span> <span class="o">/&gt;</span>
+          <span class="o">&lt;</span><span class="nx">CommentThread</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">Comment</span> <span class="nx">author</span><span class="o">=</span><span class="s2">"Someone Else"</span> <span class="nx">postDate</span><span class="o">=</span><span class="s2">"20 hrs"</span><span class="o">&gt;</span>
+              <span class="nx">hope</span> <span class="nx">everything</span> <span class="nx">is</span> <span class="nx">ok</span><span class="o">!&lt;</span><span class="sr">/Comment</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">Comment</span> <span class="nx">author</span><span class="o">=</span><span class="s2">"Another Person"</span> <span class="nx">postDate</span><span class="o">=</span><span class="s2">"20 hrs"</span><span class="o">&gt;</span>
+              <span class="nx">sending</span> <span class="nx">hugs</span> <span class="nx">your</span> <span class="nx">way</span><span class="o">&lt;</span><span class="sr">/Comment</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/CommentThread</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>An astute student may wonder why we are hardcoding everything into <code class="highlighter-rouge">FeedItem</code>,
+rather than make them properties of <code class="highlighter-rouge">FeedItem</code>. The reason will become apparent
+once we move onto the next big step, where we read data from a mock server!
+We’ll return to that concern at that time.</p>
+
+<h2 id="appcomponentsstatusupdateentryjs"><code class="highlighter-rouge">app/components/statusupdateentry.js</code></h2>
+
+<p>Here’s the non-interactive <code class="highlighter-rouge">StatusUpdateEntry</code> widget, which is a boring
+static React component:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">StatusUpdateEntry</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"fb-status-update-entry panel panel-default"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"panel-body"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"nav nav-pills"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">role</span><span class="o">=</span><span class="s2">"presentation"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"active"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-pencil"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="sr">/span&gt; &lt;strong&gt;Update Status&lt;/</span><span class="nx">strong</span><span class="o">&gt;&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">role</span><span class="o">=</span><span class="s2">"presentation"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-picture"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="sr">/span&gt; &lt;strong&gt;Add Photos/</span><span class="nx">Video</span><span class="o">&lt;</span><span class="sr">/strong&gt;&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">role</span><span class="o">=</span><span class="s2">"presentation"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-th"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="sr">/span&gt; &lt;strong&gt;Create Photo Album&lt;/</span><span class="nx">strong</span><span class="o">&gt;&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-left media-top"</span><span class="o">&gt;</span>
+              <span class="nx">PIC</span>
+            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-body"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"form-group"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">textarea</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"form-control"</span> <span class="nx">rows</span><span class="o">=</span><span class="s2">"2"</span>
+                          <span class="nx">placeholder</span><span class="o">=</span><span class="s2">"What's on your mind?"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="sr">/textarea</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"row"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-6"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn-group"</span> <span class="nx">role</span><span class="o">=</span><span class="s2">"group"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-camera"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-user"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-heart"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-pushpin"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-6"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"pull-right"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-user"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>                    <span class="nx">Friends</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"caret"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="nx">Post</span>
+                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="appcomponentsfeedjs"><code class="highlighter-rouge">app/components/feed.js</code></h2>
+
+<p>Since most of the data is in <code class="highlighter-rouge">StatusUpdate</code>, the <code class="highlighter-rouge">Feed</code> component is now quite
+boring. It holds a <code class="highlighter-rouge">StatusUpdateEntry</code> and a <code class="highlighter-rouge">FeedItem</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">FeedItem</span> <span class="nx">from</span> <span class="s1">'./feeditem'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">StatusUpdateEntry</span> <span class="nx">from</span> <span class="s1">'./statusupdateentry'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Feed</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">StatusUpdateEntry</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">FeedItem</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="appappjs"><code class="highlighter-rouge">app/app.js</code></h2>
+
+<p>Back in the main entrypoint of your application, we simply render a <code class="highlighter-rouge">Feed</code>
+into the <code class="highlighter-rouge">fb-feed</code> element on the webpage:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s1">'react-dom'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Feed</span> <span class="nx">from</span> <span class="s1">'./components/feed'</span><span class="p">;</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Feed</span> <span class="o">/&gt;</span><span class="p">,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'fb-feed'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre>
+</div>
+
+<p>On line 3, notice that we specify a relative path to <code class="highlighter-rouge">feed</code>. <code class="highlighter-rouge">app.js</code> is in the <code class="highlighter-rouge">app</code> folder,
+and <code class="highlighter-rouge">feed</code> is in the <code class="highlighter-rouge">app/components</code> folder, therefore we use the path <code class="highlighter-rouge">./components/feed</code>.</p>
+
+<h2 id="examine-the-page">Examine the page</h2>
+
+<p>Now, open your web browser to <code class="highlighter-rouge">http://localhost:8080/</code>. If you already
+have your web browser open to that page, make sure you hit “Refresh”
+to pull in the new code you just wrote. You’ll notice that the static
+mockup looks the same as ever.</p>
+
+<p>If you installed the <a href="https://github.com/facebook/react-devtools">React Dev Tools</a>
+and open the Chrome Development Tools to the “React” tab, you’ll see all of the
+components you’ve defined!</p>
+
+<p><img src="/workshops/images/react_dev_tools_1.png" alt="" /></p>
+
+<p><img width="50" src="/workshops/images/git.jpg" />
+<strong><code class="highlighter-rouge">add</code> all of the files in <code class="highlighter-rouge">components</code>, <code class="highlighter-rouge">commit</code> with message “ws06
+step 03 breaking the feed apart into subcomponents”, <code class="highlighter-rouge">push</code> to
+GitHub</strong></p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Now that we have the basic framework put together for Facebook using
+react we will need to work on populating our user interface with
+data. We will do this with <em>mock</em> data in the browser initially.</p>
+
+<p>We will tackle how to do this in the next workshop!</p>
+
+<h1 id="submission">Submission</h1>
+
+<p>You must submit the URL of your <strong>Workshop4and5</strong> (Workshop6) GitHub
+repository to Moodle. Visit Moodle, find the associated Workshop 6
+activity, and provide your URL. Make sure your <strong>Workshop4and5</strong>
+(Workshop6) repository is public so we can clone your repository and
+evaluate your work. <strong>Submitting the URL for this assignment is part
+of completing the work.</strong></p>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

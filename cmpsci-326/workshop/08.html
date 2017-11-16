@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/workshop/08">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    
+<h1 class="no_toc" id="workshop-08-supporting-interaction-with-react">Workshop 08: Supporting Interaction with React</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#overview" id="markdown-toc-overview">Overview</a></li>
+  <li><a href="#step-05-making-react-components-interact-with-the-mock-server" id="markdown-toc-step-05-making-react-components-interact-with-the-mock-server">Step 05: Making React Components Interact with the Mock Server</a>    <ul>
+      <li><a href="#appappjs" id="markdown-toc-appappjs">app/app.js</a></li>
+      <li><a href="#appcomponentsfeedjs" id="markdown-toc-appcomponentsfeedjs">app/components/feed.js</a></li>
+      <li><a href="#appcomponentfeeditemjs" id="markdown-toc-appcomponentfeeditemjs">app/component/feeditem.js</a></li>
+      <li><a href="#appcomponentstatusupdatejs" id="markdown-toc-appcomponentstatusupdatejs">app/component/statusupdate.js</a></li>
+      <li><a href="#appcomponentcommentthreadjs" id="markdown-toc-appcomponentcommentthreadjs">app/component/commentthread.js</a></li>
+      <li><a href="#appcomponentcommentjs" id="markdown-toc-appcomponentcommentjs">app/component/comment.js</a></li>
+      <li><a href="#fixing-dates" id="markdown-toc-fixing-dates">Fixing Dates</a></li>
+      <li><a href="#conclusion-of-step" id="markdown-toc-conclusion-of-step">Conclusion of Step</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-06-user-interaction-status-updates-comments--likeing" id="markdown-toc-step-06-user-interaction-status-updates-comments--likeing">Step 06: User Interaction: Status Updates, Comments, &amp; “Like”ing</a>    <ul>
+      <li><a href="#status-updates" id="markdown-toc-status-updates">Status Updates</a></li>
+      <li><a href="#multiline-status-updates" id="markdown-toc-multiline-status-updates">Multiline Status Updates</a></li>
+      <li><a href="#comments" id="markdown-toc-comments">Comments</a></li>
+      <li><a href="#like-button" id="markdown-toc-like-button">“Like” Button</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-07-supporting-multiple-pages" id="markdown-toc-step-07-supporting-multiple-pages">Step 07: Supporting Multiple “Pages”</a></li>
+  <li><a href="#step-08-add-support-for-the-like-button-on-comments" id="markdown-toc-step-08-add-support-for-the-like-button-on-comments">Step 08: Add Support for the Like Button on Comments</a>    <ul>
+      <li><a href="#tips--tricks" id="markdown-toc-tips--tricks">Tips &amp; Tricks</a></li>
+    </ul>
+  </li>
+  <li><a href="#overview--protips" id="markdown-toc-overview--protips">Overview &amp; ProTips</a>    <ul>
+      <li><a href="#protips" id="markdown-toc-protips">ProTips</a></li>
+    </ul>
+  </li>
+  <li><a href="#submission" id="markdown-toc-submission">Submission</a></li>
+</ul>
+
+<h1 id="overview">Overview</h1>
+
+<p>In previous workshops, we used React to render a non-interactive mockup
+of Facebook’s desktop layout. We also created a mock database and server.</p>
+
+<p>In this workshop, we will make the mockup <em>interactive</em> and
+<em>dynamic</em>. We will connect the React components to the server, and connect
+specific React components to user input. In doing so, users will be able
+to post status updates, like status updates, and add comments to comment
+threads.</p>
+
+<p>In addition, we will cover how to make your application support multiple pages
+in a modern way using <code class="highlighter-rouge">react-router</code>. You will use the same technique in your
+startup products to let the user navigate between multiple <em>screens</em> of your
+application.</p>
+
+<p>Since this workshop is essentially a continuation of the <a href="/workshop/07">previous workshop</a>,
+we begin where we left off: at step 5.</p>
+
+<h1 id="step-05-making-react-components-interact-with-the-mock-server">Step 05: Making React Components Interact with the Mock Server</h1>
+
+<p>When we turned our React Components into separate JavaScript files, we went from
+the bottom-up. This time, we will start from the top-down, trickling server data
+through our React Components, beginning with <code class="highlighter-rouge">app.js</code>.</p>
+
+<h2 id="appappjs">app/app.js</h2>
+
+<p>You only need to make one simple change to <code class="highlighter-rouge">app.js</code>: Change <code class="highlighter-rouge">&lt;Feed /&gt;</code> to
+<code class="highlighter-rouge">&lt;Feed user={4} /&gt;</code>. Note that <code class="highlighter-rouge">4</code> is the ID of the “John Vilk” user
+in the mock database. In our mockup, we are assuming that “John Vilk” logged in,
+and is the user currently using Facebook.</p>
+
+<h2 id="appcomponentsfeedjs">app/components/feed.js</h2>
+
+<p>The Feed component is now receiving a <code class="highlighter-rouge">user</code> prop with the ID of the active
+user. It will need to use this ID to request the Feed object for the user
+from the server.</p>
+
+<p>This presents a problem for React components. When a React component is created,
+its <code class="highlighter-rouge">render()</code> method is immediately called, which constructs HTML for the webpage.
+We cannot render the Feed until it receives data from the server, but server requests
+are <em>asynchronous</em> – they are given a function that is called some time in the
+future with the result from the operation.</p>
+
+<p>Here’s an example of a <em>synchronous</em> operation:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">].</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">num</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Processing "</span> <span class="o">+</span> <span class="nx">num</span> <span class="o">+</span> <span class="s2">"..."</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="c1">// `map` has run before the next line runs</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Processing complete."</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>The above program would print:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Processing 0...
+Processing 1...
+Processing complete.
+</code></pre>
+</div>
+
+<p>Here’s an example of an <em>asynchronous</em> operation:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// addOnServer sends a number to a server, and receives that number with 1 added.</span>
+<span class="nx">addOnServer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Result: "</span> <span class="o">+</span> <span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="c1">// The below line runs before the callback function above does.</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Server request sent."</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>The above program would print:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Server request sent.
+Result: 1
+</code></pre>
+</div>
+
+<p>Asynchronous operations let your program soldier on while a request waits to be
+fulfilled. As a subtlety to asynchrony, your callback function will never run
+at the same time as other JavaScript. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop">It’s difficult to explain in a workshop,
+but this Mozilla Development Network has a good explanation about JavaScript events
+and concurrency</a>.</p>
+
+<p>Back on track: As a result of asynchrony, React needs to render our Feed <em>before</em>
+we get data from the database. How can we do this?</p>
+
+<p>We can do this by:</p>
+
+<ol>
+  <li>Rendering an “empty” Feed component.</li>
+  <li>Re-render the real Feed when data is available.</li>
+</ol>
+
+<p>React facilitates this pattern with a special <code class="highlighter-rouge">state</code> field. While the <code class="highlighter-rouge">props</code> field is read-only,
+<code class="highlighter-rouge">state</code> can be modified via the <code class="highlighter-rouge">this.setState()</code> function. State changes
+trigger the component to re-render. In addition, you can set the initial
+value of <code class="highlighter-rouge">state</code> in the React component’s constructor, which, like a Java
+constructor, runs when the component object is first created – and before the first call to <code class="highlighter-rouge">render()</code>.</p>
+
+<p>Recall that a Feed object in the database has a single field, <code class="highlighter-rouge">contents</code>, that
+contains references to FeedItem objects.  We can set <code class="highlighter-rouge">state</code> to <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">contents:</span><span class="w"> </span><span class="err">[]</span><span class="w"> </span><span class="p">}</span></code>
+in the constructor, which represents an empty feed, and write the <code class="highlighter-rouge">render()</code> method like normal.
+The Feed will be empty until the server response returns, which will change the <code class="highlighter-rouge">state</code>
+to include FeedItem data.</p>
+
+<p><em>Note: If we wanted to get fancy, we could modify the Feed’s <code class="highlighter-rouge">render()</code> function to display a loading animation until
+the server responds. You could, for example, set the state to <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">loaded:</span><span class="w"> </span><span class="err">false;</span><span class="w"> </span><span class="p">}</span></code> in the constructor, change <code class="highlighter-rouge">render</code> to create the animation when <code class="highlighter-rouge">loaded</code> is false, and set <code class="highlighter-rouge">loaded</code> to <code class="highlighter-rouge">true</code> once the server response comes back in.</em></p>
+
+<p>Here’s what our modified <code class="highlighter-rouge">Feed</code> class looks like, before we hook up the database:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Feed</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// super() calls the parent class constructor -- e.g. React.Component's constructor.</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="c1">// Set state's initial value.</span>
+    <span class="c1">// Note that the constructor is the ONLY place you should EVER set state directly!</span>
+    <span class="c1">// In all other places, use the `setState` method instead.</span>
+    <span class="c1">// Setting `state` directly in other places will not trigger `render()` to run, so your</span>
+    <span class="c1">// program will have bugs.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="c1">// Empty feed.</span>
+      <span class="na">contents</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">StatusUpdateEntry</span> <span class="o">/&gt;</span>
+        <span class="p">{</span> <span class="nx">Code</span> <span class="k">for</span> <span class="nx">creating</span> <span class="nx">FeedItems</span> <span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Note that I didn’t write code for creating <code class="highlighter-rouge">FeedItem</code>s yet, because we haven’t
+covered how to do that! Remember when we used <code class="highlighter-rouge">React.Children.map</code> to render
+a series of <code class="highlighter-rouge">Comment</code> components in <code class="highlighter-rouge">CommentThread</code>? We can do something similar
+here to render <code class="highlighter-rouge">FeedItem</code> components. Regular JavaScript arrays have a
+<code class="highlighter-rouge">map</code> function. Since a JavaScript array’s <code class="highlighter-rouge">map</code> function is defined directly
+on the object, it only needs one argument: A function.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">StatusUpdateEntry</span> <span class="o">/&gt;</span>
+      <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">FeedItem</span> <span class="nx">activeUser</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">user</span><span class="p">}</span> <span class="nx">id</span><span class="o">=</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>          <span class="p">);</span>
+      <span class="p">})}</span>
+    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><strong>But… this code is actually incorrect!</strong> JavaScript is a weird language with many
+problems, and we’ve just encountered one of them. Can you spot it?</p>
+
+<p>…as it turns out, <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">the value of <code class="highlighter-rouge">this</code> changes inside of every function</a></strong>.
+Our function argument refers to <code class="highlighter-rouge">this.props.user</code>, but since that function’s <code class="highlighter-rouge">this</code>
+variable is different from <code class="highlighter-rouge">render</code>’s <code class="highlighter-rouge">this</code> variable, it will not return the
+value we expect.</p>
+
+<p>There are multiple solutions to this dilemma, but the cleanest are <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">JavaScript <em>arrow functions</em></a>.
+These function work as you’d expect: They inherit the <code class="highlighter-rouge">this</code> object of whomever defined them.
+In general, you should use arrow functions whenever you need to construct a one-time
+function as the argument to another function.</p>
+
+<p>The arrow function version looks like this:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">StatusUpdateEntry</span> <span class="o">/&gt;</span>
+      <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">id</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">FeedItem</span> <span class="nx">activeUser</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">user</span><span class="p">}</span> <span class="nx">id</span><span class="o">=</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>          <span class="p">);</span>
+      <span class="p">})}</span>
+    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><strong>BUT THERE’S STILL ONE MORE ISSUE!</strong> Our new <code class="highlighter-rouge">render()</code> method <em>dynamically determines</em>
+how many <code class="highlighter-rouge">FeedItem</code> components to make, depending on the data it receives from
+the database. Whenever a <code class="highlighter-rouge">render()</code> method <a href="https://facebook.github.io/react/docs/multiple-components.html#dynamic-children">dynamically determines</a>
+the order and number of HTML elements to make, React requires that you specify a <code class="highlighter-rouge">key</code>
+attribute <em>uniquely</em> identifying those HTML elements among its <em>siblings</em>.</p>
+
+<p>By <em>dynamically determines</em>, we mean that the decision happens when the <code class="highlighter-rouge">render</code>
+methods runs. If a <code class="highlighter-rouge">render</code> method determines the <em>order</em> or <em>number</em> of HTML elements
+dynamically, <code class="highlighter-rouge">keys</code> are required. The opposite is <em>statically determines</em>, which
+is when <code class="highlighter-rouge">render</code> returns the same number and order of children each time it runs.
+You can tell <em>statically</em> – that is, by looking at the program text – the order
+and number of children that it will return every time it runs.</p>
+
+<p>This is a complication of <a href="https://facebook.github.io/react/docs/glossary.html">React’s Virtual DOM</a>,
+and its <a href="http://www.oyecode.com/2015/09/reactjs-learning-virtual-dom-and-react.html">diffing algorithm</a>. React will look at the return value from a <code class="highlighter-rouge">render()</code>
+call, and <a href="https://en.wikipedia.org/wiki/Data_comparison"><em>diff</em> it</a> with what
+it previously rendered. If an element in the previous return value and the current
+return value have the same <code class="highlighter-rouge">key</code> defined, React will <em>move</em> the element to the
+correct location. If an element in the current return value defines a <code class="highlighter-rouge">key</code> not
+seen in the previous return value, React will <em>create</em> a new instance of that
+Component for that element. If an element with a <code class="highlighter-rouge">key</code> goes missing in a future update,
+React <em>destroys</em> the component and does not reuse it. If you do not specify a <code class="highlighter-rouge">key</code>,
+React may re-use your component to render a new component, which may mess up
+any of the <code class="highlighter-rouge">state</code> you’ve set internally.</p>
+
+<p>We did not have this problem before with <code class="highlighter-rouge">CommentThread</code> because <code class="highlighter-rouge">CommentThread</code>
+did not dynamically <em>create</em> React components. Instead, it dynamically inserted
+its children, which we <em>statically</em> specified in <code class="highlighter-rouge">FeedItem</code>, which means React
+was able to key them properly automatically.</p>
+
+<p>That is a lot of information to absorb, but it comes down to two guidelines:</p>
+
+<ul>
+  <li><strong>If your <code class="highlighter-rouge">render</code> method can create different amounts of HTML elements, you need to set a key.</strong></li>
+  <li><strong>If your <code class="highlighter-rouge">render</code> method can create HTML elements in multiple orders, you need to set a key.</strong></li>
+</ul>
+
+<p>…with an emphasis on the word ‘create’. Shuffling your children around, whom
+(oddly enough, from a metaphorical standpoint) some other Component created in
+its <code class="highlighter-rouge">render</code> method, is fine. <a href="https://facebook.github.io/react/docs/multiple-components.html#ownership">This subtlety is why React refers to the creators of
+components as <em>owners</em> instead of <em>parents</em>.</a></p>
+
+<p>Thankfully, we can use the <code class="highlighter-rouge">FeedItem</code>’s <code class="highlighter-rouge">_id</code> property from the database to uniquely identify it.
+We can also pass the entire <code class="highlighter-rouge">FeedItem</code> object to the <code class="highlighter-rouge">FeedItem</code> Component through a prop called <code class="highlighter-rouge">data</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">StatusUpdateEntry</span> <span class="o">/&gt;</span>
+      <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">feedItem</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">FeedItem</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">_id</span><span class="p">}</span> <span class="nx">data</span><span class="o">=</span><span class="p">{</span><span class="nx">feedItem</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>          <span class="p">);</span>
+      <span class="p">})}</span>
+    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><em>That’s right! Unlike HTML, which only supports strings/numbers, you can pass in arbitrary JavaScript values into components as props.</em></p>
+
+<p>With the <code class="highlighter-rouge">render()</code> method written, it’s time to talk with the “server”! If we
+define a method on our component called <code class="highlighter-rouge">componentDidMount</code>, React will
+call that method only once – after our component instance has <code class="highlighter-rouge">render()</code>ed for the first
+time. This is the perfect place to put a server call.</p>
+
+<p>First, add the following line to the top of <code class="highlighter-rouge">feed.js</code> to pull in the <code class="highlighter-rouge">getFeedData</code>
+function:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span><span class="nx">getFeedData</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">'../server'</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><em>Note: Notice how we put {} around <code class="highlighter-rouge">getFeedData</code>. We did not use <code class="highlighter-rouge">export default</code> on <code class="highlighter-rouge">getFeedData</code> in <code class="highlighter-rouge">server.js</code> – we used <code class="highlighter-rouge">export</code> on the function without <code class="highlighter-rouge">default</code>. This is the syntax you use to import non-default items from JavaScript modules.</em></p>
+
+<p><code class="highlighter-rouge">getFeedData</code> takes two arguments:</p>
+
+<ul>
+  <li>The ID of the user whose feed you want to read.</li>
+  <li>A callback function, which it will invoke with requested feed as an argument.</li>
+</ul>
+
+<p>Add a <code class="highlighter-rouge">componentDidMount</code> function to the <code class="highlighter-rouge">Feed</code> component:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">getFeedData</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">user</span><span class="p">,</span> <span class="p">(</span><span class="nx">feedData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Note: setState does a *shallow merge* of the current state and the new</span>
+    <span class="c1">// state. If state was currently set to {foo: 3}, and we setState({bar: 5}),</span>
+    <span class="c1">// state would then be {foo: 3, bar: 5}. This won't be a problem here.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">feedData</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>And now the Feed is all done! Now, we need to slightly adjust the other
+components so they handle the objects we’ve defined.</p>
+
+<h2 id="appcomponentfeeditemjs">app/component/feeditem.js</h2>
+
+<p><code class="highlighter-rouge">FeedItem</code> now receives a <code class="highlighter-rouge">FeedItem</code> object in the <code class="highlighter-rouge">data</code> prop, so we need to
+modify it to render the item appropriately. We also want to make it extensible,
+so we can add different types of <code class="highlighter-rouge">FeedItem</code>s later if we want (e.g. Advertisements).</p>
+
+<p>Since the <code class="highlighter-rouge">data</code> prop is a <code class="highlighter-rouge">FeedItem</code> object, it has a <code class="highlighter-rouge">type</code> field that specifies what
+type of item it is. We can <code class="highlighter-rouge">switch</code> on this value, construct a different React
+element depending on its contents, and store it into a JavaScript variable.
+It will need a key, since we are choosing what to construct dynamically.
+Then, we can use that variable in the final element that we return from <code class="highlighter-rouge">render()</code>.</p>
+
+<p>Here’s a sketch of <code class="highlighter-rouge">FeedItem</code>’s new <code class="highlighter-rouge">render()</code> method, which does just that. There are
+holes we will fill in next:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">contents</span><span class="p">;</span>
+  <span class="k">switch</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s2">"statusUpdate"</span><span class="err">:</span>
+      <span class="c1">// Create a StatusUpdate. Dynamically created React component: needs a key.</span>
+      <span class="c1">// Keys only need to be unique among *siblings*, so we can re-use the</span>
+      <span class="c1">// same key as the FeedItem.</span>
+      <span class="nx">contents</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">StatusUpdate</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">_id</span><span class="p">}</span> <span class="nx">author</span><span class="o">=</span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">author</span><span class="p">}</span> <span class="nx">postDate</span><span class="o">=</span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">postDate</span><span class="p">}</span> <span class="nx">location</span><span class="o">=</span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">location</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">contents</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="sr">/StatusUpdate</span><span class="err">&gt;
+</span>      <span class="p">);</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="nl">default</span><span class="p">:</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">"Unknown FeedItem: "</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">type</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"fb-status-update panel panel-default"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"panel-body"</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">contents</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="nx">hr</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"row"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-12"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"list-inline"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-thumbs-up"</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; Like&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-comment"</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; Comment&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-share-alt"</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; Share&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"panel-footer"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"row"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-12"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">like</span> <span class="nx">counter</span> <span class="nx">count</span><span class="p">}</span> <span class="nx">people</span><span class="o">&lt;</span><span class="sr">/a&gt; like thi</span><span class="err">s
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">hr</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">CommentThread</span><span class="o">&gt;</span>
+          <span class="p">{</span> <span class="nx">comments</span> <span class="p">}</span>
+        <span class="o">&lt;</span><span class="sr">/CommentThread</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>For the Like counter, recall that a <code class="highlighter-rouge">FeedItem</code> object has a <code class="highlighter-rouge">likeCounter</code> property, which
+has an array of <code class="highlighter-rouge">Users</code>. We can use replace “like counter count” with <code class="highlighter-rouge">data.likeCounter.length</code>,
+since <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length">all JavaScript arrays have a <code class="highlighter-rouge">length</code> property.</a></p>
+
+<p>For the Comments, recall that Comment components have an <code class="highlighter-rouge">author</code> and a <code class="highlighter-rouge">postDate</code> prop.
+We can construct them using a <code class="highlighter-rouge">map</code> over the <code class="highlighter-rouge">Comment</code> objects from the database. Since
+our version of Facebook does not support deleting comments from a <code class="highlighter-rouge">CommentThread</code>, we
+can use the comment’s position in the thread as its <code class="highlighter-rouge">key</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
+<span class="nx">data</span><span class="p">.</span><span class="nx">comments</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">comment</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// i is comment's index in comments array</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Comment</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">}</span> <span class="nx">author</span><span class="o">=</span><span class="p">{</span><span class="nx">comment</span><span class="p">.</span><span class="nx">author</span><span class="p">}</span> <span class="nx">postDate</span><span class="o">=</span><span class="p">{</span><span class="nx">comment</span><span class="p">.</span><span class="nx">postDate</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">comment</span><span class="p">.</span><span class="nx">contents</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/Comment</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">})</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="appcomponentstatusupdatejs">app/component/statusupdate.js</h2>
+
+<p>We only have to make one small adjustment to the <code class="highlighter-rouge">StatusUpdate</code> component. Previously,
+we passed in the <em>name</em> of the author as the <code class="highlighter-rouge">author</code> prop. Now, we are passing a User
+<em>object</em> as the <code class="highlighter-rouge">author</code> prop. Meaning: <code class="highlighter-rouge">this.props.author</code> is no longer the name of
+the user!</p>
+
+<p>Change the <code class="highlighter-rouge">render()</code> method to use <code class="highlighter-rouge">this.props.author.fullName</code> instead of <code class="highlighter-rouge">this.props.author</code>.</p>
+
+<h2 id="appcomponentcommentthreadjs">app/component/commentthread.js</h2>
+
+<p>No changes need to be made to the <code class="highlighter-rouge">CommentThread</code> class.</p>
+
+<h2 id="appcomponentcommentjs">app/component/comment.js</h2>
+
+<p>Like with <code class="highlighter-rouge">StatusUpdate</code>, change <code class="highlighter-rouge">this.props.author</code> to <code class="highlighter-rouge">this.props.author.fullName</code>.</p>
+
+<h2 id="fixing-dates">Fixing Dates</h2>
+
+<p>After the above changes, your Facebook clone’s feed is now interacting with your mock
+server, and does not contain any hardcoded mock data!</p>
+
+<p>…but there’s one, ugly problem: Dates are just numbers!</p>
+
+<p><a href="/workshops/images/facebook_clone_mockserver_1.png" data-lightbox="facebook_clone_mockserver_1" data-title="facebook_clone_mockserver_1">
+  <img src="/workshops/images/facebook_clone_mockserver_1.png" />
+</a></p>
+
+<p>We need to write a utility method that takes in the date in Unix time, and converts
+it into a suitable string. Facebook is fancy and formats the date differently depending
+on how far back into the past it is, but we’ll settle for an old-fashioned MM/DD/YYYY HH:SS[AM/PM]
+display.</p>
+
+<p>Fortunately, JavaScript provides a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date"><code class="highlighter-rouge">Date</code> object</a>,
+which does just that! There are other packages that are fancier, like <a href="http://momentjs.com/">Moment.js</a>,
+but <code class="highlighter-rouge">Date</code> will work for this workshop.</p>
+
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Syntax">documentation for <code class="highlighter-rouge">Date</code> specifies that the constructor can take a value in Unix time</a>,
+so let’s use that. To format the <code class="highlighter-rouge">Date</code> object as a string for display in the Feed, we can use
+the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString"><code class="highlighter-rouge">toLocaleString</code> method on the object</a>
+to produce a string for the user’s locale (for example, it will flip days and months for people in Europe
+automatically).</p>
+
+<p>Create the file <code class="highlighter-rouge">app/util.js</code>, and define the following helper function in it:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Converts Unix time (in ms since Jan 1 1970 UTC) to a string in the local time zone.
+ */</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">unixTimeToString</span><span class="p">(</span><span class="nx">time</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">time</span><span class="p">).</span><span class="nx">toLocaleString</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Then, in <code class="highlighter-rouge">app/components/comment.js</code>, import this function, and use it on <code class="highlighter-rouge">this.props.postDate</code>.
+Do the same thing for <code class="highlighter-rouge">this.props.postDate</code> for the <code class="highlighter-rouge">StatusUpdate</code> class.</p>
+
+<p>Now, the Feed will look acceptable:</p>
+
+<p><a href="/workshops/images/facebook_date_fix.png" data-lightbox="facebook_date_fix" data-title="facebook_date_fix">
+  <img src="/workshops/images/facebook_date_fix.png" />
+</a></p>
+
+<p>And if you ever wanted to spruce up the time display, you can change the helper function
+to behave differently if the status updates are less than 24 hours old.</p>
+
+<h2 id="conclusion-of-step">Conclusion of Step</h2>
+
+<p>You did it! You’ve gotten through the <em>hardest two steps</em> in this workshop.
+We created a mock server, hooked up the mock server to our frontend, and
+waded through some complex JavaScript/React subtleties.</p>
+
+<p>Adding interactivity to what you have built in the next step will be a snap!</p>
+
+<p><strong><code class="highlighter-rouge">add</code> <code class="highlighter-rouge">app/util.js</code>, <code class="highlighter-rouge">commit</code> with message <code class="highlighter-rouge">fb5</code>, and <code class="highlighter-rouge">push</code> to GitHub</strong></p>
+
+<h1 id="step-06-user-interaction-status-updates-comments--likeing">Step 06: User Interaction: Status Updates, Comments, &amp; “Like”ing</h1>
+
+<p>Although our application is doing a bunch of cool things in the background to pull
+mock data from a database, it’s completely boring without a way to interact with it.</p>
+
+<p>Let’s bring the status update entry, “Like” button, and comment boxes to life!</p>
+
+<h2 id="status-updates">Status Updates</h2>
+
+<p>Before we start coding, let’s think about the behavior we want.</p>
+
+<p>When the user clicks the “Post” button, our Facebook clone should:</p>
+
+<ul>
+  <li>Check that the post isn’t empty. If it is, we ignore the click.</li>
+  <li>If the post is not empty:
+    <ul>
+      <li>Add a new FeedItem object into the database.</li>
+      <li>Update the user’s Feed object in the database to include the new status update.
+        <ul>
+          <li>On real Facebook, this would also probably update friends’ feeds as well. But we’re not mocking up friends right now.</li>
+        </ul>
+      </li>
+      <li>Update our Feed to show the new status update.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Let’s handle the server-side first. We want a function called <code class="highlighter-rouge">postStatusUpdate</code> that
+takes in a user’s ID, location, and the contents of the status update, and updates
+the database.</p>
+
+<p>In <code class="highlighter-rouge">app/server.js</code>, add the following function, which posts the status update:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Adds a new status update to the database.
+ */</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">postStatusUpdate</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">location</span><span class="p">,</span> <span class="nx">contents</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If we were implementing this for real on an actual server, we would check</span>
+  <span class="c1">// that the user ID is correct &amp; matches the authenticated user. But since</span>
+  <span class="c1">// we're mocking it, we can be less strict.</span>
+
+  <span class="c1">// Get the current UNIX time.</span>
+  <span class="kd">var</span> <span class="nx">time</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+  <span class="c1">// The new status update. The database will assign the ID for us.</span>
+  <span class="kd">var</span> <span class="nx">newStatusUpdate</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"likeCounter"</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"statusUpdate"</span><span class="p">,</span>
+    <span class="s2">"contents"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"author"</span><span class="p">:</span> <span class="nx">user</span><span class="p">,</span>
+      <span class="s2">"postDate"</span><span class="p">:</span> <span class="nx">time</span><span class="p">,</span>
+      <span class="s2">"location"</span><span class="p">:</span> <span class="nx">location</span><span class="p">,</span>
+      <span class="s2">"contents"</span><span class="p">:</span> <span class="nx">contents</span>
+    <span class="p">},</span>
+    <span class="c1">// List of comments on the post</span>
+    <span class="s2">"comments"</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="p">};</span>
+
+  <span class="c1">// Add the status update to the database.</span>
+  <span class="c1">// Returns the status update w/ an ID assigned.</span>
+  <span class="nx">newStatusUpdate</span> <span class="o">=</span> <span class="nx">addDocument</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">,</span> <span class="nx">newStatusUpdate</span><span class="p">);</span>
+
+  <span class="c1">// Add the status update reference to the front of the current user's feed.</span>
+  <span class="kd">var</span> <span class="nx">userData</span> <span class="o">=</span> <span class="nx">readDocument</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="nx">user</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">feedData</span> <span class="o">=</span> <span class="nx">readDocument</span><span class="p">(</span><span class="s1">'feeds'</span><span class="p">,</span> <span class="nx">userData</span><span class="p">.</span><span class="nx">feed</span><span class="p">);</span>
+  <span class="nx">feedData</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">newStatusUpdate</span><span class="p">.</span><span class="nx">_id</span><span class="p">);</span>
+
+  <span class="c1">// Update the feed object.</span>
+  <span class="nx">writeDocument</span><span class="p">(</span><span class="s1">'feeds'</span><span class="p">,</span> <span class="nx">feedData</span><span class="p">);</span>
+
+  <span class="c1">// Return the newly-posted object.</span>
+  <span class="nx">emulateServerReturn</span><span class="p">(</span><span class="nx">newStatusUpdate</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>For the <code class="highlighter-rouge">StatusUpdateEntry</code> React component, we want to capture text changes as the
+user writes a status update, and use them to update the component’s <code class="highlighter-rouge">state</code>. This is
+what React calls a <a href="https://facebook.github.io/react/docs/forms.html#controlled-components">“Controlled Component”</a>,
+and is the preferred way to structure input controls.</p>
+
+<p>To do this, we will add the <code class="highlighter-rouge">value</code> variable to the component’s <code class="highlighter-rouge">state</code>, which will track
+the text the user has entered. Then, we will set the <code class="highlighter-rouge">value</code> of the <code class="highlighter-rouge">textarea</code> element to
+be <code class="highlighter-rouge">this.state.value</code>. Finally, we will add an <em>event listener function</em> to the <code class="highlighter-rouge">textarea</code> element,
+which will update <code class="highlighter-rouge">state.value</code> as the user enters text, which will re-render the <code class="highlighter-rouge">textarea</code>
+with the new text.</p>
+
+<p>If you’ve written JavaScript before, you may object to this manner of handling user input.
+It sounds dreadfully inefficient and needlessly complex over the usual solution… but it’s
+actually not! JavaScript is <em>extremely</em> fast, React’s Virtual DOM will apply only a single DOM
+update each time the user types a character because it uses diffing, and this design avoids
+using awkward DOM APIs to look up and retrieve values from DOM elements directly. In addition,
+this design makes it easier to add additional validation or functionality to user input later
+down the line. (Examples: Search suggestions for searchboxes, URL previews for URLs put into the
+status update, @ mentions, …)</p>
+
+<p>With that in mind, let’s jump in!</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96</pre></td><td class="code"><pre><span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">StatusUpdateEntry</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">value</span><span class="p">:</span> <span class="s2">""</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * Called when the user clicks the 'post' button.
+   * Triggers the `onPost` prop if the post isn't empty, and clears
+   * the component.
+   */</span>
+  <span class="nx">handlePost</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Prevent the event from "bubbling" up the DOM tree.</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="c1">// Trim whitespace from beginning + end of entry.</span>
+    <span class="kd">var</span> <span class="nx">statusUpdateText</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">trim</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">statusUpdateText</span> <span class="o">!==</span> <span class="s2">""</span><span class="p">)</span> <span class="p">{</span>
+      <span class="cm">/* TODO: How do we send the post to the server + update the Feed? */</span>
+      <span class="c1">// Reset status update.</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">value</span><span class="p">:</span> <span class="s2">""</span><span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * Called when the user types a character into the status update box.
+   * @param e An Event object.
+   */</span>
+  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Prevent the event from "bubbling" up the DOM tree.</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="c1">// e.target is the React Virtual DOM target of the input event -- the</span>
+    <span class="c1">// &lt;textarea&gt; element. The textarea's `value` is the entire contents of</span>
+    <span class="c1">// what the user has typed in so far.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">value</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"fb-status-update-entry panel panel-default"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"panel-body"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"nav nav-pills"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">role</span><span class="o">=</span><span class="s2">"presentation"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"active"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-pencil"</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; &lt;strong&gt;Update Status&lt;/</span><span class="nx">strong</span><span class="o">&gt;&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">role</span><span class="o">=</span><span class="s2">"presentation"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-picture"</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; &lt;strong&gt;Add Photos/</span><span class="nx">Video</span><span class="o">&lt;</span><span class="sr">/strong&gt;&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">role</span><span class="o">=</span><span class="s2">"presentation"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-th"</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; &lt;strong&gt;Create Photo Album&lt;/</span><span class="nx">strong</span><span class="o">&gt;&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-left media-top"</span><span class="o">&gt;</span>
+              <span class="nx">PIC</span>
+            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-body"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"form-group"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">textarea</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"form-control"</span> <span class="nx">rows</span><span class="o">=</span><span class="s2">"2"</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">"What's on your mind?"</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)}</span> <span class="sr">/</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"row"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-6"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn-group"</span> <span class="nx">role</span><span class="o">=</span><span class="s2">"group"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-camera"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-user"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="err">☺</span>
+                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-pushpin"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-6"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"pull-right"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-user"</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; Friends &lt;span className="caret"&gt;&lt;/</span><span class="nx">span</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">handlePost</span><span class="p">(</span><span class="nx">e</span><span class="p">)}</span><span class="o">&gt;</span>
+                  <span class="nx">Post</span>
+                <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Let’s give a tour of what we’ve added to this class:</p>
+
+<ul>
+  <li><strong>Line 2-7</strong>: We added a constructor to set an initial value for <code class="highlighter-rouge">state.value</code>.</li>
+  <li><strong>Line 14</strong>: We added a function that is called when the user clicks the “Post” button.
+    <ul>
+      <li><code class="highlighter-rouge">e</code> is an <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event">Event object</a></li>
+      <li><strong>Line 16</strong>: <code class="highlighter-rouge">e.preventDefault()</code> <a href="http://javascript.info/tutorial/bubbling-and-capturing">prevents the change event from “bubbling” up the DOM tree to other elements</a>. You generally want to call this in all of your event handlers.</li>
+    </ul>
+  </li>
+  <li><strong>Line 30</strong>: We added a function that is called when the user types a character into the input field. It updates <code class="highlighter-rouge">state.value</code>.</li>
+  <li><strong>Line 60</strong>: We changed the <code class="highlighter-rouge">input</code> element so that its <code class="highlighter-rouge">value</code> is tied to <code class="highlighter-rouge">state.value</code>, and added an <code class="highlighter-rouge">onChange</code> arrow function that triggers <code class="highlighter-rouge">this.handleChange</code>.
+    <ul>
+      <li><code class="highlighter-rouge">onChange</code> is <a href="https://facebook.github.io/react/docs/events.html#supported-events">one of many events that you can subscribe to with a function</a>.</li>
+      <li><em>Note: Existing React sample code would write `onChange={this.handleChanged}. This does not work with ES6 classes, so we use an arrow function.</em></li>
+    </ul>
+  </li>
+  <li><strong>Line 86</strong>: We associated an arrow function with the <code class="highlighter-rouge">onClick</code> event on the “Post” button, which triggers <code class="highlighter-rouge">handlePost</code>.</li>
+</ul>
+
+<p>If we wanted to hook up the other buttons (e.g. privacy settings, the different type of posts…), we would
+add handlers to those buttons which updated the Component’s <code class="highlighter-rouge">state</code>, and then add logic to the
+<code class="highlighter-rouge">render()</code> method to display the correct thing depending on <code class="highlighter-rouge">state</code>.</p>
+
+<p>But how should we actually handle <em>posting</em> the new status update? We could communicate with the server in
+<code class="highlighter-rouge">handlePost</code>, but we also need to tell the Feed to update itself once the post finishes.</p>
+
+<p>A simple solution is to add a property (<code class="highlighter-rouge">prop</code>) to <code class="highlighter-rouge">StatusUpdateEntry</code> called <code class="highlighter-rouge">onPost</code>. Like <code class="highlighter-rouge">onChange</code> and <code class="highlighter-rouge">onClick</code>, <code class="highlighter-rouge">onPost</code> will accept
+a function. We will call the function whenever a status update is posted. The <code class="highlighter-rouge">Feed</code> component can associate a function with <code class="highlighter-rouge">onPost</code>, and will handle
+sending the data to the server and updating itself.</p>
+
+<p>Change Line 21 to <code class="highlighter-rouge">this.props.onPost(statusUpdateText);</code>.</p>
+
+<p>Now, all we need to do is hook up <code class="highlighter-rouge">Feed</code> to <code class="highlighter-rouge">onPost</code>, hook up <code class="highlighter-rouge">onPost</code> to the server’s <code class="highlighter-rouge">postStatusUpdate</code>, and then
+trigger the <code class="highlighter-rouge">Feed</code> to re-fetch its state once the status update posts:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Feed</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">contents</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">refresh</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">getFeedData</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">user</span><span class="p">,</span> <span class="p">(</span><span class="nx">feedData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">feedData</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">onPost</span><span class="p">(</span><span class="nx">postContents</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Send to server.</span>
+    <span class="c1">// We could use geolocation to get a location, but let's fix it to Amherst</span>
+    <span class="c1">// for now.</span>
+    <span class="nx">postStatusUpdate</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">"Amherst, MA"</span><span class="p">,</span> <span class="nx">postContents</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// Database is now updated. Refresh the feed.</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">refresh</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">refresh</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">StatusUpdateEntry</span> <span class="nx">onPost</span><span class="o">=</span><span class="p">{(</span><span class="nx">postContents</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">onPost</span><span class="p">(</span><span class="nx">postContents</span><span class="p">)}</span> <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">feedItem</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">FeedItem</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">_id</span><span class="p">}</span> <span class="nx">data</span><span class="o">=</span><span class="p">{</span><span class="nx">feedItem</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>          <span class="p">)</span>
+        <span class="p">})}</span>
+      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Notice that we’ve migrated logic from <code class="highlighter-rouge">componentDidMount</code> into a <code class="highlighter-rouge">refresh</code> method.</p>
+
+<p>Now, if you go to http://localhost:8080 and post a status update, it should work!</p>
+
+<p><a href="/workshops/images/facebook_feed_animated.gif" data-lightbox="facebook_feed_animated" data-title="facebook_feed_animated">
+  <img src="/workshops/images/facebook_feed_animated.gif" />
+</a></p>
+
+<p>Also, if you refresh the page, or close the browser and return, your “status updates”
+should remain there!</p>
+
+<p>If something tragic happens, there’s always the “Reset Mock DB” button in the left pane
+that we’ve added. Clicking that button resets the database to the initial set of mock
+objects we defined earlier.</p>
+
+<h2 id="multiline-status-updates">Multiline Status Updates</h2>
+
+<p>You may notice that multiline status updates don’t quite work. They display as a single line!
+Fortunately, fixing the situation is easy.</p>
+
+<p>In <code class="highlighter-rouge">FeedItem</code>, change the children of <code class="highlighter-rouge">StatusUpdate</code> from <code class="highlighter-rouge">data.contents.contents</code> to:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">"\n"</span><span class="p">).</span><span class="nx">map</span><span class="p">((</span><span class="nx">line</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">line</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">})}</span>
+</code></pre>
+</div>
+
+<p>This method takes the status update, and:</p>
+
+<ul>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split">splits</a>
+the status update on the newline (\n) character.
+    <ul>
+      <li>so “line 1\nline2\nline3” becomes [“line 1”, “line 2”, “line 3”]</li>
+    </ul>
+  </li>
+  <li>maps each line to a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p"><code class="highlighter-rouge">p</code></a> element, which begins a new paragraph on a new line.</li>
+</ul>
+
+<p>Now, every new line of a status update should appear on its own line. Try it out!
+If you Inspect a multiline post on real Facebook using Chrome’s Developer Tools, you’ll notice that they use <code class="highlighter-rouge">p</code>, too.
+It looks like everything is working great!</p>
+
+<p><strong>…but if you open up Chrome’s Web Developer Tools, you’ll see a warning from React:</strong></p>
+
+<p><a href="/workshops/images/react_warning_keys.png" data-lightbox="react_warning_keys" data-title="react_warning_keys">
+  <img src="/workshops/images/react_warning_keys.png" />
+</a></p>
+
+<p>We’re creating a dynamic number of <code class="highlighter-rouge">p</code> elements, so we need to specify a unique <code class="highlighter-rouge">key</code> on each.</p>
+
+<p>Change the code to:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">"\n"</span><span class="p">).</span><span class="nx">map</span><span class="p">((</span><span class="nx">line</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// Note: 'i' is the index of line in data.contents.contents.</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="s2">"line"</span> <span class="o">+</span> <span class="nx">i</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">line</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">})}</span>
+</code></pre>
+</div>
+
+<p>Now, if you refresh the page, the warning goes away.</p>
+
+<h2 id="comments">Comments</h2>
+
+<p>Ideally, when a user posts a comment, our application will only update the item that
+the user commented on. It does not make too much sense to refresh the entire Feed
+when the comment thread is localized to one part of the page.</p>
+
+<p>To add a new comment to the Facebook clone, we need to add:</p>
+
+<ul>
+  <li>A server function to add a comment to a post, which returns the updated <em>FeedItem</em> object with the new comment.</li>
+  <li>Changes to <code class="highlighter-rouge">CommentEntry</code> that update its <code class="highlighter-rouge">state</code> in response to user input, similar to our changes to <code class="highlighter-rouge">StatusUpdateEntry</code>.</li>
+  <li>A <code class="highlighter-rouge">onPost</code> prop on <code class="highlighter-rouge">CommentEntry</code>, which is triggered when a new comment is posted.</li>
+  <li>Changes to <code class="highlighter-rouge">FeedItem</code> that let it change its contents after a comment is posted.</li>
+</ul>
+
+<p>The server function is relatively straightforward, and reuses a helper function we
+defined for retrieving FeedItem objects:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Adds a new comment to the database on the given feed item.
+ * Returns the updated FeedItem object.
+ */</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">postComment</span><span class="p">(</span><span class="nx">feedItemId</span><span class="p">,</span> <span class="nx">author</span><span class="p">,</span> <span class="nx">contents</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Since a CommentThread is embedded in a FeedItem object,</span>
+  <span class="c1">// we don't have to resolve it. Read the document,</span>
+  <span class="c1">// update the embedded object, and then update the</span>
+  <span class="c1">// document in the database.</span>
+  <span class="kd">var</span> <span class="nx">feedItem</span> <span class="o">=</span> <span class="nx">readDocument</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">,</span> <span class="nx">feedItemId</span><span class="p">);</span>
+  <span class="nx">feedItem</span><span class="p">.</span><span class="nx">comments</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+    <span class="s2">"author"</span><span class="p">:</span> <span class="nx">author</span><span class="p">,</span>
+    <span class="s2">"contents"</span><span class="p">:</span> <span class="nx">contents</span><span class="p">,</span>
+    <span class="s2">"postDate"</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span>
+  <span class="p">});</span>
+  <span class="nx">writeDocument</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">);</span>
+  <span class="c1">// Return a resolved version of the feed item so React can</span>
+  <span class="c1">// render it.</span>
+  <span class="nx">emulateServerReturn</span><span class="p">(</span><span class="nx">getFeedItemSync</span><span class="p">(</span><span class="nx">feedItemId</span><span class="p">),</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Since this server function updates the comment thread <em>and</em> returns the updated
+FeedItem object, our React code only needs to perform a single server request!</p>
+
+<p>The changes to <code class="highlighter-rouge">CommentEntry</code> are mostly simple, but note that a comment gets entered
+when the user hits the “enter” key. The <code class="highlighter-rouge">onChanged</code> event, which we used for <code class="highlighter-rouge">StatusUpdateEntry</code>,
+only fires when the user does something that would ordinarily change the visual
+state of the input box – that is, the text contained within it.
+A one-line text box does not change its value when the “enter” key is hit,
+so <code class="highlighter-rouge">onChanged</code> does not fire when “enter” is hit. We will have to use a different
+event to capture this key!</p>
+
+<p>Fortunately, we can register a function with the <code class="highlighter-rouge">onKeyUp</code> event. This event fires
+whenever the user stops hitting a key on the keyboard (<code class="highlighter-rouge">onKeyDown</code> fires when the
+user first hits the key, <code class="highlighter-rouge">onKeyPress</code> fires while the user is <em>holding down</em> the
+key, and <code class="highlighter-rouge">onKeyUp</code> fires when the user lifts his finger off of the key.) We can
+check if the key is the “enter” key, and submit the comment to the server if it is
+non-empty.</p>
+
+<p>The resulting code is as follows:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre></td><td class="code"><pre><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">CommentEntry</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">value</span><span class="p">:</span> <span class="s2">""</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">value</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleKeyUp</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="s2">"Enter"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">comment</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">trim</span><span class="p">();</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">comment</span> <span class="o">!==</span> <span class="s2">""</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Post comment</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onPost</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">value</span><span class="p">:</span> <span class="s2">""</span> <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-left media-top"</span><span class="o">&gt;</span>
+          <span class="nx">PIC</span>
+        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-body"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"input-group"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"form-control"</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">"Write a comment..."</span>
+              <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)}</span>
+              <span class="nx">onKeyUp</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleKeyUp</span><span class="p">(</span><span class="nx">e</span><span class="p">)}</span> <span class="sr">/</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"input-group-btn"</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-camera"</span><span class="o">&gt;&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-default"</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"button"</span><span class="o">&gt;</span>
+                <span class="err">☺</span>
+              <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Some quick notes:</p>
+
+<ul>
+  <li><strong>Line 15:</strong> The <code class="highlighter-rouge">e</code> object for <code class="highlighter-rouge">handleKeyUp</code> is a <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent"><code class="highlighter-rouge">KeyboardEvent</code> object</a></li>
+  <li><strong>Line 16:</strong> While the documentation for <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key"><code class="highlighter-rouge">KeyboardEvent.key</code></a> states that it is not supported in many browsers, React patches <code class="highlighter-rouge">KeyboardEvent</code> so it works.</li>
+</ul>
+
+<p>One restriction of our current design is that we do not support multiline comments.
+While we are not going to perform that change in this workshop, you could
+support multiline comments by:</p>
+
+<ul>
+  <li>Replacing the <code class="highlighter-rouge">input</code> box with a one-row-high <code class="highlighter-rouge">textarea</code>.</li>
+  <li>Adding logic to support linebreaks when the user hits “shift+enter”, and entering the comment then the user hits “enter”.
+    <ul>
+      <li>The <code class="highlighter-rouge">KeyboardEvent</code> object has a <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/shiftKey"><code class="highlighter-rouge">shiftKey</code></a> property that you can check.</li>
+    </ul>
+  </li>
+  <li>Changing <code class="highlighter-rouge">render()</code> to wrap lines of text in keyed <code class="highlighter-rouge">&lt;p&gt;</code> elements.</li>
+</ul>
+
+<p>Next, we need to modify <code class="highlighter-rouge">CommentThread</code> so it passes a function to <code class="highlighter-rouge">CommentEntry</code>’s <code class="highlighter-rouge">onPost</code> property.
+We can add an <code class="highlighter-rouge">onPost</code> property to <code class="highlighter-rouge">CommentThread</code>, and pass its value along to <code class="highlighter-rouge">CommentEntry</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">CommentThread</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media-list"</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">React</span><span class="p">.</span><span class="nx">Children</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">child</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media"</span><span class="o">&gt;</span>
+              <span class="p">{</span><span class="nx">child</span><span class="p">}</span>
+            <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>          <span class="p">)</span>
+        <span class="p">})}</span>
+        <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"media"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">CommentEntry</span> <span class="nx">onPost</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onPost</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Finally, we need to change <code class="highlighter-rouge">FeedItem</code> to use our new server method, and to provide a <code class="highlighter-rouge">onPost</code> function to <code class="highlighter-rouge">CommentThread</code>.
+Currently, <code class="highlighter-rouge">FeedItem</code> uses its <code class="highlighter-rouge">data</code> property to render itself. A React component should never change its properties,
+but we need to change the data once a new comment is posted!</p>
+
+<p>To support this functionality, we need to change the <code class="highlighter-rouge">FeedItem</code> to read from its <em>state</em> when it renders, and initialize
+the state to the JSON object passed in via the <code class="highlighter-rouge">data</code> property:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">FeedItem</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="c1">// The FeedItem's initial state is what the Feed passed to us.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleCommentPost</span><span class="p">(</span><span class="nx">commentText</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Post a comment as user ID 4, which is our mock user!</span>
+    <span class="nx">postComment</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">commentText</span><span class="p">,</span> <span class="p">(</span><span class="nx">updatedFeedItem</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// Update our state to trigger a re-render.</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">updatedFeedItem</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Render using data from state.</span>
+    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+    <span class="c1">// The rest of this method is the same as before!</span>
+    <span class="c1">// Except you need to change the CommentThread element to hook up an onPost function:</span>
+    <span class="c1">// &lt;CommentThread onPost={(commentText) =&gt; this.handleCommentPost(commentText)}&gt;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, if you refresh <code class="highlighter-rouge">http://localhost:8080</code>, you’ll be able to post comments as “John Vilk”!</p>
+
+<p><a href="/workshops/images/facebook_comment.gif" data-lightbox="facebook_comment" data-title="facebook_comment">
+  <img src="/workshops/images/facebook_comment.gif" />
+</a></p>
+
+<h2 id="like-button">“Like” Button</h2>
+
+<p>Next, we need to hook up functionality to the “Like” button.
+The “Like” button will let users “Like” and “Unlike” items on Facebook, so we
+need two server methods: One for “Like”, and another for “Unlike”.</p>
+
+<p>Like with <code class="highlighter-rouge">CommentEntry</code>, we will have these functions return an updated <code class="highlighter-rouge">likeCounter</code>,
+so our application only needs to make one server request when the user hits “Like”:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Updates a feed item's likeCounter by adding the user to the likeCounter.
+ * Provides an updated likeCounter in the response.
+ */</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">likeFeedItem</span><span class="p">(</span><span class="nx">feedItemId</span><span class="p">,</span> <span class="nx">userId</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">feedItem</span> <span class="o">=</span> <span class="nx">readDocument</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">,</span> <span class="nx">feedItemId</span><span class="p">);</span>
+  <span class="c1">// Normally, we would check if the user already liked this comment.</span>
+  <span class="c1">// But we will not do that in this mock server.</span>
+  <span class="c1">// ('push' modifies the array by adding userId to the end)</span>
+  <span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">userId</span><span class="p">);</span>
+  <span class="nx">writeDocument</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">);</span>
+  <span class="c1">// Return a resolved version of the likeCounter</span>
+  <span class="nx">emulateServerReturn</span><span class="p">(</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">userId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">readDocument</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="nx">userId</span><span class="p">)),</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Updates a feed item's likeCounter by removing the user from the likeCounter.
+ * Provides an updated likeCounter in the response.
+ */</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">unlikeFeedItem</span><span class="p">(</span><span class="nx">feedItemId</span><span class="p">,</span> <span class="nx">userId</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">feedItem</span> <span class="o">=</span> <span class="nx">readDocument</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">,</span> <span class="nx">feedItemId</span><span class="p">);</span>
+  <span class="c1">// Find the array index that contains the user's ID.</span>
+  <span class="c1">// (We didn't *resolve* the FeedItem object, so it is just an array of user IDs)</span>
+  <span class="kd">var</span> <span class="nx">userIndex</span> <span class="o">=</span> <span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">userId</span><span class="p">);</span>
+  <span class="c1">// -1 means the user is *not* in the likeCounter, so we can simply avoid updating</span>
+  <span class="c1">// anything if that is the case: the user already doesn't like the item.</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">userIndex</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 'splice' removes items from an array. This removes 1 element starting from userIndex.</span>
+    <span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">userIndex</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="nx">writeDocument</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// Return a resolved version of the likeCounter</span>
+  <span class="nx">emulateServerReturn</span><span class="p">(</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">userId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">readDocument</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="nx">userId</span><span class="p">)),</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Next, we need to change <code class="highlighter-rouge">FeedItem</code> so that clicking the “Like” button triggers a server event.
+We also need to change the <code class="highlighter-rouge">render()</code> method so that the “Like” button switches to a
+“Unlike” button if the user has already liked the item.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="cm">/**
+   * Triggered when the user clicks on the 'like' or 'unlike' button.
+   */</span>
+  <span class="nx">handleLikeClick</span><span class="p">(</span><span class="nx">clickEvent</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Stop the event from propagating up the DOM tree, since we handle it here.</span>
+    <span class="c1">// Also prevents the link click from causing the page to scroll to the top.</span>
+    <span class="nx">clickEvent</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="c1">// 0 represents the 'main mouse button' -- typically a left click</span>
+    <span class="c1">// https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">clickEvent</span><span class="p">.</span><span class="nx">button</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Callback function for both the like and unlike cases.</span>
+      <span class="kd">var</span> <span class="nx">callbackFunction</span> <span class="o">=</span> <span class="p">(</span><span class="nx">updatedLikeCounter</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// setState will overwrite the 'likeCounter' field on the current</span>
+        <span class="c1">// state, and will keep the other fields in-tact.</span>
+        <span class="c1">// This is called a shallow merge:</span>
+        <span class="c1">// https://facebook.github.io/react/docs/component-api.html#setstate</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">likeCounter</span><span class="p">:</span> <span class="nx">updatedLikeCounter</span><span class="p">});</span>
+      <span class="p">};</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">didUserLike</span><span class="p">())</span> <span class="p">{</span>
+        <span class="c1">// User clicked 'unlike' button.</span>
+        <span class="nx">unlikeFeedItem</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">callbackFunction</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// User clicked 'like' button.</span>
+        <span class="nx">likeFeedItem</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">callbackFunction</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * Returns 'true' if the user liked the item.
+   * Returns 'false' if the user has not liked the item.
+   */</span>
+  <span class="nx">didUserLike</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">likeCounter</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">liked</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="c1">// Look for a likeCounter entry with userId 4 -- which is the</span>
+    <span class="c1">// current user.</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">likeCounter</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">likeCounter</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">_id</span> <span class="o">===</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">liked</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">liked</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">likeButtonText</span> <span class="o">=</span> <span class="s2">"Like"</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">didUserLike</span><span class="p">())</span> <span class="p">{</span>
+      <span class="nx">likeButtonText</span> <span class="o">=</span> <span class="s2">"Unlike"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// Skipping the first part of this method, which is unchanged.</span>
+                <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLikeClick</span><span class="p">(</span><span class="nx">e</span><span class="p">)}</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"glyphicon glyphicon-thumbs-up"</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; {likeButtonText</span><span class="err">}
+</span>                <span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>    <span class="c1">// The rest of this method is unchanged</span>
+  <span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, you can “Like” status updates!</p>
+
+<p><a href="/workshops/images/facebook_like.gif" data-lightbox="facebook_like" data-title="facebook_like">
+  <img src="/workshops/images/facebook_like.gif" />
+</a></p>
+
+<p>With this change in place, you’ve completed step 6!</p>
+
+<p><strong><code class="highlighter-rouge">commit</code> your changes with message <code class="highlighter-rouge">fb6</code>, and <code class="highlighter-rouge">push</code> them to GitHub.</strong></p>
+
+<h1 id="step-07-supporting-multiple-pages">Step 07: Supporting Multiple “Pages”</h1>
+
+<p>Right now, we’ve covered enough of React to have a working, interactive Facebook Feed.
+What we have not talked about so far is supporting <em>multiple pages</em> in our Facebook application.</p>
+
+<p>One way to support multiple pages is to have multiple HTML files… but since we put
+most of our application’s HTML into React Component, that does not make sense for this course.</p>
+
+<p>Another, more modern way to support multiple pages is to use a <em>client-side routing library</em>
+to render the correct page. A routing library uses the data in #-based links to direct your application
+to render the appropriate content. For example, the url <code class="highlighter-rouge">http://localhost:8080/#/profile/1</code>
+could contain a user’s profile. The benefit of a URL that begins with <code class="highlighter-rouge">#</code> is that it does not
+cause the browser to reload the HTML file, which lets your application respond to the request
+immediately.</p>
+
+<p>Now that you know about them, you’ll notice <code class="highlighter-rouge">#</code>-based links all over the web. For example, Google’s homepage is https://www.google.com/webhp?hl=en .
+If you enter a search query, like “nachos”, you get directed to https://www.google.com/webhp?hl=en#hl=en&amp;q=nachos .
+Since the URL contains a <code class="highlighter-rouge">#</code>, Google didn’t have to reload the page to give you your search results. But because
+the URL changed, I can now link you to the search results for nachos! Mmm…</p>
+
+<p>There is an excellent routing library for React programs called <a href="https://github.com/rackt/react-router"><code class="highlighter-rouge">react-router</code></a>.
+You tell it what <code class="highlighter-rouge">#</code> URLs point to what React components, and it does the rest!</p>
+
+<p>Let’s add a simple “profile page” to our application. The URL <code class="highlighter-rouge">http://localhost:8080/#/profile/1</code> will contain
+the profile page for user with ID 1. To keep the workshop short, the page will be nothing fancy; it will only tell
+you what the user’s ID is.</p>
+
+<p>Open up <code class="highlighter-rouge">app/app.js</code>, and change it to add the following code. We’ll define the missing Components in a bit:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s1">'react-dom'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Feed</span> <span class="nx">from</span> <span class="s1">'./components/feed'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">IndexRoute</span><span class="p">,</span> <span class="nx">Router</span><span class="p">,</span> <span class="nx">Route</span><span class="p">,</span> <span class="nx">browserHistory</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-router'</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">((</span>
+  <span class="o">&lt;</span><span class="nx">Router</span> <span class="nx">history</span><span class="o">=</span><span class="p">{</span><span class="nx">browserHistory</span><span class="p">}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">"/"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">App</span><span class="p">}</span><span class="o">&gt;</span>
+      <span class="p">{</span><span class="cm">/* Show the Feed at / */</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="nx">IndexRoute</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">FeedPage</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">"profile/:id"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">ProfilePage</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/Route</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="sr">/Router</span><span class="err">&gt;
+</span><span class="p">),</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'fb-feed'</span><span class="p">));</span>
+</code></pre>
+</div>
+
+<p>React-router’s configuration is nothing but a set of special React components. This configuration says:</p>
+
+<ul>
+  <li>At <code class="highlighter-rouge">/</code> (<code class="highlighter-rouge">http://localhost:8080/</code>), render <code class="highlighter-rouge">&lt;App&gt;&lt;FeedPage /&gt;&lt;/App&gt;</code></li>
+  <li>At <code class="highlighter-rouge">/profile/(ID here)</code> (http://localhost:8080/#/profile/3 for user 3), render <code class="highlighter-rouge">&lt;App&gt;&lt;ProfilePage param={ {id: (ID here) } } /&gt;&lt;/App&gt;</code>
+    <ul>
+      <li>The <code class="highlighter-rouge">:id</code> notation tells React Router to stash that part of the URL into a field named <code class="highlighter-rouge">id</code> on a component property named <code class="highlighter-rouge">param</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>There’s a helpful <a href="https://github.com/rackt/react-router/blob/latest/docs/Introduction.md">guide to react-router</a>, which links to many examples.</p>
+
+<p><code class="highlighter-rouge">App</code>, <code class="highlighter-rouge">ProfilePage</code>, and <code class="highlighter-rouge">FeedPage</code> are very simple components. Add these to <code class="highlighter-rouge">app.js</code>, above the call to <code class="highlighter-rouge">render()</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * A fake profile page.
+ */</span>
+<span class="kr">class</span> <span class="nx">ProfilePage</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">This</span> <span class="nx">is</span> <span class="nx">the</span> <span class="nx">profile</span> <span class="nx">page</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">user</span> <span class="kd">with</span> <span class="nx">ID</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">}.</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * The Feed page. We created a new component just to fix the userId at 4.
+ */</span>
+<span class="kr">class</span> <span class="nx">FeedPage</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Feed</span> <span class="nx">user</span><span class="o">=</span><span class="p">{</span><span class="mi">4</span><span class="p">}</span> <span class="sr">/&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="cm">/**
+ * The primary component in our application.
+ * The Router will give it different child Components as the user clicks
+ * around the application.
+ *
+ * If we implemented all of Facebook, this App would also contain Component
+ * objects for the left and right content panes.
+ */</span>
+<span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, if you go to <code class="highlighter-rouge">http://localhost:8080/</code>, you’ll see the Facebook feed. If you go to <code class="highlighter-rouge">http://localhost:8080/#/profile/2</code>,
+you’ll see a “profile page” for user 2.</p>
+
+<p>Let’s update the <code class="highlighter-rouge">StatusUpdate</code> and <code class="highlighter-rouge">Comment</code> components so they link to the profile page. In both files, add the following
+to the top of the file:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span><span class="nx">Link</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-router'</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>In <code class="highlighter-rouge">app/components/statusupdate.js</code>, change:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">author</span><span class="p">.</span><span class="nx">fullName</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span></code></pre>
+</div>
+
+<p>…into:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">to</span><span class="o">=</span><span class="p">{</span><span class="s2">"/profile/"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">author</span><span class="p">.</span><span class="nx">_id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">author</span><span class="p">.</span><span class="nx">fullName</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/Link</span><span class="err">&gt;
+</span></code></pre>
+</div>
+
+<p>Next, in <code class="highlighter-rouge">app/components/comment.js</code>, change:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"#"</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">author</span><span class="p">.</span><span class="nx">fullName</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span></code></pre>
+</div>
+
+<p>…into:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">to</span><span class="o">=</span><span class="p">{</span><span class="s2">"/profile/"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">author</span><span class="p">.</span><span class="nx">_id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">author</span><span class="p">.</span><span class="nx">fullName</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/Link</span><span class="err">&gt;
+</span></code></pre>
+</div>
+
+<p>If you reload <code class="highlighter-rouge">http://localhost:8080/</code> and click on someone’s name in a comment or status update, you’ll be brought to
+their “profile page”!</p>
+
+<p>Hopefully, this simple example gives you an idea of how your startup product can grow to support multiple interactive
+pages.</p>
+
+<p><strong><code class="highlighter-rouge">commit</code> your changes with message <code class="highlighter-rouge">fb7</code>, and <code class="highlighter-rouge">push</code> them to GitHub.</strong></p>
+
+<h1 id="step-08-add-support-for-the-like-button-on-comments">Step 08: Add Support for the Like Button on Comments</h1>
+
+<p>Now that we’ve done all this, it’s time for you to apply the skills you’ve
+learned! We’ve hooked up a “Like” button on feed items, but now you need to add a “Like”
+button to comments.</p>
+
+<p>To do this, you’ll need to:</p>
+
+<ul>
+  <li>Add a <code class="highlighter-rouge">likeCounter</code> to Comment objects in the database.</li>
+  <li>Update the comment-related server methods so the Comment objects they create properly contain the <code class="highlighter-rouge">likeCounter</code> field.</li>
+  <li>Add a server method that lets a user like/unlike particular comments. It can return an updated comment object.
+    <ul>
+      <li>To uniquely identify a comment, you can supply the ID of the FeedItem and the index of the comment.</li>
+    </ul>
+  </li>
+  <li>Render “Like” or “Unlike” on comments, depending on if the current user clicked the button.</li>
+  <li>Trigger the appropriate server method when the user clicks the “Like”/”Unlike” button, and update the comment object.
+    <ul>
+      <li>You’ll either have to pass this information down to the comment, <em>or</em> pass the “like” click up to the FeedItem via a callback function. Your choice.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>You may want to click the “Reset Mock DB” button when you make the database modification to remove old data
+from the database.</p>
+
+<p><strong><code class="highlighter-rouge">commit</code> your changes with message <code class="highlighter-rouge">fb8</code>, and <code class="highlighter-rouge">push</code> them to GitHub.</strong></p>
+
+<p>With this complete, you’ve finished the workshop!</p>
+
+<h2 id="tips--tricks">Tips &amp; Tricks</h2>
+
+<p>Is something not working? Open up the Chrome Development Tools, and look at your console. Chrome will tell you
+when bad things are happening, and will link you to lines of your source code where the problem occurred.</p>
+
+<p>Remember to try resetting the mock database if something weird is happening. If that fixes the problem, then
+you may have a bug in a server function!</p>
+
+<h1 id="overview--protips">Overview &amp; ProTips</h1>
+
+<p>This workshop covered a lot of ground!</p>
+
+<p>We started with mock data in the HTML directly. Then we moved it into React
+components directly. Then we moved it into React component properties. Then
+we moved it into a mock data store, with access via a mock server!</p>
+
+<p>You’ve covered all of the skills needed to make a dynamic mockup of your application.
+Next time, we’ll talk more about servers, which power things underneath your application.</p>
+
+<h2 id="protips">ProTips</h2>
+
+<p>Here are some of the JavaScript and React subtleties that we went over in this
+workshop and the previous workshop.</p>
+
+<p><strong>JavaScript Modules:</strong></p>
+
+<ul>
+  <li>You can <code class="highlighter-rouge">export</code> multiple named items from a module.
+    <ul>
+      <li>Examples: <code class="highlighter-rouge">export function foo() {};</code>, <code class="highlighter-rouge">export var bar = 4;</code>, <code class="highlighter-rouge">export class Baz { }</code></li>
+    </ul>
+  </li>
+  <li>You can <code class="highlighter-rouge">import</code> named items from a module with <code class="highlighter-rouge">import { item1, item2, ... } from '../path/to/module';</code>
+    <ul>
+      <li>Example: <code class="highlighter-rouge">import {foo, bar, baz} from './bat.js</code>;</li>
+    </ul>
+  </li>
+  <li>You can <code class="highlighter-rouge">export default</code> one item per module.
+    <ul>
+      <li>Example: <code class="highlighter-rouge">export default class Foo { }</code></li>
+    </ul>
+  </li>
+  <li>You can <code class="highlighter-rouge">import</code> a <code class="highlighter-rouge">default</code> export of another module with <code class="highlighter-rouge">import Foo from './bar';</code></li>
+  <li>NPM modules are <code class="highlighter-rouge">import</code>ed without a filesystem path; only use the name of the module.
+    <ul>
+      <li>Example: <code class="highlighter-rouge">import {Router} from 'react-router';</code> It would be invalid to import from <code class="highlighter-rouge">'./react-router'</code>!</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>JavaScript:</strong></p>
+
+<ul>
+  <li><code class="highlighter-rouge">function</code>s change the value of <code class="highlighter-rouge">this</code>. Use arrow functions when you need to pass a function as an argument to another function,
+as they preserve the value of <code class="highlighter-rouge">this</code>.</li>
+</ul>
+
+<p><strong>React components:</strong></p>
+
+<ul>
+  <li>Change <code class="highlighter-rouge">class</code> properties to <code class="highlighter-rouge">className</code>.</li>
+  <li>Always include a closing tag on HTML elements in your React code.</li>
+  <li>Don’t modify <code class="highlighter-rouge">props</code>. <code class="highlighter-rouge">props</code> get set only once.</li>
+  <li>Don’t modify <code class="highlighter-rouge">state</code> directly. Use <code class="highlighter-rouge">setState</code>.
+    <ul>
+      <li>…except in the constructor. There, you can set <code class="highlighter-rouge">state</code> directly to its initial value.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">setState</code> performs a <em>shallow merge</em> on the value you give it and the existing state.
+    <ul>
+      <li>Example: If <code class="highlighter-rouge">state</code> is <code class="highlighter-rouge"><span class="p">{</span><span class="err">foo:</span><span class="w"> </span><span class="err">3</span><span class="p">}</span></code> and you call <code class="highlighter-rouge">setState({ bar: 5 })</code>, <code class="highlighter-rouge">state</code> will become <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">foo:</span><span class="w"> </span><span class="err">3,</span><span class="w"> </span><span class="err">bar:</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code>.</li>
+    </ul>
+  </li>
+  <li>Set an <code class="highlighter-rouge">id</code> on HTML elements in <code class="highlighter-rouge">render()</code> when their order or number depend on data at runtime.
+    <ul>
+      <li>The <code class="highlighter-rouge">id</code> only needs to be unique among elements returned from that <code class="highlighter-rouge">render()</code> function.</li>
+    </ul>
+  </li>
+  <li>When iterating over children, use <a href="https://facebook.github.io/react/docs/top-level-api.html#react.children"><code class="highlighter-rouge">React.Children</code> methods</a></li>
+</ul>
+
+<h1 id="submission">Submission</h1>
+
+<p>You must submit the URL of your <strong>Workshop4and5</strong> GitHub repository to
+Moodle. Visit Moodle, find the associated <strong>Workshop 8</strong> activity, and
+provide your URL. Make sure your <strong>Workshop4and5</strong> repository is
+public so we can clone your repository and evaluate your
+work. <strong>Submitting the URL for this assignment is part of completing
+the work.</strong></p>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

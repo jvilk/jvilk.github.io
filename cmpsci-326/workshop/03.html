@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/workshop/03">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    
+<h1 class="no_toc" id="workshop-03-html-and-bootstrap">Workshop 03: HTML and Bootstrap</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#part-0-initial-setup" id="markdown-toc-part-0-initial-setup">Part 0: Initial setup</a></li>
+  <li><a href="#part-1-hello-bootstrap" id="markdown-toc-part-1-hello-bootstrap">Part 1: Hello, Bootstrap!</a>    <ul>
+      <li><a href="#a-walk-through-helloworldhtml-aka-what-are-those-tags-for" id="markdown-toc-a-walk-through-helloworldhtml-aka-what-are-those-tags-for">A walk through <code class="highlighter-rouge">helloworld.html</code>, aka “what are those tags for?”</a></li>
+    </ul>
+  </li>
+  <li><a href="#part-2-facebook-in-bootstrap" id="markdown-toc-part-2-facebook-in-bootstrap">Part 2: Facebook in Bootstrap</a>    <ul>
+      <li><a href="#step-00-basic-bootstrap-template" id="markdown-toc-step-00-basic-bootstrap-template">Step 00: Basic Bootstrap template</a></li>
+      <li><a href="#step-01-facebook-at-the-macro-level" id="markdown-toc-step-01-facebook-at-the-macro-level">Step 01: Facebook at the Macro Level</a>        <ul>
+          <li><a href="#basic-navbar" id="markdown-toc-basic-navbar">Basic Navbar</a></li>
+          <li><a href="#three-columns" id="markdown-toc-three-columns">Three Columns</a></li>
+          <li><a href="#chat-popup" id="markdown-toc-chat-popup">Chat Popup</a></li>
+        </ul>
+      </li>
+      <li><a href="#step-02-scrolling-behavior" id="markdown-toc-step-02-scrolling-behavior">Step 02: Scrolling Behavior</a>        <ul>
+          <li><a href="#chat-menu" id="markdown-toc-chat-menu">Chat Menu</a></li>
+          <li><a href="#navigation-menu" id="markdown-toc-navigation-menu">Navigation Menu</a></li>
+        </ul>
+      </li>
+      <li><a href="#step-03-the-navigation-bar" id="markdown-toc-step-03-the-navigation-bar">Step 03: The Navigation Bar</a></li>
+    </ul>
+  </li>
+  <li><a href="#submission" id="markdown-toc-submission">Submission</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Developers write website GUIs using HTML and CSS. As we discussed in
+class, these technologies are becoming increasingly difficult to use
+directly.  Websites must work across different browsers
+(Chrome/Safari/Internet Explorer), operating systems
+(Windows/Mac/Linux), and devices (desktop/smartphone/tablet). Managing
+this complexity can be quite difficult!</p>
+
+<p>In this class, you will use <a href="http://getbootstrap.com">Bootstrap</a> to write your
+website GUI. Bootstrap provides you with useful HTML and CSS primitives for
+writing website GUIs that work across desktop, tablet, and mobile. Wikipedia
+summarizes Bootstrap quite well:</p>
+
+<blockquote>
+  <p>Bootstrap is a free and open-source collection of tools for creating websites
+and web applications. It contains HTML- and CSS-based design templates for
+typography, forms, buttons, navigation and other interface components, as well
+as optional JavaScript extensions. It aims to ease the development of dynamic
+websites and web applications.</p>
+</blockquote>
+
+<p>In this workshop, you will use Bootstrap to write basic, non-interactive website
+GUIs. By the end of the workshop, you should have a decent idea of what is
+possible using Bootstrap, and how to apply Bootstrap to your group project.</p>
+
+<p>Specifically, you will:</p>
+
+<ul>
+  <li>Learn about HTML</li>
+  <li>Learn about CSS</li>
+  <li>Learn how to use Bootstrap</li>
+  <li>Write the next Facebook in Bootstrap!
+    <ul>
+      <li>…OK, that’s an overstatement. We’re going to create a rough version of Facebook’s layout.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>We will not have time to cover the following topics, but we encourage students
+to explore them on their own:</p>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Responsive_web_design">Responsive design</a></li>
+  <li>Compatibility with ancient web browsers (IE8, IE7, etc)
+    <ul>
+      <li>These web browsers are <a href="http://gs.statcounter.com/#desktop-browser_version_partially_combined-ww-monthly-201412-201512">becoming increasingly irrelevant</a>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="part-0-initial-setup">Part 0: Initial setup</h1>
+
+<p>To get started you need to fork
+the <a href="https://github.com/umass-cs-326/Workshop3">GitHub repository for this workshop</a>. To do that click on
+the “<strong>Fork</strong>” button, it is on the upper right-hand part of the
+github page next to “<strong>Unwatch</strong>” and “<strong>Star</strong>”. The repository
+contains the version of Bootstrap we will be using (v3.3.6) and a
+basic script that runs a local web server:</p>
+
+<p><img src="/workshops/images/fork.png" alt="Forking the Workshop" /></p>
+
+<p>Clone the repository into your <strong>class folder</strong>, <code class="highlighter-rouge">cd</code>, into it, and
+run the following command to install a basic web server:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm install
+</code></pre>
+</div>
+
+<p>This command will create a <code class="highlighter-rouge">node_modules</code> folder, which you should leave alone.
+It contains the web server.</p>
+
+<p>Run the following command to start the local web server, which will let you
+view the HTML you produce in a web browser:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm run serve
+</code></pre>
+</div>
+
+<p><em>Note: If you have a firewall installed, you will need to approve Node.js to
+open port 8080 on the network. Most firewalls will ask you immediately.</em></p>
+
+<p>Navigate your web browser to <a href="http://localhost:8080/">http://localhost:8080/</a>, which should look something like this:</p>
+
+<p><img src="/workshops/images/server-listing.png" alt="Server Listing" /></p>
+
+<p><strong>Keep that console window open for the entirety of the workshop.</strong> When you close that window, the web server stops! Open a second console window and navigate to the workshop git repository directory so you can run other commands while the server runs.</p>
+
+<h1 id="part-1-hello-bootstrap">Part 1: Hello, Bootstrap!</h1>
+
+<p>Let’s get familiar with Bootstrap by writing a simple “Hello World!” webpage.</p>
+
+<p>This workshop’s git repository has the following directories:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">css/</code>: A folder to put CSS files into. Currently contains a few Bootstrap CSS
+files. You can add new CSS files to this directory, but <em>do not modify the
+Bootstrap CSS files.</em> We will describe how to customize the look of Bootstrap
+the proper way.</li>
+  <li><code class="highlighter-rouge">fonts/</code>: Bootstrap contains a number of <a href="http://getbootstrap.com/components/#glyphicons">Glyphicons</a>
+that you are free to use in your website. The <code class="highlighter-rouge">fonts</code> directory contains
+<a href="https://en.wikipedia.org/wiki/Web_typography">web font</a> files containing these
+Glyphs. Since Bootstrap works on every browser, it maintains these fonts in
+several formats. <em>Do not modify these files.</em></li>
+  <li><code class="highlighter-rouge">img/</code>: A folder to put your images into.</li>
+  <li><code class="highlighter-rouge">js/</code>: Contains Bootstrap’s JavaScript dependencies.</li>
+</ul>
+
+<p>You will put all HTML files into the root of the repository.</p>
+
+<p>Create the file <code class="highlighter-rouge">helloworld.html</code> in the root of the repository, and put the
+following HTML into it:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"IE=edge"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- The above 3 meta tags *must* come first in the head;
+	     any other head content must come *after* these tags --&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Bootstrap 101 Template<span class="nt">&lt;/title&gt;</span>
+
+    <span class="c">&lt;!-- Bootstrap's CSS --&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"css/bootstrap.min.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="c">&lt;!-- All of your HTML will go between here.... --&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Hello, world!<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="c">&lt;!-- ...and here. --&gt;</span>
+    <span class="c">&lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins) --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="c">&lt;!-- Include all compiled plugins (below),
+	     or include individual files as needed --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/bootstrap.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+
+<p>You will use this same boilerplate code for all of your Bootstrap projects.</p>
+
+<p>Navigate to http://localhost:8080/helloworld.html, and you should see the
+following:</p>
+
+<p><img src="/workshops/images/hello_bootstrap.png" alt="Hello Bootstrap" /></p>
+
+<p><strong>Add <code class="highlighter-rouge">helloworld.html</code> to Git, commit it, and push to GitHub</strong></p>
+
+<h2 id="a-walk-through-helloworldhtml-aka-what-are-those-tags-for">A walk through <code class="highlighter-rouge">helloworld.html</code>, aka “what are those tags for?”</h2>
+
+<p><em>tl;dr: Bootstrap handles all of this stuff so you can focus on making cool websites.</em></p>
+
+<p>Most of the HTML here is pretty standard
+(e.g. the
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html"><code class="highlighter-rouge">html</code> tag</a>,
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head"><code class="highlighter-rouge">head</code> tag</a>,
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body"><code class="highlighter-rouge">body</code> tag</a>,
+etc)…  but some of the elements are confusing. Let’s discuss them
+now!</p>
+
+<p>The following is
+a <a href="https://en.wikipedia.org/wiki/Document_type_declaration">document type declaration</a>:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre>
+</div>
+
+<p>Roughly, these tell the web browser how to interpret the document. The
+web has gone through many iterations, and so older documents on the
+web are displayed slightly differently than newer ones. This doctype
+is
+the
+<a href="https://en.wikipedia.org/wiki/Document_type_declaration#HTML5_DTD-less_DOCTYPE">HTML5 doctype</a>,
+which is what you should generally use on all of your websites.</p>
+
+<p>The template contains a block of <code class="highlighter-rouge">meta</code> tags, which are somewhat interesting:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"IE=edge"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+</code></pre>
+</div>
+
+<p>The first line tells the browser to interpret the rest of the document
+from that point as <code class="highlighter-rouge">utf-8</code>, which is a character
+encoding.
+<a href="https://en.wikipedia.org/wiki/Character_encoding">Character encodings are a rabbit hole</a>,
+but, at a high level, it tells the browser how to translate the
+low-level bits of the document into language characters. Without this
+tag, the web server would have to tell the browser what character
+encoding to use. If it didn’t, the web browser would likely assume
+ASCII, which means fun emojis like 👍  won’t display properly. <em>tl;dr:
+You generally want utf-8 at all times.</em></p>
+
+<p>The second line tells Internet Explorer to use its new Edge rendering
+engine if available, which is much more standards compliant than its
+older rendering engines. On certain versions of IE, this tag is
+required to enable new browser features.</p>
+
+<p>The third line is for mobile browsers; it tells the browser to render
+the page at the width of the device’s screen, and to start the page
+view at the standard zoom level. Otherwise, the browser may render the
+website with a different width (e.g. thinner or larger), or may use a
+different zoom level when it loads your website.</p>
+
+<p>Finally, Bootstrap puts its <code class="highlighter-rouge">script</code> tags as the last items in the <code class="highlighter-rouge">body</code> of the
+HTML file, which seems unusual if you have ever written HTML before. These tags
+pull in the JavaScript files that Bootstrap relies on. We will cover these tags
+later when we start covering JavaScript:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+  <span class="c">&lt;!-- snip --&gt;</span>
+  <span class="c">&lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins) --&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="c">&lt;!-- Include all compiled plugins (below),
+       or include individual files as needed --&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/bootstrap.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre>
+</div>
+
+<p>Most HTML guides specify that <code class="highlighter-rouge">script</code> tags be added to the <code class="highlighter-rouge">head</code> of the
+document. However, if Bootstrap did that, the web browser would wait until both
+<code class="highlighter-rouge">jquery.min.js</code> and <code class="highlighter-rouge">bootstrap.min.js</code> downloaded and initialized before
+displaying the <code class="highlighter-rouge">body</code> of the webpage. On a mobile connection, this could
+translate into a multi-second wait.</p>
+
+<p>By putting these tags into the <code class="highlighter-rouge">body</code>, the web browser will display all of the
+content in the HTML document <em>before</em> the <code class="highlighter-rouge">script</code> tags while the <code class="highlighter-rouge">script</code> tags
+load. This is now standard practice on most websites.</p>
+
+<p><a href="http://stackoverflow.com/a/24070373">There are more modern ways to do this</a>,
+but Bootstrap uses this method because it is compatible with the most web
+browsers.</p>
+
+<h1 id="part-2-facebook-in-bootstrap">Part 2: Facebook in Bootstrap</h1>
+
+<p>Many of you are likely familiar with Facebook. In this part of the workshop, you
+will recreate Facebook’s desktop interface using HTML, CSS, and Bootstrap.
+Facebook’s desktop interface looks like this:</p>
+
+<p><img src="/workshops/images/facebook.png" alt="Facebook" /></p>
+
+<p><strong>For grading purposes, we are going to have you write git commits at particular
+points in the workshop with specific messages.</strong> We will look at your website
+at those commits, and check that it is correct. If you do not commit your code
+when the guide tells you to, or if you use a different commit message, we will
+have trouble grading your submission.</p>
+
+<p>Let’s dive in!</p>
+
+<h2 id="step-00-basic-bootstrap-template">Step 00: Basic Bootstrap template</h2>
+
+<p>Create a file called <code class="highlighter-rouge">facebook.html</code> in the root of the workshop repository with
+the standard Bootstrap boilerplate we used for the Hello World example, except
+with a modified <code class="highlighter-rouge">title</code>:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"IE=edge"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- The above 3 meta tags *must* come first in the head;
+		 any other head content must come *after* these tags --&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Facebook<span class="nt">&lt;/title&gt;</span>
+
+    <span class="c">&lt;!-- Bootstrap's CSS --&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"css/bootstrap.min.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="c">&lt;!-- Our Facebook layout will go here. --&gt;</span>
+
+    <span class="c">&lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins) --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="c">&lt;!-- Include all compiled plugins (below),
+		 or include individual files as needed --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/bootstrap.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+
+<p>Don’t commit anything to Git just yet; we’re going to do a bit more first!</p>
+
+<h2 id="step-01-facebook-at-the-macro-level">Step 01: Facebook at the Macro Level</h2>
+
+<p>Now that we have a template, it’s time to work on the layout of our Facebook
+clone! But… Facebook’s desktop interface is quite cluttered. You may not know
+where to begin.</p>
+
+<p>At this point, it’s important to look at the big picture. Ignore the details;
+what are the <em>top-level content panes</em> on the webpage? If we can create those
+properly, then we can start filling in the details of each. HTML
+documents are <em>trees</em>, so you should be able to edit the content of each
+content pane independently.</p>
+
+<p>In other words, if you establish these content panes correctly, the size and
+contents of one content pane will not impact the others.</p>
+
+<p>To answer my own question, there are five top-level content panes:</p>
+
+<p><img src="/workshops/images/facebook_content_panes.png" alt="Facebook Content Panes" /></p>
+
+<p>Facebook uses a three-column layout, with a top navigation bar and a chat dock
+in the corner. What we want to do now is create HTML for each of these using
+Bootstrap.</p>
+
+<p>Bootstrap has two primary documentation pages for creating the layout of a
+website:</p>
+
+<ul>
+  <li><a href="http://getbootstrap.com/css/">CSS Guide</a>: Documents many of the CSS classes
+available within Bootstrap, which you can use to style / format your GUI.</li>
+  <li><a href="http://getbootstrap.com/components/">Component Guide</a>: Documents the
+components/widgets in Bootstrap. The line between <em>components</em> and <em>simple CSS
+classes</em> is murky at best; many components are simply CSS classes you apply to
+HTML elements. You’ll likely check both of these pages regularly when designing
+a website.</li>
+</ul>
+
+<p>We will refer to content in both of these as you build your Facebook clone.</p>
+
+<h3 id="basic-navbar">Basic Navbar</h3>
+
+<p>The component guide contains a section on how
+to
+<a href="http://getbootstrap.com/components/#navbar">create a navigation bar</a>,
+which is absolutely <em>perfect</em> for the Facebook navigation bar.</p>
+
+<p>In your template, add an <em>empty</em> Bootstrap navigation bar to the <code class="highlighter-rouge">body</code> of the
+page. It should go <em>before</em> the <code class="highlighter-rouge">script</code> tags:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;nav</span> <span class="na">class=</span><span class="s">"navbar navbar-default"</span><span class="nt">&gt;</span>
+  NAVBAR
+<span class="nt">&lt;/nav&gt;</span>
+</code></pre>
+</div>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav">The <code class="highlighter-rouge">nav</code> HTML tag</a>
+is intended for a content pane with links to other parts of the site.
+<code class="highlighter-rouge">navbar</code> and <code class="highlighter-rouge">navbar-default</code> are Bootstrap CSS classes, which transform the
+ordinary HTML tag into a Bootstrap navigation bar. HTML tags can have an
+arbitrary number of CSS classes applied to them. Later on, we’ll define our
+own classes to customize our site further.</p>
+
+<p>Now, if you
+refresh
+<a href="http://localhost:8080/facebook.html">http://localhost:8080/facebook.html</a>,
+you’ll see a faint gray outline of a navigation bar:</p>
+
+<p><img src="/workshops/images/navbar_outline.png" alt="Navbar Outline" /></p>
+
+<p>You may be tempted to fill in the navbar with buttons and such, and figure out
+how to make it Facebook blue… but <em>do not do that just yet</em>. When implementing
+a webpage layout, the top-level structure of a webpage is the most important
+detail to think through and get right. It quickly becomes frustrating if you try
+to change/fix the top-level structure of a fully-developed webpage, which
+typically contains hundreds of lines of HTML!</p>
+
+<h3 id="three-columns">Three Columns</h3>
+
+<p>With the navbar in place, we can tackle creating the main three columns.
+Bootstrap has a handy <a href="http://getbootstrap.com/css/#grid">grid system</a>, which
+lets you place HTML elements in rows and columns. You will use this grid system
+regularly in your layouts.</p>
+
+<p>The grid documentation contains many details, but the most important facts are:</p>
+
+<ul>
+  <li>A grid contains a list of rows.</li>
+  <li>Each row has 12 columns.</li>
+  <li>Each grid cell can span 1 or more columns, can be specified for a particular
+screen size, and can begin at a particular column.
+    <ul>
+      <li>For this tutorial, we are targeting <em>medium</em>-size screens, so we will
+only use <code class="highlighter-rouge">col-md-*</code> CSS classes.</li>
+      <li>Bootstrap lets you make <em>responsive</em> designs that adapt to different screen
+sizes. You can define columns that span different numbers of columns for
+different screen sizes, and can define columns that only display for
+particular screen sizes. We will not cover this in this workshop, but
+understanding how this works is crucial for writing mobile websites in
+Bootstrap.</li>
+    </ul>
+  </li>
+  <li>Each row is as tall as the largest cell within it, and expands to fill the width
+of the HTML element that contains it.</li>
+  <li>You can nest grids within grids by defining rows within cells.</li>
+</ul>
+
+<p>We’ll cover each of these points (and more!) as we make grids for the Facebook
+layout.</p>
+
+<p>For the Facebook three-column layout, we can make one row with three cells:
+one for the left sidebar, one for the main feed, and one for the right sidebar.
+We just need to decide how many columns each cell spans!</p>
+
+<p>To visualize the solution, here’s the Facebook layout with the Bootstrap
+grid columns overlaid on top:</p>
+
+<p><img src="/workshops/images/facebook_grid.png" alt="Facebook Grid" /></p>
+
+<p><em>Remember: The Bootstrap grid system is always 12 columns wide, each
+column is equal in size, and the columns expand to fill the width of
+the HTML element that contains it.</em></p>
+
+<p>The left sidebar is <em>roughly</em> 2 columns wide, the feed 7, and the right sidebar 3.
+Now, we can add a simple, one-row grid to the <code class="highlighter-rouge">body</code> of our Facebook clone.
+Add this just below the navbar:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!-- The container for our grid. The outermost grid must be placed within
+     a `container` or `container-fluid` class. (Meaning: If you nest a grid
+     within a grid, you should not define another `container`)
+     What's the difference between these two types of container? There's a
+     good answer here: http://stackoverflow.com/a/22263969 --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- The row that contains the three main columns of the website. --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Left sidebar: A cell that spans 2 columns --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-2"</span><span class="nt">&gt;</span>
+      Left Sidebar
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="c">&lt;!-- Main feed: A cell that spans 7 columns --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-7"</span><span class="nt">&gt;</span>
+      Main Feed
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="c">&lt;!-- Right sidebar: A cell that spans 3 columns --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-3"</span><span class="nt">&gt;</span>
+      Right Sidebar
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>Now, our Facebook clone looks like the following:</p>
+
+<p><img src="/workshops/images/facebook_clone_macro.png" alt="Facebook Clone" /></p>
+
+<p>Those look like the correct proportions!</p>
+
+<p>If you resize your browser window to make it wider or narrower, you’ll notice
+that the width of the grid changes slightly. <a href="http://stackoverflow.com/a/22263969">The <code class="highlighter-rouge">container</code> that we nested
+our grid inside has several fixed widths, depending on the width of the
+browser window.</a> This is part of
+Bootstrap’s <em>responsive design</em>, which we encourage you to read more about
+if you are interested.</p>
+
+<p>Also, note that your Facebook layout looks weird when the browser gets
+too thin. We will not address this limitation in this workshop, but there
+are two solutions to this problem: 1) <a href="http://getbootstrap.com/getting-started/#disable-responsive">Disabling Bootstrap’s responsiveness</a>,
+or 2) Adding in extra Bootstrap CSS classes so the layout looks good on smaller screens.</p>
+
+<h3 id="chat-popup">Chat Popup</h3>
+
+<p>The final main content pane on the Facebook page is the chat popup menu. This
+menu docks at the bottom of the screen, and sits <em>on top</em> of the content on the
+right. How can we re-create this popup using Bootstrap?</p>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">The CSS <code class="highlighter-rouge">position</code> property</a>
+tells the browser how to render an HTML element and its children (i.e. nested elements).</p>
+
+<p>We can position the chat menu using the <code class="highlighter-rouge">absolute</code> position, which instructs the
+browser to display the element at a specific location relative to the browser
+window. To ensure that the chat menu covers contents on the page, we can set the
+CSS property <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/z-index"><code class="highlighter-rouge">z-index</code></a>
+to a large value. Elements with a larger <code class="highlighter-rouge">z-index</code> always cover elements with
+a lower <code class="highlighter-rouge">z-index</code>.</p>
+
+<p>The next question: How do we tell the browser how wide the chat menu is?
+Up until now, all of our HTML elements have a width that is relative to the size
+of the browser window. For example, the width of the navigation bar and the main grid depends
+on the width of the <code class="highlighter-rouge">container</code> class, which depends on the size of the browser window. <em>This is a good thing.</em> Our layout will
+display well on desktop devices with a variety of screen sizes.</p>
+
+<p>Often, new web developers are tempted to micromanage every pixel on their
+webpages by defining pixel widths, heights, and offsets on all of their HTML
+elements. This is a <em>bad idea</em>. HTML layouts produced using this technique are:</p>
+
+<ul>
+  <li><strong>Unmaintainable</strong>: The HTML/CSS will be cluttered with specific pixel offsets.
+Adding additional content panes or altering the layout would be a
+considerable undertaking, as all of the pixel values affect one another.</li>
+  <li><strong>Inflexible</strong>: Bootstrap is designed so that your webpage can look good on
+many screen sizes. Using specific pixel counts restricts your webpage to
+looking good on only one screen size.</li>
+  <li><strong>Non-portable</strong>: Web browsers differ slightly in how they display webpages.
+It’s common that one browser will add a single extra pixel of padding
+between elements over another browser due to a <a href="https://en.wikipedia.org/wiki/Round-off_error">rounding error</a>.
+You cannot count on pixel-precise behavior across browsers.</li>
+</ul>
+
+<p>However, there are exceptions to every rule. The chat menu is a <em>small</em> floating
+menu, and its contents do not vary much in width. In particular, it contains a
+fixed-width online indicator, text indicating how many people are online (which
+will be at most 8 + log 10(# online friends) characters wide), and two
+fixed-width buttons. We cannot rely on this content being a specific width,
+but we can reasonably assume that it won’t exceed a certain width.</p>
+
+<p>The Facebook chat popup itself is ~300 pixels wide, which gives the content
+plenty of room to grow if the person has many friends online:</p>
+
+<p><img src="/workshops/images/facebook_chat_menu.png" alt="Facebook Chat Menu" /></p>
+
+<p>With that discussion out of the way, we’re going to add a <code class="highlighter-rouge">div</code> element for the
+chat menu to the HTML. Before we can do that, however, we need to add a CSS
+file so we can define custom CSS stylings for our website.</p>
+
+<p>Create an empty file at <code class="highlighter-rouge">css/facebook.css</code>, and add the following HTML to
+<code class="highlighter-rouge">facebook.html</code> within the <code class="highlighter-rouge">head</code> tag, just after the <code class="highlighter-rouge">link</code> tag for
+<code class="highlighter-rouge">bootstrap.min.css</code>:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;!</span><span class="nt">--</span> <span class="nt">Custom</span> <span class="nt">CSS</span> <span class="nt">--</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">link</span> <span class="nt">href</span><span class="o">=</span><span class="s1">"css/facebook.css"</span> <span class="nt">rel</span><span class="o">=</span><span class="s1">"stylesheet"</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<p>Now, our webpage will load and apply <code class="highlighter-rouge">facebook.css</code> when you view it.</p>
+
+<p>Open <code class="highlighter-rouge">facebook.css</code>, and add a CSS rule for the chat menu:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.chat-popup</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">300px</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+  <span class="nl">bottom</span><span class="p">:</span> <span class="m">0px</span><span class="p">;</span>
+  <span class="nl">right</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><em>Note: CSS classes typically use all lowercase letters with dashes
+in-between words. You don’t need to follow this convention, but the
+rest of the web typically does.</em></p>
+
+<p>The above is a <em>CSS rule</em>. A <em>CSS rule</em> contains a <em>selector</em> and a <em>declaration
+block</em>. The syntax is as follows:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nt">SELECTOR</span> <span class="p">{</span>
+  <span class="err">DECLARATION</span> <span class="err">BLOCK</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Our rule uses a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors">CSS class selector</a>,
+which means “apply these properties to elements with the class <code class="highlighter-rouge">chat-popup</code>”.
+Class selectors are written using a period (<code class="highlighter-rouge">.</code>) before the target class.</p>
+
+<p>CSS rules can change the look and position of elements on the webpage, and are
+how Bootstrap components work. The CSS rule above is only concerned with the
+<em>position</em> of the chat menu. The value for <code class="highlighter-rouge">bottom</code> and <code class="highlighter-rouge">right</code>, when <code class="highlighter-rouge">position</code>
+is set to <code class="highlighter-rouge">fixed</code>, means:
+“Display this element 0 pixels from the bottom, and 30 pixels from the right”.</p>
+
+<p>Add the following HTML to the <code class="highlighter-rouge">body</code> of your page, after the <code class="highlighter-rouge">container</code> div
+containing the grid:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"chat-popup"</span><span class="nt">&gt;</span>
+  CHAT MENU
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>Navigate to http://localhost:8080/facebook.html, and you should see the
+following:</p>
+
+<p><img src="/workshops/images/facebook_clone_chat_menu.png" alt="Facebook Clone Chat Menu" /></p>
+
+<p>That looks about right!</p>
+
+<p><strong><code class="highlighter-rouge">add</code> <code class="highlighter-rouge">facebook.html</code> and <code class="highlighter-rouge">css/facebook.css</code> to Git, <code class="highlighter-rouge">commit</code> your
+changes with the commit message <code class="highlighter-rouge">fb1</code>, and <code class="highlighter-rouge">push</code> the changes to
+GitHub.</strong></p>
+
+<h2 id="step-02-scrolling-behavior">Step 02: Scrolling Behavior</h2>
+
+<p>Next, we need to check how our layout responds when we have enough content
+to trigger scrolling. On Facebook, the main feed is larger than the browser
+window’s height. The user scrolls down the feed to see content hiding
+off-screen. As the user does this, the chat menu and top menu follows along.</p>
+
+<p><em>Note: Facebook also makes the right sidebar follow as you scroll so you look
+at trending content and advertisements, but it scrolls in an odd manner. We
+will not cover this behavior in this workshop. Our right sidebar will not
+“stick” to the side of the browser window.</em></p>
+
+<p>Let’s see how our current layout responds to content in the main feed.
+Add a <em>really tall</em> <code class="highlighter-rouge">div</code> element to the main feed’s <code class="highlighter-rouge">div</code>, like so:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-7"</span><span class="nt">&gt;</span>
+  Main Feed
+  <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"height: 99999px;"</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">style</code> attribute can be specified on any HTML element. It lets you specify
+CSS stylings within the HTML. You should avoid using the <code class="highlighter-rouge">style</code> attribute,
+as it clutters your HTML with styling information. You should use HTML to
+organize the structure of your webpage (i.e. the HTML tree), and CSS to
+customize the look given that structure.</p>
+
+<p>In this example, we are adding this element <em>temporarily</em> to investigate
+scrolling behavior, so we are justified in using <code class="highlighter-rouge">style</code>.</p>
+
+<p>Navigate
+to
+<a href="http://localhost:8080/facebook.html">http://localhost:8080/facebook.html</a> and
+try scrolling… and…  you’ll discover there are some problems:</p>
+
+<p><img src="/workshops/images/facebook_clone_scroll_issue.png" alt="Facebook Lone Scroll Issue" /></p>
+
+<p>The chat menu and navigation bar should stay “attached” to the browser window
+as you scroll, but they don’t. Why is that?</p>
+
+<h3 id="chat-menu">Chat Menu</h3>
+
+<p>We used <code class="highlighter-rouge">position: absolute;</code> to place the menu, which places the menu relative
+to the browser window. However, the menu does not stay in place when you scroll!
+(It does, however, stay in place when you resize the window to make it longer.
+Weird, right?)</p>
+
+<p>Instead, we need to use <code class="highlighter-rouge">position: fixed;</code>, which <em>fixes</em> the element relative
+to the user’s current view of the webpage. Fix the CSS for the <code class="highlighter-rouge">chat-popup</code>
+class, and reload the page:</p>
+
+<p><img src="/workshops/images/facebook_clone_chat_menu_scroll_fixed.gif" alt="Facebook Clone Chat Menu Scroll Fixed" /></p>
+
+<p>Much better!</p>
+
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">link we posted earlier</a>
+mentions these differences, but it’s much easier to understand when you see it
+in-person. (Also, full disclosure: we made this mistake ourselves when creating
+this assignment.)</p>
+
+<h3 id="navigation-menu">Navigation Menu</h3>
+
+<p>Considering the chat menu solution, you may be tempted to make the <code class="highlighter-rouge">nav</code> element
+absolutely placed, and call it a day. You can certainly fix the problem that
+way, but it’s much easier to use <a href="http://getbootstrap.com/components/#navbar-fixed-top">Bootstrap’s built-in CSS class that does it
+for you</a>.</p>
+
+<p>Add the <code class="highlighter-rouge">navbar-fixed-top</code> CSS class to your <code class="highlighter-rouge">nav</code> element, and reload the page.
+The navigation bar is now docked at the top… but it’s also covering the three
+main columns!</p>
+
+<p><img src="/workshops/images/facebook_clone_navbar_covering.png" alt="Facebook Clone Navbar" /></p>
+
+<p>To fix this, we can simply <em>offset</em> the content of the <code class="highlighter-rouge">body</code> by a particular
+pixel amount. Add the following to <code class="highlighter-rouge">facebook.css</code>:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">padding-top</span><span class="p">:</span> <span class="m">60px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>This CSS rule uses a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors"><em>type selector</em></a>,
+which applies the rule to all elements of the specified type.
+This particular CSS rule applies its properties to <em>every <code class="highlighter-rouge">body</code> element on the
+webpage</em>. Now, the browser will add 60 pixels worth of padding above the <code class="highlighter-rouge">body</code>
+element. Since the navbar and chat content panels are placed relative
+to the browser’s viewport (effectively <em>floating</em> above the webpage), they are
+not impacted by this change.</p>
+
+<p>We chose 60 pixels for the offset because the
+<a href="http://getbootstrap.com/getting-started/#examples-navbars">Bootstrap example code for a fixed navbar</a>
+uses a similar value. The navbar is apparently ~50 pixels high by default, and
+we can rely on this value remaining constant.</p>
+
+<p>Now, all is well!</p>
+
+<p><img src="/workshops/images/facebook_clone_scrolling_ok.png" alt="Facebook Clone Scrolling" /></p>
+
+<p><strong><code class="highlighter-rouge">commit</code> your changes with the commit message <code class="highlighter-rouge">fb2</code>, and <code class="highlighter-rouge">push</code> the changes to GitHub.</strong></p>
+
+<h2 id="step-03-the-navigation-bar">Step 03: The Navigation Bar</h2>
+
+<p>With a solid page structure in place, we can start adding buttons and content
+to flesh out the layout.</p>
+
+<p>Facebook’s navigation bar looks like the following:</p>
+
+<p><img src="/workshops/images/facebook_navbar.png" alt="Facebook Navbar" /></p>
+
+<p>Notice that one half of the navigation bar is <em>left-aligned</em> (the logo + search
+box), and the other half is <em>right-aligned</em>, with empty space pooling in the
+middle.</p>
+
+<p>Bootstrap’s <a href="http://getbootstrap.com/components/#navbar-default">default example for a navigation bar</a>
+uses the same basic design. We can repurpose this
+sample code to imitate Facebook’s navigation bar. In addition, we can use
+Bootstrap’s <a href="http://getbootstrap.com/components/#glyphicons">Glyphicons</a>
+to imitate all of Facebook’s icons.</p>
+
+<p>First, let’s empty out the sample code from that link into its essentials, and
+modify it to use a “home” glyphicon for the brand logo:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;nav</span> <span class="na">class=</span><span class="s">"navbar navbar-fixed-top navbar-default"</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- ".container-fluid" expands to fill the entire browser view's width.
+       ".container" will use the same width as the ".container" in the body,
+       which contains the three columns of content.
+
+       We want ".container" here so the navbar is the same width as the content.
+
+       Confused? Try switching between the two container classes once you have a
+       complete navbar to see the difference. --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- This code is only active when viewing the site on mobile. We will not
+         cover responsive design, but we'll leave this in, as it's part of the
+         example code.--&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar-header"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"navbar-toggle collapsed"</span> <span class="na">data-toggle=</span><span class="s">"collapse"</span>
+		      <span class="na">data-target=</span><span class="s">"#bs-example-navbar-collapse-1"</span> <span class="na">aria-expanded=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"sr-only"</span><span class="nt">&gt;</span>Toggle navigation<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon-bar"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon-bar"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon-bar"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;/button&gt;</span>
+      <span class="c">&lt;!-- Use a "home" glyphicon as a logo. --&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"navbar-brand"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- This is how you display a glyphicon. --&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-home"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- On mobile, this div is hidden by default. The user hits the button
+         in the `navbar-header` to see the content of the div.
+         On desktop, this div is visible all of the time. --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"collapse navbar-collapse"</span> <span class="na">id=</span><span class="s">"bs-example-navbar-collapse-1"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">"navbar-form navbar-left"</span> <span class="na">role=</span><span class="s">"search"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Left-aligned items. --&gt;</span>
+      <span class="nt">&lt;/form&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav navbar-right"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Right-aligned items. --&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span><span class="c">&lt;!-- /.navbar-collapse --&gt;</span>
+  <span class="nt">&lt;/div&gt;</span><span class="c">&lt;!-- /.container --&gt;</span>
+<span class="nt">&lt;/nav&gt;</span>
+</code></pre>
+</div>
+
+<p>Now, your navigation bar will have a house icon in the corner, instead of the
+Facebook logo.</p>
+
+<p>Next, let’s add in the search bar. The example code already had one in there,
+but it didn’t look quite right. <a href="http://getbootstrap.com/components/#input-groups-buttons">Bootstrap’s documentation has an example
+input field with an attached button</a>.
+We can use this code, and modify the button to display the “search” Glyphicon.</p>
+
+<p>Modify the <code class="highlighter-rouge">form</code> element to include the search bar:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">"navbar-form navbar-left"</span> <span class="na">role=</span><span class="s">"search"</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- Left-aligned items. --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"input-group"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">placeholder=</span><span class="s">"Search Facebook"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"input-group-btn"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-search"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre>
+</div>
+
+<p>Next, the right-hand side of the navigation bar has 7 different buttons spread
+among 4 button groups (the picture + name are a single button). The final button
+is a dropdown.</p>
+
+<p><a href="http://getbootstrap.com/components/#btn-groups-single">Bootstrap has support for button groups</a>,
+including <a href="http://getbootstrap.com/components/#btn-dropdowns-single">various types of dropdown buttons</a>
+and putting <a href="http://getbootstrap.com/components/#btn-groups-toolbar">multiple button groups into a single toolbar</a>.
+We can use the sample code from the Bootstrap guide to craft the buttons we need.</p>
+
+<p>The original navbar example code used a <code class="highlighter-rouge">ul</code> element for the right hand side
+of the navbar, which is an <em>unordered list</em>. Typically, <code class="highlighter-rouge">ul</code> is used to make
+bulleted lists. Modern websites abuse it to place many different HTML elements
+side-by-side, since you can eliminate the bullet point and change the behavior
+of <code class="highlighter-rouge">ul</code> via CSS.</p>
+
+<p><code class="highlighter-rouge">ul</code> is not an appropriate element for the right-hand-side of our navigation
+bar, since we’ll be using a button toolbar to group things together.</p>
+
+<p>Change the <code class="highlighter-rouge">ul</code> element above into a <code class="highlighter-rouge">div</code>, like so:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"nav navbar-nav navbar-right"</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- Right-aligned items --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-toolbar pull-right"</span> <span class="na">role=</span><span class="s">"toolbar"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-group"</span> <span class="na">role=</span><span class="s">"group"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+        John
+      <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-group"</span> <span class="na">role=</span><span class="s">"group"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+        Home
+      <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-group"</span> <span class="na">role=</span><span class="s">"group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-user"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-comment"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-globe"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-group"</span> <span class="na">role=</span><span class="s">"group"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-lock"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;/button&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-group"</span> <span class="na">role=</span><span class="s">"group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default dropdown-toggle"</span>
+			    <span class="na">data-toggle=</span><span class="s">"dropdown"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"caret"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"dropdown-menu"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Log out...<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>Notice that the above HTML is entirely composed of Bootstrap sample code. All we
+did was replace the text of the buttons with different text or a Glyphicon.</p>
+
+<p>Now if you look at the navbar, it’ll look mostly right… but there’s an issue
+with how the buttons display! They are bunched up toward the top of the screen:</p>
+
+<p><img src="/workshops/images/facebook_clone_button_issue.png" alt="Facebook Clone Button Issue" /></p>
+
+<p>Ideally, we’d like these to be vertically aligned within the navbar. The
+Bootstrap documentation <a href="http://getbootstrap.com/components/#navbar-buttons">discusses this issue</a>,
+and has a solution:</p>
+
+<blockquote>
+  <p>Add the <code class="highlighter-rouge">.navbar-btn</code> class to <code class="highlighter-rouge">&lt;button&gt;</code> elements not residing in a <code class="highlighter-rouge">&lt;form&gt;</code>
+to vertically center them in the navbar.</p>
+</blockquote>
+
+<p>Apply this fix to <em>every <code class="highlighter-rouge">button</code> element in the navbar</em> (except for the search
+  button – since that’s within a <code class="highlighter-rouge">form</code>!), and the navbar will look as you’d expect:</p>
+
+<p><img src="/workshops/images/facebook_clone_button_fixed.png" alt="Facebook Clone Button Fixed" /></p>
+
+<p>When you get a notification, friend request, or message, Facebook adds a number
+beside the appropriate button in the navigation bar. Bootstrap supports this
+functionality; <a href="http://getbootstrap.com/components/#badges">it calls these numbers “badges”</a>.</p>
+
+<p>Add badges to the notification, friend request, and message buttons:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-group"</span> <span class="na">role=</span><span class="s">"group"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-user"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>5<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-comment"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-globe"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>3<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>Next, the search bar is a little too small. Facebook uses a 395px wide search
+bar. We can create a CSS class for the search bar, and make it 395 pixels wide.</p>
+
+<p>Add the following to <code class="highlighter-rouge">facebook.css</code>:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.fb-search</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">395px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Add the <code class="highlighter-rouge">fb-search</code> class to the <code class="highlighter-rouge">input</code> tag for the search bar and… it
+doesn’t do anything! Why is this?</p>
+
+<p>If you are using Google Chrome, you can right-click the search bar, and click on
+<em>Inspect</em> to open up Chrome’s developer tools. It will show you that Chrome
+is ignoring our <code class="highlighter-rouge">width</code> setting, since it is set already in the Bootstrap
+class <code class="highlighter-rouge">form-control</code>:</p>
+
+<p><img src="/workshops/images/facebook_search_size_increase_fail.png" alt="Facebook Search Size Failure" /></p>
+
+<p>We can tell the web browser to make <code class="highlighter-rouge">fb-search</code>’s <code class="highlighter-rouge">width</code> setting override
+<code class="highlighter-rouge">form-control</code>’s by marking it <code class="highlighter-rouge">!important</code>. Using <code class="highlighter-rouge">!important</code> is
+generally not recommended, as it makes your CSS hard to debug, but sometimes it
+cannot be avoided. In this case, we do not want to modify Bootstrap, yet we want
+to change its behavior for this one case.</p>
+
+<p>You use <code class="highlighter-rouge">!important</code> on individual properties, like so:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.fb-search</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">395px</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, your navigation bar should look like the following:</p>
+
+<p><img src="/workshops/images/facebook_clone_navbar_badges.png" alt="Facebook Clone Navbar Badges" /></p>
+
+<p>The navbar is now complete! Later, we’ll revisit the navbar to make it look more
+like Facebook.</p>
+
+<p><strong><code class="highlighter-rouge">commit</code> your changes with the commit message <code class="highlighter-rouge">fb3</code>, and <code class="highlighter-rouge">push</code> the changes to GitHub.</strong></p>
+
+<h1 id="submission">Submission</h1>
+
+<p>You must submit the URL of your Workshop3 GitHub repository to
+Moodle. Visit Moodle, find the associated Workshop 3 activity, and
+provide your URL. Make sure your Workshop3 repository is public so we
+can clone your repository and evaluate your work.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

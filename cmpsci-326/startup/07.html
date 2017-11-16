@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/startup/07">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    <p><img src="/startups/images/ucombinator_logo.png" alt="UCombinator" /></p>
+
+<h1 class="no_toc" id="startup-submission-07-adding-a-database">Startup Submission 07: Adding a Database</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#startup-submission" id="markdown-toc-startup-submission">Startup Submission</a>    <ul>
+      <li><a href="#update-document-ids" id="markdown-toc-update-document-ids">Update Document IDs</a></li>
+      <li><a href="#add-resetdatabasejs-insert-mock-objects-hook-it-up-to-reset-db-button" id="markdown-toc-add-resetdatabasejs-insert-mock-objects-hook-it-up-to-reset-db-button">Add <code class="highlighter-rouge">resetdatabase.js</code>, Insert Mock Objects, Hook it Up to “Reset DB” Button</a></li>
+      <li><a href="#add-mongo-express-for-your-own-sanity" id="markdown-toc-add-mongo-express-for-your-own-sanity">Add <code class="highlighter-rouge">mongo-express</code> For Your Own Sanity</a></li>
+      <li><a href="#update-server-routes-to-use-database" id="markdown-toc-update-server-routes-to-use-database">Update Server Routes to Use Database</a></li>
+      <li><a href="#small-note-embedded-arrays" id="markdown-toc-small-note-embedded-arrays">Small Note: Embedded Arrays</a></li>
+      <li><a href="#expectations-for-search" id="markdown-toc-expectations-for-search">Expectations for Search</a></li>
+      <li><a href="#expectations-for-third-party-api-integration-and-other-features" id="markdown-toc-expectations-for-third-party-api-integration-and-other-features">Expectations for Third Party API Integration and Other Features</a></li>
+      <li><a href="#report" id="markdown-toc-report">Report</a>        <ul>
+          <li><a href="#special-server-setup-procedure" id="markdown-toc-special-server-setup-procedure">Special Server Setup Procedure</a></li>
+          <li><a href="#individual-contributions" id="markdown-toc-individual-contributions">Individual Contributions</a></li>
+          <li><a href="#lingering-bugs--issues--dropped-features" id="markdown-toc-lingering-bugs--issues--dropped-features">Lingering Bugs / Issues / Dropped Features</a></li>
+        </ul>
+      </li>
+      <li><a href="#grading-rubric" id="markdown-toc-grading-rubric">Grading Rubric</a></li>
+    </ul>
+  </li>
+  <li><a href="#update-git-repository" id="markdown-toc-update-git-repository">Update Git Repository</a></li>
+  <li><a href="#submission" id="markdown-toc-submission">Submission</a></li>
+</ul>
+
+<p>Your startup is near the end of a long and challenging road. You
+tangoed with HTML and CSS, struggled with React and JavaScript, and
+wrestled with HTTP routes, requests, and responses. Now, it is time
+for your startup’s final task: Adding a database to your product.</p>
+
+<p>Your product will still assume a single logged-in user. Originally, we
+were going to have your startup add user login to your product in an
+8th startup submission.  Due to time constraints, we will not ask you
+to do that; instead, we will release a final workshop before the end
+of the class in which you add proper authentication and encryption to
+Facebook to give you a taste on how that works.</p>
+
+<h1 id="startup-submission">Startup Submission</h1>
+
+<p>The overall goal of this submission is to migrate your server from using the
+mock database to using MongoDB.</p>
+
+<p>If your product is in good shape, you should only have to make small
+changes to your client to accomodate MongoDB’s ObjectIDs, with the
+rest of the changes happening in the server.</p>
+
+<h2 id="update-document-ids">Update Document IDs</h2>
+
+<p>As mentioned in the workshop, MongoDB uses <em>ObjectIDs</em> to identify
+non-embedded documents within the database, which are sent to the
+client as <em>strings</em>. Our mock database used <em>numbers</em>, which the
+client saw as <em>numbers</em>.</p>
+
+<p>You will have to update both the client, server, and mock objects to
+expect these ObjectIDs. In particular, you will need to:</p>
+
+<ul>
+  <li>Convert mock objects’ mock database IDs to MongoDB
+ObjectIDs, like you did in the workshop.
+    <ul>
+      <li>This includes <em>references to other Object’s IDs</em>. For example, a
+comment’s <em>author</em> for Facebook contains a user’s ID. We converted
+that reference to an <code class="highlighter-rouge">ObjectID</code> in the workshop.</li>
+    </ul>
+  </li>
+  <li>Update any hardcoded database IDs in the client to be the string
+version of MongoDB ObjectIDs, like you did in the workshop
+    <ul>
+      <li>This <em>includes</em> the user ID in the unencrypted JSON token!</li>
+    </ul>
+  </li>
+  <li>Update server routes to expect the client to send database IDs as
+strings rather than numbers,
+which you did in the workshop.</li>
+</ul>
+
+<h2 id="add-resetdatabasejs-insert-mock-objects-hook-it-up-to-reset-db-button">Add <code class="highlighter-rouge">resetdatabase.js</code>, Insert Mock Objects, Hook it Up to “Reset DB” Button</h2>
+
+<p>To populate MongoDB with your mock objects, you will need to put your
+mock objects into a reset database script like you did in the
+workshop.  Remember to change all IDs and references to IDs into
+<code class="highlighter-rouge">ObjectID</code>s!</p>
+
+<p>In the “Update Git Repository” section below, we link to where you can
+get an empty <code class="highlighter-rouge">resetdatabase.js</code> to put into
+<code class="highlighter-rouge">server/src/resetdatabase.js</code>.</p>
+
+<p>Once <code class="highlighter-rouge">resetdatabase.js</code> contains your mock objects with IDs converted
+to ObjectIDs, you can run it from the command line to reset MongoDB’s
+server. Also, you should update the “Reset DB” HTTP route to use
+<code class="highlighter-rouge">resetdatabase.js</code>, like you did in the workshop. Once you make that
+change, clicking the “Reset DB” button in the web browser will reset
+the database.</p>
+
+<h2 id="add-mongo-express-for-your-own-sanity">Add <code class="highlighter-rouge">mongo-express</code> For Your Own Sanity</h2>
+
+<p>When things are going wrong, and your database is returning weird
+stuff, you will want to take a look at what you are storing inside it.
+For your own sanity, we request that you add <code class="highlighter-rouge">mongo-express</code> to your
+product, like you did in the workshop. Please see the “Update Git
+Repository” section below for information on how to add
+<code class="highlighter-rouge">mongo-express</code> as a dependency of your <code class="highlighter-rouge">server</code>.</p>
+
+<h2 id="update-server-routes-to-use-database">Update Server Routes to Use Database</h2>
+
+<p>Your product’s server routes currently use the mock database to read
+and update material. Now, you need to change those routes to use
+MongoDB.</p>
+
+<p>The database workshop covers converting the server to connect to the
+database, as well as how to convert many types of HTTP routes to use
+the database.  You will need to make similar changes.</p>
+
+<p>When a route <em>updates</em> data, you should be careful of atomicity
+issues. We briefly touch upon atomicity in the workshop, The main idea
+is that your database can change in any number of ways between the
+last time you read data and the next time you write to it.</p>
+
+<p>So, if you currently have code that:</p>
+
+<ul>
+  <li>Reads a user object from the database.</li>
+  <li>Changes a few fields in the user.</li>
+  <li>Writes the user object to the database.</li>
+</ul>
+
+<p>…other updates to the same user may happen between the time you
+<em>read the user object</em> and <em>write it back to the database</em>.</p>
+
+<p>MongoDB
+supports
+<a href="https://docs.mongodb.org/getting-started/node/update/">update queries</a> that
+let you change objects in the database
+using
+<a href="https://docs.mongodb.org/manual/reference/operator/update/">many types of operators</a>. You
+should use these queries when you are changing data in the database.</p>
+
+<p>Students may note that atomicity issues can also happen when reading
+from the database to <em>resolve references</em>. We are not concerned with
+these issues in this course, as it is not a <em>destructive</em> error – it
+does not erroneously delete database state. Instead, the user sees
+something weird, and refreshes the application to fix it. There are
+ways to deal with these issues, too, which I am happy to discuss with
+interested students in office hours.</p>
+
+<h2 id="small-note-embedded-arrays">Small Note: Embedded Arrays</h2>
+
+<p>I want to briefly mention a subject not mentioned in the workshop:
+<em>Updating</em> a particular element in an embedded array.  MongoDB treats
+an array index just like the name of a field.</p>
+
+<p>For example, in this object:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
+  <span class="s2">"_id"</span><span class="err">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000007"</span><span class="p">),</span>
+  <span class="s2">"planet"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"name"</span><span class="err">:</span> <span class="s2">"Mars"</span><span class="p">,</span>
+    <span class="s2">"coords"</span><span class="err">:</span> <span class="p">[</span><span class="mf">1212.1231</span><span class="p">,</span> <span class="mf">2321.12312</span><span class="p">,</span> <span class="mf">5.34334</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>I would reference the <code class="highlighter-rouge">"name"</code> of the <code class="highlighter-rouge">"planet"</code> as <code class="highlighter-rouge">"planet.name"</code> in
+an
+<a href="https://docs.mongodb.org/getting-started/node/update/">update’s filter or update document</a>.
+I would reference the second <code class="highlighter-rouge">"coords"</code> of the <code class="highlighter-rouge">"planet"</code> (2321.12312)
+as <code class="highlighter-rouge">"planet.coords.1"</code> in an update’s filter or update document.</p>
+
+<p>Why is this important? Many of your products contain database
+documents with embedded arrays. For example, Facebook status updates
+have a comments array:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
+  <span class="s2">"_id"</span><span class="err">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000001"</span><span class="p">),</span>
+  <span class="s2">"likeCounter"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000002"</span><span class="p">),</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000003"</span><span class="p">)</span>
+  <span class="p">],</span>
+  <span class="s2">"type"</span><span class="err">:</span> <span class="s2">"statusUpdate"</span><span class="p">,</span>
+  <span class="s2">"contents"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"author"</span><span class="err">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000001"</span><span class="p">),</span>
+    <span class="s2">"postDate"</span><span class="err">:</span> <span class="mi">1453668480000</span><span class="p">,</span>
+    <span class="s2">"location"</span><span class="err">:</span> <span class="s2">"Austin, TX"</span><span class="p">,</span>
+    <span class="s2">"contents"</span><span class="err">:</span> <span class="s2">"ugh."</span>
+  <span class="p">},</span>
+  <span class="s2">"comments"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"author"</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000002"</span><span class="p">),</span>
+      <span class="s2">"contents"</span><span class="p">:</span> <span class="s2">"hope everything is ok!"</span><span class="p">,</span>
+      <span class="s2">"postDate"</span><span class="p">:</span> <span class="mi">1453690800000</span><span class="p">,</span>
+      <span class="s2">"likeCounter"</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"author"</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000003"</span><span class="p">),</span>
+      <span class="s2">"contents"</span><span class="p">:</span> <span class="s2">"sending hugs your way"</span><span class="p">,</span>
+      <span class="s2">"postDate"</span><span class="p">:</span> <span class="mi">1453690800000</span><span class="p">,</span>
+      <span class="s2">"likeCounter"</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Let’s say that I wanted to update the <em>contents</em> of the <em>first
+comment</em> to say “hope you are OK”. This is the comment at index <code class="highlighter-rouge">0</code> in
+the <code class="highlighter-rouge">comments</code> array.</p>
+
+<p>I would use the following query to make the change without any
+atomicity issues:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Assumption: userId is the authenticated user's ID as an `ObjectID`</span>
+<span class="c1">// The filter document makes sure that the comment at index 0 is authored by the authenticated user.</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">updateOne</span><span class="p">({</span>
+  <span class="na">_id</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000001"</span><span class="p">),</span>
+  <span class="s2">"comments.0.author"</span><span class="p">:</span> <span class="nx">userId</span>
+<span class="p">},</span> <span class="p">{</span>
+  <span class="na">$set</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"comments.0.contents"</span><span class="p">:</span> <span class="s2">"hope you are OK"</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Constructing the above query when you have the comment index in a
+variable is a little bit tricky.  JavaScript does not let you
+construct objects like this: <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="nt">"comments."</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="err">commentIndex</span><span class="w"> </span><span class="err">+</span><span class="w">
+</span><span class="nt">".author"</span><span class="p">:</span><span class="w"> </span><span class="err">userId</span><span class="w"> </span><span class="p">}</span></code></p>
+
+<p>Instead, you will have to do the following:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>  <span class="na">_id</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000001"</span><span class="p">)</span> <span class="p">};</span>
+<span class="c1">// Compute the string path to the author field of the target comment.</span>
+<span class="nx">query</span><span class="p">[</span><span class="s2">"comments."</span> <span class="o">+</span> <span class="nx">commentIndex</span> <span class="o">+</span> <span class="s2">".author"</span><span class="p">]</span> <span class="o">=</span> <span class="nx">userId</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{</span> <span class="na">$set</span><span class="p">:</span> <span class="p">{}</span> <span class="p">};</span>
+<span class="c1">// Compute the string path to the author field of the target comment</span>
+<span class="nx">update</span><span class="p">.</span><span class="nx">$set</span><span class="p">[</span><span class="s2">"comments."</span> <span class="o">+</span> <span class="nx">commentIndex</span> <span class="o">+</span> <span class="s2">".contents"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"hope you are OK"</span><span class="p">;</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">updateOne</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">update</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<h2 id="expectations-for-search">Expectations for Search</h2>
+
+<p>Now that you are using a proper database, you should finish
+implementing search/filters/etc.  MongoDB queries should give you the
+flexibility you need to implement these features. In the workshop, we
+cover how to implement basic text search on the contents of status
+updates.</p>
+
+<p>Note that a document
+collection
+<a href="https://docs.mongodb.org/manual/core/index-text/#create-text-index">can have at most one <code class="highlighter-rouge">$text</code> index</a>.
+If you want to search multiple document types in a single document
+collection, you may want to consider putting them into their own
+document collection!</p>
+
+<p>For example, if we wanted Facebook search to support searching
+<em>comments</em>, we would have a problem due to our database structure!
+Comments are embedded into feed items, and we already put a <code class="highlighter-rouge">$text</code>
+index on the status update text in feed items.  We would need to
+create a new document collection for comments, change status updates
+to reference comments by ID instead of embedding them, and then add an
+index on the text of the comments.</p>
+
+<h2 id="expectations-for-third-party-api-integration-and-other-features">Expectations for Third Party API Integration and Other Features</h2>
+
+<p>Your startup should continue to work on integrating with any planned
+third party APIs or web services.  As in previous submissions, we
+understand the difficulty of working with new APIs, and will
+understand if your final submission has some rough edges. Please
+document any limitations.</p>
+
+<p>If integration with a third party API proves too challenging, you can
+change the design of your product to avoid the integration. For
+example, if you planned to integrate with Amazon to grab a user’s
+purchase history, you may change your product so users enter their
+purchases manually into your app. Document any changes like this in
+your report.</p>
+
+<h2 id="report">Report</h2>
+
+<p>Include a report in <code class="highlighter-rouge">reports/submission_07.pdf</code> in your client
+repository with the following information.</p>
+
+<h3 id="special-server-setup-procedure">Special Server Setup Procedure</h3>
+
+<p>As in the previous submission, if your server has any advanced
+features that require additional setup besides <code class="highlighter-rouge">npm install</code> and <code class="highlighter-rouge">node
+src/server.js</code>, include a section in the report that describes how to
+set up these features. Include details on how to tell if the feature
+is working properly.</p>
+
+<h3 id="individual-contributions">Individual Contributions</h3>
+
+<p>Include a section that describes each startup founder’s
+contribution. Each startup founder should be responsible for at least
+one product feature and its HTTP route(s). Name the feature and the
+HTTP routes that the founder updated to use the database.</p>
+
+<p>Each founder <em>must</em> be responsible for converting at least one HTTP
+route.</p>
+
+<h3 id="lingering-bugs--issues--dropped-features">Lingering Bugs / Issues / Dropped Features</h3>
+
+<p>If your application has any lingering bugs, issues, or missing/dropped
+features, include a section listing these.</p>
+
+<p>Similarly, if any particular features or components are not using the
+database, please mention those features here.</p>
+
+<h2 id="grading-rubric">Grading Rubric</h2>
+
+<ul>
+  <li>10% Report clearly describes what feature(s) and HTTP routes each
+startup founder was responsible for updating to use the database</li>
+  <li>10% HTTP routes continue to use unencrypted JSON token to check if a
+user has access to perform an operation</li>
+  <li>30% Server uses MongoDB instead of mock database</li>
+  <li>5% “Reset DB” button now resets MongoDB using <code class="highlighter-rouge">resetdatabase.js</code></li>
+  <li>5% Server uses <code class="highlighter-rouge">mongo-express</code> so database objects can be seen at
+<code class="highlighter-rouge">http://localhost:8080/mongo_express</code> (or whatever port you decided
+to use for your server if you didn’t use 8080)</li>
+  <li>10% <em>Updates</em> to the database avoid atomicity issues with proper
+update queries</li>
+  <li>30% [Individual] Founder’s product feature(s) is/are working
+properly and its HTTP route(s) use the database properly</li>
+</ul>
+
+<h1 id="update-git-repository">Update Git Repository</h1>
+
+<p>Have one founder of your startup perform the following steps to update
+your repository for this submission.</p>
+
+<ol>
+  <li><a href="/startups/startup-07/resetdatabase.js">Download the <code class="highlighter-rouge">resetdatabase.js</code> module here</a>,
+and add it to your project as <code class="highlighter-rouge">server/src/resetdatabase.js</code>.</li>
+  <li>Open a terminal to the product’s <strong>Git repository folder</strong>, <code class="highlighter-rouge">cd</code>
+into the <code class="highlighter-rouge">server</code> folder, and run <code class="highlighter-rouge">npm install --save mongo-express
+mongodb</code>
+    <ul>
+      <li>Don’t forget the <code class="highlighter-rouge">--save</code> argument – that will update the
+server’s <code class="highlighter-rouge">package.json</code> with the new dependencies!</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">add server/src/resetdatabase.js</code> to the repository, <code class="highlighter-rouge">commit</code> and
+<code class="highlighter-rouge">push</code> to GitHub.</li>
+  <li>Have the other members of your startup run <code class="highlighter-rouge">npm install</code> in the
+<code class="highlighter-rouge">server</code> directory to install the <code class="highlighter-rouge">mongo-express</code> and <code class="highlighter-rouge">mongodb</code>
+Node packages.</li>
+</ol>
+
+<h1 id="submission">Submission</h1>
+
+<p>Please submit the URL to your team respository to Moodle by the
+assigned due date.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

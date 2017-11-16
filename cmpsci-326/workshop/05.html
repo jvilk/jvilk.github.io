@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/workshop/05">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    
+<h1 class="no_toc" id="workshop-05-facebook-feed-and-styling">Workshop 05: Facebook Feed and Styling</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>    <ul>
+      <li><a href="#step-07-the-feed" id="markdown-toc-step-07-the-feed">Step 07: The Feed</a></li>
+      <li><a href="#step-08-styling" id="markdown-toc-step-08-styling">Step 08: Styling</a></li>
+      <li><a href="#part-2-conclusion" id="markdown-toc-part-2-conclusion">Part 2 Conclusion</a></li>
+    </ul>
+  </li>
+  <li><a href="#submission" id="markdown-toc-submission">Submission</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>This workshop continues from where <a href="/workshop/04">Workshop 04</a> left off. You
+do not need to clone a new repository you simply begin in the
+repository you used for <a href="/workshop/04">Workshop 04</a>.</p>
+
+<h2 id="step-07-the-feed">Step 07: The Feed</h2>
+
+<p>The feed contains a status update entry form at the top, like this:</p>
+
+<p><img src="/workshops/images/facebook_status_update_entry.png" alt="Facebook Status Update Entry" /></p>
+
+<p>…and a list of Facebook status updates following, like this:</p>
+
+<p><img src="/workshops/images/facebook_vaguebook_msg.png" alt="Facebook Status Update" /></p>
+
+<p>Notice how everything in the main feed is surrounded by a border. Bootstrap
+provides a <a href="http://getbootstrap.com/components/#panels">panel component</a>
+that surrounds content by a box. These panels expand to fill the width of
+the HTML element you place them in, so we can place them together in the
+main feed without using a grid.</p>
+
+<p>Insert the following skeleton for the main feed:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!-- Main feed: A cell that spans 7 columns --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-7"</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- Status update entry --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel panel-default"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-body"</span><span class="nt">&gt;</span>
+      Status update entry
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- Status update #1 --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel panel-default"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-body"</span><span class="nt">&gt;</span>
+      Status update #1
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The main feed will now look like this:</p>
+
+<p><img src="/workshops/images/facebook_clone_main_feed_skeleton.png" alt="Facebook Clone Main Feed Skeleton" /></p>
+
+<p>The top of the status update entry has three buttons (Update Status, Add
+Photos/Video, and Create Photo Album), and only one is active at once.
+We can use Bootstrap’s <a href="http://getbootstrap.com/components/#nav-pills">pills</a> once again:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel panel-default"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-body"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav nav-pills"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span> <span class="na">class=</span><span class="s">"active"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-pencil"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;strong&gt;</span>Update Status<span class="nt">&lt;/strong&gt;&lt;/a&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-picture"</span><span class="nt">&gt;&lt;/span&gt;</span>
+		<span class="nt">&lt;strong&gt;</span>Add Photos/Video<span class="nt">&lt;/strong&gt;&lt;/a&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-th"</span><span class="nt">&gt;&lt;/span&gt;</span>
+		<span class="nt">&lt;strong&gt;</span>Create Photo Album<span class="nt">&lt;/strong&gt;&lt;/a&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>For the input box with picture to the left, we can use Bootstrap’s <a href="http://getbootstrap.com/components/#media">media object</a> again.</p>
+
+<p>The status update input box lets the user input multiple lines of text. There’s
+only one HTML element that provides this functionality:
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea"><code class="highlighter-rouge">textarea</code></a>.</p>
+
+<p>Add the following after the pills:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-left media-top"</span><span class="nt">&gt;</span>
+    PIC
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-body"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+      <span class="c">&lt;!-- rows="2" means "display the textarea as 2 rows high". The user can
+           enter more than 2 rows of text. --&gt;</span>
+      <span class="nt">&lt;textarea</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">rows=</span><span class="s">"2"</span>
+	  <span class="na">placeholder=</span><span class="s">"What's on your mind?"</span><span class="nt">&gt;</span>
+	  <span class="nt">&lt;/textarea&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>Notice that we didn’t make a grid inside of the status update entry. Like
+Bootstrap panels, the pills and the media object expand to fill the width of
+the status update entry, so they will appear on separate lines. Adding a grid
+wouldn’t harm anything, though, and would result in the same visual look.</p>
+
+<p>The bottom part of the status update entry contains buttons on the left, and
+buttons on the right. We can re-create this using a grid row, with one cell
+pulled right. Add the following just after the media object:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-6"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-group"</span> <span class="na">role=</span><span class="s">"group"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-camera"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;/button&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-user"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;/button&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-heart"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/button&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-pushpin"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-6"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"pull-right"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-user"</span><span class="nt">&gt;&lt;/span&gt;</span>
+		Friends <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"caret"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;/button&gt;</span>
+      <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+        Post
+      <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The status update entry will now look like this:</p>
+
+<p><img src="/workshops/images/facebook_clone_status_update_1.png" alt="Facebook Clone Status Update" /></p>
+
+<p>The little triangle in the corner of the <code class="highlighter-rouge">textarea</code> lets the user resize the
+textarea, which is not something we want. We can solve this with CSS. The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/resize"><code class="highlighter-rouge">resize</code> CSS property</a>
+dictates the <code class="highlighter-rouge">textarea</code>’s resizeability.</p>
+
+<p>The border should also be moved off of the <code class="highlighter-rouge">textarea</code> and onto the element
+containing it. The <code class="highlighter-rouge">textarea</code> also has a shadow that should be removed.</p>
+
+<p>Add the <code class="highlighter-rouge">fb-status-update-entry</code> class to the <code class="highlighter-rouge">panel</code> containing the entire
+status update entry. Now we can use CSS to solve our problems:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.fb-status-update-entry</span> <span class="nt">textarea</span> <span class="p">{</span>
+  <span class="nl">resize</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="c">/* Needs to be !important, since Bootstrap sets this elsewhere. */</span>
+  <span class="nl">box-shadow</span><span class="p">:</span> <span class="nb">none</span> <span class="cp">!important</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.fb-status-update-entry</span> <span class="nc">.media</span> <span class="p">{</span>
+  <span class="nl">border-top</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">lightgrey</span><span class="p">;</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">lightgrey</span><span class="p">;</span>
+  <span class="c">/* Adds whitespace between bottom border and buttons */</span>
+  <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="c">/* Adds whitespace between top of media object and top border. */</span>
+  <span class="nl">padding-top</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>The status update entry form is now complete!</p>
+
+<p><img src="/workshops/images/facebook_clone_status_update_2.png" alt="Facebook Clone Status Update" /></p>
+
+<p>A status update itself has a more complicated structure:</p>
+
+<p><img src="/workshops/images/facebook_vaguebook_msg.png" alt="Facebook Clone Status Update" /></p>
+
+<p>We can reuse many of the Bootstrap components we’ve already described
+earlier.</p>
+
+<p>First, we can use a <a href="http://getbootstrap.com/css/#grid">grid</a> for the top of the status update, with a <a href="http://getbootstrap.com/components/#media">media object</a>
+for the picture / post time/date information. Note that we’ll have to use
+<code class="highlighter-rouge">pull-right</code> on the cell containing the down arrow, so it appears on the right
+side of the status update:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!-- Status update #1 --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel panel-default"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-body"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Post metadata --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-10"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-left media-top"</span><span class="nt">&gt;</span>
+            PIC
+          <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-body"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Someone<span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;br&gt;</span> Yesterday at 3:48pm · Austin, TX ·
+			<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-user"</span><span class="nt">&gt;&lt;/span&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-2"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"caret pull-right"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="c">&lt;!-- Post content --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+        ugh.
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>For Like/Comment/Share, we could use a <a href="http://getbootstrap.com/components/#btn-groups">button group</a>… but on Facebook, they
+look more like regular links. A better option is an <a href="http://getbootstrap.com/css/#type-lists">inline list</a>; we can make an inline list of
+links:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"list-inline"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;li&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-thumbs-up"</span><span class="nt">&gt;</span>
+		  <span class="nt">&lt;/span&gt;</span> Like<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-comment"</span><span class="nt">&gt;</span>
+		  <span class="nt">&lt;/span&gt;</span> Comment<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-share-alt"</span><span class="nt">&gt;</span>
+		  <span class="nt">&lt;/span&gt;</span> Share<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The content below the Like/Comment/Share links has a different background.
+Bootstrap panels can <a href="http://getbootstrap.com/components/#panels-footer">have a footer</a>
+with a different background (by default, a similar shade of grey).</p>
+
+<p>The “Like” information can be a simple grid row, and the comments section
+can be a <a href="http://getbootstrap.com/components/#media-list">media object list</a>.
+The “Comment” field can be media object with an <a href="http://getbootstrap.com/components/#input-groups-buttons-multiple">input group with multiple buttons</a>.</p>
+
+<p>Put all of that together, and we get the following <code class="highlighter-rouge">panel-footer</code> <code class="highlighter-rouge">div</code>,
+which you should place after the <code class="highlighter-rouge">panel-body</code> <code class="highlighter-rouge">div</code>:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-footer"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>13 people<span class="nt">&lt;/a&gt;</span> like this
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"media-list"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"media"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-left media-top"</span><span class="nt">&gt;</span>
+        PIC
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-body"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Someone Else<span class="nt">&lt;/a&gt;</span> hope everything is ok!
+        <span class="nt">&lt;br&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Like<span class="nt">&lt;/a&gt;</span> · <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Reply<span class="nt">&lt;/a&gt;</span> · 20 hrs
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"media"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-left media-top"</span><span class="nt">&gt;</span>
+        PIC
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-body"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Another Person<span class="nt">&lt;/a&gt;</span> sending hugs your way
+        <span class="nt">&lt;br&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Like<span class="nt">&lt;/a&gt;</span> · <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Reply<span class="nt">&lt;/a&gt;</span> · 20 hrs
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"media"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-left media-top"</span><span class="nt">&gt;</span>
+        PIC
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-body"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"input-group"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span>
+			     <span class="na">placeholder=</span><span class="s">"Write a comment..."</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"input-group-btn"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-default"</span> <span class="na">type=</span><span class="s">"button"</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-camera"</span><span class="nt">&gt;&lt;/span&gt;</span>
+            <span class="nt">&lt;/button&gt;</span>
+            <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-default"</span> <span class="na">type=</span><span class="s">"button"</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;span</span> <span class="na">className=</span><span class="s">"glyphicon glyphicon-heart"</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;/span&gt;</span>
+            <span class="nt">&lt;/button&gt;</span>
+          <span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The status update is nearly complete, but is missing two separators:</p>
+
+<ol>
+  <li>between the update text and the buttons</li>
+  <li>between the “Like” count and the comments</li>
+</ol>
+
+<p><img src="/workshops/images/facebook_clone_main_status_update_1.png" alt="Facebook Main Status" /></p>
+
+<p><img src="/workshops/images/facebook_vaguebook_msg.png" alt="Facebook Vague Message" /></p>
+
+<p>We could accomplish this with a border, but an even easier solution is to use
+two <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr"><code class="highlighter-rouge">hr</code> elements</a>.</p>
+
+<p>Add an <code class="highlighter-rouge">&lt;hr&gt;</code> element between the <code class="highlighter-rouge">row</code> containing the status update tet, and
+the <code class="highlighter-rouge">row</code> containing the button groups. It does not need to be placed inside
+of a grid row. Add the second <code class="highlighter-rouge">&lt;hr&gt;</code> element between the <code class="highlighter-rouge">row</code> that contains
+the like count, and the <code class="highlighter-rouge">media-list</code>.</p>
+
+<p>Your status update should now look like this:</p>
+
+<p><img src="/workshops/images/facebook_clone_status_update_hr.png" alt="Facebook Clone Status Update" /></p>
+
+<p>The size of the <code class="highlighter-rouge">hr</code> elements is spot-on, but the color is too light and it
+adds too much whitespace. We can customize this behavior using CSS.</p>
+
+<p>Add the class <code class="highlighter-rouge">fb-status-update</code> to the <code class="highlighter-rouge">panel</code> <code class="highlighter-rouge">div</code> containing the status
+update, and then add the following CSS rule:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.fb-status-update</span> <span class="nt">hr</span> <span class="p">{</span>
+  <span class="nl">margin-top</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="c">/* The color of `hr` is set by its top border color.
+     Yeah, it's weird. */</span>
+  <span class="nl">border-top</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="n">lightgray</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>The borders now look much better:</p>
+
+<p><img src="/workshops/images/facebook_clone_status_update_hr_fixed.png" alt="Facebook Clone Status Update Fixed" /></p>
+
+<p>Now, there’s too much whitespace between the Like/Comment/Share links and
+the Like counter. If you use Chrome’s <em>Inspect</em> tool, you’ll see that
+it comes from the bottom margin on the <code class="highlighter-rouge">list-inline</code> class, and the bottom
+padding on the <code class="highlighter-rouge">panel-body</code> class.</p>
+
+<p>Reign those in using these two CSS rules:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.fb-status-update</span> <span class="nc">.list-inline</span> <span class="p">{</span>
+  <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">0px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.fb-status-update</span> <span class="nc">.panel-body</span> <span class="p">{</span>
+  <span class="nl">padding-bottom</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, the status update looks great!</p>
+
+<p><img src="/workshops/images/facebook_clone_status_update_done.png" alt="Facebook Clone Status Update" /></p>
+
+<p>We could mock up several different types of Facebook posts (e.g. pictures,
+videos, events…), but this workshop is already getting a bit long.
+Consider the main feed complete!</p>
+
+<p><strong><code class="highlighter-rouge">commit</code> your changes with the commit message <code class="highlighter-rouge">fb7</code>, and <code class="highlighter-rouge">push</code> it to
+GitHub`.</strong></p>
+
+<h2 id="step-08-styling">Step 08: Styling</h2>
+
+<p>Your Facebook looks kindof like Facebook, but the colors are quite different:</p>
+
+<p><img src="/workshops/images/facebook_clone_no_style.png" alt="Facebook no style" /></p>
+
+<p><img src="/workshops/images/facebook.png" alt="Facebook" /></p>
+
+<p>We can improve upon this with a few CSS changes.</p>
+
+<p>First, make the background Facebook gray by modifying our <code class="highlighter-rouge">body</code> CSS rule
+to change the <code class="highlighter-rouge">background-color</code>:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">padding-top</span><span class="p">:</span> <span class="m">60px</span><span class="p">;</span>
+  <span class="c">/* I figured out the background color using Chrome's Inspect tool. */</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#e9eaed</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, take a look at Facebook… and you’ll notice some problems.</p>
+
+<p>This background change highlights some issues with the right sidebar, which
+should:</p>
+
+<ul>
+  <li>Have a white background. Right now, it has a gray background.</li>
+  <li>Have a small, light gray border. It currently has no border.</li>
+  <li>Use gray-colored text. Currently, the text is black.</li>
+  <li>Birthday: The present should be white with a red background and round corners.</li>
+  <li>Trending: Active pills should be light blue in color with no background, non-active pills should be gray.</li>
+  <li>Trending: The lightning bolts next to news items should be light blue.</li>
+</ul>
+
+<p>But we can fix all of these problems with the power of CSS!</p>
+
+<p>Add the <code class="highlighter-rouge">fb-right-sidebar</code> class to the <code class="highlighter-rouge">col-md-3</code> <code class="highlighter-rouge">div</code> containing the right
+sidebar, then add the following CSS rules:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="c">/* Fix background, text, and border of right sidebar. */</span>
+<span class="nc">.fb-right-sidebar</span> <span class="p">{</span>
+  <span class="c">/* Gray text. This is the same color Facebook uses. */</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#9197a3</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">lightgrey</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+  <span class="nl">padding-bottom</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c">/* Make the birthday icon look more Facebookey.
+   It would be better practice to add a custom class to the birthday widget, but
+   I'm doing this to make the workshop a little faster. */</span>
+<span class="nc">.fb-right-sidebar</span> <span class="nc">.glyphicon-gift</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+  <span class="c">/* Sets padding at 2px on all sides at once */</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="c">/* Sets the border radius to 2px for each corner. */</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c">/* Customize the look of non-active pills in trending widget */</span>
+<span class="nc">.fb-trending</span> <span class="o">&gt;</span> <span class="nc">.row</span><span class="nd">:first-child</span> <span class="nt">li</span> <span class="nt">a</span> <span class="p">{</span>
+  <span class="c">/* Tells the element to inherit the color from its parent. Remember that
+     we set 'color' for the entire right sidebar to gray! */</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="nb">inherit</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Customize the look of active pills in trending widget */</span>
+<span class="nc">.fb-trending</span> <span class="o">&gt;</span> <span class="nc">.row</span><span class="nd">:first-child</span> <span class="nt">li</span><span class="nc">.active</span> <span class="nt">a</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+  <span class="c">/* Same color as the lightning bolt */</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#5990ff</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c">/* Apply a light-blue color to flash icons *only* in the content
+   section of the trending widget. */</span>
+<span class="nc">.fb-trending</span> <span class="o">&gt;</span> <span class="nc">.row</span><span class="nd">:nth-child</span><span class="o">(</span><span class="nt">2</span><span class="o">)</span> <span class="nc">.glyphicon-flash</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#5990ff</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><em>Note: Above, we use the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child">nth-child</a> pseudo-class. Above, we use it to select the second child <code class="highlighter-rouge">row</code> of <code class="highlighter-rouge">fb-trending</code></em></p>
+
+<p>Now, things are getting closer:</p>
+
+<p><img src="/workshops/images/facebook_clone_background.png" alt="facebook clone background" /></p>
+
+<p><img src="/workshops/images/facebook.png" alt="facebook" /></p>
+
+<p>Notice how most of the links on Facebook have a dark blue color, and have bolded
+text. We can recreate that on our webpage with a single CSS rule!</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="c">/* Makes links dark blue, even if they have been visited. (By default, the
+   browser will change the look of visited links.) */</span>
+<span class="nt">a</span><span class="o">,</span>
+<span class="nt">a</span><span class="nd">:visited</span> <span class="p">{</span>
+  <span class="c">/* The color Facebook uses. */</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#3b5998</span><span class="p">;</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><em>Notice how the above CSS selector had a comma (<code class="highlighter-rouge">,</code>) in it. Commas lets you apply
+a rule to multiple selectors. The above rule says “Bold and color <code class="highlighter-rouge">a</code> elements
+on the page, and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:visited"><code class="highlighter-rouge">a</code> elements with the <code class="highlighter-rouge">:visited</code> pseudo-class</a>”.</em></p>
+
+<p>What’s next?</p>
+
+<p><img src="/workshops/images/facebook_clone_link_fix.png" alt="Facebook Clone Link Fix" /></p>
+
+<p>How about making the navbar blue and changing the style of its buttons?
+Facebook buttons are a dark blue, unless they contain a badge indicating
+pending notifications:</p>
+
+<p><img src="/workshops/images/facebook_navbar_buttons.png" alt="Facebook Navbar Buttons" /></p>
+
+<p>Recall that we added badges to some of our navbar buttons with the following
+code:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default navbar-btn"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-user"</span><span class="nt">&gt;&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>5<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/button&gt;</span>
+</code></pre>
+</div>
+
+<p>We cannot easily identify which buttons in our navbar have badges or not
+using CSS. Badges are a <em>child</em> of the button, and there are no CSS selectors
+that let you style parent elements with a particular child.</p>
+
+<p>Thus, we need a new CSS class! Add the <code class="highlighter-rouge">fb-notifications</code> class to all three of
+the navbar <code class="highlighter-rouge">button</code>s we have with badges, and then add the following CSS to
+<code class="highlighter-rouge">facebook.css</code>:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="c">/* Blue background */</span>
+<span class="nc">.navbar</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#3a5795</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Make house logo white, even if the user hovers over it */</span>
+<span class="nc">.navbar</span> <span class="nc">.navbar-brand</span><span class="o">,</span>
+<span class="nc">.navbar</span> <span class="nc">.navbar-brand</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Remove the background color and border of all navbar buttons. Make their
+   color dark blue, like Facebook. */</span>
+<span class="nc">.navbar</span> <span class="nt">button</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#2e467c</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Make buttons slightly darker when the user hovers over it, like Facebook
+  does. */</span>
+<span class="nc">.navbar</span> <span class="nt">button</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#22345c</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Make the button white if clicked on, and remain white after clicking.
+   Facebook normally opens up a menu when you do this.
+   :active = user is currently interacting with the button.
+   :focus = user is currently interacting or has just interacted with the
+   button.
+   :active:focus = both at the same time
+   We have to override all of these combinations, since Bootstrap has separate
+   rules for them.*/</span>
+<span class="nc">.navbar</span> <span class="nt">button</span><span class="nd">:active</span><span class="o">,</span>
+<span class="nc">.navbar</span> <span class="nt">button</span><span class="nd">:focus</span><span class="o">,</span>
+<span class="nc">.navbar</span> <span class="nt">button</span><span class="nd">:active:focus</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="c">/* Removes halo and shadow on button when clicked. */</span>
+  <span class="nl">outline</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">box-shadow</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Search button style -- overrides the above two rules for the search
+   button */</span>
+<span class="nc">.navbar</span> <span class="nt">form</span> <span class="nt">button</span><span class="o">,</span>
+<span class="nc">.navbar</span> <span class="nt">form</span> <span class="nt">button</span><span class="nd">:hover</span><span class="o">,</span>
+<span class="nc">.navbar</span> <span class="nt">form</span> <span class="nt">button</span><span class="nd">:focus</span><span class="o">,</span>
+<span class="nc">.navbar</span> <span class="nt">form</span> <span class="nt">button</span><span class="nd">:active</span><span class="o">,</span>
+<span class="nc">.navbar</span> <span class="nt">form</span> <span class="nt">button</span><span class="nd">:active:focus</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">lightgrey</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">black</span><span class="p">;</span>
+  <span class="c">/* Make it a bit wider. */</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="c">/* Make the border's curve more gentle */</span>
+  <span class="nl">border-top-right-radius</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="nl">border-bottom-right-radius</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="c">/* Apply a light-grey border color. You can specify colors as names, rgb
+     triplets, or hex numbers. */</span>
+  <span class="nl">border-top</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="nb">rgb</span><span class="p">(</span><span class="m">204</span><span class="p">,</span> <span class="m">204</span><span class="p">,</span> <span class="m">204</span><span class="p">);</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="nb">rgb</span><span class="p">(</span><span class="m">204</span><span class="p">,</span> <span class="m">204</span><span class="p">,</span> <span class="m">204</span><span class="p">);</span>
+  <span class="nl">border-right</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="nb">rgb</span><span class="p">(</span><span class="m">204</span><span class="p">,</span> <span class="m">204</span><span class="p">,</span> <span class="m">204</span><span class="p">);</span>
+  <span class="c">/* Removes halo and shadow on button when clicked. */</span>
+  <span class="nl">outline</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">box-shadow</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Navbar button style when the button has notifications.
+   Apply same style when the user is hovering the mouse over the button. */</span>
+<span class="nt">button</span><span class="nc">.fb-notifications</span><span class="o">,</span>
+<span class="nt">button</span><span class="nc">.fb-notifications</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Make the Bootstrap badges more Facebook-style in the navbar */</span>
+<span class="nc">.navbar</span> <span class="nc">.badge</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">3px</span><span class="p">;</span>
+  <span class="nl">padding-left</span><span class="p">:</span> <span class="m">4px</span><span class="p">;</span>
+  <span class="nl">padding-right</span><span class="p">:</span> <span class="m">4px</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">black</span><span class="p">;</span>
+  <span class="c">/* Offset the badge a bit so it hovers over the glyphicon. */</span>
+  <span class="nl">right</span><span class="p">:</span> <span class="m">8px</span><span class="p">;</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">-10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Make the "John" and "Home" buttons white. Would probably be cleaner
+   using a CSS class! */</span>
+<span class="nc">.navbar</span> <span class="nc">.navbar-right</span> <span class="o">&gt;</span> <span class="nc">.btn-toolbar</span> <span class="o">&gt;</span> <span class="nc">.btn-group</span><span class="nd">:first-child</span> <span class="nt">button</span><span class="o">,</span>
+<span class="nc">.navbar</span> <span class="nc">.navbar-right</span> <span class="o">&gt;</span> <span class="nc">.btn-toolbar</span> <span class="o">&gt;</span> <span class="nc">.btn-group</span><span class="nd">:nth-child</span><span class="o">(</span><span class="nt">2</span><span class="o">)</span> <span class="nt">button</span>
+<span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Make the "John" and "Home" buttons have a dark blue background when
+   hovered over. */</span>
+<span class="nc">.navbar</span> <span class="nc">.navbar-right</span> <span class="o">&gt;</span> <span class="nc">.btn-toolbar</span> <span class="o">&gt;</span> <span class="nc">.btn-group</span><span class="nd">:first-child</span> <span class="nt">button</span><span class="nd">:hover</span><span class="o">,</span>
+<span class="nc">.navbar</span> <span class="nc">.navbar-right</span> <span class="o">&gt;</span> <span class="nc">.btn-toolbar</span> <span class="o">&gt;</span> <span class="nc">.btn-group</span><span class="nd">:nth-child</span><span class="o">(</span><span class="nt">2</span><span class="o">)</span> <span class="nt">button</span><span class="nd">:hover</span>
+<span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#2e467c</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now your navbar should look <em>very</em> Facebook-ey:</p>
+
+<p><img src="/workshops/images/facebook_clone_navbar_done.png" alt="Facebook Clone Navbar Final" /></p>
+
+<p>The left sidebar looks very different from Facebook’s:</p>
+
+<p><img src="/workshops/images/facebook_clone_left_sidebar_2.png" alt="facebook clone left sidebar" /></p>
+
+<p><img src="/workshops/images/facebook_left_sidebar.png" alt="facebook left sidebar" /></p>
+
+<p>First, add the <code class="highlighter-rouge">pull-right</code> class to the <code class="highlighter-rouge">badge</code>s beside “Messages” and “Saved”.
+That will make those badges appear on the right-hand-side of the listing. Then,
+add the <code class="highlighter-rouge">fb-left-sidebar</code> class to the <code class="highlighter-rouge">div</code> containing the left sidebar so
+we can easily style this sidebar in isolation.</p>
+
+<p>The following differences are quite apparent:</p>
+
+<ul>
+  <li>The items are spaced out too much in our list, and should be aligned with
+the titles of their sections.
+    <ul>
+      <li>If you view the items using Chrome’s <em>Inspect</em> tool, you’ll see this is
+caused by padding on the <code class="highlighter-rouge">a</code> element.</li>
+    </ul>
+  </li>
+  <li>We forgot to add in a space between the <em>Event</em> glyphicon and the “Event” text.
+    <ul>
+      <li>Whoops. You can fix that in the HTML by adding a space between those two elements. We goofed. :)</li>
+    </ul>
+  </li>
+  <li>The font color should be black, not blue.</li>
+  <li>The badges should not have a background, and should have a dark gray font.</li>
+  <li>Section titles should have a dark gray font.</li>
+  <li>The “active” pill should have black, bolded text with no background.</li>
+  <li>When the mouse hovers over an item in the list, it should have a darker gray
+background.</li>
+</ul>
+
+<p>We can easily make these changes via CSS:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="c">/* Remove padding between list elements, align list items all of the way to the
+   left, and make text non-bolded &amp; black. */</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.nav</span> <span class="o">&gt;</span> <span class="nt">li</span> <span class="o">&gt;</span> <span class="nt">a</span> <span class="p">{</span>
+  <span class="nl">padding-top</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="nl">padding-bottom</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="nl">padding-left</span><span class="p">:</span> <span class="m">0px</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">black</span><span class="p">;</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">normal</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Make list items have a darker gray background when the mouse hovers
+   over them. */</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.nav</span> <span class="o">&gt;</span> <span class="nt">li</span> <span class="o">&gt;</span> <span class="nt">a</span><span class="nd">:hover</span><span class="o">,</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.nav</span> <span class="o">&gt;</span> <span class="nt">li</span><span class="nc">.active</span> <span class="o">&gt;</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="c">/* This is the color Facebook uses */</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#dcdee3</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">black</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Override Bootstrap's default style, which changes the color/bgcolor of
+   list items when you click on them. */</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.nav</span> <span class="o">&gt;</span> <span class="nt">li</span> <span class="o">&gt;</span> <span class="nt">a</span><span class="nd">:active</span><span class="o">,</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.nav</span> <span class="o">&gt;</span> <span class="nt">li</span> <span class="o">&gt;</span> <span class="nt">a</span><span class="nd">:focus</span><span class="o">,</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.nav</span> <span class="o">&gt;</span> <span class="nt">li</span> <span class="o">&gt;</span> <span class="nt">a</span><span class="nd">:active:focus</span><span class="o">,</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.nav</span> <span class="o">&gt;</span> <span class="nt">li</span><span class="nc">.active</span> <span class="o">&gt;</span> <span class="nt">a</span><span class="nd">:active</span><span class="o">,</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.nav</span> <span class="o">&gt;</span> <span class="nt">li</span><span class="nc">.active</span> <span class="o">&gt;</span> <span class="nt">a</span><span class="nd">:focus</span><span class="o">,</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.nav</span> <span class="o">&gt;</span> <span class="nt">li</span><span class="nc">.active</span> <span class="o">&gt;</span> <span class="nt">a</span><span class="nd">:active:focus</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">black</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Make the badges have no background, a dark gray color, and normal font
+   weight (removes bold). */</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.badge</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+  <span class="c">/* The same color as Facebook */</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#4e5665</span><span class="p">;</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">normal</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Color all text items in the left sidebar this color gray. */</span>
+<span class="nc">.fb-left-sidebar</span> <span class="p">{</span>
+  <span class="c">/* I got this color from Facebook */</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#9197a3</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c">/* The active pill should be bolded w/ no background. */</span>
+<span class="nc">.fb-left-sidebar</span> <span class="nc">.nav</span> <span class="o">&gt;</span> <span class="nt">li</span><span class="nc">.active</span> <span class="o">&gt;</span> <span class="nt">a</span> <span class="p">{</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>The left sidebar looks much more like Facebook’s now:</p>
+
+<p><img src="/workshops/images/facebook_clone_left_sidebar_3.png" alt="Facebook Clone Left Sidebar" />
+<img src="/workshops/images/facebook_left_sidebar.png" alt="Facebook Left Sidebar" /></p>
+
+<p>We could go on to apply similar changes to the main feed, but we’ll stop
+here; you probably get the idea by now.</p>
+
+<p>Your Facebook clone should now look like this:</p>
+
+<p><img src="/workshops/images/facebook_clone_final.png" alt="Facebook Clone Final" /></p>
+
+<p><strong><code class="highlighter-rouge">commit</code> your changes with commit message <code class="highlighter-rouge">fb8</code> and <code class="highlighter-rouge">push</code> them to GitHub.</strong></p>
+
+<h2 id="part-2-conclusion">Part 2 Conclusion</h2>
+
+<p>You did it! You built Facebook! (…well, kind of…)</p>
+
+<p>You learned about:</p>
+
+<ul>
+  <li>Basic HTML, including the difference between <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements">inline elements</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">block-level elements</a></li>
+  <li>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model">CSS box model</a></li>
+  <li>CSS <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors">selectors</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">pseudo-classes</a>, and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#CSS_rulesets">rules</a>.</li>
+  <li>How to use Bootstrap.</li>
+  <li>How to examine webpages using the <a href="https://developers.google.com/web/tools/chrome-devtools/iterate/inspect-styles/basics">Chrome Web Inspector</a> in the Chrome Dev Tools.</li>
+  <li>How to customize the look of Bootstrap for your application using CSS.</li>
+</ul>
+
+<p>Now you should be ready to try using Bootstrap yourself!</p>
+
+<h1 id="submission">Submission</h1>
+
+<p>You must submit the URL of your Workshop3 GitHub repository to
+Moodle. Visit Moodle, find the associated Workshop 5 activity, and
+provide your URL. Make sure your Workshop3 repository is public so we
+can clone your repository and evaluate your work. <strong>Note: you are
+submitting your Workshop3 repository URL to the Workshop 5 activity
+because this is a continuation from workshop 3.</strong></p>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

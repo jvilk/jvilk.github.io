@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/workshop/02">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    
+<h1 class="no_toc" id="workshop-02-git-introduction">Workshop 02: Git Introduction</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#step-00-how-to-use-the-terminal" id="markdown-toc-step-00-how-to-use-the-terminal">Step 00: How to Use the Terminal</a></li>
+  <li><a href="#step-01-get-the-workshop-repository" id="markdown-toc-step-01-get-the-workshop-repository">Step 01: Get the Workshop Repository</a></li>
+  <li><a href="#step-02-clone-the-repository" id="markdown-toc-step-02-clone-the-repository">Step 02: Clone the Repository</a></li>
+  <li><a href="#step-03-commit-an-edited-file" id="markdown-toc-step-03-commit-an-edited-file">Step 03: Commit an Edited File</a></li>
+  <li><a href="#step-04-push-changes-to-github" id="markdown-toc-step-04-push-changes-to-github">Step 04: Push Changes to GitHub</a></li>
+  <li><a href="#step-05-add-a-file-to-the-repository" id="markdown-toc-step-05-add-a-file-to-the-repository">Step 05: Add a File to the Repository</a></li>
+  <li><a href="#step-06-move-a-file" id="markdown-toc-step-06-move-a-file">Step 06: Move a File</a></li>
+  <li><a href="#step-07-pull-down-changes" id="markdown-toc-step-07-pull-down-changes">Step 07: Pull Down Changes</a></li>
+  <li><a href="#step-08-handle-a-conflict" id="markdown-toc-step-08-handle-a-conflict">Step 08: Handle a Conflict</a></li>
+  <li><a href="#step-09-destruct-your-repository-and-bring-it-back" id="markdown-toc-step-09-destruct-your-repository-and-bring-it-back">Step 09: Destruct Your Repository (and bring it back…)</a></li>
+  <li><a href="#step-10-destructively-delete-a-file-using-rebase" id="markdown-toc-step-10-destructively-delete-a-file-using-rebase">Step 10: Destructively Delete a File Using Rebase</a></li>
+  <li><a href="#step-11-revert-changes" id="markdown-toc-step-11-revert-changes">Step 11: Revert changes</a></li>
+  <li><a href="#step-12-add-your-screenshots-to-the-repository" id="markdown-toc-step-12-add-your-screenshots-to-the-repository">Step 12: Add your screenshots to the repository</a></li>
+  <li><a href="#submitting-your-assignment-and-other-reading" id="markdown-toc-submitting-your-assignment-and-other-reading">Submitting your assignment, and other reading</a>    <ul>
+      <li><a href="#further-reading-branching-pull-requests-and-other-topics" id="markdown-toc-further-reading-branching-pull-requests-and-other-topics">Further reading: Branching, pull requests, and other topics</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Version control systems (VCS) are an essential component of any software
+project. A VCS provides you with many benefits, including:</p>
+
+<ul>
+  <li><strong>Time-travel to previous versions</strong>: When it is three minutes to the deadline
+on an important project and you have broken <em>everything</em>, version control lets
+you time travel (or <em>revert</em>) your code back to a previous (and, hopefully,
+working!) version.</li>
+  <li><strong>Collaboration</strong>: Multiple people can collaborate on a single project using
+version control. The VCS will prevent you from accidentally writing over others’
+changes.</li>
+  <li><strong>Backup</strong>: Your VCS is typically hosted on a server somewhere, which means
+that if your computer dies, your code lives on elsewhere.</li>
+  <li><strong>Metrics</strong>: Since your VCS logs all of your code changes, you can look at
+its log to see how productive you/your team is. We will be using these metrics
+ourselves to ensure that everyone is contributing to team projects.</li>
+</ul>
+
+<p>In this workshop, you will learn how to use the version control system
+<a href="https://git-scm.com">Git</a> effectively in a group setting. While Git has
+many commands and features, this workshop will only cover the few core Git
+commands that developers actually use on a regular basis.</p>
+
+<p>Let’s get started!</p>
+
+<p><em>Small note: you may notice that some of these images refer to
+Workshop 1. It is really Workshop 2. We renamed it at the last minute
+and haven’t had a chance to fix everyone once we noticed the mistake.</em></p>
+
+<h1 id="step-00-how-to-use-the-terminal">Step 00: How to Use the Terminal</h1>
+
+<p>You are going to use the terminal regularly in this workshop, as well as future
+workshops. We assume that you are familiar with the terminal. If you are not,
+please familiarize yourself with the terminal by following one of the tutorials
+posted for this week’s reading.</p>
+
+<p>You will need to know:</p>
+
+<ul>
+  <li>How to run commands in the terminal.</li>
+  <li>How to determine what directory you are currently in.</li>
+  <li>How to change directories.</li>
+  <li>How to view a list of files in a directory.</li>
+</ul>
+
+<p>In the workshop, shell commands will begin with a <code class="highlighter-rouge">$</code> prompt. Output does not
+have this prefix. For example, we would print the <code class="highlighter-rouge">ls</code> command along with its
+output like so:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ ls
+README.md	password.txt
+</code></pre>
+</div>
+
+<p>This should disambiguate what we’re telling you to run as commands from the
+command output.</p>
+
+<h1 id="step-01-get-the-workshop-repository">Step 01: Get the Workshop Repository</h1>
+
+<p>Every project you work on in this course will be contained within a single Git
+<em>repository</em>. Each repository has its own set of files and folders, and tracks
+changes to those files and folders. Typically, companies and organizations use
+a single Git repository for each software project.</p>
+
+<p>In this class, we use <a href="https://github.com/">GitHub</a> to host the Git repositories
+for us, and GitHub Classroom to manage all assignment repositories. For each
+workshop, we will provide you with an existing Git repository that you will
+use for that workshop.</p>
+
+<p>To get started you need to <em>fork</em>
+the <a href="https://github.com/umass-cs-326/Workshop2">GitHub repository for Workshop 2</a>.  To do that click on the
+“Fork” button, it is on the upper right-hand part of the github page
+next to “Unwatch” and “Star”:</p>
+
+<p><img src="/workshops/images/fork-workshop-02.png" width="100%" /></p>
+
+<p>After you click on the “Fork” button you will be asked “Where should we fork this repository”:</p>
+
+<p><img src="/workshops/images/where-fork-workshop-02.png" width="50%" /></p>
+
+<p>You should click on the location that matches your GitHub username. After you do so you will need to wait for GitHub to fork this repository to your own GitHub user account. You will see something like this:</p>
+
+<p><img src="/workshops/images/forking-wait-workshop-02.png" width="100%" /></p>
+
+<p>After a few seconds, it will show you the same repository that now resides under your own GitHub user account. You essentially copied it to your own account and can now proceed to work on it by following the instructions in the rest of this workshop. This repository should be public. It is fine if others who are doing the same workshop can see your work - the commits you will do below ensure that you do your own work.</p>
+
+<p>GitHub creates an <em>Issue Tracker</em> and a  <em>Wiki</em> for each Git repository, and
+provides neat data analytics under <em>Pulse</em> and <em>Graph</em>. We will not cover these
+items now, but feel free to check them out in your spare time!</p>
+
+<h1 id="step-02-clone-the-repository">Step 02: Clone the Repository</h1>
+
+<p>Open up a terminal on your computer, and use <code class="highlighter-rouge">cd</code> to navigate to your <strong>class
+folder</strong>. We are going to use Git now.</p>
+
+<p><em>Reminder: If you are using Windows, you should use the “Node.js Command Prompt” as your terminal.</em></p>
+
+<p>The <code class="highlighter-rouge">git clone</code> command tells git to create a <em>copy</em> of a remote repository.
+It will create a copy of your Workshop 2 repository from GitHub on your local machine. In your terminal, type this in your terminal:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git clone https://github.com/GITHUB-USERNAME/Workshop2.git
+</code></pre>
+</div>
+
+<p>You will need to replace GITHUB-USERNAME with your GitHub username. You may also be asked to enter your GitHub username and password:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git clone https://github.com/GITHUB-USERNAME/Workshop2.git
+Cloning into <span class="s1">'Workshop2'</span>...
+remote: Counting objects: 6, <span class="k">done</span>.
+remote: Compressing objects: 100% <span class="o">(</span>4/4<span class="o">)</span>, <span class="k">done</span>.
+remote: Total 6 <span class="o">(</span>delta 0<span class="o">)</span>, reused 6 <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused 0
+Unpacking objects: 100% <span class="o">(</span>6/6<span class="o">)</span>, <span class="k">done</span>.
+Checking connectivity... <span class="k">done</span>.
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">clone</code> command will create a new folder called <code class="highlighter-rouge">Workshop2</code> in the current folder. Use <code class="highlighter-rouge">cd</code> to change the current directory to that folder:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span><span class="nb">cd </span>Workshop2/
+<span class="gp">$ </span>ls
+README.md	password.txt
+</code></pre>
+</div>
+
+<p><em>(Note: Windows users will need to type <code class="highlighter-rouge">dir</code> for a folder listing, not <code class="highlighter-rouge">ls</code>.)</em></p>
+
+<p>Any <code class="highlighter-rouge">git</code> commands performed while inside this folder will be applied to the
+repository clone in this folder.</p>
+
+<h1 id="step-03-commit-an-edited-file">Step 03: Commit an Edited File</h1>
+
+<p>Open up the repository folder in Atom Editor, select <code class="highlighter-rouge">README.md</code>, change the
+text inside, and save your changes.</p>
+
+<p><img src="/workshops/images/text_change.png" width="100%" /></p>
+
+<p><em>(We won’t award any extra credit for nice comments, even if they are true.)</em></p>
+
+<p>Now, we need to tell Git to record this change! Git records changes as
+<em>commits</em>. Each commit contains edits to one or more files. Git can time-travel,
+or <em>revert</em>, your repository back to any commit in your repository’s history.
+(We will cover this in a bit.)</p>
+
+<p>In a professional environment, companies usually request that each commit
+corresponds to a particular bug fix, feature request, or enhancement, and that
+no commit breaks previously-working functionality. We will not enforce any
+particular commit conventions on students, but we encourage you to commit early
+and often on your projects – and to make sure you have a working version of
+your project committed <em>before</em> you embark on a crazy code change!</p>
+
+<p>In any case, to commit this change, use the command <code class="highlighter-rouge">git commit -a</code>. The <code class="highlighter-rouge">-a</code>
+flag is shorthand for “include all changed files in this commit”. Without <code class="highlighter-rouge">-a</code>,
+you would have to tell Git which files to include in the commit – e.g.
+<code class="highlighter-rouge">git commit README.md</code>.</p>
+
+<p>Git will pop open the Atom Editor, requesting that you add a commit message.
+All of your commit messages are included in your repository, so <a href="http://www.commitlogsfromlastnight.com">don’t type
+anything you’d regret</a>.</p>
+
+<p><img src="/workshops/images/commit_msg.png" width="100%" /></p>
+
+<p>When you have finished typing a commit message, save the file, and close Atom.
+Back on the command line, Git will report that your commit succeeded:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git commit -a
+<span class="o">[</span>master 82fb093] Complimenting Tim Richards <span class="k">in </span>the README
+ 1 file changed, 2 insertions<span class="o">(</span>+<span class="o">)</span>
+</code></pre>
+</div>
+
+<p>Every commit has a hash that is associated with it. This commit’s hash begins
+with <code class="highlighter-rouge">82fb093</code>. You can use these hashes to travel back in time to previous
+versions of your software, which we’ll review a little later on in this
+workshop.</p>
+
+<p>You can see this commit message, and its full hash, at the top of the <code class="highlighter-rouge">git log</code>:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git log
+commit 82fb0939eff681d5aaece429227def4dc9e464d5
+Author: John Vilk &lt;jvilk@cs.umass.edu&gt;
+Date:   Tue Dec 29 16:35:25 2015 -0500
+
+    Complimenting Tim Richards <span class="k">in </span>the README
+</code></pre>
+</div>
+
+<h1 id="step-04-push-changes-to-github">Step 04: Push Changes to GitHub</h1>
+
+<p>If you look at your repository at GitHub.com, you’ll notice that <code class="highlighter-rouge">README.md</code>
+doesn’t contain your changes!</p>
+
+<p><img src="/workshops/images/new_repo.png" width="100%" /></p>
+
+<p><em>That’s the old README! What gives?</em></p>
+
+<p><code class="highlighter-rouge">git commit</code> adds your file changes to the <em>local repository clone</em> located in the
+<code class="highlighter-rouge">workshop-1-git</code> folder; it does not send those changes to the <em>remote
+repository</em> located at GitHub.com. As it turns out, <code class="highlighter-rouge">git clone</code> creates a copy
+of the <strong>entire</strong> Git repository, including all previous file changes. Git hides
+this data from you in the <code class="highlighter-rouge">.git</code> subdirectory of your <code class="highlighter-rouge">workshop-1-git</code> folder
+(which you should <em>never</em> mess with):</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span><span class="nb">cd</span> .git
+<span class="gp">$ </span>ls
+COMMIT_EDITMSG	config		index		objects
+HEAD		description	info		packed-refs
+branches	hooks		logs		refs
+<span class="gp">$ </span><span class="nb">cd</span> ..
+</code></pre>
+</div>
+
+<p>To send your local commits to the remote repository hosted on GitHub, use
+<code class="highlighter-rouge">git push</code>. If you did not enable the <a href="https://help.github.com/articles/caching-your-github-password-in-git/">credential cache</a>, Git will ask for your username and password.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git push
+Counting objects: 3, <span class="k">done</span>.
+Delta compression using up to 4 threads.
+Compressing objects: 100% <span class="o">(</span>3/3<span class="o">)</span>, <span class="k">done</span>.
+Writing objects: 100% <span class="o">(</span>3/3<span class="o">)</span>, 420 bytes | 0 bytes/s, <span class="k">done</span>.
+Total 3 <span class="o">(</span>delta 0<span class="o">)</span>, reused 0 <span class="o">(</span>delta 0<span class="o">)</span>
+To https://github.com/umass-cs-326/workshop-1-git-CS326Student.git
+   9e1bd06..82fb093  master -&gt; master
+</code></pre>
+</div>
+
+<p>Now, your README changes are visible on GitHub.com:</p>
+
+<p><img src="/workshops/images/readme_edit_push.png" width="100%" /></p>
+
+<p>If you click on the <em>3 commits</em> text above the file listing, GitHub will
+show you a neat listing of repository commits:</p>
+
+<p><img src="/workshops/images/commit_log.png" width="100%" /></p>
+
+<p>Clicking on each will show a <code class="highlighter-rouge">diff</code> of the changes you made:</p>
+
+<p><img src="/workshops/images/commit_diff.png" width="100%" /></p>
+
+<p>In general, you should always <code class="highlighter-rouge">push</code> your changes immediately after you <code class="highlighter-rouge">commit</code>
+them, especially on group projects!</p>
+
+<h1 id="step-05-add-a-file-to-the-repository">Step 05: Add a File to the Repository</h1>
+
+<p>Let’s add a new file to the repository. Create a new file called <code class="highlighter-rouge">data.txt</code>,
+and put some text into it. (In the Atom Editor, you can create new files by
+  right clicking on the left file listing, and clicking “New File”.)</p>
+
+<p><img src="/workshops/images/data_contents.png" width="100%" /></p>
+
+<p>If you run <code class="highlighter-rouge">git commit -a</code>, Git will tell you that nothing has changed…
+and that <code class="highlighter-rouge">data.txt</code> is an <em>untracked</em> file:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git commit -a
+On branch master
+Your branch is up-to-date with <span class="s1">'origin/master'</span>.
+Untracked files:
+	data.txt
+
+nothing added to commit but untracked files present
+</code></pre>
+</div>
+
+<p>We need to explicitly tell Git to track changes to our new file. To do this, run
+<code class="highlighter-rouge">git add data.txt</code>. Forgetting to tell Git about new files is an easy mistake
+to make! Always check that your files are added, committed, and pushed to
+GitHub.com.</p>
+
+<p>Now, we need to tell Git to commit our changes to the now-tracked file.
+Run <code class="highlighter-rouge">git commit -a</code> to actually commit the new file, then run <code class="highlighter-rouge">git push</code> to send
+the changes off to GitHub. You should see the new commit at GitHub.com:</p>
+
+<p><img src="/workshops/images/turtles.png" width="100%" /></p>
+
+<h1 id="step-06-move-a-file">Step 06: Move a File</h1>
+
+<p>I don’t like the filename <code class="highlighter-rouge">data.txt</code>. Let’s name it <code class="highlighter-rouge">data.dat</code>, instead.</p>
+
+<p>While we could simply rename the file the usual way, git would see <code class="highlighter-rouge">data.dat</code> as
+a new, untracked file, and would think that you deleted <code class="highlighter-rouge">data.txt</code>. That’s
+confusing. Thankfully, there is an easier way!</p>
+
+<p>Simply run <code class="highlighter-rouge">git mv data.txt data.dat</code>, and all is well. This command does two
+things:</p>
+
+<ul>
+  <li>Renames the file.</li>
+  <li>Tells Git about the rename.</li>
+</ul>
+
+<p>Now, use <code class="highlighter-rouge">git commit -a</code> and <code class="highlighter-rouge">git push</code>, and the changes will be visible on
+GitHub.com.</p>
+
+<p>Remember: Whenever you change a file’s name, you need to tell git about it. If
+you don’t, git will think you deleted the file.</p>
+
+<h1 id="step-07-pull-down-changes">Step 07: Pull Down Changes</h1>
+
+<p>So far, we have covered simple commands for the scenario where you are pushing
+changes to GitHub from a single local repository clone. But what happens when
+you are working in a team? How do you grab changes that others have pushed to
+GitHub?</p>
+
+<p>To answer this question, return to your <strong>class folder</strong> and make a second local
+repository clone of your Workshop 2 repository. This time, tell the <code class="highlighter-rouge">git clone</code>
+command to clone the repository into the folder <code class="highlighter-rouge">workshop2-second-clone</code>:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git clone https://github.com/GITHUB-USERNAME/Workshop2.git Workshop2-second-clone
+Cloning into <span class="s1">'Workshop2-second-clone'</span>...
+remote: Counting objects: 14, <span class="k">done</span>.
+remote: Compressing objects: 100% <span class="o">(</span>11/11<span class="o">)</span>, <span class="k">done</span>.
+remote: Total 14 <span class="o">(</span>delta 2<span class="o">)</span>, reused 13 <span class="o">(</span>delta 1<span class="o">)</span>, pack-reused 0
+Unpacking objects: 100% <span class="o">(</span>14/14<span class="o">)</span>, <span class="k">done</span>.
+Checking connectivity... <span class="k">done</span>.
+<span class="gp">$ </span><span class="nb">cd </span>Workshop2-second-clone/
+<span class="gp">$ </span>ls
+README.md	data.dat	password.txt
+</code></pre>
+</div>
+
+<p>In this second clone, add more text to <code class="highlighter-rouge">README.md</code>, commit the changes, and push
+the changes to GitHub.</p>
+
+<p>Return to your first clone, and type <code class="highlighter-rouge">git pull</code>. This will download the changes
+you pushed to GitHub from your second clone to your computer, and apply it to
+your first clone:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git pull
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/GITHUB-USERNAME/Workshop2.git
+   4c8bad6..1a58830  master     -&gt; origin/master
+Updating 4c8bad6..1a58830
+Fast-forward
+ README.md | 3 +++
+ 1 file changed, 3 insertions(+)
+</code></pre>
+</div>
+
+<p><a href="http://www.take-a-screenshot.org">Take a screenshot</a> of your terminal output
+from <code class="highlighter-rouge">git pull</code>, and include it in your Workshop 2 submission.</p>
+
+<p>Note: If Git reports that your repository is “Already up-to-date”, you either:</p>
+
+<ul>
+  <li>Forgot to commit <em>and push</em> your edit in the second clone, or…</li>
+  <li>Are trying to run <code class="highlighter-rouge">git pull</code> in the second clone, and not the first clone.</li>
+</ul>
+
+<p>It is a good idea to run <code class="highlighter-rouge">git pull</code> regularly when working in groups to keep
+your local repository clone in-sync with GitHub’s copy. If you don’t… you’ll
+likely have many issues with merge conflicts.</p>
+
+<h1 id="step-08-handle-a-conflict">Step 08: Handle a Conflict</h1>
+
+<p>When you use Git in a team setting, you are going to encounter a <em>merge
+conflict</em>. Merge conflicts occur when you try to push local changes to GitHub
+that conflict with changes other people have already pushed to GitHub. We’ll
+illustrate merge conflicts by having you create one using your two local
+clones of Workshop 2.</p>
+
+<p>In your first clone of Workshop 1, edit the first line of <code class="highlighter-rouge">README.md</code> to say
+<code class="highlighter-rouge">Workshop 2: Git</code> instead of <code class="highlighter-rouge">Workshop2</code>. Then, type <code class="highlighter-rouge">git diff</code> for fun, and
+<code class="highlighter-rouge">git</code> will show you all of the changes you’ve made that you haven’t committed
+yet:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git diff
+diff --git a/README.md b/README.md
+index 770692b..46fd672 100644
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,4 @@
+-# Workshop1
++# Workshop 1: Git
+ The first workshop of CS326, which covers how to use Git in a group setting.
+</code></pre>
+</div>
+
+<p>It’s often useful to review your code changes with <code class="highlighter-rouge">git diff</code> before you commit
+them. Sometimes, you’ll notice that you forgot to remove a debug line, or that
+you have other changes that shouldn’t be included in the commit.</p>
+
+<p><em>Note: For large changes that fill the terminal, <code class="highlighter-rouge">git diff</code> is interactive. When this happens, use the arrow keys to scroll up and down, and hit <code class="highlighter-rouge">q</code> to quit when done.</em></p>
+
+<p>Commit the change with <code class="highlighter-rouge">git commit -a</code>, and <code class="highlighter-rouge">git push</code> the change to GitHub.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git commit -a
+[master 36f4ca6] Fixing the title of the README.
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+$ git push
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 380 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To https://github.com/GITHUB-USERNAME/Workshop2.git
+   1a58830..36f4ca6  master -&gt; master
+</code></pre>
+</div>
+
+<p>Now, navigate to your second clone of the Workshop 2 repository.
+In the second clone, <strong>do not pull down your change</strong>. Instead, edit the first
+line of <code class="highlighter-rouge">README.md</code> to say <code class="highlighter-rouge">Workshop-2</code>. (Note that this is different from the
+  first edit we made.) Commit the change with <code class="highlighter-rouge">git commit -a</code>, and try to
+  <code class="highlighter-rouge">git push</code> the change to GitHub. It will fail!</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git push
+To https://github.com/GITHUB-USERNAME/Workshop2.git
+ ! [rejected]        master -&gt; master (fetch first)
+error: failed to push some refs to 'https://github.com/GITHUB-USERNAME/Workshop2.git
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+</code></pre>
+</div>
+
+<p>Git’s error messages can be very confusing if you don’t have a PhD in Git
+Internals (fetch first? fast-forwards?! refs?!?!?), but the important bit is the
+<code class="highlighter-rouge">hint</code>. GitHub has some changes that your local clone doesn’t have.</p>
+
+<p>Run <code class="highlighter-rouge">git pull</code> to grab these changes, and Git will report that there is a
+conflict:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git pull
+remote: Counting objects: 3, <span class="k">done</span>.
+remote: Compressing objects: 100% <span class="o">(</span>2/2<span class="o">)</span>, <span class="k">done</span>.
+remote: Total 3 <span class="o">(</span>delta 1<span class="o">)</span>, reused 3 <span class="o">(</span>delta 1<span class="o">)</span>, pack-reused 0
+Unpacking objects: 100% <span class="o">(</span>3/3<span class="o">)</span>, <span class="k">done</span>.
+From https://github.com/GITHUB-USERNAME/Workshop2
+   1a58830..36f4ca6  master     -&gt; origin/master
+Auto-merging README.md
+CONFLICT <span class="o">(</span>content<span class="o">)</span>: Merge conflict <span class="k">in </span>README.md
+Automatic merge failed; fix conflicts and <span class="k">then </span>commit the result.
+</code></pre>
+</div>
+
+<p>Git tries its best to automatically merge changes. If you and a team member
+edit different lines in a file, Git will simply merge both edits to the
+file. However, if multiple people edit the same line of a file, the merge fails;
+this is called a <em>merge conflict</em>. Git requests that you figure out the merge
+yourself.</p>
+
+<p>Open up <code class="highlighter-rouge">README.md</code>, and you’ll see that Git has helpfully told you where the
+conflicting changes are:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+# Workshop-2
+=======
+# Workshop 2: Git
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 36f4ca627ea17f02450c5f6ded877dafb2d86d43
+The first workshop of CS326, which covers how to use Git in a group setting.
+
+It's pretty useful.
+
+Gee, that Tim Richards guy is pretty cool.
+</code></pre>
+</div>
+
+<p>Git refers to the latest commit in your local clone as <code class="highlighter-rouge">HEAD</code>. The text between
+<code class="highlighter-rouge">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> and <code class="highlighter-rouge">=======</code> corresponds to changes in your local repository.</p>
+
+<p><code class="highlighter-rouge">36f4ca...</code> (which will be different for your
+  repository) is the commit hash of the commit that conflicts with your change.
+This is the commit that we made from the first local clone. The text between
+<code class="highlighter-rouge">=======</code> and <code class="highlighter-rouge">&gt;&gt;&gt;&gt;&gt;&gt;&gt; 36f4ca...</code> contains the text from that commit that
+conflicts with your local change.</p>
+
+<p>To solve the conflict, replace the <code class="highlighter-rouge">&lt;&lt;&lt;&lt;&lt;</code> <code class="highlighter-rouge">&gt;&gt;&gt;&gt;&gt;</code> nonsense with the
+text you want. In most conflicts, you will simply choose one change over the
+other. Sometimes, you will figure out how to incorporate both changes. It all
+depends on the context.</p>
+
+<p>Here, though, one title is better/more specific than the other; edit
+<code class="highlighter-rouge">README.md</code> so it looks like the following:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Workshop 2: Git
+The first workshop of CS326, which covers how to use Git in a group setting.
+
+It's pretty useful.
+
+Gee, that Tim Richards guy is pretty cool.
+</code></pre>
+</div>
+
+<p>Now, run <code class="highlighter-rouge">git commit -a</code> to commit your merge. Git will automatically fill in
+a commit message for you, which mentions that it is a merge. Then, <code class="highlighter-rouge">git push</code>
+the commit to GitHub.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git commit -a
+[master df7395f] Merge branch 'master' of https://github.com/GITHUB-USERNAME/Workshop2
+$ git push
+Counting objects: 4, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 605 bytes | 0 bytes/s, done.
+Total 4 (delta 1), reused 0 (delta 0)
+To https://github.com/GITHUB-USERNAME/Workshop2
+   36f4ca6..df7395f  master -&gt; master
+</code></pre>
+</div>
+
+<h1 id="step-09-destruct-your-repository-and-bring-it-back">Step 09: Destruct Your Repository (and bring it back…)</h1>
+
+<p>You should treat Git as a write-only resource; everything that you put into Git
+stays in Git, forever. If you simply delete a file from Git and commit that
+change, Git will still contain the old version of the file in its history.</p>
+
+<p>If you Google around, you might find some Git commands that let you rewrite
+Git’s history. These are called <em>destructive</em> Git commands, since they <strong>cannot
+be undone</strong>. These are <em>dangerous</em> and <em>potentially lethal to your data</em>.</p>
+
+<p>To illustrate the danger of these commands, we will show you how to completely
+obliterate your repository. Then, we will bring it back from a backup. Let’s
+begin.</p>
+
+<p><strong>Use <code class="highlighter-rouge">git pull</code> on both local repository clones to make them up-to-date.</strong>
+We’re going to use the first clone to destroy GitHub’s copy of the repository.
+Then, we will restore the repository from the second clone.
+Thus, it is essential that <em>both</em> of your local clones are up-to-date.</p>
+
+<p>In your first repository clone, run the following command to reset the
+repository to the first commit. The hash value at the end of the command is
+the commit hash of the first commit in the repository, which is the same across
+all Workshop 1 Git repositories.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git reset --hard 1baa43d0656d4095d3e0c44b2b1aea43e9c9b288
+HEAD is now at 1baa43d Initial commit
+</code></pre>
+</div>
+
+<p>Now, try to <code class="highlighter-rouge">git push</code>. Notice that Git will prevent the push, since GitHub has
+changes that your Git repository no longer has:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git push
+To https://github.com/GITHUB-USERNAME/Workshop2.git
+ ! [rejected]        master -&gt; master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/GITHUB-USERNAME/Workshop2.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+</code></pre>
+</div>
+
+<p>But we can force this change! Run <code class="highlighter-rouge">git push -f</code>, and your destructive change
+will go through as a forced update:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git push -f
+Total 0 (delta 0), reused 0 (delta 0)
+To https://github.com/GITHUB-USERNAME/Workshop2.git
+ + df7395f...1baa43d master -&gt; master (forced update)
+</code></pre>
+</div>
+
+<p>Now, go take a look at your repository on GitHub. <strong>All of your commits are
+gone.</strong></p>
+
+<p><strong>Take a screenshot of your empty repository on GitHub; you will include it in your submission.</strong></p>
+
+<p>Take a moment to imagine
+that it’s 4AM, you typed in some random Git commands you saw on the internet,
+applied them to your group project repository, and now your entire GitHub
+repository is gone. If your team members run <code class="highlighter-rouge">git pull</code>, their local repository
+clones will be overwritten. Your project, and its code, will disappear forever.</p>
+
+<p>Fear not, though! You can restore your repository from your second clone.
+Return to your second clone, and run <code class="highlighter-rouge">git push</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git push
+Counting objects: 21, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (20/20), done.
+Writing objects: 100% (21/21), 2.47 KiB | 0 bytes/s, done.
+Total 21 (delta 4), reused 0 (delta 0)
+To https://github.com/GITHUB-USERNAME/Workshop2.git
+   1baa43d..df7395f  master -&gt; master
+</code></pre>
+</div>
+
+<p><em>Note: This <code class="highlighter-rouge">push</code> succeeds without a <code class="highlighter-rouge">-f</code> because it only contains commits directly after the first commit. Nothing is being destroyed, so GitHub happily accepts the <code class="highlighter-rouge">push</code>.</em></p>
+
+<p>Then, go to your first clone, and <code class="highlighter-rouge">git pull</code> down the changes you just pushed.</p>
+
+<p>Finally, go to GitHub, and verify that your repository is back to normal.</p>
+
+<h1 id="step-10-destructively-delete-a-file-using-rebase">Step 10: Destructively Delete a File Using Rebase</h1>
+
+<p>Let’s use a destructive update for good. You may have noticed that theres
+a file called <code class="highlighter-rouge">password.txt</code> in the repository that contains a username and
+password for <code class="highlighter-rouge">jvilk</code>! Egads! This should not be in the repository, and should be
+wiped from git’s history.</p>
+
+<p>First, run <code class="highlighter-rouge">git pull</code> on each of your local clones to make sure each is
+up-to-date. We want to have a backup in case the destructive update runs
+afoul!</p>
+
+<p>Now, we are going to use the <code class="highlighter-rouge">git rebase</code> command. This command lets you go
+back in time and change history. It’s quite powerful.</p>
+
+<p>If you look at your commit listing on GitHub, you’ll notice that <code class="highlighter-rouge">password.txt</code>
+was added in the following commit:</p>
+
+<p><img src="/workshops/images/bad_commit.png" width="100%" /></p>
+
+<p><code class="highlighter-rouge">9e1bd06a447f86d7dae56c61ccad00b51021c9b6</code> is the hash of this commit. We can
+tell Git that we want to edit history starting at this commit using the
+following command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git rebase --preserve-merges -i 9e1bd06a447f86d7dae56c61ccad00b51021c9b6~1
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">-i</code> means <em>interactive</em>. Git will open the Atom Editor asking you how you
+would like to proceed. <code class="highlighter-rouge">--preserve-merges</code> tells Git to re-use merge commits,
+like the one we created in the <em>merge conflicts</em> step. (Why is this not the
+default behavior? Good question. :) )
+<code class="highlighter-rouge">9e1bd06a447f86d7dae56c61ccad00b51021c9b6~1</code> means ‘rebase all commits after the
+commit that precedes commit 9e1bd06… by 1’. Confusing? Now you know why these
+destructive commands can be easy to get wrong!</p>
+
+<p>Git will open the Atom Editor with a listing of commits and a verb applied to
+each. The verbs are explained in comments at the end of the file. By default,
+Git will <code class="highlighter-rouge">pick</code> every commit, which re-applies the commit as-is.</p>
+
+<p>We need to change the commit that added the password. Tell Git that we want to
+edit the commit <code class="highlighter-rouge">9e1bd06</code>:</p>
+
+<p><img src="/workshops/images/git_rebase.png" /></p>
+
+<p>Save the file, and close Atom Editor. You’ll see the following in your terminal:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git rebase --preserve-merges -i 9e1bd06a447f86d7dae56c61ccad00b51021c9b6~1
+Stopped at 9e1bd06a447f86d7dae56c61ccad00b51021c9b6... Create the workshop repository
+You can amend the commit now, with
+
+	git commit --amend
+
+Once you are satisfied with your changes, run
+
+	git rebase --continue
+</code></pre>
+</div>
+
+<p>Git has now traveled back to when we first accidentally committed
+<code class="highlighter-rouge">password.txt</code>. Excellent. Let’s delete the password from this commit,
+preventing it from being added to Git in the first place:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git rm password.txt
+rm 'password.txt'
+</code></pre>
+</div>
+
+<p>Now, we need to tell Git to replace the password commit with our new, modified
+commit. <code class="highlighter-rouge">git commit --amend</code> lets you replace the latest commit (called <code class="highlighter-rouge">HEAD</code>,
+  which we discussed in the <em>merge conflict</em> step) with a new commit. Since we
+  have traveled back in time, <code class="highlighter-rouge">HEAD</code> currently points to <code class="highlighter-rouge">9e1bd06...</code>, which is
+  the commit that contains the password.</p>
+
+<p>To be super lazy, we can also specify <code class="highlighter-rouge">-C HEAD</code>, which lets us reuse the commit
+message and author information from the password commit. Run this command now:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git commit --amend -C HEAD
+rebase in progress; onto 1baa43d
+You are currently editing a commit while rebasing branch 'master' on '1baa43d'.
+
+Untracked files:
+	password.txt
+
+No changes
+You asked to amend the most recent commit, but doing so would make
+it empty. You can repeat your command with --allow-empty, or you can
+remove the commit entirely with "git reset HEAD^"
+</code></pre>
+</div>
+
+<p>Since commit <code class="highlighter-rouge">9e1bd06</code> only contained <code class="highlighter-rouge">password.txt</code>, Git complains that
+removing <code class="highlighter-rouge">password.txt</code> causes that commit to be empty. While we could re-do
+the rebase and remove the commit entirely (instead of <code class="highlighter-rouge">edit</code>ing it), let’s
+simply tell Git that an empty commit is OK:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git commit --amend -C HEAD --allow-empty
+[detached HEAD f2c576b] Create the workshop repository
+ Date: Tue Dec 29 14:07:18 2015 -0500
+</code></pre>
+</div>
+
+<p>Now that we’ve fixed up the target commit, tell Git to continue the rebase:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git rebase --continue
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+Error redoing merge df7395f65a07159329dca0e0c11c9ceff8c5922a
+</code></pre>
+</div>
+
+<p>Uh oh! Git had trouble re-applying our merge commit.</p>
+
+<p>You’d think that Git could simply apply this previous merge conflict change
+automatically. After all, we didn’t change the contents <code class="highlighter-rouge">README.md</code> at all!
+All we did was remove <code class="highlighter-rouge">password.txt</code>, so what’s going on?</p>
+
+<p>We commend you for your positivity, but want to gently let you
+know that Git cannot (typically) automatically re-apply merge commits. The world
+is a cruel place; you’re going to have to perform the
+merge again.</p>
+
+<p>(As an aside: Git has a command called
+<a href="http://git-scm.com/docs/git-rerere"><code class="highlighter-rouge">rerere</code></a> that you can <em>manually run
+after every merge</em> to record merge information. I would simply recommend that
+you avoid rebasing whenever possible.)</p>
+
+<p>Open up <code class="highlighter-rouge">README.md</code>, and fix the merge conflict like before. Then, make a new
+commit, and tell the rebase to continue:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git commit -a
+[detached HEAD a9cf82c] Merge branch 'master' of https://github.com/GITHUB-USERNAME/Workshop2
+$ git rebase --continue
+Successfully rebased and updated refs/heads/master.
+</code></pre>
+</div>
+
+<p>For the final step, push the changes to GitHub! You’ll have to do a dangerous
+<code class="highlighter-rouge">push -f</code>, since you’ve rewritten history:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git push -f
+Counting objects: 19, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (18/18), done.
+Writing objects: 100% (19/19), 2.19 KiB | 0 bytes/s, done.
+Total 19 (delta 4), reused 0 (delta 0)
+To https://github.com/GITHUB-USERNAME/Workshop2
+ + df7395f...a9cf82c master -&gt; master (forced update)
+</code></pre>
+</div>
+
+<p><strong>Check your commit history on GitHub to double check that everything looks OK.</strong>
+You should have 9 commits that look something like the following:</p>
+
+<p><img src="/workshops/images/git_commits_post_rebase.png" width="100%" /></p>
+
+<p>You should also verify that <code class="highlighter-rouge">password.txt</code> is no longer in the file listing:</p>
+
+<p><img src="/workshops/images/no_password.png" width="100%" /></p>
+
+<p>… and that the original password commit is now empty:</p>
+
+<p><img src="/workshops/images/empty_commit.png" width="100%" /></p>
+
+<p>If anything looks amiss, return to your second workshop clone, perform a
+<code class="highlighter-rouge">git push -f</code> to force push the repository’s contents prior to the rebase,
+and repeat this step.</p>
+
+<p>So long as everything checks out, you’re done! <strong>Let’s hope neither of us has to
+do that again.</strong></p>
+
+<p>In the Real World, you will likely only use <code class="highlighter-rouge">git rebase</code> to clean up commit
+messages before contributing changes to an open source project using the
+<code class="highlighter-rouge">squash</code> verb. If you take away anything from this step, <strong>remember to always
+make a backup clone of your repository before rebasing</strong> (or any other
+  <em>destructive</em> commit).</p>
+
+<h1 id="step-11-revert-changes">Step 11: Revert changes</h1>
+
+<p>If you perform a Git commit that breaks your project, you’ll likely want to
+undo that commit. You can do this <em>without</em> rebasing using Git’s <code class="highlighter-rouge">revert</code>
+command.</p>
+
+<p>Git’s <code class="highlighter-rouge">revert</code> command creates a new commit that <em>undoes</em> a specified commit.
+It is not <em>destructive</em> like <code class="highlighter-rouge">rebase</code>, so it is safe to use.</p>
+
+<p>Let’s create a commit that we want to <code class="highlighter-rouge">revert</code>. Open up <code class="highlighter-rouge">README.md</code>, delete
+the line containing the title (<code class="highlighter-rouge"># Workshop 2: Git</code>), commit the change, and
+push it to GitHub.</p>
+
+<p>Now, your repository should look something like the following:</p>
+
+<p><img src="/workshops/images/no_title_readme.png" width="100%" /></p>
+
+<p>Yuck, that looks worse than before. We should restore the title!</p>
+
+<p>The <code class="highlighter-rouge">git revert</code> command takes a commit hash as an argument. My commit above
+has a hash beginning with <code class="highlighter-rouge">5cea586</code> (yours will be different), so I can
+revert it as follows:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git revert 5cea586
+[master 8555894] Revert "Changing the README."
+ 1 file changed, 1 insertion(+)
+</code></pre>
+</div>
+
+<p>You should run the same command, but with the commit hash from your commit.</p>
+
+<p>You may notice that I used only the first 7 characters from the commit hash
+in the above command, instead of the full commit hash. Git lets you abbreviate
+commit hashes <a href="http://blog.cuviper.com/2013/11/10/how-short-can-git-abbreviate/">as long as the abbreviation is unique</a>.</p>
+
+<p>In any case, push your changes to GitHub:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git push
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 359 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To https://github.com/GITHUB-USERNAME/Workshop2
+   5cea586..8555894  master -&gt; master
+</code></pre>
+</div>
+
+<p>…and verify that the README title is restored!:</p>
+
+<p><img src="/workshops/images/title_readme.png" width="100%" /></p>
+
+<p>Also, look at the commit view. Notice that <code class="highlighter-rouge">revert</code> did not remove the old
+commit; it merely added a new one that negated the changes from the old commit:</p>
+
+<p><img src="/workshops/images/revert_commits.png" width="100%" /></p>
+
+<h1 id="step-12-add-your-screenshots-to-the-repository">Step 12: Add your screenshots to the repository</h1>
+
+<p>We asked you to take two screenshots so far:</p>
+
+<ul>
+  <li>In Step 07, we asked for a screenshot of <code class="highlighter-rouge">git pull</code> output.</li>
+  <li>In Step 09, we asked for a screenshot of your deleted repository.</li>
+</ul>
+
+<p><code class="highlighter-rouge">add</code> the <code class="highlighter-rouge">git pull</code> output screenshot to the root of your repository as
+<code class="highlighter-rouge">git_pull.png</code>, and <code class="highlighter-rouge">add</code> the screenshot of your deleted repository as
+<code class="highlighter-rouge">repo_deleted.png</code>.</p>
+
+<p>Create a <code class="highlighter-rouge">commit</code> for this change, and <code class="highlighter-rouge">push</code> it to GitHub.</p>
+
+<h1 id="submitting-your-assignment-and-other-reading">Submitting your assignment, and other reading</h1>
+
+<p>Your GitHub repository should have 12 commits, like these:</p>
+
+<p><img src="/workshops/images/workshop1_commits_final.png" width="100%" /></p>
+
+<p>If it does not, you may have missed a step! In that case, you could try rebasing
+your repository back to the step you messed up and try again.</p>
+
+<p>You must submit the URL of your Workshop2 GitHub repository to Moodle. Visit Moodle, find the associated Workshop 2 activity, and provide your URL. Make sure your Workshop2 repository is public so we can clone your repository and evaluate your work.</p>
+
+<h2 id="further-reading-branching-pull-requests-and-other-topics">Further reading: Branching, pull requests, and other topics</h2>
+
+<p>We didn’t have time to cover a number of other Git and GitHub features, so we
+recommend you read into the following topics:</p>
+
+<ul>
+  <li><strong>Branching</strong>: In this workshop, we used Git to store a <em>linear</em> sequence of
+commits. However, Git has a feature called <em>branches</em>, which lets you create
+additional independent lines of development. <a href="https://www.atlassian.com/git/tutorials/using-branches/">Here is a useful tutorial on branches</a>
+    <ul>
+      <li>Branches are typically used to develop features or large changes
+independently in large software projects. You may find them useful in
+your own team projects.</li>
+    </ul>
+  </li>
+  <li><strong>Pull Requests</strong>: If you create a <code class="highlighter-rouge">clone</code> of someone else’s repository on
+GitHub (which <a href="https://help.github.com/articles/fork-a-repo/">GitHub calls “forking”</a>) and fix a bug, you can open a <a href="https://help.github.com/articles/using-pull-requests/"><em>Pull Request</em>
+on GitHub</a>, which requests that the original developer <em>pull</em> your changes and
+<em>push</em> them into the original repository. GitHub competitor BitBucket has a
+<a href="https://www.atlassian.com/git/tutorials/making-a-pull-request">nice tutorial on Pull Requests</a> that you may find useful.
+    <ul>
+      <li>Pull requests are useful for fixing bugs in or adding features to others’ code. You can use them
+to write code <em>right now</em> for the <a href="https://github.com/atom/atom/pulls?utf8=%E2%9C%93&amp;q=is%3Apr+is%3Aclosed+">Atom Editor</a>,
+<a href="https://github.com/apple/swift/pulls?q=is%3Apr+is%3Aclosed">Apple’s Swift programming language</a>,
+<a href="https://github.com/nodejs/node/pulls?q=is%3Apr+is%3Aclosed">Node.JS</a>,
+and much more!</li>
+    </ul>
+  </li>
+</ul>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

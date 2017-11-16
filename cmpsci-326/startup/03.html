@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/startup/03">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    <p><img src="/startups/images/ucombinator_logo.png" alt="UCombinator" /></p>
+
+<h1 class="no_toc" id="startup-submission-03-static-react-mockups">Startup Submission 03: Static React Mockups</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>    <ul>
+      <li><a href="#installing-and-running-your-application" id="markdown-toc-installing-and-running-your-application">Installing and Running Your Application</a></li>
+      <li><a href="#part-01-html-scaffolding" id="markdown-toc-part-01-html-scaffolding">Part 01: HTML Scaffolding</a></li>
+      <li><a href="#part-02-react-scaffolding" id="markdown-toc-part-02-react-scaffolding">Part 02: React Scaffolding</a></li>
+      <li><a href="#part-03-adding-the-ids" id="markdown-toc-part-03-adding-the-ids">Part 03: Adding the IDs</a></li>
+      <li><a href="#part-04-implement-react-components" id="markdown-toc-part-04-implement-react-components">Part 04: Implement React Components</a></li>
+      <li><a href="#report" id="markdown-toc-report">Report</a></li>
+    </ul>
+  </li>
+  <li><a href="#submission" id="markdown-toc-submission">Submission</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><a href="/workshop/06">Workshop 06</a> led you through the exercise of translating the
+static HTML, Bootstrap, and CSS Facebook clone into a static React
+application. This required you to incrementally translate parts of a
+static HTML document into React components representing important
+parts of the Facebook UI. Now, UCombinator wants to see your startup
+apply the same approach to your team’s web application product. You
+must translate each of your static HTML documents representing the UI
+of your application into React components.</p>
+
+<h2 id="installing-and-running-your-application">Installing and Running Your Application</h2>
+
+<p>UCombinator should easily be able to install libraries that your
+application depends on and run a web server to view your mock React
+UI. We should be able to install dependencies and run your application
+using these commands from your team’s cloned github repository:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>npm install
+npm run serve
+</code></pre>
+</div>
+
+<h2 id="part-01-html-scaffolding">Part 01: HTML Scaffolding</h2>
+
+<p>You should follow the same approach we used
+in
+<a href="https://github.com/umass-cs-326/326-workshops/blob/master/workshop-06/workshop-06.md">Workshop 06</a> for
+converting the static HTML Facebook clone into using static React
+components. Unlike Workshop 06, your application will have multiple
+views. As such, your team will need to provide some scaffolding to
+allow you and us to view each of your UI views independently. The
+following describes additions and modifications one person on your
+team should make to your startup github repository before your team
+starts creating React components.</p>
+
+<p>First, we will need to be able to view a list of links to each of your
+mock UI views. We will do this by creating an HTML list in
+the
+<a href="https://github.com/umass-cs-326/startup-03-tutorial/blob/master/build/index.html"><code class="highlighter-rouge">build/index.html</code></a> file
+to easily allow us to view each of your mock UI files in the
+browser. One person on your team should replace the contents of
+your
+<a href="https://github.com/umass-cs-326/startup-03-tutorial/blob/master/build/index.html"><code class="highlighter-rouge">build/index.html</code></a> file
+with the following content (or create the file if it doesn’t exist):</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"IE=edge"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags --&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Bootstrap Template<span class="nt">&lt;/title&gt;</span>
+
+    <span class="c">&lt;!-- Bootstrap --&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"css/bootstrap.min.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span><span class="nt">&gt;</span>
+    
+    <span class="c">&lt;!-- Custom CSS goes here --&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="c">&lt;!-- Custom HTML goes here --&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>Application Views<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+      <span class="c">&lt;!-- REPLACE LINKS BELOW --&gt;</span>
+      <span class="c">&lt;!-- Provide a link for each of your mock UI HTML files --&gt;</span>
+      <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"ui-01.html"</span><span class="nt">&gt;</span>UI #1<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"ui-02.html"</span><span class="nt">&gt;</span>UI #2<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>      
+      <span class="c">&lt;!-- REPLACE LINKS ABOVE --&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    
+    <span class="c">&lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins) --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="c">&lt;!-- Include all compiled plugins (below), or include individual 
+         files as needed --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/bootstrap.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="c">&lt;!-- App code --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/app.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+
+<p>Next, you will need to create links to each of your HTML files implementing your mock UI. You should replace each of the links between <code class="highlighter-rouge">REPLACE LINKS BELOW</code> and <code class="highlighter-rouge">REPLACE LINKS ABOVE</code>. As you can see, in this example we have links to two HTML files to demonstrate what this should look like. Here is a listing of the <code class="highlighter-rouge">build</code> directory showing you the <a href="https://github.com/umass-cs-326/startup-03-tutorial/blob/master/build/ui-01.html"><code class="highlighter-rouge">ui-01.html</code></a> and <a href="https://github.com/umass-cs-326/startup-03-tutorial/blob/master/build/ui-02.html"><code class="highlighter-rouge">ui-02.html</code></a> files:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>.
+├── README.md
+├── css
+├── fonts
+├── img
+├── index.html
+├── js
+├── ui-01.html
+└── ui-02.html
+</code></pre>
+</div>
+
+<p>After you add the links to <a href="https://github.com/umass-cs-326/startup-03-tutorial/blob/master/build/index.html"><code class="highlighter-rouge">build/index.html</code></a> you can run the provided web server with this command to view the results in the browser:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>npm run serve
+</code></pre>
+</div>
+
+<p>When viewed in the browser, our <a href="https://github.com/umass-cs-326/startup-03-tutorial/blob/master/build/index.html"><code class="highlighter-rouge">build/index.html</code></a> file without modification looks like this:</p>
+
+<p><img src="/startups/images/startup-03-app-views.png" alt="" /></p>
+
+<p>Yours should look similar with links to each of your mock UI files. You should click on the links to verify that they load each of your mock UIs properly.</p>
+
+<p>If everything looks good you should run <code class="highlighter-rouge">git add</code>, <code class="highlighter-rouge">git commit</code>, and <code class="highlighter-rouge">git push</code> to record your changes.</p>
+
+<h2 id="part-02-react-scaffolding">Part 02: React Scaffolding</h2>
+
+<p>Just like we provided scaffolding for each of your HTML files, we must provide scaffolding to support the top-level React components for each of your mock UIs. One person on your team should open the <a href="https://github.com/umass-cs-326/startup-03-tutorial/blob/master/app/app.js"><code class="highlighter-rouge">app/app.js</code></a> file and replace its contents with the following JavaScript code:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s1">'react-dom'</span><span class="p">;</span>
+
+<span class="c1">// Each major browser view user interface must be imported.</span>
+<span class="kr">import</span> <span class="nx">UI01</span> <span class="nx">from</span> <span class="s1">'./components/ui-01.js'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">UI02</span> <span class="nx">from</span> <span class="s1">'./components/ui-02.js'</span><span class="p">;</span>
+
+<span class="c1">// For each view conditionally determine which view to display</span>
+<span class="c1">// depending on if the ID is present in the HTML.</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'ui-01'</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">UI01</span> <span class="o">/&gt;</span><span class="p">,</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'ui-01'</span><span class="p">)</span>
+  <span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'ui-02'</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">UI02</span> <span class="o">/&gt;</span><span class="p">,</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'ui-02'</span><span class="p">)</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>The above code imports the necessary React libraries as well as components we have defined in the components directory. Naturally, these components will be different for your application and you should replace them with your own top-level components. To get started your team may want to simply copy the components we defined in our <a href="https://github.com/umass-cs-326/startup-03-tutorial">Startup 03 Tutorial repository</a>.</p>
+
+<p>After the imports we have a conditional statement. By the time this code is executed in the browser we have already loaded in the associated HTML document and constructed the DOM. This allows us to use the <code class="highlighter-rouge">document.getElementById()</code> function to retrieve the HTML element associated with the given ID (we will see where this ID comes from in the next section). If the particular ID is present in the HTML document we render the associated React component using <code class="highlighter-rouge">ReactDOM.render</code>.</p>
+
+<p>Your team should replace each of the imports with your own components for your application, replace the ID names in <code class="highlighter-rouge">document.getElementById()</code> calls with your own IDs, and replace the bodies of the conditional with the creation of your own components. To get started, you may simply want to copy the <a href="https://github.com/umass-cs-326/startup-03-tutorial/tree/master/app/components">component directory of our startup 03 tutorial</a> into your startup repository. After everything is properly setup you can then slowly begin to replace the template components.</p>
+
+<p>If everything looks good you should run <code class="highlighter-rouge">git add</code>, <code class="highlighter-rouge">git commit</code>, and <code class="highlighter-rouge">git push</code> to record your changes.</p>
+
+<h2 id="part-03-adding-the-ids">Part 03: Adding the IDs</h2>
+
+<p>Lastly, your team will need to add a <code class="highlighter-rouge">&lt;div&gt;</code> tag in each of your mock UI html files that correspond with the IDs mentioned in the JavaScript code in the previous section. Thus, in our example above, we would add a <code class="highlighter-rouge">&lt;div id="ui-01"&gt;&lt;/div&gt;</code> tag as the first line in the <code class="highlighter-rouge">&lt;body&gt;</code> tag in the <code class="highlighter-rouge">build/ui-01.html</code> file. You will do this for each of your mockup UI HTML files. Note: it doesn’t matter where you put the <code class="highlighter-rouge">&lt;div&gt;</code> as long as it is outside of the HTML that you will be pulling out into a React component. You can see how we did it in our <a href="https://github.com/umass-cs-326/startup-03-tutorial/blob/master/build/ui-01.html#L17"><code class="highlighter-rouge">ui-01.html</code></a> and <a href="https://github.com/umass-cs-326/startup-03-tutorial/blob/master/build/ui-02.html#L17"><code class="highlighter-rouge">ui-02.html</code></a> files.</p>
+
+<p>If everything looks good you should run <code class="highlighter-rouge">git add</code>, <code class="highlighter-rouge">git commit</code>, and <code class="highlighter-rouge">git push</code> to record your changes.</p>
+
+<h2 id="part-04-implement-react-components">Part 04: Implement React Components</h2>
+
+<p>Once your teams has completed Parts 01 - 03 you will be ready to start implementing React components for your team’s web application product. You should follow the same procedure as you did in Workshop 06. How you organize your application into components is something your team will need to determine. There is no hard and fast rule for how components are organized and which part of your application should be a separate component. We do recommend, however, that before you start cutting HTML out of the original static UIs your team should have a plan on which HTML parts should be replaced with a React component.</p>
+
+<p>If everything looks good you should run <code class="highlighter-rouge">git add</code>, <code class="highlighter-rouge">git commit</code>, and <code class="highlighter-rouge">git push</code> to record your changes.</p>
+
+<h2 id="report">Report</h2>
+
+<p>Add a report to your repository as <code class="highlighter-rouge">reports/submission_03.pdf</code> that:</p>
+
+<ul>
+  <li>Carefully articulates any outstanding bugs in your submission and a plan on how you intend to fix your issues.
+    <ul>
+      <li>You <strong>must</strong> provide this information in your document otherwise we will assume a fully functional submission and score you accordingly. You will not necessarily be penalized for a few broken pieces, however, we do expect these problems to be addressed by the next startup submission.</li>
+    </ul>
+  </li>
+  <li>Describes your product’s key React components, and what parts of the UI they are responsible for.
+    <ul>
+      <li>Example: <code class="highlighter-rouge">Feed</code> renders the user’s content feed on the main page</li>
+      <li>Example: <code class="highlighter-rouge">FeedItem</code> renders a single post within a user’s <code class="highlighter-rouge">Feed</code></li>
+      <li>Example: <code class="highlighter-rouge">OnlineList</code> renders the user’s list of online friends within the product’s chat feature</li>
+    </ul>
+  </li>
+  <li>Describes what each startup founder contributed to this submission</li>
+  <li>Describes any product features you have decided to cut (if any)</li>
+</ul>
+
+<h1 id="submission">Submission</h1>
+
+<p>Make sure you have everything added, committed, and pushed to your team’s github repository. After you confirm that the repository is up-to-date, you must submit the URL to your github repository to Moodle by the assigned due date.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/startup/05">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    <p><img src="/startups/images/ucombinator_logo.png" alt="UCombinator" /></p>
+
+<h1 class="no_toc" id="startup-submission-05-dynamic-ui">Startup Submission 05: Dynamic UI</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>    <ul>
+      <li><a href="#general-expectations--assumptions" id="markdown-toc-general-expectations--assumptions">General Expectations / Assumptions</a></li>
+      <li><a href="#database-expectations" id="markdown-toc-database-expectations">Database Expectations</a>        <ul>
+          <li><a href="#mock-database-limitations" id="markdown-toc-mock-database-limitations">Mock Database Limitations</a></li>
+        </ul>
+      </li>
+      <li><a href="#report" id="markdown-toc-report">Report</a></li>
+      <li><a href="#updating-git-repository" id="markdown-toc-updating-git-repository">Updating Git Repository</a>        <ul>
+          <li><a href="#mock-database--server" id="markdown-toc-mock-database--server">Mock Database &amp; Server</a></li>
+          <li><a href="#react-router" id="markdown-toc-react-router">react-router</a></li>
+          <li><a href="#eslintrc" id="markdown-toc-eslintrc">.eslintrc</a></li>
+        </ul>
+      </li>
+      <li><a href="#sanity-checks" id="markdown-toc-sanity-checks">Sanity Checks</a></li>
+      <li><a href="#submission--grading-rubric" id="markdown-toc-submission--grading-rubric">Submission &amp; Grading Rubric</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>While UCombinator reviews your startup’s ER diagram, it has preapproved your startup to work on a <em>dynamic mockup</em>! It is now time for you to set your UI in motion.</p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Previous workshops describe how to translate the Facebook clone into a dynamic React application that:</p>
+
+<ul>
+  <li>Uses React components to represent UI elements</li>
+  <li>Uses a mock database to store its state</li>
+  <li>Uses a mock server to update mock database state, and to expose database information to the application</li>
+  <li>Uses <code class="highlighter-rouge">react-router</code> to create separate “pages” in your web application</li>
+</ul>
+
+<p>Now, UCombinator wants to see your startup apply the same structure to your product. The UI components in your many HTML files should be turned into React components where appropriate. Your application should only use a single HTML file with the filename <code class="highlighter-rouge">index.html</code>. You should use <code class="highlighter-rouge">react-router</code> to link to different “pages” of your application.</p>
+
+<p>Please see the grading rubric for details on how we will grade your submission.</p>
+
+<h2 id="general-expectations--assumptions">General Expectations / Assumptions</h2>
+
+<p>We will be lenient on submissions that have some issues with their dynamic functionality. However, you must carefully articulate the outstanding bugs in your submission and a plan on how you intend to fix your issues. You <strong>must</strong> provide this information in your document otherwise we will assume a fully functional submission and score you accordingly. Furthermore, if the bugs that you outline in your submission for #5 are not fixed by the submission deadline of the next startup submission #6 UCombinator’s score for #5 will reflect the broken parts. As such, you are encouraged to fix any problems you might have as soon as possible.</p>
+
+<p><strong>If your product has a link or a button, it should work.</strong></p>
+
+<p>Your dynamic mockup should assume a single user is already logged in, and should be fully functional for that user. For example, if your product lets users post items for sale, we should be able to post an item for sale. If your product lets users claim items that other users put up for sale, your mock database should have mock user accounts with items that they put up for sale. Those items should show up in item listings, and we should be able to claim them as that user.</p>
+
+<p>If your product supports multiple types of accounts, there should be a way to use the mockup as each type of account. You could introduce a temporary link in your product’s navigation bar that lets us use the product as a different type of user.</p>
+
+<p>If a portion of the product relies on some external source of data (e.g. GitHub, Twitter…), you can choose to mock the service or use the service’s API directly if appropriate. You should aim to do whichever is easiest.</p>
+
+<p>If your product has a search feature, you do not have to implement search completely. Your <em>real</em> database will take care of search using database queries. However, searching in your application should return results from your mock server – even if they are incorrect.</p>
+
+<p>Finally, you can choose to reduce the scope of your product if the workload is too heavy. Your report should describe any features you have decided to cut.</p>
+
+<h2 id="database-expectations">Database Expectations</h2>
+
+<p>Like with the workshops, your React components should use mock server methods to retrieve state from / update state in the database. We will expect that the state changes we trigger, e.g. posting an item for sale, will still display even after we close the browser and open it up again. Doing this correctly <em>now</em> will save your startup from a lot of pain <em>later</em> when you add a real server and database to your application!</p>
+
+<p>In addition, we expect that you will add a “Reset Database” button into your layout. This button will reset the mock database back to the initial set of objects you hand-define in <code class="highlighter-rouge">database.js</code>. We have coded the button for you; all you need to do is add an HTML element with id <code class="highlighter-rouge">db-reset</code> into your HTML layout, and the button will automagically appear when your product begins using the database.</p>
+
+<h3 id="mock-database-limitations">Mock Database Limitations</h3>
+
+<p>The mock database has <strong>a maximum size of 5 megabytes</strong>. This should be fine for simple text data, but will not work well if you are trying to store images or anything large into it.</p>
+
+<p>If the user provides your application with large pieces of data, such as photographs or video recordings, mock it up completely – let the user supply these pieces of data. When you go to store it in the database / render it, replace it with a standard piece of mock data.</p>
+
+<p>For example, if you are writing a Facebook clone that lets users post photos, your dynamic mockup should:</p>
+
+<ul>
+  <li>Bring up a file selection dialog when the user clicks the “Upload photo” button.</li>
+  <li>Display a mock picture instead of the selected picture once the user selects a photo to upload.</li>
+</ul>
+
+<p>Later on, when you attach a real database to your product, you will revisit these features and complete them in their entirety.</p>
+
+<h2 id="report">Report</h2>
+
+<p>Add a report to your repository as <code class="highlighter-rouge">reports/submission_05.pdf</code> that:</p>
+
+<ul>
+  <li>Carefully articulate the outstanding bugs in your submission and a plan on how you intend to fix your issues
+    <ul>
+      <li>You <strong>must</strong> provide this information in your document otherwise we will assume a fully functional submission and score you accordingly</li>
+    </ul>
+  </li>
+  <li>Describes your product’s key React components, and what parts of the UI they are responsible for.
+    <ul>
+      <li>Example: <code class="highlighter-rouge">Feed</code> renders the user’s content feed on the main page</li>
+      <li>Example: <code class="highlighter-rouge">FeedItem</code> renders a single post within a user’s <code class="highlighter-rouge">Feed</code></li>
+      <li>Example: <code class="highlighter-rouge">OnlineList</code> renders the user’s list of online friends within the product’s chat feature</li>
+    </ul>
+  </li>
+  <li>Describes what each startup founder contributed to in this submission</li>
+  <li>Describes any product features you have decided to cut</li>
+  <li>If your mock objects are different from your previously submitted ER diagram, include an updated ER diagram in the report</li>
+</ul>
+
+<h2 id="updating-git-repository">Updating Git Repository</h2>
+
+<p>Your startup will need to make a few changes to your Git repository to prepare for this submission.</p>
+
+<h3 id="mock-database--server">Mock Database &amp; Server</h3>
+
+<p>The previous workshops used a repository that comes equipped with a basic mock database and a helper function for a mock server. Your startup needs to add similar files to your product for this submission.</p>
+
+<p><a href="/startups/startup-05/database.js">Download the mock database module here</a>, and place it into your <code class="highlighter-rouge">app/</code> folder. Modify the <code class="highlighter-rouge">startupName</code> variable at the top of the file to be your startup’s name as a JavaScript string (e.g. <code class="highlighter-rouge">"TikTak"</code>), and modify <code class="highlighter-rouge">initialData</code> with mock data as we did in the workshops.</p>
+
+<p><a href="/startups/startup-05/server.js">Download the mock server here</a>, and place it into your <code class="highlighter-rouge">app/</code> folder. As in the previous workshops, add server methods to this file. This is the <em>only</em> file that should interact directly with your mock database. All of the <code class="highlighter-rouge">export</code>ed methods you add into this file should use the <code class="highlighter-rouge">emulateServerReturn</code> function to return data to the main application. <em>We will dock points if you do not do this.</em></p>
+
+<p>One member of your startup should <code class="highlighter-rouge">add</code>, <code class="highlighter-rouge">commit</code>, and <code class="highlighter-rouge">push</code> both of these files to your Git repository.</p>
+
+<h3 id="react-router">react-router</h3>
+
+<p>To use <code class="highlighter-rouge">react-router</code> in your product, <strong>one person</strong> from your startup needs to add it to your
+<code class="highlighter-rouge">package.json</code> with the following command, which they should run within your repository folder:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ npm install --save-dev react-router
+</code></pre>
+</div>
+
+<p>Then, that person needs to <code class="highlighter-rouge">commit</code> and <code class="highlighter-rouge">push</code> the change to <code class="highlighter-rouge">package.json</code>.</p>
+
+<p>The other people in the startup need to <code class="highlighter-rouge">pull</code> that change, and run <code class="highlighter-rouge">npm install</code> within the repository folder to install the new dependency.</p>
+
+<p>Now, you can reference <code class="highlighter-rouge">react-router</code> like the code in the previous workshops.</p>
+
+<p>Your startup can add additional <code class="highlighter-rouge">npm</code> dependencies using this command if you want to use them in your mockup.</p>
+
+<h3 id="eslintrc">.eslintrc</h3>
+
+<p>You will want to modify your ESLint file to add additional rules for React. These should help you write bug-free React code.</p>
+
+<p>Have one member of your team replace the contents of your <code class="highlighter-rouge">.eslintrc</code> with the following text:</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"extends"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eslint:recommended"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"ecmaFeatures"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"arrowFunctions"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"binaryLiterals"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"blockBindings"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"classes"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"defaultParams"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"destructuring"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"forOf"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modules"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"octalLiterals"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"restParams"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"spread"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"templateStrings"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"unicodeCodePointEscape"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"jsx"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"browser"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"node"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"commonjs"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"plugins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"react"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">Rules</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">React</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">list</span><span class="w"> </span><span class="err">here:</span><span class="w"> </span><span class="err">https://github.com/yannickcr/eslint-plugin-react)</span><span class="w">
+    </span><span class="nt">"react/no-unknown-property"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"react/jsx-no-duplicate-props"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"ignoreCase"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}],</span><span class="w">
+    </span><span class="nt">"react/jsx-no-undef"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"react/jsx-uses-react"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"react/jsx-uses-vars"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"react/no-deprecated"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nt">"react"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.14.6"</span><span class="p">}],</span><span class="w">
+    </span><span class="nt">"react/no-direct-mutation-state"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"react/no-is-mounted"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Remember to <code class="highlighter-rouge">commit</code> and <code class="highlighter-rouge">push</code> this change.</p>
+
+<h2 id="sanity-checks">Sanity Checks</h2>
+
+<p>Before the deadline, make sure your product works from a fresh <code class="highlighter-rouge">git clone</code> of the repository with the following commands:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git clone <span class="o">[</span>repository]
+<span class="gp">$ </span><span class="nb">cd</span> <span class="o">[</span>repository folder]
+<span class="gp">$ </span>npm install
+<span class="gp">$ </span>npm run serve
+</code></pre>
+</div>
+
+<p>If it does not, then UCombinator will have trouble evaluating your product!</p>
+
+<h2 id="submission--grading-rubric">Submission &amp; Grading Rubric</h2>
+
+<ul>
+  <li>20% Written report
+    <ul>
+      <li>10% Contains a clear, understandable description of your product’s key React components, and what parts of the UI they are responsible for.</li>
+      <li>10% Contains a clear explanation of what each startup founder contributed to the submission</li>
+    </ul>
+  </li>
+  <li>10% Product is <em>completely dynamic</em> using React
+    <ul>
+      <li>HTML files should not contain any hardcoded mock data</li>
+      <li>React components should only hardcode something like the ID of the “current user” and fixed UI components – the rest
+should come from the mock server</li>
+    </ul>
+  </li>
+  <li>10% Product uses client-side routing via <code class="highlighter-rouge">react-router</code> to make key pages linkable
+    <ul>
+      <li>If your startup has prior experience with alternative client-side routing libraries, you are free to use those</li>
+    </ul>
+  </li>
+  <li>30% Product uses the mock database appropriately to store its state
+    <ul>
+      <li>1% Product contains the “reset database” button from the mock database</li>
+      <li>9% Interactions with the product persist across browser sessions
+        <ul>
+          <li>In other words, if we do things on the product, close the browser, and re-open it, they should still be there!</li>
+          <li>If your product doesn’t do this, then you are likely using the database incorrectly</li>
+        </ul>
+      </li>
+      <li>10% Product communicates with the database properly through a mock server
+        <ul>
+          <li>…including using <code class="highlighter-rouge">emulateServerReturn</code> to return data from all <code class="highlighter-rouge">export</code>ed functions</li>
+        </ul>
+      </li>
+      <li>10% Contains an initial set of objects in the database that match the structure of the ER diagram from the prior submission
+        <ul>
+          <li>If you end up deviating from the previously submitted ER diagram, please include an updated diagram in your report</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>30% [Individually] Transitioned the static UI of a major product feature into a dynamic UI using React, and accurately portrayed contribution in report.</li>
+</ul>
+
+<p><strong>Please submit a URL to Moodle of your startup’s repository by the due date of this assignment</strong></p>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

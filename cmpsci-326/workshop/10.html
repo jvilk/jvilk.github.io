@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/workshop/10">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    
+<h1 class="no_toc" id="workshop-10-adding-a-database">Workshop 10: Adding a Database</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#overview" id="markdown-toc-overview">Overview</a></li>
+  <li><a href="#big-picture" id="markdown-toc-big-picture">Big Picture</a></li>
+  <li><a href="#install-mongodb" id="markdown-toc-install-mongodb">Install MongoDB</a>    <ul>
+      <li><a href="#windows" id="markdown-toc-windows">Windows</a></li>
+      <li><a href="#mac-osx" id="markdown-toc-mac-osx">Mac OSX</a>        <ul>
+          <li><a href="#via-homebrew" id="markdown-toc-via-homebrew">Via Homebrew</a></li>
+          <li><a href="#via-tarball" id="markdown-toc-via-tarball">Via Tarball</a></li>
+        </ul>
+      </li>
+      <li><a href="#linux" id="markdown-toc-linux">Linux</a></li>
+    </ul>
+  </li>
+  <li><a href="#prepare-the-git-repository" id="markdown-toc-prepare-the-git-repository">Prepare the Git Repository</a></li>
+  <li><a href="#set-up-the-database" id="markdown-toc-set-up-the-database">Set Up the Database</a>    <ul>
+      <li><a href="#create-folder-for-data" id="markdown-toc-create-folder-for-data">Create Folder for Data</a></li>
+    </ul>
+  </li>
+  <li><a href="#mongodb-overview" id="markdown-toc-mongodb-overview">MongoDB Overview</a>    <ul>
+      <li><a href="#documents-mock-vs-mongodb" id="markdown-toc-documents-mock-vs-mongodb">Documents: Mock vs MongoDB</a></li>
+      <li><a href="#database-operations-mock-vs-mongodb" id="markdown-toc-database-operations-mock-vs-mongodb">Database Operations: Mock vs MongoDB</a></li>
+      <li><a href="#atomicity-mock-vs-mongodb" id="markdown-toc-atomicity-mock-vs-mongodb">Atomicity: Mock vs MongoDB</a></li>
+      <li><a href="#hello-database" id="markdown-toc-hello-database">Hello, Database!</a></li>
+    </ul>
+  </li>
+  <li><a href="#facebook-changes" id="markdown-toc-facebook-changes">Facebook Changes</a></li>
+  <li><a href="#populate-the-database-with-mock-objects" id="markdown-toc-populate-the-database-with-mock-objects">Populate the Database with Mock Objects</a>    <ul>
+      <li><a href="#initial-import-script" id="markdown-toc-initial-import-script">Initial Import Script</a></li>
+      <li><a href="#convert-mock-database-ids-to-mongodb-objectids" id="markdown-toc-convert-mock-database-ids-to-mongodb-objectids">Convert Mock Database IDs to MongoDB ObjectIDs</a></li>
+      <li><a href="#checking-imported-documents" id="markdown-toc-checking-imported-documents">Checking Imported Documents</a></li>
+    </ul>
+  </li>
+  <li><a href="#change-current-user-id-to-a-string" id="markdown-toc-change-current-user-id-to-a-string">Change Current User ID to a String</a></li>
+  <li><a href="#first-route-get-useruseridfeed" id="markdown-toc-first-route-get-useruseridfeed">First Route: GET /user/:userid/feed</a>    <ul>
+      <li><a href="#connect-to-the-database" id="markdown-toc-connect-to-the-database">Connect to the Database</a></li>
+      <li><a href="#redefine-getfeeditemsync" id="markdown-toc-redefine-getfeeditemsync">Redefine <code class="highlighter-rouge">getFeedItemSync</code></a></li>
+      <li><a href="#redefining-getfeeddata" id="markdown-toc-redefining-getfeeddata">Redefining <code class="highlighter-rouge">getFeedData</code></a></li>
+      <li><a href="#update-get-useruseridfeed" id="markdown-toc-update-get-useruseridfeed">Update <code class="highlighter-rouge">GET /user/:userid/feed</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#change-other-routes-to-use-mongodb" id="markdown-toc-change-other-routes-to-use-mongodb">Change Other Routes to Use MongoDB</a>    <ul>
+      <li><a href="#post-feeditem" id="markdown-toc-post-feeditem"><code class="highlighter-rouge">POST /feeditem</code></a></li>
+      <li><a href="#put-feeditemfeeditemidlikelistuserid" id="markdown-toc-put-feeditemfeeditemidlikelistuserid"><code class="highlighter-rouge">PUT /feeditem/:feeditemid/likelist/:userid</code></a></li>
+      <li><a href="#delete-feeditemfeeditemidlikelistuserid" id="markdown-toc-delete-feeditemfeeditemidlikelistuserid"><code class="highlighter-rouge">DELETE /feeditem/:feeditemid/likelist/:userid</code></a></li>
+      <li><a href="#put-feeditemfeeditemidcontent" id="markdown-toc-put-feeditemfeeditemidcontent"><code class="highlighter-rouge">PUT /feeditem/:feeditemid/content</code></a></li>
+      <li><a href="#delete-feeditemfeeditemid" id="markdown-toc-delete-feeditemfeeditemid"><code class="highlighter-rouge">DELETE /feeditem/:feeditemid</code></a></li>
+      <li><a href="#post-search" id="markdown-toc-post-search"><code class="highlighter-rouge">POST /search</code></a></li>
+      <li><a href="#post-resetdb" id="markdown-toc-post-resetdb"><code class="highlighter-rouge">POST /resetdb</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#update-comment-routes-to-use-mongodb" id="markdown-toc-update-comment-routes-to-use-mongodb">Update Comment Routes to Use MongoDB</a></li>
+  <li><a href="#conclusion-and-other-resources" id="markdown-toc-conclusion-and-other-resources">Conclusion and Other Resources</a>    <ul>
+      <li><a href="#further-reading" id="markdown-toc-further-reading">Further Reading</a></li>
+    </ul>
+  </li>
+  <li><a href="#submission" id="markdown-toc-submission">Submission</a></li>
+</ul>
+
+<h1 id="overview">Overview</h1>
+
+<p>In the previous workshop, we added a web server to Facebook, and migrated
+the mock database from the client into the server. We also added basic
+HTTP request authentication using unencrypted JSON web tokens.</p>
+
+<p>In this workshop, we will migrate from a mock database to a <em>real</em> database,
+powered by MongoDB. We will change the server routes to interact with the
+real database. Best of all, we will only need to make one small client change to fix
+hardcoded user IDs!</p>
+
+<h1 id="big-picture">Big Picture</h1>
+
+<p>At this point, it may be helpful to remind you all of the “big picture”,
+and how everything connects up.</p>
+
+<p>In a real web application, the client runs on the user’s computer (in a
+web browser), while the server and the database run on the company’s
+servers (typically owned by and leased from a cloud computing company –
+such as Amazon, Google, or Microsoft):</p>
+
+<p><img src="/workshops/images/ProductionWebApp.svg" alt="" /></p>
+
+<p>During development, when you need to work on all of the components of
+the application, you’ll run all of these pieces on your own laptop/computer:</p>
+
+<p><img src="/workshops/images/DevWebApp.svg" alt="" /></p>
+
+<h1 id="install-mongodb">Install MongoDB</h1>
+
+<p>As a prerequisite for this workshop, you need to install MongoDB Community
+Edition on your computer. Follow the instructions for your operating system
+below.</p>
+
+<h2 id="windows">Windows</h2>
+
+<p><a href="https://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/">Use this guide to choose which version of MongoDB Community Edition to
+install.</a>
+Then, simply run the installer.</p>
+
+<p>To test the installation, run the following in your terminal:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ "C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe" --version
+</code></pre>
+</div>
+
+<h2 id="mac-osx">Mac OSX</h2>
+
+<p>There are two ways to install MongoDB Community Edition on the Mac OS X.</p>
+
+<h3 id="via-homebrew">Via Homebrew</h3>
+
+<p>If you know what Homebrew is and you have it installed, simply run <code class="highlighter-rouge">brew install mongodb</code>
+and you’re done. Verify the install by running <code class="highlighter-rouge">mongod --version</code>.</p>
+
+<p>If you do not know what Homebrew is, <a href="http://brew.sh/">you may want to check it out</a>.
+We will not support getting Homebrew up and running, though.</p>
+
+<h3 id="via-tarball">Via Tarball</h3>
+
+<p>If you do not know what Homebrew is, simply run the following commands from your
+<strong>class folder</strong> to install MongoDB into a <code class="highlighter-rouge">mongodb</code> folder in your class folder:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -O https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.2.4.tgz
+$ tar -zxvf mongodb-osx-x86_64-3.2.4.tgz
+$ mv mongodb-osx-x86_64-3.2.4/ mongodb
+</code></pre>
+</div>
+
+<p>Then, edit your <code class="highlighter-rouge">~/.bash_profile</code> to include the following line
+(change <code class="highlighter-rouge">/path/to/</code> into the path to your <strong>class folder</strong>). If <code class="highlighter-rouge">~/.bash_profile</code> does
+not exist, simply create the file.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>export PATH=/path/to/mongodb/bin:$PATH
+</code></pre>
+</div>
+
+<p><em>Note: You can run <code class="highlighter-rouge">atom ~/.bash_profile</code> from the terminal to launch the Atom editor
+to change or create the file.</em></p>
+
+<p>This change tells the terminal where MongoDB-related terminal commands can be found.
+The terminal only reads this file when it starts up, though. Close your terminal,
+and re-open it. Then, verify that everything is working properly by running:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ mongod --version
+</code></pre>
+</div>
+
+<h2 id="linux">Linux</h2>
+
+<p><a href="https://docs.mongodb.org/manual/administration/install-on-linux/">Follow the instructions on MongoDB’s website for your version of Linux.</a>
+Once done, verify that the install worked by running <code class="highlighter-rouge">mongod --version</code>.</p>
+
+<h1 id="prepare-the-git-repository">Prepare the Git Repository</h1>
+
+<p>The first thing you need to do is create a <a href="https://github.com/umass-cs-326/Workshop7">fork of the public Git repository</a>.</p>
+
+<p>Next, clone the Git repository into your <strong>class folder</strong>, <code class="highlighter-rouge">cd</code> into it, then run the following
+commands to install the dependencies of both the server and the client:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd client
+$ npm install
+$ cd ../server
+$ npm install
+</code></pre>
+</div>
+
+<h1 id="set-up-the-database">Set Up the Database</h1>
+
+<p>Before we can do anything with the database, we need to set it up.</p>
+
+<h2 id="create-folder-for-data">Create Folder for Data</h2>
+
+<p>The first step to setting it up is to create a folder that it can store
+data into.</p>
+
+<p><strong>We do not want the database to store data in our Git repository.</strong> Git
+repositories are for <em>code</em>, not <em>data</em>! Create a folder named
+<code class="highlighter-rouge">workshop-10-data</code> in your <strong>class folder</strong>. Then, open up the terminal
+to your <strong>class folder</strong>, and start the database with:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ mongod --dbpath workshop-10-data
+</code></pre>
+</div>
+
+<p><em>Note: If you are on Windows, run <code class="highlighter-rouge">"C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe" --dbpath workshop-10-data</code> instead.</em></p>
+
+<p>Like with other servers in the course, the database will remain running
+as long as you have that terminal open. <strong>Keep the terminal open for the
+duration of the workshop.</strong></p>
+
+<h1 id="mongodb-overview">MongoDB Overview</h1>
+
+<p>Let’s compare MongoDB to our mock database. Then, we will walk through writing
+a simple NodeJS program that interacts with the database.</p>
+
+<h2 id="documents-mock-vs-mongodb">Documents: Mock vs MongoDB</h2>
+
+<p>The structure of a Mongo database is very similar to our mock database. A Mongo database
+contains multiple <em>document collections</em>. Each document collection contains JSON documents.
+Each document within a collection contains a unique <code class="highlighter-rouge">_id</code>. MongoDB <code class="highlighter-rouge">_id</code> values are
+different from the mock database, though; we will explain the difference shortly.</p>
+
+<p>For Facebook, we have the following document collections in the mock database, which we
+will port over to MongoDB:</p>
+
+<ul>
+  <li>users</li>
+  <li>feedItems</li>
+  <li>feeds</li>
+</ul>
+
+<p>We will need to change how we treat document IDs, though. By default, MongoDB will
+<a href="https://docs.mongodb.org/manual/reference/method/ObjectId/">generate IDs for new documents called <em>ObjectIDs</em></a>.
+ObjectIDs are 12 byte numbers. Normally, you will see ObjectIDs as a hexadecimal
+string with 24 characters, like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>"56fda6f887e62a1c0f662e64"
+</code></pre>
+</div>
+
+<p>When you send a database object in an HTTP response, its <code class="highlighter-rouge">_id</code> <strong>will automatically
+convert from an ObjectID to a hex string like the above</strong>. The same thing happens when
+you <code class="highlighter-rouge">console.log</code> an ObjectID. So, the client will see all document IDs as strings,
+and you will probably start to think of them as strings, too.</p>
+
+<p>But… note that ObjectIDs inside the database are <em>not</em> strings. The above is much like the base64
+encoding that we used for the JSON web token: It is a string-based representation
+of arbitrary data. When the client sends a string ID back to us, we will need to
+convert it back into an ObjectID before asking the database for the document with that ID.
+When we store a reference to another document into a document, we should store it as an
+ObjectID and not a string.</p>
+
+<h2 id="database-operations-mock-vs-mongodb">Database Operations: Mock vs MongoDB</h2>
+
+<p>MongoDB supports all of the same operations that our mock database did (and more!),
+but all of the operations are <em>asynchronous</em>.</p>
+
+<p>The mock database supports the following basic operations:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">addDocument</code>: Add a new document to a collection.</li>
+  <li><code class="highlighter-rouge">readDocument</code>: Read a document from a collection.</li>
+  <li><code class="highlighter-rouge">writeDocument</code>: Update a document in a collection.</li>
+  <li><code class="highlighter-rouge">deleteDocument</code>: Delete a document from a collection.</li>
+  <li><code class="highlighter-rouge">getCollection</code>: Retrieve an entire collection.</li>
+</ul>
+
+<p>Similarly, MongoDB supports the following basic operations:</p>
+
+<ul>
+  <li><a href="https://docs.mongodb.org/getting-started/node/insert/"><code class="highlighter-rouge">insertOne</code>/<code class="highlighter-rouge">insertMany</code></a>: Add a new document to a collection.</li>
+  <li><a href="https://docs.mongodb.org/getting-started/node/query/"><code class="highlighter-rouge">find</code>/<code class="highlighter-rouge">findOne</code></a>: Locate a particular document or set of documents in the database that match a given query.
+    <ul>
+      <li>Identical to <code class="highlighter-rouge">readDocument</code> when the query is to get a document with a particular <code class="highlighter-rouge">_id</code></li>
+      <li>Identical to <code class="highlighter-rouge">getCollection</code> when the query is to get all documents</li>
+      <li>Can also use for more complicated queries, e.g. “get me all documents containing this text in the <code class="highlighter-rouge">message</code> property”</li>
+    </ul>
+  </li>
+  <li><a href="https://docs.mongodb.org/getting-started/node/update/"><code class="highlighter-rouge">updateOne</code>/<code class="highlighter-rouge">updateMany</code>/<code class="highlighter-rouge">replaceOne</code></a>: Update a document in a collection.</li>
+  <li><a href="https://docs.mongodb.org/getting-started/node/remove/"><code class="highlighter-rouge">deleteOne</code>/<code class="highlighter-rouge">deleteMany</code></a>: Delete a document (or documents) from a collection.</li>
+</ul>
+
+<p>To perform an operation on a particular collection in the mock database,
+you add the name of the collection as the first argument. For example, to add a user to
+the <code class="highlighter-rouge">'users'</code> document collection, you would run:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">addDocument</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="nx">userObject</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>In MongoDB, you would write the following to add a user to the ‘users’ document
+collection, where <code class="highlighter-rouge">db</code> is an open connection to the database:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Get the 'users' document collection from the database.</span>
+<span class="kd">var</span> <span class="nx">usersCollection</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'users'</span><span class="p">);</span>
+<span class="c1">// Insert a single user into the collection.</span>
+<span class="nx">usersCollection</span><span class="p">.</span><span class="nx">insertOne</span><span class="p">(</span><span class="nx">userObject</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Operation failed.</span>
+    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Operation completed."</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Notice how <code class="highlighter-rouge">insertOne</code> takes a callback function. Queries to MongoDB are
+<em>asynchronous</em>, much like how queries between the client and server are
+<em>asynchronous</em>. Asynchrony is the main reason why JavaScript is so
+different from other programming languages you may have used in the past,
+like Java or C!</p>
+
+<h2 id="atomicity-mock-vs-mongodb">Atomicity: Mock vs MongoDB</h2>
+
+<p>So far, we have assumed that multiple interactions with the mock database are <em>atomic</em>.
+We cannot make that assumption with MongoDB, and will need to be careful with database
+updates to avoid losing data.</p>
+
+<p>By <em>atomic</em>, I mean that no other database operations jump in-between or <em>interleave with</em>
+a written sequence of database operations. For example, if you wrote the following code with
+the mock database, you would assume that you are properly updating a user’s <code class="highlighter-rouge">name</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">readDocument</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">"John Vilk"</span><span class="p">;</span>
+<span class="nx">writeDocument</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="nx">user</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>However, what if, in parallel, the following code was running?</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">readDocument</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">email</span> <span class="o">=</span> <span class="s2">"foo@example.com"</span><span class="p">;</span>
+<span class="nx">writeDocument</span><span class="p">(</span><span class="s1">'users'</span><span class="p">,</span> <span class="nx">user</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>Do you see the issue?</p>
+
+<p>Assume that both of these code sequences execute <code class="highlighter-rouge">readDocument</code> <em>at the same time</em>, and
+they read the user object <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">_id:</span><span class="w"> </span><span class="err">4,</span><span class="w"> </span><span class="err">name:</span><span class="w"> </span><span class="nt">"Tom"</span><span class="err">,</span><span class="w"> </span><span class="err">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo@bar.com"</span><span class="w"> </span><span class="p">}</span></code>. Now, the first code sequence
+will try to update the user object with <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">_id:</span><span class="w"> </span><span class="err">4,</span><span class="w"> </span><span class="err">name:</span><span class="w"> </span><span class="nt">"John Vilk"</span><span class="err">,</span><span class="w"> </span><span class="err">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo@bar.com"</span><span class="w"> </span><span class="p">}</span></code>,
+and the second will try to update the user object with  <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">_id:</span><span class="w"> </span><span class="err">4,</span><span class="w"> </span><span class="err">name:</span><span class="w"> </span><span class="nt">"Tom"</span><span class="err">,</span><span class="w"> </span><span class="err">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo@example.com"</span><span class="w"> </span><span class="p">}</span></code>.
+The final state of the user object depends on which of those updates finishes last.</p>
+
+<p>We can no longer ignore these issues with MongoDB. With MongoDB, we can assume that individual
+database operations are atomic, but not sequences of operations.</p>
+
+<p>Thankfully, MongoDB supports complex <em>update</em> operations, which will perform complicated object
+update operations in a single atomic database action.
+<a href="https://docs.mongodb.org/getting-started/node/update/">An update operation takes two arguments</a>:</p>
+
+<ul>
+  <li>A <em>filter document</em> which determines which object to update.
+    <ul>
+      <li>The filter document <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">_id:</span><span class="w"> </span><span class="err">ObjectID(</span><span class="nt">"56fda6f887e62a1c0f662e64"</span><span class="err">)</span><span class="w"> </span><span class="err">}</span></code> matches documents with the specified <code class="highlighter-rouge">_id</code>.</li>
+      <li>The filter document <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">name:</span><span class="w"> </span><span class="nt">"John Vilk"</span><span class="w"> </span><span class="err">}</span></code> matches documents with the <code class="highlighter-rouge">name</code> property <code class="highlighter-rouge">"John Vilk"</code>.</li>
+    </ul>
+  </li>
+  <li>An <em>update document</em> which determines how to update the document.
+    <ul>
+      <li>The update document <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">$set:</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="err">name:</span><span class="w"> </span><span class="nt">"John Vilk"</span><span class="w"> </span><span class="err">}</span><span class="w"> </span><span class="err">}</span></code> changes the matched document’s <code class="highlighter-rouge">name</code> field to <code class="highlighter-rouge">"John Vilk"</code>.
+        <ul>
+          <li><a href="https://docs.mongodb.org/manual/reference/operator/update/set/#up._S_set"><code class="highlighter-rouge">$set</code></a> is one of MongoDB’s <a href="https://docs.mongodb.org/manual/reference/operator/update/">update operators</a>,
+  which you can use in update documents.</li>
+          <li>You can use <code class="highlighter-rouge">$set</code> on multiple fields, e.g. <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">$set:</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="err">name:</span><span class="w"> </span><span class="nt">"John Vilk"</span><span class="err">,</span><span class="w"> </span><span class="err">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo@bar.com"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="err">}</span></code>.</li>
+          <li>You can use other update operators in parallel, e.g. <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">$set:</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="err">name:</span><span class="w"> </span><span class="nt">"John Vilk"</span><span class="w"> </span><span class="err">},</span><span class="w"> </span><span class="err">$mul:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"income"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="err">}</span></code>
+  changes the matched user document’s <code class="highlighter-rouge">name</code> to <code class="highlighter-rouge">"John Vilk"</code> and multiplies its <code class="highlighter-rouge">income</code> by <code class="highlighter-rouge">10</code>.</li>
+        </ul>
+      </li>
+      <li>The update document <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">$push:</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="err">likeCounter:</span><span class="w"> </span><span class="err">userId</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="err">}</span></code> adds the <code class="highlighter-rouge">userId</code> to the match object’s <code class="highlighter-rouge">likeCounter</code> array
+  using the <a href="https://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push"><code class="highlighter-rouge">$push</code> operator</a>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>With an update operation, we can tell the database to <em>change the email field on the user object with a given ID</em>
+in a single database operation. The database will pass us a <a href="https://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#~updateWriteOpResult"><code class="highlighter-rouge">result</code> object telling us if anything was actually
+updated</a>.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'users'</span><span class="p">).</span><span class="nx">updateOne</span><span class="p">({</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000004"</span><span class="p">)</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">$set</span><span class="p">:</span> <span class="p">{</span> <span class="na">email</span><span class="p">:</span> <span class="s2">"foo@example.com"</span> <span class="p">}</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Failed due to a database error</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// Operation succeeded, but this does not mean that any documents were updated!</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">modifiedCount</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Filter matched at least 1 document, which the database modified.</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// Filter did not match any documents, so no change was made.</span>
+      <span class="c1">// It is likely that this document was removed from the database prior</span>
+      <span class="c1">// to the operation.</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Atomicity is primarily an issue when you are <em>writing</em> to the database. It can also be
+an issue when reading data, such as trying to resolve the <code class="highlighter-rouge">author</code> of a comment just as that
+user deletes their account, but these issues are typically harmless and do not destroy database
+state.</p>
+
+<h2 id="hello-database">Hello, Database!</h2>
+
+<p>Let’s write a simple JavaScript program that writes and reads stuff from the
+database.</p>
+
+<p>Create the file <code class="highlighter-rouge">server/src/hellodatabase.js</code>. Then, import the MongoDB client,
+which is just another NodeJS library that you conveniently installed when you
+ran <code class="highlighter-rouge">npm install</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">MongoClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'mongodb'</span><span class="p">).</span><span class="nx">MongoClient</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>Next, we need to tell the MongoClient to connect to our database! By default,
+<code class="highlighter-rouge">mongod</code> runs MongoDB on port <code class="highlighter-rouge">27017</code>. We want to connect to MongoDB, and
+work within a database named <em>facebook</em> (MongoDB can host multiple databases
+at once).</p>
+
+<p>With that in mind, the URL to your facebook database is <code class="highlighter-rouge">mongodb://localhost:27017/facebook</code>
+(<code class="highlighter-rouge">localhost</code> is shorthand for your current computer). Let’s connect to it:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Connect to database named 'facebook'.</span>
+<span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'mongodb://localhost:27017/facebook'</span><span class="p">;</span>
+<span class="nx">MongoClient</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">db</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">"Could not connect to database: "</span> <span class="o">+</span> <span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Connected correctly to server."</span><span class="p">);</span>
+    <span class="c1">// This is where we will kick off other actions that use the database!</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>As you might have guessed, <code class="highlighter-rouge">MongoClient.connect</code> is <em>asynchronous</em>. It kicks
+off a connection request to the database, and only calls the callback function
+when it succeeds or fails. If your program needs to do anything with
+the database connection, you will need to kick it off in the callback
+function we provided.</p>
+
+<p>Now, let’s write a function that inserts a simple document into a
+new document collection called “helloworld”. We do not need to
+tell MongoDB to create a new document collection at all; it will
+create it automatically when we tell it to insert a document
+into it:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Inserts a simple document into the 'helloworld'
+ * document collection.
+ * @param db The database connection
+ * @param callback A callback function to call once the
+ *   operation completes. We will pass back the new object's
+ *   ID.
+ */</span>
+<span class="kd">function</span> <span class="nx">insertExample</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// A document is just a JSON object, like in our mock database.</span>
+  <span class="kd">var</span> <span class="nx">exampleDocument</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">message</span><span class="p">:</span> <span class="s2">"Hello, world!"</span>
+  <span class="p">};</span>
+  <span class="c1">// Insert the example document into collection 'helloworld'.</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'helloworld'</span><span class="p">).</span><span class="nx">insertOne</span><span class="p">(</span><span class="nx">exampleDocument</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Something bad happened, and the insertion failed.</span>
+      <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// Success!</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Successfully updated database! The new object's ID is "</span> <span class="o">+</span> <span class="nx">result</span><span class="p">.</span><span class="nx">insertedId</span><span class="p">);</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">insertedId</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Above, we use the <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html?_ga=1.14491703.1444570278.1452528978#insertOne"><code class="highlighter-rouge">insertOne</code> function</a>
+on the database collection to insert a single document into the database.
+When the operation completes (or fails!), the MongoDB NodeJS library calls
+the <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#~insertOneWriteOpCallback">callback we passed to the <code class="highlighter-rouge">insertOne</code> function</a>
+with two arguments. The first is an <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/MongoError.html">error object</a>;
+if this is not null or undefined, then an error occurred. The second is a
+<a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#~insertOneWriteOpResult">results object for the <code class="highlighter-rouge">insertOne</code> operation</a>,
+which tells us information about the operation.</p>
+
+<p>In the successful case, we pass the new document’s <code class="highlighter-rouge">_id</code> to the callback passed
+to <code class="highlighter-rouge">insertExample</code>. The <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#~insertOneWriteOpResult">results object</a>
+for the <code class="highlighter-rouge">insertOne</code> operation contains the new document’s <code class="highlighter-rouge">_id</code> as the <code class="highlighter-rouge">insertedId</code>
+property.</p>
+
+<p>The above code may be surprising to those of you who have worked with databases
+before. Most databases require you to tell the database what data <em>looks like</em>
+before it lets you store it. Unlike other databases, MongoDB does not enforce
+what each document in a collection looks like. This is both a strength, and a
+weakness:</p>
+
+<ul>
+  <li><strong>Strength</strong>: It is easy to store different objects of the same type (isA relations)
+    <ul>
+      <li>For example, if our Facebook supported multiple types of FeedItems, we
+  could store all of them in the same object collection! In a normal database,
+  we would typically need to store the different types in different tables/collections.</li>
+    </ul>
+  </li>
+  <li><strong>Weakness</strong>: It is easy to store objects into the <em>wrong collection</em>.
+    <ul>
+      <li>If you typo the collection name: MongoDB will happily insert a document into a new collection
+  called ‘usrs’ instead of ‘users’.</li>
+      <li>If you forget a collection name and use the wrong one: MongoDB will happily
+  look for an object in a new collection called ‘user’ instead of ‘users’.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Next, let’s write a function that retrieves an object from the <code class="highlighter-rouge">helloworld</code> document
+collection with a particular ID. We can use the <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findOne"><code class="highlighter-rouge">findOne</code> function</a>
+to <em>query</em> the database for a single object with that ID:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Get a document from the helloworld document collection with
+ * a particular _id.
+ * @param db The database connection.
+ * @param id The _id of the object to retrieve.
+ * @param callback A callback function to run when the operation completes.
+ *   It is called with the requested object.
+ */</span>
+<span class="kd">function</span> <span class="nx">getHelloWorldDocument</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Our database query: Find an object with this _id.</span>
+  <span class="kd">var</span> <span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"_id"</span><span class="p">:</span> <span class="nx">id</span>
+  <span class="p">};</span>
+  <span class="c1">// findOne returns the first object that matches the query.</span>
+  <span class="c1">// Since _id must be unique, there will only be one object that</span>
+  <span class="c1">// matches.</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'helloworld'</span><span class="p">).</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Something bad happened.</span>
+      <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// Success! If we found the document, then doc contains</span>
+      <span class="c1">// the document. If we did not find the document, doc is</span>
+      <span class="c1">// null.</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="nx">doc</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now that we have written these functions, let’s write another function
+that calls them. Since these functions are <em>asynchronous</em>, we need to
+nest each step inside the callback of the previous one. This is how
+you should always deal with asynchronous functions in your own
+code – the next step should always be kicked off in the callback
+function of the previous step!</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Add a new document to helloworld collection, read the document,
+ * print the document.
+ */</span>
+<span class="kd">function</span> <span class="nx">mongoExample</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Step 1: Insert the document.</span>
+  <span class="nx">insertExample</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">newId</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Step 2: Read the document.</span>
+    <span class="nx">getHelloWorldDocument</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">newId</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Step 3: Print the document.</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Wrote new object to helloworld collection:"</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">doc</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Finally, change the callback that we pass to <code class="highlighter-rouge">MongoClient.connect</code> to call <code class="highlighter-rouge">mongoExample</code>
+with the <code class="highlighter-rouge">db</code> connection.</p>
+
+<p>Run the program in node (<code class="highlighter-rouge">cd server</code> followed by <code class="highlighter-rouge">node src/hellodatabase.js</code>). You
+should see output like this, except with a different ID:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>node src/hellodatabase.js
+Connected correctly to server.
+Successfully updated database! The new object<span class="s1">'s ID is 56feb96697a178291ee6e9dc
+Wrote new object to helloworld collection:
+{ _id: 56feb96697a178291ee6e9dc, message: '</span>Hello, world!<span class="s1">' }
+</span></code></pre>
+</div>
+
+<p>Node will keep running, though! That is because NodeJS is still connected to
+the database. You will have to kill it with CTRL+C.</p>
+
+<p><strong><code class="highlighter-rouge">add</code> <code class="highlighter-rouge">server/src/hellodatabase.js</code> to the Git repository, <code class="highlighter-rouge">commit</code> it with message
+<code class="highlighter-rouge">mongoExample</code>, and <code class="highlighter-rouge">push</code> it to GitHub</strong></p>
+
+<h1 id="facebook-changes">Facebook Changes</h1>
+
+<p>We added the ability to add <em>images</em> to status updates since the last workshop.
+To check this out, open a terminal to the <code class="highlighter-rouge">client</code> folder, and run <code class="highlighter-rouge">npm run watch</code>. Then, open another terminal
+to the <code class="highlighter-rouge">server</code> folder, and run <code class="highlighter-rouge">node src/server.js</code>. You should now have three terminals open:</p>
+
+<ul>
+  <li>One to run the database</li>
+  <li>A second to re-build the client when you change it</li>
+  <li>A third to run the server</li>
+</ul>
+
+<p>Visit <code class="highlighter-rouge">http://localhost:3000/</code></p>
+
+<p>In the status update entry widget, click on the camera icon below the text area, and it will bring up a file selection
+dialog. Select an image, and you will see it in the status update entry area.
+Type in some text for the status update, click post, and you will see a status
+update with an image in the feed!</p>
+
+<p>To do this, we had to make the following changes in the client:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">StatusUpdateEntry</code>: Contains the crazy logic needed to <a href="http://stackoverflow.com/questions/16080644/customize-the-file-button-for-image-upload">use a button for file uploads</a>.
+Also contains code to read in the selected file as a <a href="https://en.wikipedia.org/wiki/Data_URI_scheme#Syntax">data URI</a>,
+and display it back to the user. The image is supplied as the second argument to the <code class="highlighter-rouge">onPost</code> prop.</li>
+  <li><code class="highlighter-rouge">Feed</code>: Adds the <code class="highlighter-rouge">image</code> argument to the <code class="highlighter-rouge">onPost</code> function passed to <code class="highlighter-rouge">StatusUpdateEntry</code>, and passes the <code class="highlighter-rouge">image</code>
+to the <code class="highlighter-rouge">postStatusUpdate</code> method in <code class="highlighter-rouge">server</code>.</li>
+  <li><code class="highlighter-rouge">server.js</code>: Adds <code class="highlighter-rouge">image</code> as another property on StatusUpdate entities POSTed to the server.</li>
+  <li><code class="highlighter-rouge">FeedItem</code>: Passes the <code class="highlighter-rouge">image</code> prop to <code class="highlighter-rouge">StatusUpdate</code>.</li>
+  <li><code class="highlighter-rouge">StatusUpdate</code>: Conditionally displays an image, if the status update has one.</li>
+</ul>
+
+<p>On the server, we had to change:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">schemas/statusupdate.json</code>: Added a <em>non-required</em> field called <code class="highlighter-rouge">image</code>, which needs to be a string (a data URI).</li>
+  <li><code class="highlighter-rouge">server.js</code>: Change <code class="highlighter-rouge">postStatusUpdate</code> to accept <code class="highlighter-rouge">image</code> as an argument, and change the <code class="highlighter-rouge">POST /feeditems</code> route to pass <code class="highlighter-rouge">body.image</code>
+to <code class="highlighter-rouge">postStatusUpdate</code>.</li>
+</ul>
+
+<p>There are comments in the code with further details.</p>
+
+<p>Note: If you try to upload larger images with the mock database, it’ll likely be quite slow.
+When we switch over to MongoDB, it should be fine with images that are less than 16 megabytes large.</p>
+
+<h1 id="populate-the-database-with-mock-objects">Populate the Database with Mock Objects</h1>
+
+<p>Now that we have experimented a bit with MongoDB, it is time to move our Facebook
+mock objects a third time: From the mock database and into the <em>real</em> database!</p>
+
+<h2 id="initial-import-script">Initial Import Script</h2>
+
+<p>Open up <code class="highlighter-rouge">server/database.js</code>, and copy the <code class="highlighter-rouge">var initialData = { .... }</code>
+statement. Then, open up <code class="highlighter-rouge">src/resetdatabase.js</code>, and replace <code class="highlighter-rouge">var initialData = null</code>.</p>
+
+<h2 id="convert-mock-database-ids-to-mongodb-objectids">Convert Mock Database IDs to MongoDB ObjectIDs</h2>
+
+<p>MongoDB uses <a href="https://docs.mongodb.org/manual/reference/method/ObjectId/">ObjectIDs</a> as document IDs, which the client will see as string
+values. Our mock database uses numbers. We need to change those document IDs
+into ObjectIDs, and then change the client so that it refers to the string
+value of those ObjectIDs.</p>
+
+<p>An ObjectID can be constructed by passing a 24 character hex string to the <code class="highlighter-rouge">ObjectID</code>
+constructor, like so:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">ObjectID</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'mongodb'</span><span class="p">).</span><span class="nx">ObjectID</span><span class="p">;</span>
+
+<span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000001"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p><em>Note: 24 hex characters equals 12 bytes of data.</em></p>
+
+<p>Unfortunately, there is no simpler way to get the ObjectID for the number “4”;
+the string must be 24 characters long. ObjectIDs are unwieldy for hardcoded data,
+but you do not often need to write them out like this.</p>
+
+<p>Now, you need to change all database IDs into ObjectIDs. If you do not, then some equality checks
+in our server will fail! (e.g. <code class="highlighter-rouge">user._id === new ObjectID(req.params.userid)</code>)</p>
+
+<p>You need to convert:</p>
+
+<ul>
+  <li>All of the <code class="highlighter-rouge">_id</code> properties of objects in the database</li>
+  <li>All references to other objects in the database.</li>
+</ul>
+
+<p>So, the ID <code class="highlighter-rouge">4</code> will become <code class="highlighter-rouge">new ObjectID("000000000000000000000004")</code>. If you forget a zero on one of these ObjectIDs,
+then the <code class="highlighter-rouge">resetdatabase.js</code> script will throw an exception when you run it.</p>
+
+<p>Here are some examples:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Mock database user entity</span>
+<span class="p">{</span>
+  <span class="s2">"_id"</span><span class="err">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"fullName"</span><span class="err">:</span> <span class="s2">"Someone"</span><span class="p">,</span>
+  <span class="s2">"feed"</span><span class="err">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="c1">// MongoDB database user entity</span>
+<span class="p">{</span>
+  <span class="s2">"_id"</span><span class="err">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000001"</span><span class="p">),</span>
+  <span class="s2">"fullName"</span><span class="err">:</span> <span class="s2">"Someone"</span><span class="p">,</span>
+  <span class="s2">"feed"</span><span class="err">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000001"</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Mock database feeditem</span>
+<span class="p">{</span>
+  <span class="s2">"_id"</span><span class="err">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"likeCounter"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+  <span class="p">],</span>
+  <span class="s2">"type"</span><span class="err">:</span> <span class="s2">"statusUpdate"</span><span class="p">,</span>
+  <span class="s2">"contents"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"author"</span><span class="err">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"postDate"</span><span class="err">:</span> <span class="mi">1453668480000</span><span class="p">,</span>
+    <span class="s2">"location"</span><span class="err">:</span> <span class="s2">"Austin, TX"</span><span class="p">,</span>
+    <span class="s2">"contents"</span><span class="err">:</span> <span class="s2">"ugh."</span>
+  <span class="p">},</span>
+  <span class="s2">"comments"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"author"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"contents"</span><span class="p">:</span> <span class="s2">"hope everything is ok!"</span><span class="p">,</span>
+      <span class="s2">"postDate"</span><span class="p">:</span> <span class="mi">1453690800000</span><span class="p">,</span>
+      <span class="s2">"likeCounter"</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"author"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="s2">"contents"</span><span class="p">:</span> <span class="s2">"sending hugs your way"</span><span class="p">,</span>
+      <span class="s2">"postDate"</span><span class="p">:</span> <span class="mi">1453690800000</span><span class="p">,</span>
+      <span class="s2">"likeCounter"</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// MongoDB database feeditem</span>
+<span class="p">{</span>
+  <span class="s2">"_id"</span><span class="err">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000001"</span><span class="p">),</span>
+  <span class="s2">"likeCounter"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000002"</span><span class="p">),</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000003"</span><span class="p">)</span>
+  <span class="p">],</span>
+  <span class="s2">"type"</span><span class="err">:</span> <span class="s2">"statusUpdate"</span><span class="p">,</span>
+  <span class="s2">"contents"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"author"</span><span class="err">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000001"</span><span class="p">),</span>
+    <span class="s2">"postDate"</span><span class="err">:</span> <span class="mi">1453668480000</span><span class="p">,</span>
+    <span class="s2">"location"</span><span class="err">:</span> <span class="s2">"Austin, TX"</span><span class="p">,</span>
+    <span class="s2">"contents"</span><span class="err">:</span> <span class="s2">"ugh."</span>
+  <span class="p">},</span>
+  <span class="s2">"comments"</span><span class="err">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"author"</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000002"</span><span class="p">),</span>
+      <span class="s2">"contents"</span><span class="p">:</span> <span class="s2">"hope everything is ok!"</span><span class="p">,</span>
+      <span class="s2">"postDate"</span><span class="p">:</span> <span class="mi">1453690800000</span><span class="p">,</span>
+      <span class="s2">"likeCounter"</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"author"</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000003"</span><span class="p">),</span>
+      <span class="s2">"contents"</span><span class="p">:</span> <span class="s2">"sending hugs your way"</span><span class="p">,</span>
+      <span class="s2">"postDate"</span><span class="p">:</span> <span class="mi">1453690800000</span><span class="p">,</span>
+      <span class="s2">"likeCounter"</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// Mock database feed</span>
+<span class="p">{</span>
+  <span class="s2">"_id"</span><span class="err">:</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="s2">"contents"</span><span class="err">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// MongoDB feed</span>
+<span class="p">{</span>
+  <span class="s2">"_id"</span><span class="err">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000004"</span><span class="p">),</span>
+  <span class="s2">"contents"</span><span class="err">:</span> <span class="p">[</span><span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000002"</span><span class="p">),</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000001"</span><span class="p">)]</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Once you’ve converted all of the mock objects, <strong>double check that you did not forget any document references.</strong> If you miss one,
+you may have weird issues later as you interact with mock objects.</p>
+
+<p>Then, run the resetdatabase script to populate the database with the mock objects:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>node src/resetdatabase.js
+</code></pre>
+</div>
+
+<p>Later on in the workshop, we will have to change a number of other things
+to adjust to the new ObjectIDs. These items include the JSON token in the
+client, anything that uses the number 4 for the user ID, and numerical
+comparisons in server routes (e.g. checking if a user has access to a feeditem).</p>
+
+<h2 id="checking-imported-documents">Checking Imported Documents</h2>
+
+<p>Now that we have imported some documents, let’s check that the import succeeded!</p>
+
+<p>Open up <code class="highlighter-rouge">server/src/server.js</code>, and add an import statement for the
+<a href="https://github.com/mongo-express/mongo-express"><code class="highlighter-rouge">mongo-express</code> Express middleware</a>.
+We will use <code class="highlighter-rouge">mongo-express</code> to add a HTTP route to our server that lets you
+examine the database’s contents in a web browser:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">mongo_express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'mongo-express/lib/middleware'</span><span class="p">);</span>
+<span class="c1">// Import the default Mongo Express configuration</span>
+<span class="kd">var</span> <span class="nx">mongo_express_config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'mongo-express/config.default.js'</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>Next, add the following code to configure the server to expose mongo-express
+at the URL <code class="highlighter-rouge">/mongo_express</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">'/mongo_express'</span><span class="p">,</span> <span class="nx">mongo_express</span><span class="p">(</span><span class="nx">mongo_express_config</span><span class="p">));</span>
+</code></pre>
+</div>
+
+<p>Restart the server. Mongo Express will complain that “authentication failed”
+and that it could not connect to the database, but ignore it – it’s a
+spurious warning, as Mongo Express will try again and report “Database
+db connected”.</p>
+
+<p>Next, head to the URL http://localhost:3000/mongo_express and log in
+with the username “admin” and password “pass”. You will see two databases:
+“facebook”, and “local” (MongoDB stores some internal stuff into “local”).</p>
+
+<p>Click on “facebook”. If <code class="highlighter-rouge">resetdatabase.js</code> worked,
+you will see document collections for <code class="highlighter-rouge">feedItems</code>, <code class="highlighter-rouge">feeds</code>, and <code class="highlighter-rouge">users</code>.
+You will also see <code class="highlighter-rouge">helloworld</code> from the previouse exercise.</p>
+
+<p><strong>Take a screenshot of this screen, and save it as <code class="highlighter-rouge">server/mongo_express.png</code></strong>.</p>
+
+<p>If you click on a document collection, Mongo Express will show you the documents
+in the collection. Neat!</p>
+
+<p><strong><code class="highlighter-rouge">add</code> <code class="highlighter-rouge">server/mongo_express.png</code>, <code class="highlighter-rouge">commit</code> with message <code class="highlighter-rouge">database-reset</code>, and <code class="highlighter-rouge">push</code>
+the commit to GitHub</strong>.</p>
+
+<h1 id="change-current-user-id-to-a-string">Change Current User ID to a String</h1>
+
+<p>Before we can update the server to interact with MongoDB, we need to change
+all of the hardcoded data in the client to use ObjectIDs. Right now, the only
+hardcoded piece of data in the client is the current user’s ID.</p>
+
+<p>Remember that ObjectIDs are sent to the client as strings, so we only need to
+change references to the user id <code class="highlighter-rouge">4</code> to be the string <code class="highlighter-rouge">"000000000000000000000004"</code>.</p>
+
+<p>Change <code class="highlighter-rouge">4</code> to <code class="highlighter-rouge">"000000000000000000000004"</code> in the following places:</p>
+
+<ul>
+  <li><strong><code class="highlighter-rouge">app/app.js</code></strong>: The <code class="highlighter-rouge">render</code> function of <code class="highlighter-rouge">FeedPage</code></li>
+  <li><strong><code class="highlighter-rouge">app/server.js</code></strong>: The <code class="highlighter-rouge">getFeedData</code> function; you need to change the route.</li>
+  <li><strong><code class="highlighter-rouge">app/components/comment.js</code></strong>: <code class="highlighter-rouge">didUserLike</code> function of <code class="highlighter-rouge">Comment</code></li>
+  <li><strong><code class="highlighter-rouge">app/components/feed.js</code></strong>: <code class="highlighter-rouge">onPost</code> function of <code class="highlighter-rouge">Feed</code></li>
+  <li><strong><code class="highlighter-rouge">app/components/feeditem.js</code></strong>: In `FeedItem:
+    <ul>
+      <li><code class="highlighter-rouge">handleCommentPost</code></li>
+      <li><code class="highlighter-rouge">handleLikeClick</code> (two times)</li>
+      <li><code class="highlighter-rouge">didUserLike</code></li>
+      <li><code class="highlighter-rouge">onCommentLike</code> (two times)</li>
+    </ul>
+  </li>
+  <li><strong><code class="highlighter-rouge">app/components/statusupdate.js</code></strong>: <code class="highlighter-rouge">render</code> function of <code class="highlighter-rouge">StatusUpdate</code> (two times)</li>
+</ul>
+
+<p>Next, let’s update the JSON web token! Open up a new terminal session,
+type <code class="highlighter-rouge">node</code> to enter the Node REPL like before, and run the following
+command to generate a new JSON token:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> <span class="na">id</span><span class="p">:</span> <span class="s2">"000000000000000000000004"</span> <span class="p">})).</span><span class="nx">toString</span><span class="p">(</span><span class="s1">'base64'</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>Update the <code class="highlighter-rouge">token</code> variable at the top of <code class="highlighter-rouge">client/app/server.js</code> to use
+the new token you have generated.</p>
+
+<p>Now, Facebook should be entirely broken: The server will refuse the client’s
+GET request to get the feed data, since it is still coded to expect a
+numeric user ID in the JSON token. We’ll have to make some changes to the server…</p>
+
+<p><strong><code class="highlighter-rouge">commit</code> these changes with message <code class="highlighter-rouge">stringified</code>, and <code class="highlighter-rouge">push</code> the changes to GitHub.</strong></p>
+
+<h1 id="first-route-get-useruseridfeed">First Route: GET /user/:userid/feed</h1>
+
+<p>Now that the client is using proper MongoDB document references, we need to start
+changing the server to use MongoDB. Let’s start with the most important server route:
+<code class="highlighter-rouge">GET /user/:userid/feed</code>, which returns a user’s feed.</p>
+
+<h2 id="connect-to-the-database">Connect to the Database</h2>
+
+<p>All of our Express routes are going to need to use the database to read, write,
+or update data. But in order
+to use the database, we need to connect to the database first, which requires
+an asynchronous function call.</p>
+
+<p>Add the following code to <code class="highlighter-rouge">server/src/server.js</code>, and nest all of the server’s helper functions
+and HTTP routes into the callback function we supply to <code class="highlighter-rouge">connect</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">MongoDB</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'mongodb'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">MongoClient</span> <span class="o">=</span> <span class="nx">MongoDB</span><span class="p">.</span><span class="nx">MongoClient</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">ObjectID</span> <span class="o">=</span> <span class="nx">MongoDB</span><span class="p">.</span><span class="nx">ObjectID</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'mongodb://localhost:27017/facebook'</span><span class="p">;</span>
+
+<span class="nx">MongoClient</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">db</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Put everything that uses `app` into this callback function.</span>
+  <span class="c1">// from app.use(bodyParser.text());</span>
+  <span class="c1">// all the way to</span>
+  <span class="c1">// app.listen(3000, ...</span>
+  <span class="c1">// Also put all of the helper functions that use mock database</span>
+  <span class="c1">// methods like readDocument, writeDocument, ...</span>
+<span class="p">});</span>
+<span class="c1">// The file ends here. Nothing should be after this.</span>
+</code></pre>
+</div>
+
+<p>We put all of the code involving <code class="highlighter-rouge">app</code> into the callback of <code class="highlighter-rouge">MongoClient.connect</code>
+to make sure that our server doesn’t start until it connects to the database,
+and to give all of the HTTP routes access to the <code class="highlighter-rouge">db</code> object passed to the callback.
+This object represents our <em>connection</em> to the database.</p>
+
+<h2 id="redefine-getfeeditemsync">Redefine <code class="highlighter-rouge">getFeedItemSync</code></h2>
+
+<p>Rename <code class="highlighter-rouge">getFeedItemSync</code> to just <code class="highlighter-rouge">getFeedItem</code>,
+since we cannot get data from the database synchronously anymore. ESLint will
+complain about this change, because <code class="highlighter-rouge">getFeedItemSync</code> is called elsewhere,
+but <strong>ignore this complaint</strong> – we will fix those callsites later!</p>
+
+<p>Next, let’s look at the operations <code class="highlighter-rouge">getFeedItem</code> needs to perform, and figure
+out how to map them to MongoDB functionality:</p>
+
+<ul>
+  <li><strong>Retrieve a feed item with the given ID.</strong> Like in <code class="highlighter-rouge">hellodatabase.js</code>, we can
+use <code class="highlighter-rouge">findOne</code> to find the feed item with the given ID.</li>
+  <li><strong>Resolve the user object for the author of the feed item.</strong> Similarly, we
+could use <code class="highlighter-rouge">findOne</code>.</li>
+  <li><strong>Resolve the like counter to user objects.</strong> We could use <code class="highlighter-rouge">findOne</code> on each
+user ID in the like counter, or we could use the <a href="https://docs.mongodb.org/getting-started/node/query/#logical-or">logical OR query operator <code class="highlighter-rouge">$or</code></a>
+to get them all in one database request!</li>
+  <li><strong>Resolve authors on comments to user objects.</strong> Same answer as the like counter.</li>
+</ul>
+
+<p><code class="highlighter-rouge">$or</code> is like <code class="highlighter-rouge">||</code> in an <code class="highlighter-rouge">if</code> statement in a programming language: It unifies multiple
+checks, and matches documents that satisfy at least one of the checks.</p>
+
+<p>Instead of:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">userObject</span><span class="p">.</span><span class="nx">_id</span> <span class="o">===</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000002"</span><span class="p">)</span> <span class="o">||</span>
+  <span class="nx">userObject</span><span class="p">.</span><span class="nx">_id</span> <span class="o">===</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000004"</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// userObject is a user with ID "000000000000000000000002",</span>
+    <span class="c1">// or "000000000000000000000004"!</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>…you write a query like so:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">$or</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">"_id"</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000002"</span><span class="p">)</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="s2">"_id"</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="s2">"000000000000000000000004"</span><span class="p">)</span> <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>MongoDB also supports <a href="https://docs.mongodb.org/getting-started/node/query/#logical-and">logical AND</a>,
+<a href="https://docs.mongodb.org/getting-started/node/query/#less-than-operator-lt">less than</a>,
+and <a href="https://docs.mongodb.org/getting-started/node/query/#greater-than-operator-gt">greater than</a>.</p>
+
+<p>You can use <code class="highlighter-rouge">$or</code> queries with <code class="highlighter-rouge">find</code> operations to locate particular documents, and
+<code class="highlighter-rouge">update</code> operations to perform an update only on documents that match the query.</p>
+
+<p>Since <em>three of the four things we need to do involve looking up user objects</em>.
+It makes sense to batch resolve all of the user objects in one database query.
+In other words, we can make a list of all of the user objects we need to
+resolve for a feed item, resolve them in one query, and then update the
+FeedItem object with the resolved objects.</p>
+
+<p>Let’s define a helper function called <code class="highlighter-rouge">resolveUserObjects</code> which, given
+a list of user IDs and a callback, returns an object containing all of the corresponding
+user objects through the callback:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Resolves a list of user objects. Returns an object that maps user IDs to
+ * user objects.
+ */</span>
+<span class="kd">function</span> <span class="nx">resolveUserObjects</span><span class="p">(</span><span class="nx">userList</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Special case: userList is empty.</span>
+  <span class="c1">// It would be invalid to query the database with a logical OR</span>
+  <span class="c1">// query with an empty array.</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">userList</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// Build up a MongoDB "OR" query to resolve all of the user objects</span>
+    <span class="c1">// in the userList.</span>
+    <span class="kd">var</span> <span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">$or</span><span class="p">:</span> <span class="nx">userList</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">id</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span><span class="na">_id</span><span class="p">:</span> <span class="nx">id</span> <span class="p">}</span> <span class="p">})</span>
+    <span class="p">};</span>
+    <span class="c1">// Resolve 'like' counter</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'users'</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="nx">query</span><span class="p">).</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">users</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// Build a map from ID to user object.</span>
+      <span class="c1">// (so userMap["4"] will give the user with ID 4)</span>
+      <span class="kd">var</span> <span class="nx">userMap</span> <span class="o">=</span> <span class="p">{};</span>
+      <span class="nx">users</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">user</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">userMap</span><span class="p">[</span><span class="nx">user</span><span class="p">.</span><span class="nx">_id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">user</span><span class="p">;</span>
+      <span class="p">});</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">userMap</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>You may notice that we do not pass a callback into the <code class="highlighter-rouge">find</code> function; instead,
+we call <code class="highlighter-rouge">toArray</code>, and pass a callback into that function.
+Since <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#find"><code class="highlighter-rouge">find</code> is an operation that returns multiple documents</a>,
+it operates slightly differently than the MongoDB functions we have used so far.
+Instead of accepting a single callback that gets all of the results of the
+operation, it synchronously returns a <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Cursor.html"><em>cursor</em> object</a>
+that you can perform further asynchronous actions on, such as further filtering
+the results or performing an action on each item that the database returned.</p>
+
+<p>Above, we call <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Cursor.html#toArray"><code class="highlighter-rouge">toArray()</code></a>
+on the cursor, which accepts a callback that receives all of the matched documents.
+It is likely that this is the only cursor function you will need to use in this
+course.</p>
+
+<p>Now, we can change <code class="highlighter-rouge">getFeedItem</code> so that it collects a list of user IDs
+it needs to resolve into a list, calls <code class="highlighter-rouge">resolveUserObjects</code> with that list,
+and then replaces all of the user IDs with the resolved user objects:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Resolves a feed item. Internal to the server, since it's synchronous.
+ * @param feedItemId The feed item's ID. Must be an ObjectID.
+ * @param callback Called when the operation finishes. First argument is an error object,
+ *   which is null if the operation succeeds, and the second argument is the
+ *   resolved feed item.
+ */</span>
+<span class="kd">function</span> <span class="nx">getFeedItem</span><span class="p">(</span><span class="nx">feedItemId</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Get the feed item with the given ID.</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">findOne</span><span class="p">({</span>
+    <span class="na">_id</span><span class="p">:</span> <span class="nx">feedItemId</span>
+  <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// An error occurred.</span>
+      <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">feedItem</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Feed item not found!</span>
+      <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Build a list of all of the user objects we need to resolve.</span>
+    <span class="c1">// Start off with the author of the feedItem.</span>
+    <span class="kd">var</span> <span class="nx">userList</span> <span class="o">=</span> <span class="p">[</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">author</span><span class="p">];</span>
+    <span class="c1">// Add all of the user IDs in the likeCounter.</span>
+    <span class="nx">userList</span> <span class="o">=</span> <span class="nx">userList</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">);</span>
+    <span class="c1">// Add all of the authors of the comments.</span>
+    <span class="nx">feedItem</span><span class="p">.</span><span class="nx">comments</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">comment</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">userList</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">comment</span><span class="p">.</span><span class="nx">author</span><span class="p">));</span>
+    <span class="c1">// Resolve all of the user objects!</span>
+    <span class="nx">resolveUserObjects</span><span class="p">(</span><span class="nx">userList</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">userMap</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// Use the userMap to look up the author's user object</span>
+      <span class="nx">feedItem</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">author</span> <span class="o">=</span> <span class="nx">userMap</span><span class="p">[</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">author</span><span class="p">];</span>
+      <span class="c1">// Look up the user objects for all users in the like counter.</span>
+      <span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span> <span class="o">=</span> <span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">userId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">userMap</span><span class="p">[</span><span class="nx">userId</span><span class="p">]);</span>
+      <span class="c1">// Look up each comment's author's user object.</span>
+      <span class="nx">feedItem</span><span class="p">.</span><span class="nx">comments</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">comment</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">comment</span><span class="p">.</span><span class="nx">author</span> <span class="o">=</span> <span class="nx">userMap</span><span class="p">[</span><span class="nx">comment</span><span class="p">.</span><span class="nx">author</span><span class="p">];</span>
+      <span class="p">});</span>
+      <span class="c1">// Return the resolved feedItem!</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><em>Reminder: Ignore ESLint complaints about <code class="highlighter-rouge">getFeedItemSync</code> not being defined.
+We will change other references to <code class="highlighter-rouge">getFeedItemSync</code> later.</em></p>
+
+<p>While the above function looks different from <code class="highlighter-rouge">getFeedItemSync</code>, notice how
+it performs all of the same tasks. This is the theme of this workshop:
+redefining all of your database interactions so they do the same thing,
+but asynchronously using MongoDB.</p>
+
+<p>Also, notice how the the <code class="highlighter-rouge">callback</code> passed to these functions takes two arguments.
+The first is an error, if an error occurs, and the second is the result
+of the operation. MongoDB callbacks use the same scheme; the first argument
+to the callback is always an error object, which is <code class="highlighter-rouge">null</code> if no error
+occurred, and the second argument is the result of the operation.</p>
+
+<h2 id="redefining-getfeeddata">Redefining <code class="highlighter-rouge">getFeedData</code></h2>
+
+<p>Now, we can redefine <code class="highlighter-rouge">getFeedData</code> so it calls <code class="highlighter-rouge">getFeedItem</code> for each
+item in the feed. Below, we asynchronously iterate over each document
+reference in the user’s feed:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Get the feed data for a particular user.
+ * @param user The ObjectID of the user document.
+ */</span>
+<span class="kd">function</span> <span class="nx">getFeedData</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'users'</span><span class="p">).</span><span class="nx">findOne</span><span class="p">({</span>
+    <span class="na">_id</span><span class="p">:</span> <span class="nx">user</span>
+  <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">userData</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">userData</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// User not found.</span>
+      <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feeds'</span><span class="p">).</span><span class="nx">findOne</span><span class="p">({</span>
+      <span class="na">_id</span><span class="p">:</span> <span class="nx">userData</span><span class="p">.</span><span class="nx">feed</span>
+    <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">feedData</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">feedData</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Feed not found.</span>
+        <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="c1">// We will place all of the resolved FeedItems here.</span>
+      <span class="c1">// When done, we will put them into the Feed object</span>
+      <span class="c1">// and send the Feed to the client.</span>
+      <span class="kd">var</span> <span class="nx">resolvedContents</span> <span class="o">=</span> <span class="p">[];</span>
+
+      <span class="c1">// processNextFeedItem is like an asynchronous for loop:</span>
+      <span class="c1">// It performs processing on one feed item, and then triggers</span>
+      <span class="c1">// processing the next item once the first one completes.</span>
+      <span class="c1">// When all of the feed items are processed, it completes</span>
+      <span class="c1">// a final action: Sending the response to the client.</span>
+      <span class="kd">function</span> <span class="nx">processNextFeedItem</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Asynchronously resolve a feed item.</span>
+        <span class="nx">getFeedItem</span><span class="p">(</span><span class="nx">feedData</span><span class="p">.</span><span class="nx">contents</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Pass an error to the callback.</span>
+            <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// Success!</span>
+            <span class="nx">resolvedContents</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">feedItem</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">resolvedContents</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="nx">feedData</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+              <span class="c1">// I am the final feed item; all others are resolved.</span>
+              <span class="c1">// Pass the resolved feed document back to the callback.</span>
+              <span class="nx">feedData</span><span class="p">.</span><span class="nx">contents</span> <span class="o">=</span> <span class="nx">resolvedContents</span><span class="p">;</span>
+              <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">feedData</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+              <span class="c1">// Process the next feed item.</span>
+              <span class="nx">processNextFeedItem</span><span class="p">(</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+
+      <span class="c1">// Special case: Feed is empty.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">feedData</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">feedData</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">processNextFeedItem</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="update-get-useruseridfeed">Update <code class="highlighter-rouge">GET /user/:userid/feed</code></h2>
+
+<p>Now, let’s look at the route for <code class="highlighter-rouge">GET /user/:userid/feed</code>.</p>
+
+<p>First, we need to change some code that expects numeric IDs
+instead of strings.</p>
+
+<p>The route for <code class="highlighter-rouge">GET /user/:userid/feed</code> expects a numeric user ID
+in the JSON web token in these lines:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">userid</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">userid</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">fromUser</span> <span class="o">=</span> <span class="nx">getUserIdFromToken</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">));</span>
+    <span class="c1">// userid is a string. We need it to be a number.</span>
+    <span class="kd">var</span> <span class="nx">useridNumber</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">userid</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">fromUser</span> <span class="o">===</span> <span class="nx">useridNumber</span><span class="p">)</span> <span class="p">{</span>
+</code></pre>
+</div>
+
+<p>Simplify these lines to the following, which cuts out the integer
+parsing code:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">userid</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">userid</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">fromUser</span> <span class="o">=</span> <span class="nx">getUserIdFromToken</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">fromUser</span> <span class="o">===</span> <span class="nx">userid</span><span class="p">)</span> <span class="p">{</span>
+</code></pre>
+</div>
+
+<p>Next, look at <code class="highlighter-rouge">getUserIdFromToken</code>, which extracts a user ID from a
+JSON web token. This function expects a numeric
+user ID in these lines:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>      <span class="c1">// Check that id is a number.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">id</span> <span class="o">===</span> <span class="s1">'number'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">id</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// Not a number. Return -1, an invalid ID.</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Change these lines to expect a string, and to return an empty
+string when invalid:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code>      <span class="c1">// Check that id is a string.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">id</span> <span class="o">===</span> <span class="s1">'string'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">id</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// Not a number. Return "", an invalid ID.</span>
+        <span class="k">return</span> <span class="s2">""</span><span class="p">;</span>
+      <span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, we can return to the route for <code class="highlighter-rouge">GET /user/:userid/feed</code>,
+and use <code class="highlighter-rouge">getFeedData</code> in the route to get the data it needs:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Get the feed data for a particular user.
+ */</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/user/:userid/feed'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">userid</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">userid</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">fromUser</span> <span class="o">=</span> <span class="nx">getUserIdFromToken</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">));</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">fromUser</span> <span class="o">===</span> <span class="nx">userid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Convert userid into an ObjectID before passing it to database queries.</span>
+    <span class="nx">getFeedData</span><span class="p">(</span><span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">userid</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">feedData</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// A database error happened.</span>
+        <span class="c1">// Internal Error: 500.</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">"Database error: "</span> <span class="o">+</span> <span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">feedData</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Couldn't find the feed in the database.</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">"Could not look up feed for user "</span> <span class="o">+</span> <span class="nx">userid</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// Send data.</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">feedData</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// 403: Unauthorized request.</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">403</span><span class="p">).</span><span class="nx">end</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Now, if you restart the server and head to <code class="highlighter-rouge">http://localhost:3000/</code>,
+you should see the Facebook feed like normal! Note that other interactions
+with the page will <em>not</em> work properly, since we are only using the real
+database on one HTTP route. In addition, Facebook will hide the “delete” and
+“edit” menu items from status updates you authored.</p>
+
+<p>We will address these issues in future steps.</p>
+
+<p><strong><code class="highlighter-rouge">commit</code> these changes with message <code class="highlighter-rouge">feed-database</code>, and <code class="highlighter-rouge">push</code> the changes to GitHub</strong></p>
+
+<h1 id="change-other-routes-to-use-mongodb">Change Other Routes to Use MongoDB</h1>
+
+<p>Now that we have completely converted one HTTP route to use MongoDB, we can update
+the others! We will tackle all of the HTTP routes in this section except for comment-based
+routes; you will need to make those changes yourself in the final step of the workshop.</p>
+
+<h2 id="post-feeditem"><code class="highlighter-rouge">POST /feeditem</code></h2>
+
+<p><code class="highlighter-rouge">POST /feeditem</code> is the HTTP route that posts a new status update to Facebook.</p>
+
+<p>The core part of this route is implemented in the <code class="highlighter-rouge">postStatusUpdate</code>
+helper function, so we will focus on that helper function first.</p>
+
+<p><code class="highlighter-rouge">postStatusUpdate</code> performs the following operations:</p>
+
+<ul>
+  <li>Adds the status update to the <code class="highlighter-rouge">feedItems</code> document collection.
+    <ul>
+      <li>We can use <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#insertOne"><code class="highlighter-rouge">insertOne</code></a> to do this.</li>
+    </ul>
+  </li>
+  <li>Gets the author’s user object.
+    <ul>
+      <li>We can use <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findOne"><code class="highlighter-rouge">findOne</code></a> to do this.</li>
+    </ul>
+  </li>
+  <li>Updates the author’s feed to include the status update.
+    <ul>
+      <li>We can use <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#updateOne"><code class="highlighter-rouge">updateOne</code></a> to do this
+  using a <a href="https://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push"><code class="highlighter-rouge">$push</code> update operator</a>.</li>
+    </ul>
+  </li>
+  <li>Returns the new status update.</li>
+</ul>
+
+<p>Let’s talk a bit more about the <code class="highlighter-rouge">$push</code> update operator. Like JavaScript’s
+<code class="highlighter-rouge">push</code> on arrays, <code class="highlighter-rouge">$push</code> adds elements to the <em>end</em> of an array. If you look
+at the previous code of <code class="highlighter-rouge">postStatusUpdate</code>, we used <code class="highlighter-rouge">unshift</code> on the JavaScript array instead to
+add elements to the <em>front</em> of the array.</p>
+
+<p><a href="https://jira.mongodb.org/browse/SERVER-19974">MongoDB does not have an <code class="highlighter-rouge">$unshift</code> operator yet</a>,
+but you can emulate it by performing a MongoDB <code class="highlighter-rouge">$push</code> at the start of the array
+using the <a href="https://docs.mongodb.org/manual/reference/operator/update/position/"><code class="highlighter-rouge">$position</code> operator</a>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">$push</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nl">contents</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">$each</span><span class="p">:</span> <span class="p">[</span> <span class="nx">newStatusUpdateID</span> <span class="p">],</span>
+    <span class="nx">$position</span><span class="err">:</span> <span class="mi">0</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>We will have to perform each of these operations asynchronously, nested
+inside the callback of the previous step.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Adds a new status update to the database.
+ * @param user ObjectID of the user.
+ */</span>
+<span class="kd">function</span> <span class="nx">postStatusUpdate</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">location</span><span class="p">,</span> <span class="nx">contents</span><span class="p">,</span> <span class="nx">image</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Get the current UNIX time.</span>
+  <span class="kd">var</span> <span class="nx">time</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+  <span class="c1">// The new status update. The database will assign the ID for us.</span>
+  <span class="kd">var</span> <span class="nx">newStatusUpdate</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"likeCounter"</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"statusUpdate"</span><span class="p">,</span>
+    <span class="s2">"contents"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"author"</span><span class="p">:</span> <span class="nx">user</span><span class="p">,</span>
+      <span class="s2">"postDate"</span><span class="p">:</span> <span class="nx">time</span><span class="p">,</span>
+      <span class="s2">"location"</span><span class="p">:</span> <span class="nx">location</span><span class="p">,</span>
+      <span class="s2">"contents"</span><span class="p">:</span> <span class="nx">contents</span><span class="p">,</span>
+      <span class="s2">"image"</span><span class="p">:</span> <span class="nx">image</span>
+    <span class="p">},</span>
+    <span class="c1">// List of comments on the post</span>
+    <span class="s2">"comments"</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="p">};</span>
+
+  <span class="c1">// Add the status update to the database.</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">insertOne</span><span class="p">(</span><span class="nx">newStatusUpdate</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// Unlike the mock database, MongoDB does not return the newly added object</span>
+    <span class="c1">// with the _id set.</span>
+    <span class="c1">// Attach the new feed item's ID to the newStatusUpdate object. We will</span>
+    <span class="c1">// return this object to the client when we are done.</span>
+    <span class="c1">// (When performing an insert operation, result.insertedId contains the new</span>
+    <span class="c1">// document's ID.)</span>
+    <span class="nx">newStatusUpdate</span><span class="p">.</span><span class="nx">_id</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">insertedId</span><span class="p">;</span>
+
+    <span class="c1">// Retrieve the author's user object.</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'users'</span><span class="p">).</span><span class="nx">findOne</span><span class="p">({</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">user</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">userObject</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// Update the author's feed with the new status update's ID.</span>
+      <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feeds'</span><span class="p">).</span><span class="nx">updateOne</span><span class="p">({</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">userObject</span><span class="p">.</span><span class="nx">feed</span> <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="na">$push</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">contents</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">$each</span><span class="p">:</span> <span class="p">[</span><span class="nx">newStatusUpdate</span><span class="p">.</span><span class="nx">_id</span><span class="p">],</span>
+              <span class="na">$position</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="c1">// Return the new status update to the application.</span>
+          <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">newStatusUpdate</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, you can change the <code class="highlighter-rouge">POST /feeditem</code> route to use the new helper function.
+Notice how the logic is essentially the same, except we moved some logic into
+the callback argument of <code class="highlighter-rouge">postStatusUpdate</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">//`POST /feeditem { userId: user, location: location, contents: contents  }`</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/feeditem'</span><span class="p">,</span> <span class="nx">validate</span><span class="p">({</span> <span class="na">body</span><span class="p">:</span> <span class="nx">StatusUpdateSchema</span> <span class="p">}),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If this function runs, `req.body` passed JSON validation!</span>
+  <span class="kd">var</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">fromUser</span> <span class="o">=</span> <span class="nx">getUserIdFromToken</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">));</span>
+
+  <span class="c1">// Check if requester is authorized to post this status update.</span>
+  <span class="c1">// (The requester must be the author of the update.)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">fromUser</span> <span class="o">===</span> <span class="nx">body</span><span class="p">.</span><span class="nx">userId</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">postStatusUpdate</span><span class="p">(</span><span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">fromUser</span><span class="p">),</span> <span class="nx">body</span><span class="p">.</span><span class="nx">location</span><span class="p">,</span> <span class="nx">body</span><span class="p">.</span><span class="nx">contents</span><span class="p">,</span> <span class="nx">body</span><span class="p">.</span><span class="nx">image</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">newUpdate</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// A database error happened.</span>
+        <span class="c1">// 500: Internal error.</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">"A database error occurred: "</span> <span class="o">+</span> <span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// When POST creates a new resource, we should tell the client about it</span>
+        <span class="c1">// in the 'Location' header and use status code 201.</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">201</span><span class="p">);</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'Location'</span><span class="p">,</span> <span class="s1">'/feeditem/'</span> <span class="o">+</span> <span class="nx">newUpdate</span><span class="p">.</span><span class="nx">_id</span><span class="p">);</span>
+          <span class="c1">// Send the update!</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">newUpdate</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// 401: Unauthorized.</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">401</span><span class="p">).</span><span class="nx">end</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Finally, we need to update the JSON schema for status updates to accept
+status updates with a <em>string</em> user ID instead of a <em>number</em> user ID.
+Update <code class="highlighter-rouge">server/src/schemas/statusupdate.json</code> so that the <code class="highlighter-rouge">type</code> of
+<code class="highlighter-rouge">"userId"</code> is a <code class="highlighter-rouge">"string"</code>.</p>
+
+<p>Restart the server. If you did everything correctly, you should be able
+to post status updates!</p>
+
+<h2 id="put-feeditemfeeditemidlikelistuserid"><code class="highlighter-rouge">PUT /feeditem/:feeditemid/likelist/:userid</code></h2>
+
+<p>This route is responsible for “liking” a feed item. It performs the following
+database operations:</p>
+
+<ul>
+  <li>Gets the feed item object.
+    <ul>
+      <li>We can use <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findOne"><code class="highlighter-rouge">findOne</code></a> to do this.</li>
+    </ul>
+  </li>
+  <li>Updates the feed’s like counter to contain the specified user ID.
+    <ul>
+      <li>We can use <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#updateOne"><code class="highlighter-rouge">updateOne</code></a> to do this,
+  along with the <a href="https://docs.mongodb.org/manual/reference/operator/update/addToSet/#up._S_addToSet"><code class="highlighter-rouge">$addToSet</code> operator</a>.</li>
+    </ul>
+  </li>
+  <li>Retrieves the user object for every user ID in the like counter, and returns it to the client.
+    <ul>
+      <li>We can re-use the <code class="highlighter-rouge">resolveUserObjects</code> helper function we defined earlier.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><code class="highlighter-rouge">$addToSet</code> checks if a given item is already in an array. If it is, it does nothing.
+If the item is missing from the array, it adds the item to the array. It is the perfect
+operator to update the like counter!</p>
+
+<p>This route also currently uses <code class="highlighter-rouge">parseInt</code> on the <code class="highlighter-rouge">feeditemid</code> and <code class="highlighter-rouge">userid</code>.
+We should remove that logic, as document IDs are now strings.</p>
+
+<p>It actually makes sense to update the like counter first, before we get the feed item
+object. That way, we get the feed item with the updated like counter</p>
+
+<p>The final route looks like this:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Helper function: Sends back HTTP response with error code 500 due to
+ * a database error.
+ */</span>
+<span class="kd">function</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">"A database error occurred: "</span> <span class="o">+</span> <span class="nx">err</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// `PUT /feeditem/feedItemId/likelist/userId` content</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">'/feeditem/:feeditemid/likelist/:userid'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">fromUser</span> <span class="o">=</span> <span class="nx">getUserIdFromToken</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">));</span>
+  <span class="kd">var</span> <span class="nx">feedItemId</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">feeditemid</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">userId</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">userid</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">fromUser</span> <span class="o">===</span> <span class="nx">userId</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// First, we can update the like counter.</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">updateOne</span><span class="p">({</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">feedItemId</span> <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="c1">// Add `userId` to the likeCounter if it is not already</span>
+        <span class="c1">// in the array.</span>
+        <span class="na">$addToSet</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">likeCounter</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">userId</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">// Second, grab the feed item now that we have updated it.</span>
+        <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">findOne</span><span class="p">({</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">feedItemId</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="c1">// Return a resolved version of the likeCounter</span>
+          <span class="nx">resolveUserObjects</span><span class="p">(</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">userMap</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+              <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="c1">// Return a resolved version of the likeCounter</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">userId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">userMap</span><span class="p">[</span><span class="nx">userId</span><span class="p">]));</span>
+          <span class="p">});</span>
+        <span class="p">}</span>
+      <span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// 401: Unauthorized.</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">401</span><span class="p">).</span><span class="nx">end</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Restart the server. You should now be able to “Like” status updates, but not
+“Unlike” them!</p>
+
+<h2 id="delete-feeditemfeeditemidlikelistuserid"><code class="highlighter-rouge">DELETE /feeditem/:feeditemid/likelist/:userid</code></h2>
+
+<p>This route is responsible for “unliking” a feed item.
+This route is similar to the previous route, except it <em>removes</em> a user
+from a Feed Item’s <code class="highlighter-rouge">likeCounter</code>.</p>
+
+<p>This route performs the following database operations:</p>
+
+<ul>
+  <li>Gets the feed item object.
+    <ul>
+      <li>We can use <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#findOne"><code class="highlighter-rouge">findOne</code></a> to do this.</li>
+    </ul>
+  </li>
+  <li>Removes the specified user ID from the feed item’s <code class="highlighter-rouge">likeCounter</code>
+    <ul>
+      <li>We can use <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#updateOne"><code class="highlighter-rouge">updateOne</code></a> to do this,
+  along with the <a href="https://docs.mongodb.org/manual/reference/operator/update/pull/#up._S_pull"><code class="highlighter-rouge">$pull</code> operator</a>.</li>
+    </ul>
+  </li>
+  <li>Retrieves the user object for every user ID in the like counter, and returns it to the client.
+    <ul>
+      <li>We can re-use the <code class="highlighter-rouge">resolveUserObjects</code> helper function we defined earlier.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The <code class="highlighter-rouge">$pull</code> operator removes objects from an array that match a particular condition. Here, we want to
+remove a particular ObjectID from the <code class="highlighter-rouge">likeCounter</code>.</p>
+
+<p>As in the previous HTTP route, we should update the likeCounter before reading the FeedItem
+from the database, which gets us the FeedItem with the updated likeCounter.</p>
+
+<p>We also need to remove <code class="highlighter-rouge">parseInt</code> logic from this function, as the userId and feedItemId
+should be left as strings.</p>
+
+<p>The final route looks like this:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Unlike a feed item.</span>
+<span class="nx">app</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">'/feeditem/:feeditemid/likelist/:userid'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">fromUser</span> <span class="o">=</span> <span class="nx">getUserIdFromToken</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">));</span>
+  <span class="kd">var</span> <span class="nx">feedItemId</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">feeditemid</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">userId</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">userid</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">fromUser</span> <span class="o">===</span> <span class="nx">userId</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Step 1: Remove userId from the likeCounter.</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">updateOne</span><span class="p">({</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">feedItemId</span> <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="c1">// Only removes the userId from the likeCounter, if it is in the likeCounter.</span>
+        <span class="na">$pull</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">likeCounter</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">userId</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// Step 2: Get the feed item.</span>
+      <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">findOne</span><span class="p">({</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">feedItemId</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">// Step 3: Resolve the user IDs in the like counter into user objects.</span>
+        <span class="nx">resolveUserObjects</span><span class="p">(</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">userMap</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="c1">// Return a resolved version of the likeCounter</span>
+          <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">feedItem</span><span class="p">.</span><span class="nx">likeCounter</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">userId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">userMap</span><span class="p">[</span><span class="nx">userId</span><span class="p">]));</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// 401: Unauthorized.</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">401</span><span class="p">).</span><span class="nx">end</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Restart the server. You should now be able to “Unlike” status updates!</p>
+
+<h2 id="put-feeditemfeeditemidcontent"><code class="highlighter-rouge">PUT /feeditem/:feeditemid/content</code></h2>
+
+<p>This route is responsible for editing a feed item.</p>
+
+<p>This route performs the following database operations:</p>
+
+<ul>
+  <li>Gets the feed item, and checks if its author matches the authenticated user.
+    <ul>
+      <li>We can specify this constraint in a filter for <code class="highlighter-rouge">updateOne</code>.</li>
+    </ul>
+  </li>
+  <li>Updates the feed item’s contents.
+    <ul>
+      <li>We can use <a href="http://mongodb.github.io/node-mongodb-native/2.0/api/Collection.html#updateOne"><code class="highlighter-rouge">updateOne</code></a> to do this,
+  along with the <a href="https://docs.mongodb.org/manual/reference/operator/update/set/#set"><code class="highlighter-rouge">$set</code> operator</a>.</li>
+    </ul>
+  </li>
+  <li>Returns the feed item, with all references resolved to objects.
+    <ul>
+      <li>We can use <code class="highlighter-rouge">getFeedItem</code> to do this.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Since <code class="highlighter-rouge">updateOne</code> accepts both a filter and an update, we can specify the filter such
+that the update only applies to a feed item with the given feed item id and authored
+by the authenticated user. This filter looks like this:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">_id</span><span class="p">:</span> <span class="nx">feedItemId</span><span class="p">,</span>
+  <span class="c1">// This is how you specify fields on embedded document.</span>
+  <span class="c1">// contents.author is the author field of the embedded status</span>
+  <span class="c1">// update document stored in contents</span>
+  <span class="s2">"contents.author"</span><span class="err">:</span> <span class="nx">fromUser</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>The final code looks like the following:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// `PUT /feeditem/feedItemId/content newContent`</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">'/feeditem/:feeditemid/content'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">fromUser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">getUserIdFromToken</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">)));</span>
+  <span class="kd">var</span> <span class="nx">feedItemId</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">feeditemid</span><span class="p">);</span>
+
+  <span class="c1">// Only update the feed item if the author matches the currently authenticated</span>
+  <span class="c1">// user.</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">updateOne</span><span class="p">({</span>
+    <span class="na">_id</span><span class="p">:</span> <span class="nx">feedItemId</span><span class="p">,</span>
+    <span class="c1">// This is how you specify nested fields on the document.</span>
+    <span class="s2">"contents.author"</span><span class="p">:</span> <span class="nx">fromUser</span>
+  <span class="p">},</span> <span class="p">{</span> <span class="na">$set</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"contents.contents"</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span> <span class="p">}</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">modifiedCount</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Could not find the specified feed item. Perhaps it does not exist, or</span>
+      <span class="c1">// is not authored by the user.</span>
+      <span class="c1">// 400: Bad request.</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">end</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Update succeeded! Return the resolved feed item.</span>
+    <span class="nx">getFeedItem</span><span class="p">(</span><span class="nx">feedItemId</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">feedItem</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Restart the server. You should now be able to edit status updates that you author!</p>
+
+<h2 id="delete-feeditemfeeditemid"><code class="highlighter-rouge">DELETE /feeditem/:feeditemid</code></h2>
+
+<p>This route deletes a feed item. It performs the following database operations:</p>
+
+<ul>
+  <li>Gets the feed item, and checks if the authenticated user is the author.
+    <ul>
+      <li>We can use <code class="highlighter-rouge">findOne</code> to perform this check.</li>
+    </ul>
+  </li>
+  <li>Deletes the feed item.
+    <ul>
+      <li>We can use <code class="highlighter-rouge">deleteOne</code> to delete this feed item.</li>
+    </ul>
+  </li>
+  <li>Removes all references to the feed item from all feeds in the database.
+    <ul>
+      <li>We can use <code class="highlighter-rouge">update</code> along with <code class="highlighter-rouge">$pull</code> to remove the feed item from all
+  feeds.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>This order of operations is problematic, as deleting the feed item <em>before</em> removing
+the feed item from feeds will cause feeds to contain a dangling reference. In other
+words, some feeds will reference a feed item that no longer exists!</p>
+
+<p>To fix this issue, we need to perform the permissions check first, followed by
+removing the feed item from all feeds, and finishing with deleting the feed item
+itself.</p>
+
+<p>The final code for this route looks like the following:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// `DELETE /feeditem/:id`</span>
+<span class="nx">app</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">'/feeditem/:feeditemid'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">fromUser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">getUserIdFromToken</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">)));</span>
+  <span class="kd">var</span> <span class="nx">feedItemId</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">feeditemid</span><span class="p">);</span>
+
+  <span class="c1">// Check if authenticated user has access to delete the feed item.</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">findOne</span><span class="p">({</span>
+    <span class="na">_id</span><span class="p">:</span> <span class="nx">feedItemId</span><span class="p">,</span>
+    <span class="s2">"contents.author"</span><span class="p">:</span> <span class="nx">fromUser</span>
+  <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">feedItem</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Could not find the specified feed item. Perhaps it does not exist, or</span>
+      <span class="c1">// is not authored by the user.</span>
+      <span class="c1">// 400: Bad request.</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">end</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="c1">// User authored the feed item!</span>
+    <span class="c1">// Remove feed item from all feeds using $pull and a blank filter.</span>
+    <span class="c1">// A blank filter matches every document in the collection.</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feeds'</span><span class="p">).</span><span class="nx">updateMany</span><span class="p">({},</span> <span class="p">{</span>
+      <span class="na">$pull</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">contents</span><span class="p">:</span> <span class="nx">feedItemId</span>
+      <span class="p">}</span>
+    <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="c1">// Finally, remove the feed item.</span>
+      <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">deleteOne</span><span class="p">({</span>
+        <span class="na">_id</span><span class="p">:</span> <span class="nx">feedItemId</span>
+      <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">// Send a blank response to indicate success.</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Restart the server. You should now be able to delete feed items if they are
+authored by you.</p>
+
+<h2 id="post-search"><code class="highlighter-rouge">POST /search</code></h2>
+
+<p>This route returns all of the status updates in the current user’s feed that
+contains the search text.</p>
+
+<p>The route currently performs the following database operations:</p>
+
+<ul>
+  <li>Gets the user
+    <ul>
+      <li>Simple enough: We can use <code class="highlighter-rouge">findOne</code>.</li>
+    </ul>
+  </li>
+  <li>Gets the user’s feed
+    <ul>
+      <li>We can use <code class="highlighter-rouge">findOne</code> for this operation, too.</li>
+    </ul>
+  </li>
+  <li>Finds feed items in the user’s feed that contains the search text
+    <ul>
+      <li>We can use <code class="highlighter-rouge">find</code> with a complex query, using the <code class="highlighter-rouge">$or</code> operator to limit the search
+  to feed items whose <code class="highlighter-rouge">_id</code> is in the user’s feed, and using the <a href="https://docs.mongodb.org/manual/reference/operator/query/text/#op._S_text"><code class="highlighter-rouge">$text</code></a>
+  operator to find feed items containing the specified query text.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>MongoDB has a <a href="https://docs.mongodb.org/manual/reference/operator/query/text/#op._S_text"><code class="highlighter-rouge">$text</code></a>
+query operator that performs text search, but it only works with “fields indexed with a <a href="https://docs.mongodb.org/manual/core/index-text/">text index</a>”.
+If we want to use it on status update text, we need to add a text index to the document
+collection that indexes the field <code class="highlighter-rouge">"contents.contents"</code>.</p>
+
+<p>It is best if we apply the index when we create the object collections in the first place.
+Open up <code class="highlighter-rouge">server/src/resetdatabase.js</code>, and add the following function to the file:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * Adds any desired indexes to the database.
+ */</span>
+<span class="kd">function</span> <span class="nx">addIndexes</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">createIndex</span><span class="p">({</span> <span class="s2">"contents.contents"</span><span class="p">:</span> <span class="s2">"text"</span> <span class="p">},</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Then, in <code class="highlighter-rouge">resetDatabase</code>, change the <code class="highlighter-rouge">else</code> condition in <code class="highlighter-rouge">processNextCollection</code> so it
+calls <code class="highlighter-rouge">addIndexes</code> with the callback instead of calling the callback directly:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">else</span> <span class="p">{</span>
+  <span class="nx">addIndexes</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, run <code class="highlighter-rouge">node server/src/resetdatabase.js</code> to reset the database.</p>
+
+<p>With that out of the way, we can finally write the HTTP route for <code class="highlighter-rouge">/search</code>!</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">//`POST /search queryText`</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/search'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">fromUser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ObjectID</span><span class="p">(</span><span class="nx">getUserIdFromToken</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'Authorization'</span><span class="p">)));</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="o">===</span> <span class="s1">'string'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// trim() removes whitespace before and after the query.</span>
+    <span class="c1">// toLowerCase() makes the query lowercase.</span>
+    <span class="kd">var</span> <span class="nx">queryText</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">toLowerCase</span><span class="p">();</span>
+    <span class="c1">// Get the user.</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'users'</span><span class="p">).</span><span class="nx">findOne</span><span class="p">({</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">fromUser</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">userData</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">userData</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// User not found.</span>
+        <span class="c1">// 400: Bad request.</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">end</span><span class="p">();</span>
+      <span class="p">}</span>
+
+      <span class="c1">// Get the user's feed.</span>
+      <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feeds'</span><span class="p">).</span><span class="nx">findOne</span><span class="p">({</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">userData</span><span class="p">.</span><span class="nx">feed</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">feedData</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Look for feed items within the feed that contain queryText.</span>
+        <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'feedItems'</span><span class="p">).</span><span class="nx">find</span><span class="p">({</span>
+          <span class="na">$or</span><span class="p">:</span> <span class="nx">feedData</span><span class="p">.</span><span class="nx">contents</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">id</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="na">_id</span><span class="p">:</span> <span class="nx">id</span>  <span class="p">}}),</span>
+          <span class="na">$text</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">$search</span><span class="p">:</span> <span class="nx">queryText</span>
+          <span class="p">}</span>
+        <span class="p">}).</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">items</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+          <span class="p">}</span>
+
+          <span class="c1">// Resolve all of the feed items.</span>
+          <span class="kd">var</span> <span class="nx">resolvedItems</span> <span class="o">=</span> <span class="p">[];</span>
+          <span class="kd">var</span> <span class="nx">errored</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+          <span class="kd">function</span> <span class="nx">onResolve</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">feedItem</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">errored</span><span class="p">)</span> <span class="p">{</span>
+              <span class="k">return</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">errored</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+              <span class="nx">sendDatabaseError</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+              <span class="nx">resolvedItems</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">feedItem</span><span class="p">);</span>
+              <span class="k">if</span> <span class="p">(</span><span class="nx">resolvedItems</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Send resolved items to the client!</span>
+                <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">resolvedItems</span><span class="p">);</span>
+              <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+
+          <span class="c1">// Resolve all of the matched feed items in parallel.</span>
+          <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Would be more efficient if we had a separate helper that</span>
+            <span class="c1">// resolved feed items from their objects and not their IDs.</span>
+            <span class="c1">// Not a big deal in our small applications, though.</span>
+            <span class="nx">getFeedItem</span><span class="p">(</span><span class="nx">items</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">_id</span><span class="p">,</span> <span class="nx">onResolve</span><span class="p">);</span>
+          <span class="p">}</span>
+
+          <span class="c1">// Special case: No results.</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">([]);</span>
+          <span class="p">}</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// 400: Bad Request.</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">end</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Restart the server. You should now be able to search for feed items!</p>
+
+<h2 id="post-resetdb"><code class="highlighter-rouge">POST /resetdb</code></h2>
+
+<p>We can reset the database by running <code class="highlighter-rouge">node src/resetdatabase.js</code>, but it would be nice
+to have our friend the Reset DB button working again.</p>
+
+<p>Fortunately, you can! Import the <code class="highlighter-rouge">ResetDatabase</code> function from <code class="highlighter-rouge">./resetdatabase.js</code> like
+so:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">ResetDatabase</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./resetdatabase'</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>Then, change the <code class="highlighter-rouge">/resetdb</code> route so it calls this function with the <code class="highlighter-rouge">db</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Reset the database.</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/resetdb'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Resetting database..."</span><span class="p">);</span>
+  <span class="nx">ResetDatabase</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Restart the server. You should now be able to click on the “Reset DB” button, and it
+should reset the feed to its initial state!</p>
+
+<p><strong><code class="highlighter-rouge">commit</code> your changes as <code class="highlighter-rouge">databased</code> and <code class="highlighter-rouge">push</code> them to GitHub.</strong></p>
+
+<h1 id="update-comment-routes-to-use-mongodb">Update Comment Routes to Use MongoDB</h1>
+
+<p>As you might have guessed, it’s now your turn to try your hand at updating HTTP
+routes to use the database. Specifically, you need to convert the following HTTP
+routes so that they use MongoDB:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">POST /feeditem/:feeditemid/comments</code></li>
+  <li><code class="highlighter-rouge">PUT /feeditem/:feeditemid/comments/:commentindex/likelist/:userid</code></li>
+  <li><code class="highlighter-rouge">DELETE /feeditem/:feeditemid/comments/:commentindex/likelist/:userid</code></li>
+</ul>
+
+<p>Here are some tips you should keep in mind:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">commentindex</code> is still a number. It is not a database <code class="highlighter-rouge">_id</code>, it is literally the comment’s array index in the feed item’s <code class="highlighter-rouge">comments</code> array!</li>
+  <li>User IDs and feed item IDs should no longer be parsed as numbers.</li>
+  <li>Remember to convert user IDs and feed item IDs given to you by the client into ObjectIDs
+before querying the database!</li>
+  <li>You will need to adjust the JSON schema for comments.</li>
+  <li>Remember that you can visit <code class="highlighter-rouge">http://localhost:3000/mongo_express</code> to look at the data in the database!</li>
+  <li><a href="https://umass-cs-326.github.io/assignment/startup-submission-06-database/#small-note-embedded-arrays:e4c347afd90479f6b6de7e85336c8046">In MongoDB, you reference array elements using the index as a property name.</a>
+The link discusses this further, with some sample code.</li>
+</ul>
+
+<p><strong><code class="highlighter-rouge">commit</code> your changes as <code class="highlighter-rouge">comments</code>, and <code class="highlighter-rouge">push</code> them to GitHub.</strong></p>
+
+<h1 id="conclusion-and-other-resources">Conclusion and Other Resources</h1>
+
+<p>Our Facebook application is now running across three separate programs:</p>
+
+<ul>
+  <li>The web browser, which runs the <em>client</em>.</li>
+  <li>Node.JS, which runs the <em>server</em>.</li>
+  <li>MongoDB, which runs the <em>database</em>.</li>
+</ul>
+
+<p>The only limitation in our application is that we have hardcoded the user.
+In the next workshop, we will explore lifting that limitation!</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<p>Just about all that you need to know about MongoDB can be found here:</p>
+
+<ul>
+  <li><a href="https://docs.mongodb.org/getting-started/node/client/">Documentation for MongoDB Node.JS driver</a>
+    <ul>
+      <li>Awesome getting-started resource with code snippets and links to further documentation.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="submission">Submission</h1>
+
+<p>You must submit the URL of your <strong>Workshop6</strong> GitHub repository to Moodle. Visit Moodle, find the associated <strong>Workshop 9</strong> activity, and provide your URL. Make sure your <strong>Workshop6</strong> repository is public so we can clone your repository and evaluate your work. <strong>Submitting the URL for this assignment is part of completing the work.</strong></p>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/workshop/04">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    
+<h1 class="no_toc" id="workshop-04-facebook-static-structure">Workshop 04: Facebook Static Structure</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>    <ul>
+      <li><a href="#step-04-the-left-sidebar" id="markdown-toc-step-04-the-left-sidebar">Step 04: The Left Sidebar</a></li>
+      <li><a href="#step-05-the-right-menu" id="markdown-toc-step-05-the-right-menu">Step 05: The Right Menu</a></li>
+      <li><a href="#step-06-the-chat-menu" id="markdown-toc-step-06-the-chat-menu">Step 06: The Chat Menu</a></li>
+    </ul>
+  </li>
+  <li><a href="#submission" id="markdown-toc-submission">Submission</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>This workshop continues from where <a href="/workshop/03">Workshop 03</a> left off. You
+do not need to clone a new repository you simply begin in the
+repository you cloned for <a href="/workshop/03">Workshop 03</a>.</p>
+
+<h2 id="step-04-the-left-sidebar">Step 04: The Left Sidebar</h2>
+
+<p>The left sidebar of Facebook contains a laundry list of destinations:</p>
+
+<p><img src="/workshops/images/facebook_left_sidebar.png" alt="Facebook Left Sidebar" /></p>
+
+<p>We’ll emulate a truncated version of this list in Bootstrap that omits the
+specific groups and pages that I belong to.</p>
+
+<p>We could implement this list using a Bootstrap grid, but there’s an
+easier solution built into Bootstrap.</p>
+
+<p>Notice that the <strong>News Feed</strong> item in the list is <strong>bolded</strong>. The user can only
+be in one of these destinations at once, which will populate the Main Feed
+section of the site. The active destination is bolded.</p>
+
+<p>Bootstrap provides this functionality via <a href="http://getbootstrap.com/components/#nav-pills">pills</a>.
+While pills look <em>visually</em> different from Facebook’s sidebar, the concept
+behind the UI control is the same.</p>
+
+<p>Like before, we’ll use the closest Glyphicon for each of the icons in the list:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!-- Left sidebar: A cell that spans 2 columns --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-2"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav nav-pills nav-stacked"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>John Vilk<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-pencil"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  Edit Profile<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="c">&lt;!-- List items that are just text are not indented, and look like the
+         Facebook section labels. --&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>FAVORITES<span class="nt">&lt;/li&gt;</span>
+    <span class="c">&lt;!-- The class "active" highlights this item in the list --&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span> <span class="na">class=</span><span class="s">"active"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-list-alt"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  News Feed<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="c">&lt;!-- We can use badges in pills to add numbers beside them. --&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-comment"</span><span class="nt">&gt;&lt;/span&gt;</span> Messages
+		<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>7<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-calendar"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  Events<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-picture"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  Photos<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-gift"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  Gifts<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="c">&lt;!-- "Saved" also has a number beside it. --&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-bookmark"</span><span class="nt">&gt;&lt;/span&gt;</span>
+		Saved
+		<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>2<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-tags"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  Sale Groups<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>PAGES<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-plus"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  Create Page<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-signal"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  Create Ad<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>GROUPS<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-plus"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  Create Group<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-user"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  New Groups<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>FRIENDS<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-pushpin"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	  Amherst, MA<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>Notice how we use <code class="highlighter-rouge">#</code> as the target of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">anchor (<code class="highlighter-rouge">a</code>) elements</a>.
+Anchor tags are used to link to a webpage, e.g.:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://google.com"</span><span class="nt">&gt;</span>Click here to go to Google!<span class="nt">&lt;/a&gt;</span>
+</code></pre>
+</div>
+
+<p>… will look like this: <a href="https://google.com/">Click here to go to Google!</a>.</p>
+
+<p>Using <code class="highlighter-rouge">#</code> as the target of an anchor prevents the webpage from loading a new
+page when the user clicks the link. If the user clicks the link, the webpage
+will change the URL of the page from <code class="highlighter-rouge">http://localhost:8080/facebook.html</code> to
+<code class="highlighter-rouge">http://localhost:8080/facebook.html#</code>, but will not do anything else. You can
+also add arbitrary text after the <code class="highlighter-rouge">#</code>, e.g. <code class="highlighter-rouge">#groups</code>, and the browser will
+rewrite the URL to <code class="highlighter-rouge">http://localhost:8080/facebook.html#groups</code>.</p>
+
+<p>Ordinarily, these URLs are used to link to particular sections of a webpage.
+For example, the link <code class="highlighter-rouge">http://getbootstrap.com/css/#type</code> will bring your browser
+to the <em>Typography</em> section of the Bootstrap documentation. If you clicked that
+same link on the <code class="highlighter-rouge">http://getbootstrap.com/css/</code> page, it would merely scroll
+your browser to the <em>Typography</em> section without reloading the webpage.</p>
+
+<p>If the section doesn’t exist,
+e.g. <code class="highlighter-rouge">http://getbootstrap.com/css/#flying_pigs</code>, the <code class="highlighter-rouge">#</code> part of the
+link does nothing. In the next workshop, we’ll explore how you can
+exploit this behavior to make portions of a dynamic website
+<em>linkable</em>, like this Google.com easter egg which is not a specific
+<em>section</em> of Google.com:</p>
+
+<p><a href="https://www.google.com/#q=a+long+time+ago+in+a+galaxy+far+far+away">https://www.google.com/#q=a+long+time+ago+in+a+galaxy+far+far+away</a></p>
+
+<p>Now, your left sidebar should look quite nice:</p>
+
+<p><img src="/workshops/images/facebook_clone_left_sidebar.png" alt="Facebook Clone Left Sidebar" /></p>
+
+<p>Since that was rather straightforward, you do not have to commit your changes
+just yet. Proceed to the next step.</p>
+
+<h2 id="step-05-the-right-menu">Step 05: The Right Menu</h2>
+
+<p>The right sidebar contains birthday information, trending events, and
+advertisements:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar.png" alt="Facebook Right Sidebar" /></p>
+
+<p><em>Mmm… Pita Pockets… (This course is not affiliated with Pita Pockets.)</em></p>
+
+<p>This sidebar can be recreated using a grid. As we discussed earlier, you can nest
+grids <em>within grids</em>. Every nested grid has its own 12 columns, which expand to
+fill the width of the element containing it. Since the right sidebar is so
+small, every column is quite tiny!</p>
+
+<p>We can make a grid with one column of 12-column-wide cells, and nest content
+inside it. Initially, you may be tempted to create the rows in the grid like so:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_annotated_wrong.png" alt="Facebok Right Sidebar Annotated Wrong" /></p>
+
+<p>This grid configuration <em>will</em> work, and will produce the intended visuals.
+However, this structure betrays the structure of the <em>information</em> contained in
+the sidebar. The “trending” widget should be contained within one element,
+as should the “suggested pages” widget.</p>
+
+<p>If you structure your HTML according to the information displayed, you will
+be able to:</p>
+
+<ul>
+  <li>Apply custom CSS styles to specific widgets without impacting other sidebar
+components.</li>
+  <li>Make the content of the widget <em>dynamic</em>, as we’ll discuss in the
+next workshop.</li>
+  <li>Easily identify what HTML belongs to the “Trending” widget in a large HTML
+document.</li>
+</ul>
+
+<p>Thus, instead, we will structure the sidebar grid like so:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_annotated.png" alt="Facebook Right Sidebar Annotated" /></p>
+
+<p>Now, you can flesh out your right sidebar with a skeleton:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!-- Right sidebar: A cell that spans 3 columns --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-3"</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- Nested grid! Like the outer grid, it's just a sequence of rows. --&gt;</span>
+  <span class="c">&lt;!-- Ticker --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+    Ticker widget
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- Birthday --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+    Birthday widget
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- Trending --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+    Trending widget
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- Suggested pages --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+    Suggested pages widget
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The <em>ticker widget</em> is the little download icon in the top-right corner of the sidebar.
+Clicking it expands the ticker. For this workshop, we will not cover the
+expanding functionality, and will just make it a static link using the <code class="highlighter-rouge">download-alt</code> glyphicon.</p>
+
+<p>By default, HTML elements display from left to right, but we want the ticker button
+to display all of the way to the right. Bootstrap has a <a href="http://getbootstrap.com/css/#helper-classes-floats">helper CSS class called
+<code class="highlighter-rouge">pull-right</code></a> that we can
+apply to items within grids. Thus, specify the ticker like so:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!-- Ticker. --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"pull-right"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-download-alt"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p><em>Note that we do not add <code class="highlighter-rouge">pull-right</code> to the table cell. We apply it to the element within the table cell.</em></p>
+
+<p>The <em>birthday widget</em> is fairly easy; use a glyphicon birthday cake and some
+text within a 12-column-wide cell:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!-- Birthday --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-gift"</span><span class="nt">&gt;&lt;/span&gt;</span>
+	<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Zak<span class="nt">&lt;/a&gt;</span> and <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>1 other<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The <em>trending widget</em> is the most complex widget on this sidebar. We can use
+another Bootstrap grid for its internal structure:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!-- Trending --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+        Buttons
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+      News content.
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The widget has a sequence of buttons, of which one is active at a time. Can you
+recall a Bootstrap component that works in this manner?</p>
+
+<p>We can use Bootstrap’s <a href="http://getbootstrap.com/components/#nav-pills">pills component</a>
+once more. They are visually different from Facebook’s buttons, but that can
+be overcome later using CSS.</p>
+
+<p>Since the widget header contains a “TRENDING” label along with the buttons, we
+can use a nested row with two cells: one for the label, and one for the pills.
+On Facebook, the TRENDING label is roughly 1/4 of the width of the sidebar, but
+Bootstrap’s elements are generally larger, so we can allocate it 1/3 of the 12 columns
+(4) and the rest of the columns to the buttons:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!-- Trending --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-4"</span><span class="nt">&gt;</span>
+        TRENDING
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav nav-pills"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span> <span class="na">class=</span><span class="s">"active"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-flash"</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+			  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-tower"</span><span class="nt">&gt;&lt;/span&gt;</span>
+			  <span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+          <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+			  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-sunglasses"</span><span class="nt">&gt;&lt;/span&gt;</span>
+			  <span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+          <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+			  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-record"</span><span class="nt">&gt;&lt;/span&gt;</span>
+			  <span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+          <span class="nt">&lt;li</span> <span class="na">role=</span><span class="s">"presentation"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+			  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-facetime-video"</span><span class="nt">&gt;&lt;/span&gt;</span>
+			  <span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The result is structured roughly correctly, but is too wide to fit into the
+sidebar!</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_trending_wrong.png" alt="Facebook Right Sidebar Trending Wrong" /></p>
+
+<p>Right-clicking a pill item and clicking <em>Inspect</em> in Chrome shows that
+Bootstrap adds a lot of <em>padding</em> to the anchor elements (the <code class="highlighter-rouge">a</code> elements) within the
+pills:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_trending_padding.png" alt="Facebook Right Sidebar Trending Padding" /></p>
+
+<p>Now might be a good time for you to read up on the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model">CSS box model</a>,
+which defines what the content/padding/border/margin areas are.</p>
+
+<p>We can alter the padding ourselves via CSS. While we could define a custom CSS
+class and apply it to each link in the trending widget, there’s a much
+easier way!</p>
+
+<p>We can use a CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_selectors"><em>descendent selector</em></a>
+to apply stylings to particular elements that are contained within other
+elements. In particular, we want to alter the padding of <code class="highlighter-rouge">a</code> elements within
+<code class="highlighter-rouge">ul</code> elements with the <code class="highlighter-rouge">nav</code> class within the trending widget. Add the class <code class="highlighter-rouge">fb-trending</code> to the
+12-column-wide cell containing the entire trending widget, and then add the
+following CSS rule to <code class="highlighter-rouge">facebook.css</code>:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="c">/* Style applies to a elements within ul elements with class nav within
+   an element with class fb-trending */</span>
+<span class="nc">.fb-trending</span> <span class="nt">ul</span><span class="nc">.nav</span> <span class="nt">a</span> <span class="p">{</span>
+  <span class="nl">padding-left</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="nl">padding-right</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="nl">padding-top</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="nl">padding-bottom</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><em>Note: Above, we combined type and class selectors when we specified <code class="highlighter-rouge">ul.nav</code>. This means “select <code class="highlighter-rouge">ul</code> elements with class <code class="highlighter-rouge">nav</code>.”</em></p>
+
+<p>Now, the trending header looks a little closer to Facebook’s:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_buttons_fixed.png" alt="Facebook Right Sidebar Buttons Fixed" /></p>
+
+<p>Next, the buttons should be right-aligned. Do you remember how to do this? Add
+the <code class="highlighter-rouge">pull-right</code> CSS class to the <code class="highlighter-rouge">ul</code> element containing the buttons, and they
+will line up starting from the right-hand-side of the sidebar.</p>
+
+<p>Now, you may notice that the TRENDING label isn’t aligned with the buttons. In HTML/CSS,
+<a href="http://phrogz.net/css/vertical-align/">vertically aligning content is hard to do.</a>
+In this example, we know that the pills are a particular height because 1) the
+glyphicons are a particular size, and 2) we set the padding to a specific
+amount. They are always 24 pixels high. Text, like “TRENDING”, is vertically
+aligned to the middle of a line of text. The height of a line of text is
+controlled via the <code class="highlighter-rouge">line-height</code> CSS properly.</p>
+
+<p>We can set the <code class="highlighter-rouge">line-height</code> for this element to <code class="highlighter-rouge">24px</code>, which will result in
+text that happens to be vertically aligned with our 24 pixel high buttons.
+Add the class <code class="highlighter-rouge">fb-trending-title</code> to the <code class="highlighter-rouge">col-md-4</code> containing the “TRENDING”
+text, then add the following CSS rule to <code class="highlighter-rouge">facebook.css</code>:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.fb-trending-title</span> <span class="p">{</span>
+  <span class="nl">line-height</span><span class="p">:</span> <span class="m">24px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><em>Note: It’s unfortunate that we had to do this. Now, if you change the height of the buttons, you’ll need to manually fix this “magic value” to fix alignment.</em></p>
+
+<p>Now, TRENDING should be vertically aligned:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_trending_buttons_fixed.png" alt="Facebook Right Sidebar Trending Buttons Fixed" /></p>
+
+<p>We can use CSS to add a top and bottom border around these buttons, like on
+Facebook. We only want to apply the border to the first row of the <code class="highlighter-rouge">fb-trending</code>
+<code class="highlighter-rouge">div</code>, which contains the buttons.</p>
+
+<p>We can do this using a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Child_selectors"><em>child selector</em></a>
+and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">CSS <em>pseudo-classes</em>.</a>.
+The child selector is similar to the descendent selector, except it only applies
+to elements that are <em>direct</em> children. You can remember this by thinking of
+family tries: a child is a
+direct descendent of two people, and anyone below a person is that person’s descendent.</p>
+
+<p><em>Pseudo-classes</em> are harder to summarize; we recommend you take a look at
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">Mozilla Development Network’s</a>
+article for more information. The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:first-child"><code class="highlighter-rouge">:first-child</code> pseudo-class</a>
+applies to targets that are the first child.</p>
+
+<p>Putting it all together, we can target first-born <code class="highlighter-rouge">row</code> elements to <code class="highlighter-rouge">fb-trending</code>
+with the selector <code class="highlighter-rouge">.fb-trending &gt; .row:first-child</code>, add a top and bottom
+border, add a little bit of padding between the buttons and the border, and
+add margin space between the border and the content above/below the border:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.fb-trending</span> <span class="o">&gt;</span> <span class="nc">.row</span><span class="nd">:first-child</span> <span class="p">{</span>
+  <span class="nl">border-top</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">lightgrey</span><span class="p">;</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">lightgrey</span><span class="p">;</span>
+  <span class="c">/* Padding is the whitespace between the content of fb-trending and its
+     border */</span>
+  <span class="nl">padding-top</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="nl">padding-bottom</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="c">/* Margin is the whitespace between the border and adjacent elements */</span>
+  <span class="nl">margin-top</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><em>Confused about border/padding/margin? <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model">Read more about the CSS box model.</a></em></p>
+
+<p>Your border should look like this:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_trending_border.png" alt="Facebook Right Sidebar Trending Border" /></p>
+
+<p>Next, we tackle the content of the trending widget!</p>
+
+<p>The contents of the trending widget could be expressed as a grid:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_trending_contents_grid.png" alt="Facebook Right Sidebar Trending Contents Grid" /></p>
+
+<p>However, a grid is ill-suited for this list. The cell containing the lightning
+bolt is more than 1 column wide, but less than 2 columns wide. A grid
+would create excess whitespace between the lightning bolt and the news item, and
+would look like this:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_trending_contents_padding.png" alt="Facebook Right Sidebar Trending Contents Padding" /></p>
+
+<p>Bootstrap has a better option called a <a href="http://getbootstrap.com/components/#media">media object</a>.
+Each media object can have some type of arbitrarily-sized media to the
+left, and text to the right. The text can contain a header, but that is
+optional.</p>
+
+<p>The media objects can be <a href="http://getbootstrap.com/components/#media-list">in a list</a>,
+which is perfect for the trending widget.
+For this list, we want the lightning bolts on the left, and the news item
+on the right. Adapt the sample code for the media list for our news items:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"media-list"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"media"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-left media-top"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-flash"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-body"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>George Lucas<span class="nt">&lt;/a&gt;</span>: Filmmaker Criticizes New
+			  "Star Wars" Film and Direction of Franchise Under
+			  Disney
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"media"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-left media-top"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-flash"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-body"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Super Smash Bros.<span class="nt">&lt;/a&gt;</span>: Game Glitch Allows
+			  Players to Control 8 Characters With 1 Controller
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"media"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-left media-top"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-flash"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-body"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Tuukka Rask<span class="nt">&lt;/a&gt;</span>: Boston Bruins Player
+			  Debuts Goalie Mask for Winter Classic
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"media"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-left media-top"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"caret"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"media-body"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>See More<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p><em>Note: For the “See More” icon, we use Bootstrap’s <a href="http://getbootstrap.com/css/#helper-classes-carets">caret</a>, which is not a Glyphicon.</em></p>
+
+<p>The result looks great!</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_media_list.png" alt="Facebook Right Sidebar Media List" /></p>
+
+<p>Recall that Facebook’s widget is more compressed, with less whitespace between
+items. Where is the extra whitespace between list items coming from? Using
+Chrome’s developer tools once again, we can <em>Inspect</em> the list, which uncovers
+that the <code class="highlighter-rouge">media</code> class adds margin space to the top of list items:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_trending_content_padding.png" alt="Facebook Right Sidebar Trending Content Padding" /></p>
+
+<p>A quick CSS rule can fix that issue:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.fb-trending</span> <span class="nc">.media</span> <span class="p">{</span>
+  <span class="nl">margin-top</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Also, add a final CSS rule to create a bottom border for the entire trending
+widget:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.fb-trending</span> <span class="p">{</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">lightgrey</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, the trending widget is complete! Your right sidebar should now look like
+this:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_post_trending_progress.png" alt="Facebook Right Sidebar Post Trending Progress" /></p>
+
+<p>There’s one final widget to tackle: The <em>Suggested Pages</em> widget.</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_suggested_pages.png" alt="Facebook Right Sidebar Suggested Pages" /></p>
+
+<p>We could put everything into a grid cell, but notice how everything below
+“Suggested Pages” is left-aligned. There is no fancy formatting. We can lump
+all of that in a single grid cell, and use HTML line breaks (<code class="highlighter-rouge">&lt;br&gt;</code>) to put
+content onto new lines. Line breaks are generally useful when you need to
+add a line between <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements">inline HTML elements</a>,
+which typically flow like text. (<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">Block-level elements</a>
+are the other side of the coin; they typically exist on their own lines.)</p>
+
+<p>First, download
+this
+<a href="http://choicesaintlouis.com/wp-content/uploads/2015/08/Falafel-Mediterranean.jpg">image of falafel</a>,
+and add it to your repository as <code class="highlighter-rouge">img/falafel.jpg</code>:</p>
+
+<p><img src="/workshops/images/falafel.jpg" alt="Falafel" /></p>
+
+<p>Then, add the following HTML for the “Suggested Pages” widget:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!-- Suggested Pages --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-8"</span><span class="nt">&gt;</span>
+        SUGGESTED PAGES
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-4"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"pull-right"</span><span class="nt">&gt;</span>See All<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"img/falafel.jpg"</span> <span class="na">width=</span><span class="s">"100%"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;br&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Pita Pocket's<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;br&gt;</span> Mediterranean Restaurant · 301 likes
+        <span class="nt">&lt;br&gt;&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-thumbs-up"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;/span&gt;</span> Like Page<span class="nt">&lt;/button&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p><em>Note that all of the tags we used within the column are <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements#Elements">inline elements</a>.
+That’s why <code class="highlighter-rouge">&lt;br&gt;</code> works so well for this widget.</em></p>
+
+<p>The end result looks pretty nice, but we need some whitespace between the
+trending widget and the suggested pages widget; that border is a little too
+close:</p>
+
+<p><img src="/workshops/images/facebook_right_sidebar_suggested_pages_clone.png" alt="Facebook Right Sidebar Suggested Pages" /></p>
+
+<p>Modify your <code class="highlighter-rouge">.fb-trending</code> rule in <code class="highlighter-rouge">facebook.css</code> by adding the property
+<code class="highlighter-rouge">margin-bottom: 5px;</code>. This will add space between the trending widget’s bottom
+border and the suggested pages widget. (Astute readers who read up on the box
+model may note that we could have added 5px of <code class="highlighter-rouge">padding-top</code> or <code class="highlighter-rouge">margin-top</code> to
+the suggested pages widget instead.)</p>
+
+<p>Your final right sidebar should look like this:</p>
+
+<p><img src="/workshops/images/facebook_clone_right_sidebar_final.png" alt="Facebook Clone Right Sidebar Final" /></p>
+
+<p><strong><code class="highlighter-rouge">add</code> <code class="highlighter-rouge">img/falafel.jpg</code> to your Git repository, <code class="highlighter-rouge">commit</code> your
+changes with message <code class="highlighter-rouge">fb5</code>, and <code class="highlighter-rouge">push</code> your changes to GitHub.</strong> Note
+that this changeset includes both the left and right sidebar!</p>
+
+<h2 id="step-06-the-chat-menu">Step 06: The Chat Menu</h2>
+
+<p>The chat menu is quite simple looking:</p>
+
+<p><img src="/workshops/images/facebook_chat_menu.png" alt="Facebook Chat menu" /></p>
+
+<p>We can recreate this with a Bootstrap grid with two cells: One for
+left-aligned content (the online indicator &amp; text), and the second for
+right-aligned content (the buttons).</p>
+
+<p>Note that the chat menu is floating, and is thus outside of the <code class="highlighter-rouge">container</code> we
+defined for the <code class="highlighter-rouge">body</code>. Bootstrap requires that grids be placed
+inside an element with class <code class="highlighter-rouge">container</code> or <code class="highlighter-rouge">container-fluid</code>.</p>
+
+<p><code class="highlighter-rouge">container</code> is one of four fixed widths depending on the size of your screen.
+<a href="http://getbootstrap.com/css/#grid-options">This table</a> contains a listing of
+container widths. For example, if your browser window is &lt; 1200 pixels wide,
+but greater than 992 pixels wide, <code class="highlighter-rouge">container</code> will have a total width of
+<code class="highlighter-rouge">970 px</code>. We used <code class="highlighter-rouge">container</code> on the <code class="highlighter-rouge">body</code> of the webpage; notice how the
+webpage does not change its width when you make subtle changes to the browser
+window’s width.</p>
+
+<p><code class="highlighter-rouge">container-fluid</code> always expands to fill the width of the element that contains
+it. We did not use <code class="highlighter-rouge">container-fluid</code> on the <code class="highlighter-rouge">body</code> of our webpage, since the
+width of our content would expand to fit the entire browser window; Facebook
+does not exhibit this behavior, and has whitespace to the sides when the
+browser window is sufficiently wide.</p>
+
+<p>The chat menu is floating above the page, and its grid should expand to fill
+the width of the chat menu. Thus, we put its grid into a <code class="highlighter-rouge">container-fluid</code>
+container, and divide up its columns between the left and right-aligned items:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"chat-popup"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container-fluid"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-8"</span><span class="nt">&gt;</span>
+        Left
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-4"</span><span class="nt">&gt;</span>
+        Right
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The chat menu will now look like this, ignoring the drop shadow that my Mac
+puts on all of my desktop windows:</p>
+
+<p><img src="/workshops/images/facebook_clone_chat_menu_1.png" alt="Facebook Clone Chat Menu" /></p>
+
+<p>The left side can just contain the text “● Chat (32)”, with “●” having the color
+green. (There are many <a href="http://unicode-table.com/en/">Unicode symbols</a> that you
+can use in your website since your HTML contains a <code class="highlighter-rouge">meta</code> tag that marks your
+HTML document’s character set as Unicode with 8-bit code units – aka <code class="highlighter-rouge">utf-8</code>. :) )</p>
+
+<p>To color “●” green, we can encapsulate it inside of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span"><code class="highlighter-rouge">span</code> tag</a>
+with a class applied to it. You should use <code class="highlighter-rouge">span</code> tags whenever you need to
+style inline content (i.e. content that is part of a line of items).
+MDN has a great writeup about <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements">inline elements</a> like <code class="highlighter-rouge">span</code>, and how they differ from <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">block-level elements</a>
+like <code class="highlighter-rouge">div</code>.</p>
+
+<p>Define a CSS rule that styles things green:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.green</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">green</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Then, add the text to the left-hand-side of the chat menu!</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-8"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"green"</span><span class="nt">&gt;</span>●<span class="nt">&lt;/span&gt;</span> Chat (32)
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>The right-hand-side of the menu is comprised of multiple buttons. Unlike the
+buttons in the navigation bar, these buttons are quite small. <a href="http://getbootstrap.com/components/#btn-dropdowns-sizing">Bootstrap has button
+sizes</a>, so we can
+define a group of <em>extra small</em> buttons for the right-hand-side:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-4"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-group pull-right"</span> <span class="na">role=</span><span class="s">"group"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-xs"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-pencil"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-xs"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-asterisk"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>Your chat menu should look like this now (ignoring the drop shadow again):</p>
+
+<p><img src="/workshops/images/facebook_clone_chat_menu_2.png" alt="Facebook Clone Chat Menu" /></p>
+
+<p>Facebook’s chat menu has a border with rounded edges. CSS supports these through
+the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius">border-radius</a>
+attribute. The chat menu should have a border on the top, left, and right sides
+only, and rounded corners on the top left and top right.</p>
+
+<p>Rather than define separate top, left, and right borders, we can define a
+border for all sides with <code class="highlighter-rouge">border</code> and remove it from the bottom by setting
+<code class="highlighter-rouge">border-bottom</code> to <code class="highlighter-rouge">none</code>. Modify your <code class="highlighter-rouge">chat-popup</code> CSS rule from before to
+include the border properties:</p>
+
+<div class="language-css highlighter-rouge"><pre class="highlight"><code><span class="nc">.chat-popup</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">300px</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
+  <span class="nl">bottom</span><span class="p">:</span> <span class="m">0px</span><span class="p">;</span>
+  <span class="nl">right</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+  <span class="c">/* Applies the given border style to all sides. */</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#000</span><span class="p">;</span>
+  <span class="c">/* Removes the border on the bottom. */</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">border-top-left-radius</span><span class="p">:</span> <span class="m">3px</span><span class="p">;</span>
+  <span class="nl">border-top-right-radius</span><span class="p">:</span> <span class="m">3px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Your final chat menu should look like the following:</p>
+
+<p><img src="/workshops/images/facebook_clone_chat_menu_final.png" alt="Facebook Clone Chat Menu Final" /></p>
+
+<p>Since that wasn’t too difficult, don’t commit your changes just yet. We’re going
+to tackle the main feed next!</p>
+
+<h1 id="submission">Submission</h1>
+
+<p>You must submit the URL of your Workshop3 GitHub repository to Moodle. Visit Moodle, find the associated Workshop 4 activity, and provide your URL. Make sure your Workshop3 repository is public so we can clone your repository and evaluate your work. <strong>Note: you are submitting your Workshop3 repository URL to the Workshop 4 activity because this is a continuation from workshop 3.</strong></p>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

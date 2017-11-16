@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>COMPSCI 326 Web Programming</title>
+  <meta name="description" content="Spring 2017 Web Programming">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/startup/01">
+  <link rel="alternate" type="application/rss+xml" title="COMPSCI 326 Web Programming" href="/feed.xml">
+
+  <!-- adds support for reading time -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="/assets/js/readremaining.jquery.js"></script>
+  <link rel="stylesheet" href="/assets/css/rr_dark.css"/>
+  <script>
+    $(function () {
+      $('body').readRemaining({ showGaugeOnStart : true , showGaugeDelay : 1 });
+    });    
+  </script>
+
+  <!-- Adds support for lightbox -->
+  <link href="/assets/css/lightbox.css" rel="stylesheet"/>
+  <script src="/assets/js/lightbox.js"></script>
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">COMPSCI 326 Web Programming</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    <p><img src="/startups/images/ucombinator_logo.png" alt="UCombinator" /></p>
+
+<h1 class="no_toc" id="startup-submission-01-product-pitch">Startup Submission 01: Product Pitch</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a>    <ul>
+      <li><a href="#grading-rubric" id="markdown-toc-grading-rubric">Grading Rubric</a></li>
+    </ul>
+  </li>
+  <li><a href="#honors-student-feature-pitch" id="markdown-toc-honors-student-feature-pitch">Honors Student Feature Pitch</a>    <ul>
+      <li><a href="#honors-grading-rubric" id="markdown-toc-honors-grading-rubric">Honors Grading Rubric</a></li>
+      <li><a href="#example-honors-features" id="markdown-toc-example-honors-features">Example Honors Features</a></li>
+    </ul>
+  </li>
+  <li><a href="#submission" id="markdown-toc-submission">Submission</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>UCombinator requires that each startup submit a product <em>pitch</em> that
+explains the product that your startup wants to develop over the
+course of the semester.</p>
+
+<p>Your product needs to:</p>
+
+<ul>
+  <li><strong>Be a desktop web application.</strong> UCombinator specializes in web
+applications, and will not accept other types of applications. In
+addition, mobile web applications are strictly trickier than desktop
+web applications, so UCombinator would rather see desktop web
+applications.
+    <ul>
+      <li>UCombinator will let startups write mobile web applications if
+they demonstrate that they have the ability to execute them
+without additional support.</li>
+    </ul>
+  </li>
+  <li><strong>Use React, Bootstrap, Node.js, and MongoDB.</strong> UCombinator
+specializes in these four technologies, and will not accept startups
+using alternative software stacks.
+    <ul>
+      <li>Startups can use helper libraries where appropriate, but must use
+these four core technologies.</li>
+    </ul>
+  </li>
+  <li><strong>Support multiple user accounts.</strong> Your product should let users
+create and log into their own accounts. Although we will mostly be
+focusing on a single login environment for most of the semester, the
+product and pitch must be a multi-user application.</li>
+  <li><strong>Use a database.</strong> Your product needs to store information,
+including user account information, in a database.</li>
+</ul>
+
+<p>Your product cannot:</p>
+
+<ul>
+  <li><strong>Be a game.</strong> UCombinator does not consider games to be web
+applications.  The skills required to create an online game are very
+different from the skills required to create a web application.</li>
+</ul>
+
+<p>Your product does not:</p>
+
+<ul>
+  <li><strong>Need a profit plan.</strong> Startups like Twitter and Facebook began
+with an interesting idea, but no immediate plans for profit. They
+launched and operated for years without advertising. UCombinator
+does not care or need to know if your idea would be
+profitable. However, to simulate reality your team should consider
+how your could profit and be ready to answer that question during
+the pitch party at the end of the semester.</li>
+</ul>
+
+<p>The pitch should have a minimum of 1” margins on all sides (Microsoft
+Word’s default setting), be written in a 12-point font, and be
+single-sided. No extra space will be allotted. Use of the Helvetica
+font is encouraged, but not required.</p>
+
+<h2 id="grading-rubric">Grading Rubric</h2>
+
+<p>UCombinator will grade the pitch using the following rubric:</p>
+
+<ul>
+  <li>25% Clearly written</li>
+  <li>25% Displays a clear understanding of the idea underlying the product</li>
+  <li>25% Contains a brief description of the product’s relationship to existing applications
+    <ul>
+      <li><strong>Example 1</strong>: TikTak lets you anonymously and privately tell
+friends that their breath needs freshening.  TikTak is similar to
+YikYak in that you can only share messages with users in the
+surrounding physical area.  Unlike YikYak, TikTak messages are
+sent privately to individuals, and only concern the person’s
+breath.</li>
+      <li><strong>Example 2</strong>: Chairity lets you list furniture that you would
+like to give away. Like eBay, Chairity lets you drill down into
+the category of item you want. Like Craigslist, Chairity is
+focused on <em>local</em> transactions, as users must pick up items that
+they want.</li>
+    </ul>
+  </li>
+  <li>25% Contains a brief overview of the technical challenges of the
+product, and how you plan to overcome them
+    <ul>
+      <li>Examples of technical challenges:
+        <ul>
+          <li>Your product involves managing multimedia or some other
+complicated type of data, and a library exists to do that.</li>
+          <li>Your product interacts with an external service
+(e.g. Twitter), that service has a free-to-use API that
+contain the functionality you need, and someone in your
+startup has used that API before.</li>
+          <li>Your product needs to use a complicated algorithm, which a
+member of your startup is deeply familiar with.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>If UCombinator finds your pitch unsatisfactory, or has doubts that
+your startup could complete the product within a semester, UCombinator
+will council with your team and potentially require a second, updated
+pitch.</p>
+
+<h1 id="honors-student-feature-pitch">Honors Student Feature Pitch</h1>
+
+<p><em>Separate from the product pitch</em>, each honors student on your startup
+must write up a pitch for a product feature that they will develop
+independently.</p>
+
+<p>The feature must:</p>
+
+<ul>
+  <li><strong>Require end-to-end changes to the product.</strong> In other words, the
+feature needs to require custom HTML/CSS, server logic (e.g. for
+fetching/modifying data associated with the feature), and new types
+of data in the database.</li>
+  <li><strong>Be reasonably isolated from the rest of the product.</strong> Your
+startup should not need to maintain any of the honors students’
+code, or be encumbered by it.  If an honors student is running
+behind on their feature, it should not hold up the rest of the
+startup in any way. Similarly, if the startup is running behind on
+the product, it should not hold up the honors student.</li>
+  <li><strong>Be implemented entirely by you.</strong> While honors students can (and
+should!)  consult with their fellow startup members, they must
+implement the feature themselves.</li>
+  <li><strong>Make sense for your startup’s product.</strong> This should be
+self-explanatory.</li>
+  <li><strong>Be approved by your startup’s members.</strong> If the idea is
+contentious, and not all startup members agree, it must be decided
+by majority vote. The honors student must abstain from the voting
+process.</li>
+</ul>
+
+<p>The feature cannot:</p>
+
+<ul>
+  <li><strong>Be a game.</strong> For the same reasons why a startup’s product cannot
+be a game.</li>
+</ul>
+
+<p>The honors pitch should have a minimum of 1” margins on all sides
+(Microsoft Word’s default setting), be written in a 12-point font, and
+be single-sided. No extra space will be allotted. Use of the Helvetica
+font is encouraged, but not required. Your document needs to have
+signatures from <strong>every member of the startup</strong>, affirming the
+following:</p>
+
+<blockquote>
+  <p>We, the undersigned, do hereby affirm that we have read the above
+pitch describing a product feature (subsequently referred to as THE
+FEATURE), and declare that 1) THE FEATURE is appropriate for our
+startup’s product, 2) implementation of THE FEATURE will not impact
+the main product’s development, 3) (name of honors student) is
+solely responsible for designing and developing THE FEATURE, and 4)
+members of the startup other than (name of honors student) will not
+help implement THE FEATURE.</p>
+</blockquote>
+
+<h2 id="honors-grading-rubric">Honors Grading Rubric</h2>
+
+<p>UCombinator will grade the pitch using the following rubric:</p>
+
+<ul>
+  <li>25% Clearly written</li>
+  <li>25% Displays a clear understanding of the idea underlying the
+feature</li>
+  <li>25% Contains a brief description of the feature’s relationship to
+the startup’s product as a whole
+    <ul>
+      <li><strong>Example 1</strong>: This feature adds <em>live chat support</em> to
+TikTak. While TikTak simply lets you tell friends that their
+breath needs freshening, TikTak FreshChat™ gives you the option of
+opening up a meaningful, anonymous, two-way dialog about the
+merits of fresh breath.</li>
+    </ul>
+  </li>
+  <li>25% Contains a brief overview of the technical challenges of the
+feature, and how the honors student plans to overcome them</li>
+</ul>
+
+<p>If UCombinator finds an honors student’s pitch unsatisfactory, or has
+doubts that they could complete the feature within a semester,
+UCombinator will council with the startup and potentially require a
+second, updated pitch.</p>
+
+<h2 id="example-honors-features">Example Honors Features</h2>
+
+<p>Here are examples of <em>bad</em> and <em>good</em> features.</p>
+
+<p><strong>BAD FEATURES:</strong></p>
+
+<ul>
+  <li><em>A feature that adds photo posts to a Facebook clone.</em>
+    <ul>
+      <li>This feature is not <em>reasonably isolated</em> from the product.  In
+order to implement photo posts, the honors student will need to
+modify the Facebook clone’s core posting logic. If the honors
+student makes a mistake or implements the feature poorly, it will
+impact the product’s core feature set. In addition, if the startup
+fails to implement the core posting logic in a timely manner, it
+will hold up the honors student’s progress.</li>
+    </ul>
+  </li>
+  <li><em>A feature that adds the choice of a more condensed news feed to a Facebook clone.</em>
+    <ul>
+      <li>This feature is not <em>end-to-end</em>. It does not require any
+meaningful database changes, and may not even require any server
+changes.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>GOOD FEATURES:</strong></p>
+
+<ul>
+  <li><em>A feature that adds chat support to a Facebook clone.</em>
+    <ul>
+      <li>This feature is <em>end-to-end</em>, as it stores chats in the database
+and requires a chatting interface. It is also isolated from the
+core product. It uses Facebook users in the database, but
+otherwise maintains separate data.</li>
+    </ul>
+  </li>
+  <li><em>A feature that lets users view a slideshow of nearby cat pictures
+on SnapCat.</em>
+    <ul>
+      <li>This feature is <em>end-to-end</em>, as it requires database changes to
+store SnapCats by location and a frontend for viewing those
+SnapCats. While it uses data produced by the core product, it can
+be developed independently with sample data while the startup
+works on the core product features.</li>
+    </ul>
+  </li>
+  <li><em>A feature that lets users subscribe/unsubscribe to email
+notifications.</em>
+    <ul>
+      <li>This feature is <em>end-to-end</em>, as it requires an interface for
+managing notification settings, database changes to store
+notification settings, and server logic for emailing
+notifications.  While the feature will need to integrate with core
+product features, the integration should be trivial (e.g. an extra
+function call) and should be easily worked around should the
+honors student not deliver on the feature.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="submission">Submission</h1>
+
+<p>You must submit a PDF of your startup’s product pitch as well as any
+honors feature pitches by the assigned due date on Moodle. Only one
+member of your team needs to submit to Moodle.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">COMPSCI 326 Web Programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Tim Richards
+            
+            </li>
+            
+            <li>richards at cs dot umass dot edu</li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Spring 2017 Web Programming
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
