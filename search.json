@@ -4,7 +4,7 @@
 		  "title"      : "Penn PL Club Homework: Making the Browser Reasonable for Sane Programmers",
 		  "category"   : "",
       "tags"       : "",
-		  "url"        : "http://localhost:4000/blog/penn-pl-club-homework/",
+		  "url"        : "https://jvilk.com/blog/penn-pl-club-homework/",
 		  "date"       : "2016-12-02 02:00:00 -0500",
 		  "shortdate"  : "December 02, 2016"
 		} ,
@@ -13,7 +13,7 @@
 		  "title"      : "Java 8 Specification Bug: Default Interface Method Resolution",
 		  "category"   : "",
       "tags"       : "",
-		  "url"        : "http://localhost:4000/blog/java-8-specification-bug/",
+		  "url"        : "https://jvilk.com/blog/java-8-specification-bug/",
 		  "date"       : "2015-01-01 14:39:05 -0500",
 		  "shortdate"  : "January 01, 2015"
 		} ,
@@ -22,7 +22,7 @@
 		  "title"      : "Java 8 WTF: Ambiguous Method Lookup",
 		  "category"   : "",
       "tags"       : "",
-		  "url"        : "http://localhost:4000/blog/java-8-wtf-ambiguous-method-lookup/",
+		  "url"        : "https://jvilk.com/blog/java-8-wtf-ambiguous-method-lookup/",
 		  "date"       : "2014-12-30 15:39:07 -0500",
 		  "shortdate"  : "December 30, 2014"
 		} ,
@@ -31,7 +31,7 @@
 		  "title"      : "New Website Launch",
 		  "category"   : "",
       "tags"       : "",
-		  "url"        : "http://localhost:4000/blog/new-website-launch/",
+		  "url"        : "https://jvilk.com/blog/new-website-launch/",
 		  "date"       : "2014-12-12 19:18:45 -0500",
 		  "shortdate"  : "December 12, 2014"
 		} 
