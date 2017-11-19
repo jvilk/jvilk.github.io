@@ -21,7 +21,7 @@
 <meta name="twitter:creator" content="@johnwvilk">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jvilk.com/images/">
+<meta name="twitter:image" content="http://localhost:4000/images/">
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
@@ -30,15 +30,15 @@
 <meta property="og:description" content="In a previous blog post, I pointed out some rather surprising behavior involving default interface methods, and cases in which method resolution is ambiguous as specified by the JVM specification. However, after consulting with commenters on the corresponding reddit post, it is possible that that method resolution is never ambiguous, and the JVM specification is incorrect.
 
 ">
-<meta property="og:url" content="https://jvilk.com/blog/java-8-specification-bug/">
+<meta property="og:url" content="http://localhost:4000/blog/java-8-specification-bug/">
 <meta property="og:site_name" content="John Vilk">
 
 
 
 
 
-<link rel="canonical" href="https://jvilk.com/blog/java-8-specification-bug/">
-<link href="https://jvilk.com/feed.xml" type="application/atom+xml" rel="alternate" title="John Vilk Feed">
+<link rel="canonical" href="http://localhost:4000/blog/java-8-specification-bug/">
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="John Vilk Feed">
 
 
 <!-- http://t.co/dKP3o1e -->
@@ -47,7 +47,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- For all browsers -->
-<link rel="stylesheet" href="https://jvilk.com/assets/css/main.css">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
 <!-- Webfonts -->
 <script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
 
@@ -55,26 +55,26 @@
 
 <!-- HTML5 Shiv and Media Query Support -->
 <!--[if lt IE 9]>
-  <script src="https://jvilk.com/assets/js/vendor/html5shiv.min.js"></script>
-  <script src="https://jvilk.com/assets/js/vendor/respond.min.js"></script>
+  <script src="http://localhost:4000/assets/js/vendor/html5shiv.min.js"></script>
+  <script src="http://localhost:4000/assets/js/vendor/respond.min.js"></script>
 <![endif]-->
 
 <!-- Modernizr -->
-<script src="https://jvilk.com/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+<script src="http://localhost:4000/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
 
 <!-- Icons -->
 <!-- 16x16 -->
-<link rel="shortcut icon" href="https://jvilk.com/favicon.ico">
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
 <!-- 32x32 -->
-<link rel="shortcut icon" href="https://jvilk.com/favicon.png">
+<link rel="shortcut icon" href="http://localhost:4000/favicon.png">
 <!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
-<link rel="apple-touch-icon-precomposed" href="https://jvilk.com/images/apple-touch-icon-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="http://localhost:4000/images/apple-touch-icon-precomposed.png">
 <!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://jvilk.com/images/apple-touch-icon-72x72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72-precomposed.png">
 <!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://jvilk.com/images/apple-touch-icon-114x114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114-precomposed.png">
 <!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://jvilk.com/images/apple-touch-icon-144x144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144-precomposed.png">
 
 </head>
 
@@ -83,19 +83,19 @@
 <header class="masthead">
 	<div class="navigation-wrapper">
 		<div class="site-name">
-			<a href="https://jvilk.com">John Vilk</a>
+			<a href="http://localhost:4000">John Vilk</a>
 		</div>
 		<nav role="navigation" id="site-nav">
 		    <ul>
 	      
 			    
-			    <li><a href="https://jvilk.com/" >About</a></li>
+			    <li><a href="http://localhost:4000/" >About</a></li>
 			  
 			    
-			    <li><a href="https://jvilk.com/blog/" >Blog</a></li>
+			    <li><a href="http://localhost:4000/blog/" >Blog</a></li>
 			  
 			    
-			    <li><a href="https://jvilk.com/contact/" >Contact</a></li>
+			    <li><a href="http://localhost:4000/contact/" >Contact</a></li>
 			  
 	        
 		    </ul>
@@ -123,7 +123,7 @@
       <footer class="entry-meta">
         
         
-          <img src="https://jvilk.com/images/bio-photo-3.jpg" class="bio-photo" alt="John Vilk bio photo"></a>
+          <img src="http://localhost:4000/images/bio-photo-3.jpg" class="bio-photo" alt="John Vilk bio photo"></a>
         
         <span class="author vcard">By <span class="fn">John Vilk</span></span>
         <span class="entry-date date published"><time datetime="2015-01-01T14:39:05-05:00"><i class="fa fa-calendar-o"></i> January 01, 2015</time></span>
@@ -261,10 +261,10 @@ at example.CowboyArtist.main(CowboyArtist.java:6)
     </div><!-- /.entry-wrapper -->
     <nav class="pagination" role="navigation">
       
-        <a href="https://jvilk.com/blog/java-8-wtf-ambiguous-method-lookup/" class="btn" title="Java 8 WTF: Ambiguous Method Lookup">&lt; Previous Post: Java 8 WTF: Ambiguous Method Lookup</a>
+        <a href="http://localhost:4000/blog/java-8-wtf-ambiguous-method-lookup/" class="btn" title="Java 8 WTF: Ambiguous Method Lookup">&lt; Previous Post: Java 8 WTF: Ambiguous Method Lookup</a>
       
       
-        <a href="https://jvilk.com/blog/penn-pl-club-homework/" class="btn" title="Penn PL Club Homework: Making the Browser Reasonable for Sane Programmers">Next Post: Penn PL Club Homework: Making the Browser Reasonable for Sane Programmers &gt;</a>
+        <a href="http://localhost:4000/blog/penn-pl-club-homework/" class="btn" title="Penn PL Club Homework: Making the Browser Reasonable for Sane Programmers">Next Post: Penn PL Club Homework: Making the Browser Reasonable for Sane Programmers &gt;</a>
       
     </nav><!-- /.pagination -->
   </article>
@@ -285,15 +285,15 @@ at example.CowboyArtist.main(CowboyArtist.java:6)
 	
 	<a href="http://github.com/jvilk" title="John Vilk on Github" target="_blank"><i class="fa fa-github-square fa-2x"></i></a>
 	
-  <a href="https://jvilk.com/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss-square fa-2x"></i></a>
+  <a href="http://localhost:4000/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss-square fa-2x"></i></a>
 </div><!-- /.social-icons -->
 
   </footer>
 </div><!-- /.footer-wrapper -->
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="https://jvilk.com/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-<script src="https://jvilk.com/assets/js/scripts.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://localhost:4000/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://localhost:4000/assets/js/scripts.min.js"></script>
 
 
 <!-- Asynchronous Google Analytics snippet -->
