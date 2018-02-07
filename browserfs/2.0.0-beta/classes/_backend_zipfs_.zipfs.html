@@ -1,0 +1,2330 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ZipFS | BrowserFS</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">BrowserFS</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_backend_zipfs_.html">&quot;backend/ZipFS&quot;</a>
+				</li>
+				<li>
+					<a href="_backend_zipfs_.zipfs.html">ZipFS</a>
+				</li>
+			</ul>
+			<h1>Class ZipFS</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Zip file-backed filesystem
+							Implemented according to the standard:
+						<a href="http://www.pkware.com/documents/casestudies/APPNOTE.TXT">http://www.pkware.com/documents/casestudies/APPNOTE.TXT</a></p>
+					</div>
+					<p>While there are a few zip libraries for JavaScript (e.g. JSZip and zip.js),
+						they are not a good match for BrowserFS. In particular, these libraries
+						perform a lot of unneeded data copying, and eagerly decompress every file
+						in the zip file upon loading to check the CRC32. They also eagerly decode
+						strings. Furthermore, these libraries duplicate functionality already present
+					in BrowserFS (e.g. UTF-8 decoding and binary data manipulation).</p>
+					<p>This filesystem takes advantage of BrowserFS&#39;s Buffer implementation, which
+						efficiently represents the zip file in memory (in both ArrayBuffer-enabled
+						browsers <em>and</em> non-ArrayBuffer browsers), and which can neatly be &#39;sliced&#39;
+						without copying data. Each struct defined in the standard is represented with
+						a buffer slice pointing to an offset in the zip file, and has getters for
+						each field. As we anticipate that this data will not be read often, we choose
+						not to store each struct field in the JavaScript object; instead, to reduce
+						memory consumption, we retrieve it directly from the binary data each time it
+					is requested.</p>
+					<p>When the filesystem is instantiated, we determine the directory structure
+						of the zip file as quickly as possible. We lazily decompress and check the
+						CRC32 of files. We do not cache decompressed files; if this is a desired
+						feature, it is best implemented as a generic file system wrapper that can
+					cache data from arbitrary file systems.</p>
+					<p>For inflation, we use <code>pako</code>&#39;s implementation:
+					<a href="https://github.com/nodeca/pako">https://github.com/nodeca/pako</a></p>
+					<p>Current limitations:</p>
+					<ul>
+						<li>No encryption.</li>
+						<li>No ZIP64 support.</li>
+						<li>Read-only.
+							Write support would require that we:<ul>
+								<li>Keep track of changed/new files.</li>
+								<li>Compress changed files, and generate appropriate metadata for each.</li>
+								<li>Update file offsets for other files in the zip file.</li>
+								<li>Stream it out to a location.
+								This isn&#39;t that bad, so we might do this at a later date.</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="_core_file_system_.synchronousfilesystem.html" class="tsd-signature-type">SynchronousFileSystem</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">ZipFS</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_core_file_system_.filesystem.html" class="tsd-signature-type">FileSystem</a></li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_backend_zipfs_.zipfs.html#compressionmethod" class="tsd-kind-icon">Compression<wbr>Method</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_backend_zipfs_.zipfs.html#name" class="tsd-kind-icon">Name</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#appendfile" class="tsd-kind-icon">append<wbr>File</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#appendfilesync" class="tsd-kind-icon">append<wbr>File<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#chmod" class="tsd-kind-icon">chmod</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#chmodsync" class="tsd-kind-icon">chmod<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#chown" class="tsd-kind-icon">chown</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#chownsync" class="tsd-kind-icon">chown<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#createfile" class="tsd-kind-icon">create<wbr>File</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#createfilesync" class="tsd-kind-icon">create<wbr>File<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_backend_zipfs_.zipfs.html#diskspace" class="tsd-kind-icon">disk<wbr>Space</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#exists" class="tsd-kind-icon">exists</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#existssync" class="tsd-kind-icon">exists<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_backend_zipfs_.zipfs.html#getcentraldirectoryentry" class="tsd-kind-icon">get<wbr>Central<wbr>Directory<wbr>Entry</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_backend_zipfs_.zipfs.html#getcentraldirectoryentryat" class="tsd-kind-icon">get<wbr>Central<wbr>Directory<wbr>Entry<wbr>At</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_backend_zipfs_.zipfs.html#getendofcentraldirectory" class="tsd-kind-icon">get<wbr>End<wbr>OfCentral<wbr>Directory</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_backend_zipfs_.zipfs.html#getname" class="tsd-kind-icon">get<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_backend_zipfs_.zipfs.html#getnumberofcentraldirectoryentries" class="tsd-kind-icon">get<wbr>Number<wbr>OfCentral<wbr>Directory<wbr>Entries</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_backend_zipfs_.zipfs.html#isreadonly" class="tsd-kind-icon">is<wbr>Read<wbr>Only</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#link" class="tsd-kind-icon">link</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#linksync" class="tsd-kind-icon">link<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#mkdir" class="tsd-kind-icon">mkdir</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#mkdirsync" class="tsd-kind-icon">mkdir<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#open" class="tsd-kind-icon">open</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#openfile" class="tsd-kind-icon">open<wbr>File</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#openfilesync" class="tsd-kind-icon">open<wbr>File<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_backend_zipfs_.zipfs.html#opensync" class="tsd-kind-icon">open<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#readfile" class="tsd-kind-icon">read<wbr>File</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_backend_zipfs_.zipfs.html#readfilesync" class="tsd-kind-icon">read<wbr>File<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#readdir" class="tsd-kind-icon">readdir</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_backend_zipfs_.zipfs.html#readdirsync" class="tsd-kind-icon">readdir<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#readlink" class="tsd-kind-icon">readlink</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#readlinksync" class="tsd-kind-icon">readlink<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#realpath" class="tsd-kind-icon">realpath</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#realpathsync" class="tsd-kind-icon">realpath<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#rename" class="tsd-kind-icon">rename</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#renamesync" class="tsd-kind-icon">rename<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#rmdir" class="tsd-kind-icon">rmdir</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#rmdirsync" class="tsd-kind-icon">rmdir<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#stat" class="tsd-kind-icon">stat</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_backend_zipfs_.zipfs.html#statsync" class="tsd-kind-icon">stat<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_backend_zipfs_.zipfs.html#supportslinks" class="tsd-kind-icon">supports<wbr>Links</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_backend_zipfs_.zipfs.html#supportsprops" class="tsd-kind-icon">supports<wbr>Props</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_backend_zipfs_.zipfs.html#supportssynch" class="tsd-kind-icon">supports<wbr>Synch</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#symlink" class="tsd-kind-icon">symlink</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#symlinksync" class="tsd-kind-icon">symlink<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#truncate" class="tsd-kind-icon">truncate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#truncatesync" class="tsd-kind-icon">truncate<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#unlink" class="tsd-kind-icon">unlink</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#unlinksync" class="tsd-kind-icon">unlink<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#utimes" class="tsd-kind-icon">utimes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#utimessync" class="tsd-kind-icon">utimes<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#writefile" class="tsd-kind-icon">write<wbr>File</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_backend_zipfs_.zipfs.html#writefilesync" class="tsd-kind-icon">write<wbr>File<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_backend_zipfs_.zipfs.html#create" class="tsd-kind-icon">Create</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_backend_zipfs_.zipfs.html#registerdecompressionmethod" class="tsd-kind-icon">Register<wbr>Decompression<wbr>Method</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_backend_zipfs_.zipfs.html#isavailable" class="tsd-kind-icon">is<wbr>Available</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Object literals</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal tsd-parent-kind-class tsd-is-static"><a href="_backend_zipfs_.zipfs.html#options" class="tsd-kind-icon">Options</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="compressionmethod" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Compression<wbr>Method</h3>
+					<div class="tsd-signature tsd-kind-icon">Compression<wbr>Method<span class="tsd-signature-symbol">:</span> <a href="../enums/_backend_zipfs_.compressionmethod.html" class="tsd-signature-type">CompressionMethod</a><span class="tsd-signature-symbol"> =&nbsp;CompressionMethod</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L540">backend/ZipFS.ts:540</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="name" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Name</h3>
+					<div class="tsd-signature tsd-kind-icon">Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"ZipFS"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;ZipFS&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L525">backend/ZipFS.ts:525</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="appendfile" class="tsd-anchor"></a>
+					<h3>append<wbr>File</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">append<wbr>File<span class="tsd-signature-symbol">(</span>fname<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, encoding<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, flag<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#appendfile">appendFile</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L727">core/file_system.ts:727</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fname: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>data: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+								</li>
+								<li>
+									<h5>flag: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="appendfilesync" class="tsd-anchor"></a>
+					<h3>append<wbr>File<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">append<wbr>File<wbr>Sync<span class="tsd-signature-symbol">(</span>fname<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, encoding<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, flag<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#appendfilesync">appendFileSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L745">core/file_system.ts:745</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fname: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>data: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+								</li>
+								<li>
+									<h5>flag: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="chmod" class="tsd-anchor"></a>
+					<h3>chmod</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">chmod<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isLchmod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#chmod">chmod</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#chmod">chmod</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#chmod">chmod</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L863">core/file_system.ts:863</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>isLchmod: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="chmodsync" class="tsd-anchor"></a>
+					<h3>chmod<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">chmod<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isLchmod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#chmodsync">chmodSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#chmodsync">chmodSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L759">core/file_system.ts:759</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>isLchmod: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="chown" class="tsd-anchor"></a>
+					<h3>chown</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">chown<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isLchown<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, uid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, gid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#chown">chown</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#chown">chown</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#chown">chown</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L872">core/file_system.ts:872</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>isLchown: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5>uid: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>gid: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="chownsync" class="tsd-anchor"></a>
+					<h3>chown<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">chown<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isLchown<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, uid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, gid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#chownsync">chownSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#chownsync">chownSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L765">core/file_system.ts:765</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>isLchown: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5>uid: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>gid: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="createfile" class="tsd-anchor"></a>
+					<h3>create<wbr>File</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>File<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, flag<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#createfile">createFile</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L404">core/file_system.ts:404</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create the file at path p with the given mode. Then, open it with the given
+									flag.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>flag: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="createfilesync" class="tsd-anchor"></a>
+					<h3>create<wbr>File<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>File<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, flag<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#createfilesync">createFileSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L488">core/file_system.ts:488</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create the file at path p with the given mode. Then, open it with the given
+									flag.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>flag: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="diskspace" class="tsd-anchor"></a>
+					<h3>disk<wbr>Space</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">disk<wbr>Space<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#diskspace">diskSpace</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L704">backend/ZipFS.ts:704</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cb: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>total<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, free<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>total: <span class="tsd-signature-type">number</span></h5>
+														</li>
+														<li>
+															<h5>free: <span class="tsd-signature-type">number</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="exists" class="tsd-anchor"></a>
+					<h3>exists</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">exists<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#exists">exists</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L558">core/file_system.ts:558</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cb: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>exists<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>exists: <span class="tsd-signature-type">boolean</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="existssync" class="tsd-anchor"></a>
+					<h3>exists<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">exists<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#existssync">existsSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#existssync">existsSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L563">core/file_system.ts:563</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getcentraldirectoryentry" class="tsd-anchor"></a>
+					<h3>get<wbr>Central<wbr>Directory<wbr>Entry</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Central<wbr>Directory<wbr>Entry<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_backend_zipfs_.centraldirectory.html" class="tsd-signature-type">CentralDirectory</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L673">backend/ZipFS.ts:673</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the CentralDirectory object for the given path.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_backend_zipfs_.centraldirectory.html" class="tsd-signature-type">CentralDirectory</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getcentraldirectoryentryat" class="tsd-anchor"></a>
+					<h3>get<wbr>Central<wbr>Directory<wbr>Entry<wbr>At</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Central<wbr>Directory<wbr>Entry<wbr>At<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_backend_zipfs_.centraldirectory.html" class="tsd-signature-type">CentralDirectory</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L688">backend/ZipFS.ts:688</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_backend_zipfs_.centraldirectory.html" class="tsd-signature-type">CentralDirectory</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getendofcentraldirectory" class="tsd-anchor"></a>
+					<h3>get<wbr>End<wbr>OfCentral<wbr>Directory</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>End<wbr>OfCentral<wbr>Directory<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_backend_zipfs_.endofcentraldirectory.html" class="tsd-signature-type">EndOfCentralDirectory</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L700">backend/ZipFS.ts:700</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_backend_zipfs_.endofcentraldirectory.html" class="tsd-signature-type">EndOfCentralDirectory</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">null</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getname" class="tsd-anchor"></a>
+					<h3>get<wbr>Name</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#getname">getName</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L666">backend/ZipFS.ts:666</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getnumberofcentraldirectoryentries" class="tsd-anchor"></a>
+					<h3>get<wbr>Number<wbr>OfCentral<wbr>Directory<wbr>Entries</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Number<wbr>OfCentral<wbr>Directory<wbr>Entries<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L696">backend/ZipFS.ts:696</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="isreadonly" class="tsd-anchor"></a>
+					<h3>is<wbr>Read<wbr>Only</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Read<wbr>Only<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#isreadonly">isReadOnly</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L709">backend/ZipFS.ts:709</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="link" class="tsd-anchor"></a>
+					<h3>link</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">link<span class="tsd-signature-symbol">(</span>srcpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dstpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#link">link</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#link">link</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#link">link</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L890">core/file_system.ts:890</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>srcpath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>dstpath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="linksync" class="tsd-anchor"></a>
+					<h3>link<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">link<wbr>Sync<span class="tsd-signature-symbol">(</span>srcpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dstpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#linksync">linkSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#linksync">linkSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L777">core/file_system.ts:777</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>srcpath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>dstpath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="mkdir" class="tsd-anchor"></a>
+					<h3>mkdir</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">mkdir<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#mkdir">mkdir</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#mkdir">mkdir</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#mkdir">mkdir</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L846">core/file_system.ts:846</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="mkdirsync" class="tsd-anchor"></a>
+					<h3>mkdir<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">mkdir<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#mkdirsync">mkdirSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#mkdirsync">mkdirSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L549">core/file_system.ts:549</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="open" class="tsd-anchor"></a>
+					<h3>open</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">open<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, flags<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#open">open</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#open">open</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#open">open</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L820">core/file_system.ts:820</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>flags: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="openfile" class="tsd-anchor"></a>
+					<h3>open<wbr>File</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">open<wbr>File<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, flag<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#openfile">openFile</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L397">core/file_system.ts:397</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Opens the file at path p with the given flag. The file must exist.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The path to open.</p>
+									</div>
+								</li>
+								<li>
+									<h5>flag: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The flag to use when opening the file.</p>
+									</div>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="openfilesync" class="tsd-anchor"></a>
+					<h3>open<wbr>File<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">open<wbr>File<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, flag<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#openfilesync">openFileSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L481">core/file_system.ts:481</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Opens the file at path p with the given flag. The file must exist.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The path to open.</p>
+									</div>
+								</li>
+								<li>
+									<h5>flag: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The flag to use when opening the file.</p>
+									</div>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a></h4>
+							<p>A File object corresponding to the opened file.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="opensync" class="tsd-anchor"></a>
+					<h3>open<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">open<wbr>Sync<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, flags<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#opensync">openSync</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#opensync">openSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L741">backend/ZipFS.ts:741</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>flags: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_core_file_.file.html" class="tsd-signature-type">File</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="readfile" class="tsd-anchor"></a>
+					<h3>read<wbr>File</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">read<wbr>File<span class="tsd-signature-symbol">(</span>fname<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, encoding<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, flag<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#readfile">readFile</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#readfile">readFile</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L635">core/file_system.ts:635</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fname: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+								</li>
+								<li>
+									<h5>flag: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="readfilesync" class="tsd-anchor"></a>
+					<h3>read<wbr>File<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">read<wbr>File<wbr>Sync<span class="tsd-signature-symbol">(</span>fname<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, encoding<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, flag<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#readfilesync">readFileSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L782">backend/ZipFS.ts:782</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Specially-optimized readfile.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fname: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>flag: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="readdir" class="tsd-anchor"></a>
+					<h3>readdir</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">readdir<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#readdir">readdir</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#readdir">readdir</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#readdir">readdir</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L855">core/file_system.ts:855</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="readdirsync" class="tsd-anchor"></a>
+					<h3>readdir<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">readdir<wbr>Sync<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#readdirsync">readdirSync</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#readdirsync">readdirSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L767">backend/ZipFS.ts:767</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="readlink" class="tsd-anchor"></a>
+					<h3>readlink</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">readlink<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#readlink">readlink</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#readlink">readlink</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#readlink">readlink</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L908">core/file_system.ts:908</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="readlinksync" class="tsd-anchor"></a>
+					<h3>readlink<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">readlink<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#readlinksync">readlinkSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#readlinksync">readlinkSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L789">core/file_system.ts:789</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="realpath" class="tsd-anchor"></a>
+					<h3>realpath</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">realpath<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cache<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#realpath">realpath</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L571">core/file_system.ts:571</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cache: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-index-signature">
+											<h5><span class="tsd-signature-symbol">[</span>path: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="realpathsync" class="tsd-anchor"></a>
+					<h3>realpath<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">realpath<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cache<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#realpathsync">realpathSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L592">core/file_system.ts:592</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cache: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-index-signature">
+											<h5><span class="tsd-signature-symbol">[</span>path: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="rename" class="tsd-anchor"></a>
+					<h3>rename</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">rename<span class="tsd-signature-symbol">(</span>oldPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, newPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#rename">rename</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#rename">rename</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#rename">rename</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L803">core/file_system.ts:803</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>oldPath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>newPath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="renamesync" class="tsd-anchor"></a>
+					<h3>rename<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">rename<wbr>Sync<span class="tsd-signature-symbol">(</span>oldPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, newPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#renamesync">renameSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#renamesync">renameSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L466">core/file_system.ts:466</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>oldPath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>newPath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="rmdir" class="tsd-anchor"></a>
+					<h3>rmdir</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">rmdir<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#rmdir">rmdir</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#rmdir">rmdir</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#rmdir">rmdir</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L837">core/file_system.ts:837</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="rmdirsync" class="tsd-anchor"></a>
+					<h3>rmdir<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">rmdir<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#rmdirsync">rmdirSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#rmdirsync">rmdirSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L543">core/file_system.ts:543</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="stat" class="tsd-anchor"></a>
+					<h3>stat</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">stat<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isLstat<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_node_fs_stats_.stats.html" class="tsd-signature-type">Stats</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#stat">stat</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#stat">stat</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#stat">stat</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L812">core/file_system.ts:812</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>isLstat: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_node_fs_stats_.stats.html" class="tsd-signature-type">Stats</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="statsync" class="tsd-anchor"></a>
+					<h3>stat<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">stat<wbr>Sync<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isLstat<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_node_fs_stats_.stats.html" class="tsd-signature-type">Stats</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#statsync">statSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L725">backend/ZipFS.ts:725</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>isLstat: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_core_node_fs_stats_.stats.html" class="tsd-signature-type">Stats</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="supportslinks" class="tsd-anchor"></a>
+					<h3>supports<wbr>Links</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Links<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#supportslinks">supportsLinks</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#supportslinks">supportsLinks</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L713">backend/ZipFS.ts:713</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="supportsprops" class="tsd-anchor"></a>
+					<h3>supports<wbr>Props</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Props<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#supportsprops">supportsProps</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L717">backend/ZipFS.ts:717</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="supportssynch" class="tsd-anchor"></a>
+					<h3>supports<wbr>Synch</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">supports<wbr>Synch<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#supportssynch">supportsSynch</a></p>
+								<p>Overrides <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#supportssynch">supportsSynch</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L721">backend/ZipFS.ts:721</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="symlink" class="tsd-anchor"></a>
+					<h3>symlink</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">symlink<span class="tsd-signature-symbol">(</span>srcpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dstpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#symlink">symlink</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#symlink">symlink</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#symlink">symlink</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L899">core/file_system.ts:899</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>srcpath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>dstpath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>type: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="symlinksync" class="tsd-anchor"></a>
+					<h3>symlink<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">symlink<wbr>Sync<span class="tsd-signature-symbol">(</span>srcpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dstpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#symlinksync">symlinkSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#symlinksync">symlinkSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L783">core/file_system.ts:783</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>srcpath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>dstpath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>type: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="truncate" class="tsd-anchor"></a>
+					<h3>truncate</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">truncate<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, len<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#truncate">truncate</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#truncate">truncate</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L612">core/file_system.ts:612</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>len: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="truncatesync" class="tsd-anchor"></a>
+					<h3>truncate<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">truncate<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, len<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#truncatesync">truncateSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#truncatesync">truncateSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L624">core/file_system.ts:624</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>len: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="unlink" class="tsd-anchor"></a>
+					<h3>unlink</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">unlink<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#unlink">unlink</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#unlink">unlink</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#unlink">unlink</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L828">core/file_system.ts:828</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="unlinksync" class="tsd-anchor"></a>
+					<h3>unlink<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">unlink<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#unlinksync">unlinkSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#unlinksync">unlinkSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L537">core/file_system.ts:537</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="utimes" class="tsd-anchor"></a>
+					<h3>utimes</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">utimes<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, atime<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span>, mtime<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#utimes">utimes</a></p>
+								<p>Inherited from <a href="_core_file_system_.synchronousfilesystem.html">SynchronousFileSystem</a>.<a href="_core_file_system_.synchronousfilesystem.html#utimes">utimes</a></p>
+								<p>Overrides <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#utimes">utimes</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L881">core/file_system.ts:881</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>atime: <span class="tsd-signature-type">Date</span></h5>
+								</li>
+								<li>
+									<h5>mtime: <span class="tsd-signature-type">Date</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="utimessync" class="tsd-anchor"></a>
+					<h3>utimes<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">utimes<wbr>Sync<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, atime<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span>, mtime<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#utimessync">utimesSync</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#utimessync">utimesSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L771">core/file_system.ts:771</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>atime: <span class="tsd-signature-type">Date</span></h5>
+								</li>
+								<li>
+									<h5>mtime: <span class="tsd-signature-type">Date</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="writefile" class="tsd-anchor"></a>
+					<h3>write<wbr>File</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">write<wbr>File<span class="tsd-signature-symbol">(</span>fname<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, encoding<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, flag<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_file_system_.filesystem.html">FileSystem</a>.<a href="../interfaces/_core_file_system_.filesystem.html#writefile">writeFile</a></p>
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#writefile">writeFile</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L689">core/file_system.ts:689</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fname: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>data: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+								</li>
+								<li>
+									<h5>flag: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfsoneargcallback" class="tsd-signature-type">BFSOneArgCallback</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="writefilesync" class="tsd-anchor"></a>
+					<h3>write<wbr>File<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">write<wbr>File<wbr>Sync<span class="tsd-signature-symbol">(</span>fname<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, encoding<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span>, flag<span class="tsd-signature-symbol">: </span><a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a>, mode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_file_system_.basefilesystem.html">BaseFileSystem</a>.<a href="_core_file_system_.basefilesystem.html#writefilesync">writeFileSync</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/core/file_system.ts#L714">core/file_system.ts:714</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fname: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>data: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+								</li>
+								<li>
+									<h5>flag: <a href="_core_file_flag_.fileflag.html" class="tsd-signature-type">FileFlag</a></h5>
+								</li>
+								<li>
+									<h5>mode: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="create" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Create</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">Create<span class="tsd-signature-symbol">(</span>opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_backend_zipfs_.zipfsoptions.html" class="tsd-signature-type">ZipFSOptions</a>, cb<span class="tsd-signature-symbol">: </span><a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="_backend_zipfs_.zipfs.html" class="tsd-signature-type">ZipFS</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L545">backend/ZipFS.ts:545</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Constructs a ZipFS instance with the given options.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>opts: <a href="../interfaces/_backend_zipfs_.zipfsoptions.html" class="tsd-signature-type">ZipFSOptions</a></h5>
+								</li>
+								<li>
+									<h5>cb: <a href="../modules/_core_file_system_.html#bfscallback" class="tsd-signature-type">BFSCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="_backend_zipfs_.zipfs.html" class="tsd-signature-type">ZipFS</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="registerdecompressionmethod" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Register<wbr>Decompression<wbr>Method</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">Register<wbr>Decompression<wbr>Method<span class="tsd-signature-symbol">(</span>m<span class="tsd-signature-symbol">: </span><a href="../enums/_backend_zipfs_.compressionmethod.html" class="tsd-signature-type">CompressionMethod</a>, fcn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L562">backend/ZipFS.ts:562</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>m: <a href="../enums/_backend_zipfs_.compressionmethod.html" class="tsd-signature-type">CompressionMethod</a></h5>
+								</li>
+								<li>
+									<h5>fcn: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span>, compressedSize<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, uncompressedSize<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, flags<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>data: <span class="tsd-signature-type">Buffer</span></h5>
+														</li>
+														<li>
+															<h5>compressedSize: <span class="tsd-signature-type">number</span></h5>
+														</li>
+														<li>
+															<h5>uncompressedSize: <span class="tsd-signature-type">number</span></h5>
+														</li>
+														<li>
+															<h5>flags: <span class="tsd-signature-type">number</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Buffer</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="isavailable" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Available</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Available<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L560">backend/ZipFS.ts:560</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
+					<a name="options" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Options</h3>
+					<div class="tsd-signature tsd-kind-icon">Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L527">backend/ZipFS.ts:527</a></li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
+						<a name="options.name-1" class="tsd-anchor"></a>
+						<h3>name</h3>
+						<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L533">backend/ZipFS.ts:533</a></li>
+							</ul>
+						</aside>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="options.name-1.description" class="tsd-anchor"></a>
+							<h3>description</h3>
+							<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;The name of the zip file (optional).&quot;</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L536">backend/ZipFS.ts:536</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="options.name-1.optional" class="tsd-anchor"></a>
+							<h3>optional</h3>
+							<div class="tsd-signature tsd-kind-icon">optional<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L535">backend/ZipFS.ts:535</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="options.name-1.type" class="tsd-anchor"></a>
+							<h3>type</h3>
+							<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;string&quot;</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L534">backend/ZipFS.ts:534</a></li>
+								</ul>
+							</aside>
+						</section>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
+						<a name="options.zipdata" class="tsd-anchor"></a>
+						<h3>zip<wbr>Data</h3>
+						<div class="tsd-signature tsd-kind-icon">zip<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L528">backend/ZipFS.ts:528</a></li>
+							</ul>
+						</aside>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="options.zipdata.description-1" class="tsd-anchor"></a>
+							<h3>description</h3>
+							<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;The zip file as a Buffer object.&quot;</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L530">backend/ZipFS.ts:530</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="options.zipdata.type-1" class="tsd-anchor"></a>
+							<h3>type</h3>
+							<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;object&quot;</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L529">backend/ZipFS.ts:529</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="options.zipdata.validator" class="tsd-anchor"></a>
+							<h3>validator</h3>
+							<div class="tsd-signature tsd-kind-icon">validator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">bufferValidator</span><span class="tsd-signature-symbol"> =&nbsp;bufferValidator</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jvilk/browserfs/blob/73e4eca/src/backend/ZipFS.ts#L531">backend/ZipFS.ts:531</a></li>
+								</ul>
+							</aside>
+						</section>
+					</section>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_backend_zipfs_.html">"backend/<wbr>ZipFS"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_backend_zipfs_.compressionmethod.html" class="tsd-kind-icon">Compression<wbr>Method</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_backend_zipfs_.externalfileattributetype.html" class="tsd-kind-icon">External<wbr>File<wbr>Attribute<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_backend_zipfs_.archiveextradatarecord.html" class="tsd-kind-icon">Archive<wbr>Extra<wbr>Data<wbr>Record</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_backend_zipfs_.centraldirectory.html" class="tsd-kind-icon">Central<wbr>Directory</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_backend_zipfs_.datadescriptor.html" class="tsd-kind-icon">Data<wbr>Descriptor</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_backend_zipfs_.digitalsignature.html" class="tsd-kind-icon">Digital<wbr>Signature</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_backend_zipfs_.endofcentraldirectory.html" class="tsd-kind-icon">End<wbr>OfCentral<wbr>Directory</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_backend_zipfs_.filedata.html" class="tsd-kind-icon">File<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_backend_zipfs_.fileheader.html" class="tsd-kind-icon">File<wbr>Header</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_backend_zipfs_.zipfs.html" class="tsd-kind-icon">ZipFS</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="_backend_zipfs_.zipfs.html#compressionmethod" class="tsd-kind-icon">Compression<wbr>Method</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="_backend_zipfs_.zipfs.html#name" class="tsd-kind-icon">Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#appendfile" class="tsd-kind-icon">append<wbr>File</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#appendfilesync" class="tsd-kind-icon">append<wbr>File<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#chmod" class="tsd-kind-icon">chmod</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#chmodsync" class="tsd-kind-icon">chmod<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#chown" class="tsd-kind-icon">chown</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#chownsync" class="tsd-kind-icon">chown<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#createfile" class="tsd-kind-icon">create<wbr>File</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#createfilesync" class="tsd-kind-icon">create<wbr>File<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_backend_zipfs_.zipfs.html#diskspace" class="tsd-kind-icon">disk<wbr>Space</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#exists" class="tsd-kind-icon">exists</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#existssync" class="tsd-kind-icon">exists<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_backend_zipfs_.zipfs.html#getcentraldirectoryentry" class="tsd-kind-icon">get<wbr>Central<wbr>Directory<wbr>Entry</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_backend_zipfs_.zipfs.html#getcentraldirectoryentryat" class="tsd-kind-icon">get<wbr>Central<wbr>Directory<wbr>Entry<wbr>At</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_backend_zipfs_.zipfs.html#getendofcentraldirectory" class="tsd-kind-icon">get<wbr>End<wbr>OfCentral<wbr>Directory</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_backend_zipfs_.zipfs.html#getname" class="tsd-kind-icon">get<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_backend_zipfs_.zipfs.html#getnumberofcentraldirectoryentries" class="tsd-kind-icon">get<wbr>Number<wbr>OfCentral<wbr>Directory<wbr>Entries</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_backend_zipfs_.zipfs.html#isreadonly" class="tsd-kind-icon">is<wbr>Read<wbr>Only</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#link" class="tsd-kind-icon">link</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#linksync" class="tsd-kind-icon">link<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#mkdir" class="tsd-kind-icon">mkdir</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#mkdirsync" class="tsd-kind-icon">mkdir<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#open" class="tsd-kind-icon">open</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#openfile" class="tsd-kind-icon">open<wbr>File</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#openfilesync" class="tsd-kind-icon">open<wbr>File<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_backend_zipfs_.zipfs.html#opensync" class="tsd-kind-icon">open<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#readfile" class="tsd-kind-icon">read<wbr>File</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_backend_zipfs_.zipfs.html#readfilesync" class="tsd-kind-icon">read<wbr>File<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#readdir" class="tsd-kind-icon">readdir</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_backend_zipfs_.zipfs.html#readdirsync" class="tsd-kind-icon">readdir<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#readlink" class="tsd-kind-icon">readlink</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#readlinksync" class="tsd-kind-icon">readlink<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#realpath" class="tsd-kind-icon">realpath</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#realpathsync" class="tsd-kind-icon">realpath<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#rename" class="tsd-kind-icon">rename</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#renamesync" class="tsd-kind-icon">rename<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#rmdir" class="tsd-kind-icon">rmdir</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#rmdirsync" class="tsd-kind-icon">rmdir<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#stat" class="tsd-kind-icon">stat</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_backend_zipfs_.zipfs.html#statsync" class="tsd-kind-icon">stat<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_backend_zipfs_.zipfs.html#supportslinks" class="tsd-kind-icon">supports<wbr>Links</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_backend_zipfs_.zipfs.html#supportsprops" class="tsd-kind-icon">supports<wbr>Props</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_backend_zipfs_.zipfs.html#supportssynch" class="tsd-kind-icon">supports<wbr>Synch</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#symlink" class="tsd-kind-icon">symlink</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#symlinksync" class="tsd-kind-icon">symlink<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#truncate" class="tsd-kind-icon">truncate</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#truncatesync" class="tsd-kind-icon">truncate<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#unlink" class="tsd-kind-icon">unlink</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#unlinksync" class="tsd-kind-icon">unlink<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#utimes" class="tsd-kind-icon">utimes</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#utimessync" class="tsd-kind-icon">utimes<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#writefile" class="tsd-kind-icon">write<wbr>File</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_backend_zipfs_.zipfs.html#writefilesync" class="tsd-kind-icon">write<wbr>File<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_backend_zipfs_.zipfs.html#create" class="tsd-kind-icon">Create</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_backend_zipfs_.zipfs.html#registerdecompressionmethod" class="tsd-kind-icon">Register<wbr>Decompression<wbr>Method</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_backend_zipfs_.zipfs.html#isavailable" class="tsd-kind-icon">is<wbr>Available</a>
+							</li>
+							<li class=" tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
+								<a href="_backend_zipfs_.zipfs.html#options" class="tsd-kind-icon">Options</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_backend_zipfs_.ziptoc.html" class="tsd-kind-icon">ZipTOC</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_backend_zipfs_.zipfsoptions.html" class="tsd-kind-icon">ZipFSOptions</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
