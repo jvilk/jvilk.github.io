@@ -132,7 +132,7 @@ This blog post contains the content of that homework.
           <img src="https://jvilk.com/images/bio-photo-3.jpg" class="bio-photo" alt="John Vilk bio photo"></a>
         
         <span class="author vcard">By <span class="fn">John Vilk</span></span>
-        <span class="entry-date date published"><time datetime="2016-12-02T02:00:00-05:00"><i class="fa fa-calendar-o"></i> December 02, 2016</time></span>
+        <span class="entry-date date published"><time datetime="2016-12-01T23:00:00-08:00"><i class="fa fa-calendar-o"></i> December 01, 2016</time></span>
         
         
         
@@ -156,20 +156,20 @@ to the Console, which is a REPL. All modern browsers have this feature. There, y
 
 <p>It has some odd behavior due to implicit conversions:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">[]</span> <span class="o">+</span> <span class="p">[]</span> <span class="c1">// = &quot;&quot; (empty string)</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="p">[]</span> <span class="o">+</span> <span class="p">[]</span> <span class="c1">// = &quot;&quot; (empty string)</span>
 <span class="p">[]</span> <span class="o">+</span> <span class="p">{}</span> <span class="c1">// = the string &quot;[object Object]&quot;</span>
 <span class="s2">&quot;hello&quot;</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1">// = the string &quot;hello1&quot;</span>
 <span class="s2">&quot;hello&quot;</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1">// = NaN (not a number)</span></code></pre></figure>
 
 <p>There are two equality operators: <code>==</code> performs implicit conversions, <code>===</code> does not.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;3&#39;</span> <span class="o">==</span> <span class="mi">3</span> <span class="c1">// true; implicitly converts 3 to &#39;3&#39;</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="s1">&#39;3&#39;</span> <span class="o">==</span> <span class="mi">3</span> <span class="c1">// true; implicitly converts 3 to &#39;3&#39;</span>
 <span class="s1">&#39;3&#39;</span> <span class="o">===</span> <span class="mi">3</span> <span class="c1">// false</span>
 <span class="mi">3</span> <span class="o">===</span> <span class="mi">3</span> <span class="c1">// true</span></code></pre></figure>
 
 <p>Objects are essentially maps from strings to properties, and you can define new properties at any time:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">someObject</span> <span class="o">=</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">someObject</span> <span class="o">=</span> <span class="p">{</span>
   <span class="c1">// number</span>
   <span class="nx">foo</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
   <span class="c1">// array</span>
@@ -182,7 +182,7 @@ to the Console, which is a REPL. All modern browsers have this feature. There, y
 
 <p>Objects can inherit properties from a prototype object:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">someObject</span> <span class="o">=</span> <span class="p">{};</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">someObject</span> <span class="o">=</span> <span class="p">{};</span>
 <span class="kd">var</span> <span class="nx">someObjectPrototype</span> <span class="o">=</span>  <span class="p">{</span>
   <span class="nx">foo</span><span class="o">:</span> <span class="mi">3</span>
 <span class="p">};</span>
@@ -197,7 +197,7 @@ to the Console, which is a REPL. All modern browsers have this feature. There, y
 
 <p>Arrays are objects, too:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">];</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">];</span>
 
 <span class="c1">// You can add properties to arrays, like objects.</span>
 <span class="nx">arr</span><span class="p">.</span><span class="nx">newProperty</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
@@ -206,7 +206,7 @@ to the Console, which is a REPL. All modern browsers have this feature. There, y
 
 <p>JavaScript has a loose definition of object types. To define a <code>Dog</code> class, you define a function called <code>Dog</code> and call it with <code>new</code>. The result is an object that identifies as a <code>Dog</code>:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Dog</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">function</span> <span class="nx">Dog</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// &#39;this&#39; points to the new Dog object you&#39;re constructing.</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">animalType</span> <span class="o">=</span> <span class="s2">&quot;dog&quot;</span><span class="p">;</span>
@@ -225,7 +225,7 @@ to the Console, which is a REPL. All modern browsers have this feature. There, y
 
 <p>We can muck with <code>Dog</code> later to confuse <code>instanceof</code>, though:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Change Dog&#39;s prototype object.</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="c1">// Change Dog&#39;s prototype object.</span>
 <span class="nx">Dog</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">;</span>
 <span class="c1">// charles&#39;s prototype object is no longer</span>
 <span class="c1">// equal to Dog.prototype, so instanceof returns</span>
@@ -244,7 +244,7 @@ to the Console, which is a REPL. All modern browsers have this feature. There, y
 
 <p>For example, the following code subscribes to clicks on a button, and lets the user know if they clicked the button after 5 seconds:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">buttons</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">buttons</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
 <span class="c1">// Assumption: There&#39;s only one button on the page.</span>
 <span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nx">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 <span class="kd">var</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
@@ -269,9 +269,9 @@ As a result, a long-running event can <em>crash the browser tab</em>.</p>
 
 <p>For example, the following code will crash your browser tab. You cannot click the button on the page. The browser will ask you if you want to kill the tab:</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
-<span class="nt">&lt;html&gt;</span>
-<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
 <span class="c1">// Wrap in timer so button displays before</span>
 <span class="c1">// we crash the tab.</span>
 <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -279,10 +279,10 @@ As a result, a long-running event can <em>crash the browser tab</em>.</p>
     <span class="c1">// Infinite loop. :D</span>
   <span class="p">}</span>
 <span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
-<span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;button&gt;</span>Try to click me. You can&#39;t.<span class="nt">&lt;/button&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>Try to click me. You can&#39;t.<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 
-<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></figure>
 
 <p><a href="/images/pl-club-examples/crash.html" target="_blank"><i>Run this code (WARNING: crashes tab!)</i></a></p>
 
@@ -294,7 +294,7 @@ As a result, a long-running event can <em>crash the browser tab</em>.</p>
 
 <p>In the following contrived example, the breakpoint in <code>bar</code> will let you example a stack trace back to <code>foo</code>, but will not say anything about <code>baz</code> and its timer:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// If you have developer tools open, the debugger statement triggers a breakpoint.</span>
@@ -334,7 +334,7 @@ As a result, a long-running event can <em>crash the browser tab</em>.</p>
 
 <p>As an example, the following code will display the content of <code>data</code> when the user clicks the button. However, <code>data</code> isn’t initialized until the timer fires, so if the user clicks the button prematurely, the webpage will display the message “undefined”:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">data</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">data</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
 <span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
@@ -355,17 +355,17 @@ As a result, a long-running event can <em>crash the browser tab</em>.</p>
 
 <p>To make the problem concrete, suppose that a web page uses CSS to make a <code>div</code> element periodically change its color. Further suppose that JavaScript code wishes to query its color:</p>
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="k">@keyframes</span> <span class="nt">color_change</span> <span class="p">{</span>
-  <span class="nt">from</span> <span class="p">{</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span> <span class="p">}</span>
-  <span class="nt">to</span> <span class="p">{</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span> <span class="p">}</span>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">style</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span>
+<span class="p">@</span><span class="k">keyframes</span> <span class="nt">color_change</span> <span class="p">{</span>
+  <span class="nt">from</span> <span class="p">{</span> <span class="k">background-color</span><span class="p">:</span> <span class="kc">blue</span><span class="p">;</span> <span class="p">}</span>
+  <span class="nt">to</span> <span class="p">{</span> <span class="k">background-color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">}</span>
-<span class="nf">#picker</span> <span class="p">{</span> <span class="n">animation</span><span class="o">:</span> <span class="n">color_change</span> <span class="m">5s</span> <span class="n">infinite</span> <span class="n">alternate</span><span class="p">;</span> <span class="p">}</span>
-<span class="nt">&lt;/style&gt;</span>
-<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;picker&quot;</span><span class="nt">&gt;</span>
+<span class="p">#</span><span class="nn">picker</span> <span class="p">{</span> <span class="k">animation</span><span class="p">:</span> <span class="n">color_change</span> <span class="mi">5</span><span class="kt">s</span> <span class="kc">infinite</span> <span class="kc">alternate</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;picker&quot;</span><span class="p">&gt;</span>
   Picker
-<span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
 <span class="c1">// Checks if element e has a blue background.</span>
 <span class="kd">function</span> <span class="nx">isBlue</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">color</span> <span class="o">=</span> <span class="nx">getComputedStyle</span><span class="p">(</span><span class="nx">e</span><span class="p">).</span><span class="nx">backgroundColor</span><span class="p">;</span>
@@ -385,7 +385,7 @@ As a result, a long-running event can <em>crash the browser tab</em>.</p>
   <span class="c1">// do something</span>
 <span class="p">}</span>
 
-<span class="nt">&lt;/script&gt;</span></code></pre></figure>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></figure>
 
 <p><a href="/images/pl-club-examples/component-race.html" target="_blank"><i>Run this code</i></a></p>
 

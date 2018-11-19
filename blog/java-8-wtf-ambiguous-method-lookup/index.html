@@ -126,7 +126,7 @@
           <img src="https://jvilk.com/images/bio-photo-3.jpg" class="bio-photo" alt="John Vilk bio photo"></a>
         
         <span class="author vcard">By <span class="fn">John Vilk</span></span>
-        <span class="entry-date date published"><time datetime="2014-12-30T15:39:07-05:00"><i class="fa fa-calendar-o"></i> December 30, 2014</time></span>
+        <span class="entry-date date published"><time datetime="2014-12-30T12:39:07-08:00"><i class="fa fa-calendar-o"></i> December 30, 2014</time></span>
         
         <span class="entry-comments"><i class="fa fa-comment-o"></i> <a href="#disqus_thread">Comment</a></span>
         
@@ -143,9 +143,9 @@ I believe that this is a positive change for Java.</p>
 
 <p>For example, the following is now valid Java code; it prints <code>Bark!</code>:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">new</span> <span class="nf">Dog</span><span class="o">().</span><span class="na">makeNoise</span><span class="o">();</span> <span class="c1">// Prints &quot;Bark!&quot;</span>
+    <span class="k">new</span> <span class="n">Dog</span><span class="o">().</span><span class="na">makeNoise</span><span class="o">();</span> <span class="c1">// Prints &quot;Bark!&quot;</span>
   <span class="o">}</span>
 <span class="o">}</span>
 <span class="kd">interface</span> <span class="nc">Animal</span> <span class="o">{</span>
@@ -196,7 +196,7 @@ Should the class and its super classes fail to provide an implementation for the
 
 <p>The Java compiler writers knew this would be an issue, and applied a band-aid to prevent certain programs from compiling:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JavaCHatesMe</span> <span class="kd">implements</span> <span class="n">IFace1</span><span class="o">,</span> <span class="n">IFace2</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JavaCHatesMe</span> <span class="kd">implements</span> <span class="n">IFace1</span><span class="o">,</span> <span class="n">IFace2</span> <span class="o">{</span>
 
 <span class="o">}</span>
 <span class="kd">interface</span> <span class="nc">IFace1</span> <span class="o">{</span>
@@ -219,7 +219,7 @@ public class JavaCHatesMe implements IFace1, IFace2 {
 
 <p>However, this band-aid does not resolve the root problem! The following program compiles <em>just fine</em>:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WTF</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WTF</span> <span class="o">{</span>
   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">ISpeak</span><span class="o">.</span><span class="na">test</span><span class="o">();</span>
   <span class="o">}</span>
@@ -231,8 +231,8 @@ public class JavaCHatesMe implements IFace1, IFace2 {
   <span class="o">}</span>
 
   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">new</span> <span class="nf">EmptySpeakImpl</span><span class="o">().</span><span class="na">speak</span><span class="o">();</span>
-    <span class="k">new</span> <span class="nf">EmptySpeakImplChild</span><span class="o">().</span><span class="na">speak</span><span class="o">();</span>
+    <span class="k">new</span> <span class="n">EmptySpeakImpl</span><span class="o">().</span><span class="na">speak</span><span class="o">();</span>
+    <span class="k">new</span> <span class="n">EmptySpeakImplChild</span><span class="o">().</span><span class="na">speak</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
 
